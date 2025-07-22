@@ -1,0 +1,61 @@
+@use "abstracts/variables" as *;
+
+.tech-stack-section {
+  font-size: $font-size-default;
+  margin-bottom: $spacing-xbig;
+
+  @media screen and (max-width: 600px) {
+    font-size: $font-size-small;
+  }
+
+  &__subtitle {
+    color: $color-subtitle-dark;
+    font-weight: $font-weight-normal;
+  }
+
+  &__list {
+    margin-left: 5rem;
+    margin-bottom: $spacing-big;
+    color: $color-text-dark;
+
+    @media screen and (max-width: 600px) {
+      margin-left: $spacing-big;
+    }
+  }
+
+  .tech-stack-section {
+    &__image-container {
+      position: relative;
+      display: block;
+      height: 4rem;
+
+      @media screen and (max-width: 1180px) {
+        bottom: 0;
+        height: 20rem;
+      }
+    }
+
+    &__image {
+      position: absolute;
+      bottom: -75%;
+      right: 2%;
+
+      height: auto;
+      max-width: 100%;
+
+      width: 300px;
+
+      @media screen and (max-width: 1180px) {
+        bottom: -15%;
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      @media screen and (max-width: 600px) {
+        bottom: -15%;
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+  }
+}

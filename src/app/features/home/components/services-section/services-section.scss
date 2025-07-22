@@ -6,6 +6,7 @@
 
 .services-section {
   font-size: $font-size-default;
+  margin-bottom: $spacing-xbig;
 
   @media screen and (max-width: 600px) {
     font-size: $font-size-small;
@@ -22,7 +23,7 @@
     color: $color-text-dark;
 
     @media screen and (max-width: 600px) {
-      margin-left: $spacing-xbig;
+      margin-left: $spacing-big;
     }
   }
 }

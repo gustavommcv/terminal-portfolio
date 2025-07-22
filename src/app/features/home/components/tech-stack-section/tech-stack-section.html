@@ -1,0 +1,28 @@
+<div class="tech-stack-section fade">
+  <app-terminal-section
+    customTitle="Tech Stack"
+    customCommand="bat stack.md"
+    [shortTerminalLine]="true"
+  >
+    <h3 class="tech-stack-section__subtitle">Tech Stack</h3>
+
+    <ul class="tech-stack-section__list">
+      <li class="tech-stack-section__item">Golang</li>
+      <li class="tech-stack-section__item">C#/Asp.Net</li>
+      <li class="tech-stack-section__item">Java/SpringBoot</li>
+      <li class="tech-stack-section__item">Javascript/React/Angular/SolidJS</li>
+      <li class="tech-stack-section__item">HTML/CSS/SASS/Tailwind</li>
+      <li class="tech-stack-section__item">SQL/PostgreSQL/MongoDB</li>
+      <li class="tech-stack-section__item">Docker/Kubernetes/AWS</li>
+    </ul>
+
+    <picture class="tech-stack-section__image-container">
+      <source media="(max-width: 1180px)" srcset="images/gopher-s.webp" />
+      <img
+        class="tech-stack-section__image"
+        src="images/gopher-l.webp"
+        alt="Go Gopher"
+      />
+    </picture>
+  </app-terminal-section>
+</div>
