@@ -1,13 +1,13 @@
 <div class="about-section">
   <app-terminal-section
     [customTitle]="'about-page.about-section.title' | translate"
-    customCommand="bat me.md"
+    customCommand="glow me.md"
     [shortTerminalLine]="true"
     [isFirstTitle]="true"
   >
     <div class="about-section__container">
       <div class="about-section__text">
-        <h3 class="about-section__title">"Hello, World!"</h3>
+        <app-title title="Hello, World!" />
 
         <p class="about-section__paragraph">
           {{ "about-page.about-section.p1" | translate }}

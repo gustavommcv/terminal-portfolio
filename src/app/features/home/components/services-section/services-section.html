@@ -1,12 +1,10 @@
 <div class="services-section fade">
   <app-terminal-section
     [customTitle]="'home-page.services-section.subtitle' | translate"
-    customCommand="bat services.md"
+    customCommand="glow services.md"
     [shortTerminalLine]="true"
   >
-    <h3 class="services-section__subtitle">
-      {{ "home-page.services-section.subtitle" | translate }}
-    </h3>
+    <app-title [title]="'home-page.services-section.subtitle' | translate" />
 
     <ul class="services-section__list">
       @for (
