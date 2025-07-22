@@ -1,4 +1,5 @@
 @use "abstracts/variables" as *;
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
 
 * {
@@ -29,8 +30,9 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
-  height: 100dvh;
+body,
+html {
+  height: 100%;
 }
 
 .fade {

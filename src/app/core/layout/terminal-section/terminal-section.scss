@@ -1,20 +1,12 @@
 @use "abstracts/variables" as *;
 
-$color-section-border: #b6b8bb;
-$color-section-background-dark: #161616;
-$color-section-background-light: #f8f4f0;
-
-$border-section: #b6b8bb 2px solid;
-
-$title-weight-normal: 500;
-
 // TODO
 // Theme
 .terminal-section {
   font-weight: 400;
   box-shadow: $box-shadow-default;
   border-radius: $border-radius-default;
-  border: $border-section;
+  border: $border-default;
   padding: $spacing-big;
   background-color: $color-section-background-dark;
 
@@ -31,16 +23,12 @@ $title-weight-normal: 500;
   // &--dark {
   //   background-color: var(--section-background-color-dark);
   // }
-
-  @media screen and (max-width: 600px) {
-    padding: $spacing-medium;
-  }
 }
 
 :host ::ng-deep [slot="title"] {
   align-self: flex-start;
   font-size: $font-title-default;
-  font-weight: $title-weight-normal;
+  font-weight: $font-weight-bold;
 
   display: block;
   width: 100%;

@@ -1,0 +1,30 @@
+@use "abstracts/variables" as *;
+
+.header {
+  width: 100%;
+  max-width: 150rem;
+  margin: 0 auto;
+  padding: 1.5rem 3rem;
+
+  border-radius: $border-radius-default;
+  border: $border-default;
+
+  background-color: $color-section-background-dark;
+}
+
+.logo {
+  font-weight: $font-weight-bold;
+  font-size: 2rem;
+
+  &--left {
+    color: #52bdff;
+  }
+
+  &--middle {
+    color: $color-text-dark;
+  }
+
+  &--right {
+    color: #08bdba;
+  }
+}

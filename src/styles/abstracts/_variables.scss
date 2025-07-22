@@ -7,7 +7,7 @@ $font-size-big: 3rem;
 $font-size-xbig: 4rem;
 
 $font-weight-normal: 400;
-$font-weight-bold: 600;
+$font-weight-bold: 500;
 
 $font-family-default: "JetBrains Mono", monospace;
 
@@ -24,6 +24,7 @@ $spacing-medium: 2rem;
 $spacing-big: 3rem;
 $spacing-xbig: 4rem;
 
+$border-default: #b6b8bb 2px solid;
 $border-radius-default: 5px;
 
 $color-background-dark: #0c0c0c;
@@ -40,6 +41,9 @@ $color-subtitle-light: #4f9a9c;
 
 $color-external-link-dark: #0dcdcd;
 $color-external-link-light: #ad86e1;
+
+$color-section-background-dark: #161616;
+$color-section-background-light: #f8f4f0;
 
 $line-height-default: 1.4;
 
