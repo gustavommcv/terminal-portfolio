@@ -16,7 +16,7 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const httpLoaderFactory = (http: HttpClient) =>
@@ -36,15 +36,15 @@ export const appConfig: ApplicationConfig = {
 
     provideClientHydration(withEventReplay()),
 
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
 
     provideTranslateService({
       loader: {
         provide: TranslateLoader,
         useFactory: httpLoaderFactory,
-        deps: [HttpClient]
+        deps: [HttpClient],
       },
-      defaultLanguage: "en"
-    })
+      defaultLanguage: 'en',
+    }),
   ],
 };

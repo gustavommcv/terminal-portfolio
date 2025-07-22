@@ -1,7 +1,23 @@
 <header class="header">
-  <a routerLink="/" class="logo">
+  <a (click)="navigateWithLocale('/')" class="logo">
     <span class="logo--left">gus</span>
     <span class="logo--middle">::</span>
     <span class="logo--right">monnerat</span>
   </a>
+
+  <nav class="header__nav">
+    <a
+      class="header__link"
+      [ngClass]="{ 'header__link--active': isActive('/') }"
+      (click)="navigateWithLocale('/')"
+      >home</a
+    >
+
+    <a
+      class="header__link"
+      [ngClass]="{ 'header__link--active': isActive('/about') }"
+      (click)="navigateWithLocale('/about')"
+      >about</a
+    >
+  </nav>
 </header>

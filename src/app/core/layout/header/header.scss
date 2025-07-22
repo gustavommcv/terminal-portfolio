@@ -5,17 +5,46 @@
   max-width: 150rem;
   margin: 0 auto;
   padding: 1.5rem 3rem;
+  display: flex;
+  align-items: baseline;
 
   border-radius: $border-radius-default;
   border: $border-default;
 
   background-color: $color-section-background-dark;
+
+  &__nav {
+    display: flex;
+    gap: $spacing-medium;
+  }
+
+  &__link {
+    font-size: 1.8rem;
+    color: $color-text-dark;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: 0.3s ease;
+
+    cursor: pointer;
+
+    &--active {
+      border-bottom: 1px solid $color-text-dark;
+    }
+
+    &:hover {
+      border-bottom: 1px solid $color-text-dark;
+    }
+  }
 }
 
 .logo {
   font-weight: $font-weight-bold;
   font-size: $font-size-small;
   text-decoration: none;
+
+  margin-right: $spacing-medium;
+
+  cursor: pointer;
 
   &--left {
     color: #52bdff;
