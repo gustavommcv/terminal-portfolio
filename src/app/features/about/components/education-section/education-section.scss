@@ -9,11 +9,12 @@
 
     margin-bottom: $spacing-big;
 
+    color: $color-text-dark;
+
     @media screen and (max-width: 600px) {
       font-size: 1.8rem;
     }
 
-    color: $color-text-dark;
     // &--light {
     //   color: var(--normal-text-color-light);
     // }

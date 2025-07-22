@@ -55,6 +55,9 @@
     "languages-section": {
       "title": "Idiomas",
       "languages": ["Português - Nativo", "Inglês - Avançado (C1)"]
+    },
+    "download-section": {
+      "warning": "*idioma atual: {\"locale\": \"pt\"}*"
     }
   }
 }

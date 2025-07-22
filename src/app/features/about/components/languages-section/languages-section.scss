@@ -1,5 +1,9 @@
 @use "abstracts/variables" as *;
 
+.languages-section {
+  margin-bottom: $spacing-xbig;
+}
+
 .languages-container {
   font-size: $font-size-default;
 

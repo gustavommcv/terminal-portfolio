@@ -1,0 +1,27 @@
+<div class="download-section">
+  <app-terminal-section
+    customTitle="Download CV"
+    customCommand="glow cv.md"
+    [shortTerminalLine]="true"
+  >
+    <div class="download-section__warning">
+      {{ "about-page.download-section.warning" | translate }}
+    </div>
+
+    <div class="download-section__container">
+      <div class="download-section__element">
+        <h4 class="download-section__title">CV DOCX</h4>
+        <button class="download-section__button" (click)="downloadCV('docx')">
+          <span class="download-section__button-text">Download ↓</span>
+        </button>
+      </div>
+
+      <div class="download-section__element">
+        <h4 class="download-section__title">CV ODT</h4>
+        <button class="download-section__button" (click)="downloadCV('odt')">
+          <span class="download-section__button-text">Download ↓</span>
+        </button>
+      </div>
+    </div>
+  </app-terminal-section>
+</div>

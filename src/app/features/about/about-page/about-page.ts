@@ -3,10 +3,11 @@ import { AboutSection } from '../components/about-section/about-section';
 import { EducationSection } from '../components/education-section/education-section';
 import { InterestsSection } from '../components/interests-section/interests-section';
 import { LanguagesSection } from '../components/languages-section/languages-section';
+import { DownloadSection } from '../components/download-section/download-section';
 
 @Component({
   selector: 'about-page',
-  imports: [AboutSection, EducationSection, InterestsSection, LanguagesSection],
+  imports: [AboutSection, EducationSection, InterestsSection, LanguagesSection, DownloadSection],
   templateUrl: './about-page.html',
   styleUrl: './about-page.scss',
 })

@@ -1,0 +1,95 @@
+@use "abstracts/variables" as *;
+
+.download-section {
+  margin-bottom: $spacing-xbig;
+
+  &__warning {
+    text-align: center;
+    font-size: $font-size-small;
+
+    margin-bottom: $spacing-big;
+
+    color: $color-text-dark;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1.8rem;
+    }
+
+    // &--light {
+    //   color: var(--normal-text-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--normal-text-color-dark);
+    // }
+  }
+
+  &__container {
+    display: flex;
+    gap: $spacing-medium;
+    overflow-x: auto;
+    padding-bottom: $spacing-xbig;
+
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 1rem;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-default;
+    margin-bottom: 1.5rem;
+
+    color: $color-text-dark;
+    // &--light {
+    //   color: var(--normal-text-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--normal-text-color-dark);
+    // }
+  }
+
+  &__element {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border-radius: $border-radius-default;
+    border: $border-default;
+  }
+
+  &__button {
+    border: none;
+    border-radius: $border-radius-default;
+
+    font-size: $font-size-default;
+
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+
+    width: 22rem;
+    background-color: #2d2d2d;
+    color: $color-subtitle-dark;
+
+    padding: 1rem 2rem;
+
+    &-text {
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: 0.2s ease;
+
+      &:hover {
+        border-bottom: 1px solid $color-subtitle-dark;
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      font-size: $font-size-small;
+      width: 19rem;
+    }
+  }
+}
