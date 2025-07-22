@@ -1,0 +1,56 @@
+@use "abstracts/variables" as *;
+
+$color-accepted-command-dark: #15ff00;
+$color-accepted-command-light: #4f9a9c;
+
+$color-refused-command-dark: #cc0403;
+
+// TODO
+// THEME
+.terminal-line {
+  display: flex;
+  gap: $spacing-medium;
+  overflow: hidden;
+  white-space: nowrap;
+  width: fit-content;
+  margin-bottom: $spacing-big;
+
+  color: $color-text-dark;
+
+  font-size: $font-size-big;
+
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+    margin-bottom: $spacing-medium;
+    gap: $spacing-small;
+  }
+}
+
+.command {
+  color: $color-accepted-command-dark;
+}
+
+.typing-animation {
+  animation:
+    typing 2s steps(25),
+    blink 0.5s step-end infinite alternate;
+
+  // cursor
+  border-right: 10px solid $color-text-dark;
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 22ch;
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}

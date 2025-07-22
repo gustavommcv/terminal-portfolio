@@ -1,8 +1,9 @@
 import { Component, input } from '@angular/core';
+import { TerminalLine } from './components/terminal-line/terminal-line';
 
 @Component({
   selector: 'app-terminal-section',
-  imports: [],
+  imports: [TerminalLine],
   templateUrl: './terminal-section.html',
   styleUrl: './terminal-section.scss',
 })
