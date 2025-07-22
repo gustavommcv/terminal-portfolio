@@ -1,0 +1,32 @@
+@use "abstracts/variables" as *;
+
+.app-button {
+  display: block;
+  padding: 1rem 3rem;
+  width: fit-content;
+  margin-left: auto;
+
+  border: none;
+  border-radius: 5px;
+
+  font-size: $font-size-default;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  background-color: #2d2d2d;
+  color: #25be6a;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: 2rem;
+  }
+
+  & svg {
+    width: 18px;
+    margin-right: $spacing-xsmall;
+  }
+}

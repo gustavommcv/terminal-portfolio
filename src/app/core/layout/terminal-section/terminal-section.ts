@@ -8,5 +8,5 @@ import { TerminalLine } from './components/terminal-line/terminal-line';
   styleUrl: './terminal-section.scss',
 })
 export class TerminalSection {
-  title = input('Who am I');
+  customTitle = input('Who am I');
 }

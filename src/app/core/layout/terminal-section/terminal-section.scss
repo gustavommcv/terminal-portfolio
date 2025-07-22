@@ -16,6 +16,30 @@
     width: 100%;
   }
 
+  &__title {
+    align-self: flex-start;
+    font-size: $font-title-default;
+    font-weight: $font-weight-bold;
+
+    display: block;
+    width: 100%;
+    max-width: 150rem;
+    margin: 0 auto;
+    margin-bottom: $spacing-medium;
+
+    color: $color-title-dark;
+
+    &::before {
+      content: "# ";
+    }
+    // &--light {
+    //   color: var(--title-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--title-color-dark);
+  }
+
   // &--light {
   //   background-color: var(--section-background-color-light);
   // }
@@ -23,28 +47,4 @@
   // &--dark {
   //   background-color: var(--section-background-color-dark);
   // }
-}
-
-:host ::ng-deep [slot="title"] {
-  align-self: flex-start;
-  font-size: $font-title-default;
-  font-weight: $font-weight-bold;
-
-  display: block;
-  width: 100%;
-  max-width: 150rem;
-  margin: 0 auto;
-  margin-bottom: $spacing-medium;
-
-  color: $color-title-dark;
-
-  &::before {
-    content: "# ";
-  }
-  // &--light {
-  //   color: var(--title-color-light);
-  // }
-  //
-  // &--dark {
-  //   color: var(--title-color-dark);
 }
