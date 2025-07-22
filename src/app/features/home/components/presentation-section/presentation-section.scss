@@ -3,6 +3,10 @@
 // TODO
 // THEME
 
+.fade {
+  animation: $animation-fade;
+}
+
 .role,
 .name,
 .paragraph,
