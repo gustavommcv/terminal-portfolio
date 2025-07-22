@@ -20,4 +20,8 @@
       >about</a
     >
   </nav>
+
+  <button class="language-toggle" (click)="toggleLanguage()">
+    {{ currentLocale === "en" ? "EN" : "PT" }}
+  </button>
 </header>

@@ -9,27 +9,40 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.scss',
 })
 export class Header implements OnInit {
-  currentLocale: any;
+  currentLocale: string = 'en';
   currentPath: string = '/';
 
   constructor(private router: Router) {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPath = this.router.url.split('?')[0];
+        const urlLocale = this.router.parseUrl(this.router.url).queryParams[
+          'locale'
+        ];
+        this.currentLocale = urlLocale === 'pt' ? 'pt' : 'en';
       }
     });
   }
 
   ngOnInit() {
     this.currentPath = this.router.url.split('?')[0];
+    const urlLocale = this.router.parseUrl(this.router.url).queryParams[
+      'locale'
+    ];
+    this.currentLocale = urlLocale === 'pt' ? 'pt' : 'en';
   }
 
   navigateWithLocale(route: string) {
-    this.currentLocale = this.router.parseUrl(this.router.url).queryParams['locale'];
-    this.router.navigate([route], {
-      queryParams: this.currentLocale ? { locale: this.currentLocale } : {},
-      queryParamsHandling: 'merge',
-    });
+    const queryParams = this.currentLocale === 'pt' ? { locale: 'pt' } : {};
+    this.router.navigate([route], { queryParams });
+  }
+
+  toggleLanguage() {
+    const newLocale = this.currentLocale === 'en' ? 'pt' : 'en';
+    this.currentLocale = newLocale;
+
+    const queryParams = newLocale === 'pt' ? { locale: 'pt' } : {};
+    this.router.navigate([this.currentPath], { queryParams });
   }
 
   isActive(route: string): boolean {
