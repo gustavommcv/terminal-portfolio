@@ -26,7 +26,7 @@ $color-refused-command-dark: #cc0403;
   }
 
   @media screen and (max-width: 390px) {
-    font-size: 2rem;
+    font-size: $font-size-small;
   }
 }
 

@@ -14,7 +14,7 @@
   font-size: $font-size-default;
 
   @media screen and (max-width: 600px) {
-    font-size: 2rem;
+    font-size: $font-size-small;
   }
 }
 
