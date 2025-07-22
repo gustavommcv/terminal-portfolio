@@ -51,6 +51,10 @@
         "Desenvolvimento full stack",
         "Segurança da informação"
       ]
+    },
+    "languages-section": {
+      "title": "Idiomas",
+      "languages": ["Português - Nativo", "Inglês - Avançado (C1)"]
     }
   }
 }

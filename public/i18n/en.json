@@ -51,6 +51,10 @@
         "Fullstack development",
         "Cyber security"
       ]
+    },
+    "languages-section": {
+      "title": "Languages",
+      "languages": ["Portuguese - Native", "English - Advanced (C1)"]
     }
   }
 }
