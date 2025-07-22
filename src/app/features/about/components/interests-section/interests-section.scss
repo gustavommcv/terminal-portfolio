@@ -1,0 +1,28 @@
+@use "abstracts/variables" as *;
+
+.interests-container {
+  font-size: $font-size-default;
+  margin-bottom: $spacing-big;
+
+  margin-left: 5rem;
+
+  color: $color-text-dark;
+  // &--light {
+  //   color: var(--normal-text-color-light);
+  // }
+  //
+  // &--dark {
+  //   color: var(--normal-text-color-dark);
+  // }
+
+  & li {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  @media screen and (max-width: 600px) {
+    font-size: $font-size-small;
+
+    margin-left: $spacing-big;
+  }
+}

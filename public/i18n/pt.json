@@ -42,6 +42,15 @@
           "data": "FEV/25 - FEV/26"
         }
       ]
+    },
+    "interests-section": {
+      "title": "Interesses",
+      "interests": [
+        "Linux",
+        "Terminais e ferramentas de linha de comando",
+        "Desenvolvimento full stack",
+        "Segurança da informação"
+      ]
     }
   }
 }

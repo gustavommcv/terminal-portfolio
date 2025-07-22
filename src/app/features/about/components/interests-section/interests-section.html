@@ -1,0 +1,18 @@
+<div class="interests-section">
+  <app-terminal-section
+    [customTitle]="'about-page.interests-section.title' | translate"
+    customCommand="glow interests.md"
+    [shortTerminalLine]="true"
+  >
+    <app-title [title]="'about-page.interests-section.title' | translate" />
+
+    <ul class="interests-container">
+      @for (
+        interest of "about-page.interests-section.interests" | translate;
+        track $index
+      ) {
+        <li>{{ interest }}</li>
+      }
+    </ul>
+  </app-terminal-section>
+</div>
