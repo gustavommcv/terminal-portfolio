@@ -1,0 +1,10 @@
+@use "abstracts/variables" as *;
+
+.app-container {
+  height: 100%;
+  background-color: $color-background-dark;
+}
+
+.main {
+  height: 100%;
+}

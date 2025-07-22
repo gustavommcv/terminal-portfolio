@@ -1,0 +1,56 @@
+@use "abstracts/variables" as *;
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  &::selection {
+    color: black;
+    background: #fffacd;
+    text-shadow: none;
+  }
+
+  &::-moz-selection {
+    color: black;
+    background: #fffacd;
+    text-shadow: none;
+  }
+}
+
+html {
+  font-size: 10px;
+
+  font-family: $font-family-default;
+  font-weight: $font-weight-normal;
+  line-height: 1.4;
+
+  scroll-behavior: smooth;
+}
+
+body {
+  height: 100dvh;
+}
+
+.fade {
+  animation: fade 3s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

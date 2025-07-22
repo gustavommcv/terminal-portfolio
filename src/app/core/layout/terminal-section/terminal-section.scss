@@ -1,0 +1,62 @@
+@use "abstracts/variables" as *;
+
+$color-section-border: #b6b8bb;
+$color-section-background-dark: #161616;
+$color-section-background-light: #f8f4f0;
+
+$border-section: #b6b8bb 2px solid;
+
+$title-weight-normal: 500;
+
+// TODO
+// Theme
+.terminal-section {
+  font-weight: 400;
+  box-shadow: $box-shadow-default;
+  border-radius: $border-radius-default;
+  border: $border-section;
+  padding: $spacing-big;
+  background-color: $color-section-background-dark;
+
+  &-container {
+    margin: 0 auto;
+    max-width: 150rem;
+    width: 100%;
+  }
+
+  // &--light {
+  //   background-color: var(--section-background-color-light);
+  // }
+  //
+  // &--dark {
+  //   background-color: var(--section-background-color-dark);
+  // }
+
+  @media screen and (max-width: 600px) {
+    padding: $spacing-medium;
+  }
+}
+
+:host ::ng-deep [slot="title"] {
+  align-self: flex-start;
+  font-size: $font-title-default;
+  font-weight: $title-weight-normal;
+
+  display: block;
+  width: 100%;
+  max-width: 150rem;
+  margin: 0 auto;
+  margin-bottom: $spacing-medium;
+
+  color: $color-title-dark;
+
+  &::before {
+    content: "# ";
+  }
+  // &--light {
+  //   color: var(--title-color-light);
+  // }
+  //
+  // &--dark {
+  //   color: var(--title-color-dark);
+}

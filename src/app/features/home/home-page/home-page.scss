@@ -1,0 +1,13 @@
+.home-page {
+  padding: 2rem 8rem;
+  height: 100%;
+
+  @media screen and (max-width: 750px) {
+    padding: 0 1rem;
+    margin-top: 4rem;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding: 0 .5rem;
+  }
+}

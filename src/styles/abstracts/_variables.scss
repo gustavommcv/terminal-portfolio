@@ -1,0 +1,60 @@
+$font-title-default: 3.5rem;
+
+$font-size-xsmall: 1.4rem;
+$font-size-small: 1.8rem;
+$font-size-default: 2.5rem;
+$font-size-big: 3rem;
+$font-size-xbig: 4rem;
+
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+
+$font-family-default: "JetBrains Mono", monospace;
+
+$font-default-color-dark: #141513;
+$font-default-color-light: #ececec;
+$font-color-gray: gray;
+
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$spacing-xsmall: 0.5rem;
+$spacing-small: 1rem;
+$spacing-medium: 2rem;
+$spacing-big: 3rem;
+$spacing-xbig: 4rem;
+
+$border-radius-default: 5px;
+
+$color-background-dark: #0c0c0c;
+$color-background-light: #e9e0d9;
+
+$color-text-dark: #c5c5c5;
+$color-text-light: #71665f;
+
+$color-title-dark: #fff;
+$color-title-light: #6986ba;
+
+$color-subtitle-dark: #25be6a;
+$color-subtitle-light: #4f9a9c;
+
+$color-external-link-dark: #0dcdcd;
+$color-external-link-light: #ad86e1;
+
+$line-height-default: 1.4;
+
+$box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+:root {
+  --accepted-command-color-dark: #15ff00;
+  --accepted-command-color-light: #4f9a9c;
+
+  --refused-command-color-dark: #cc0403;
+
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.5rem;
+  --font-size-xlg: 2rem;
+  --font-size-xxlg: 4rem;
+  --font-size-giganteporra: 6rem;
+}
