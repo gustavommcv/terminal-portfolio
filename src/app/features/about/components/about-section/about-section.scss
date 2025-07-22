@@ -1,11 +1,12 @@
 @use "abstracts/variables" as *;
 
 .about-section {
+  margin-bottom: $spacing-xbig;
+
   &__container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: $spacing-xbig;
-    padding: 3rem 0;
     margin: 0 auto;
 
     @media screen and (max-width: 895px) {
@@ -32,7 +33,6 @@
     // }
   }
 
-  &__title,
   &__additional-info {
     font-weight: $font-weight-bold;
     width: fit-content;
@@ -59,7 +59,7 @@
   }
 
   &__additional-info {
-    font-size: $font-size-big;
+    font-size: $font-size-default;
     text-align: center;
     margin: 0 auto;
     margin-top: auto;
@@ -68,7 +68,7 @@
       font-size: $font-size-default;
     }
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1145px) {
       font-size: $font-size-small;
     }
   }

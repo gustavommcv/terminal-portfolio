@@ -26,6 +26,22 @@
       "p3": "My career has been marked by a constant quest for learning and technical improvement, with the aim of creating efficient and scalable solutions, combining theory and practice.",
       "pronouns": "He/Him",
       "country": "Brazil"
+    },
+    "education-section": {
+      "title": "Education",
+      "warning": "*scroll down to view all my education background*",
+      "degrees": [
+        {
+          "title": "Systems Analysis and Development",
+          "type": "Technology Degree",
+          "data": "MAY/22 - SEP/24"
+        },
+        {
+          "title": "Software Architecture and Solutions",
+          "type": "Postgraduate",
+          "data": "FEB/25 - FEB/26"
+        }
+      ]
     }
   }
 }

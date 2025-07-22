@@ -26,6 +26,22 @@
       "p3": "Minha trajetória é marcada pela busca constante por aprendizado e  aprimoramento técnico, com o objetivo de criar soluções eficientes e  escaláveis, combinando teoria e prática.",
       "pronouns": "Ele/Dele",
       "country": "Brasil"
+    },
+    "education-section": {
+      "title": "Educação",
+      "warning": "*role para baixo para ver todo o meu histórico educacional*",
+      "degrees": [
+        {
+          "title": "Análise e Desenvolvimento de Sistemas",
+          "type": "Graduação Tecnólogo",
+          "data": "MAI/22 - SET/24"
+        },
+        {
+          "title": "Arquitetura de Software e Soluções",
+          "type": "Pós-graduação",
+          "data": "FEV/25 - FEV/26"
+        }
+      ]
     }
   }
 }
