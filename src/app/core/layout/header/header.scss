@@ -16,6 +16,7 @@
   &__nav {
     display: flex;
     gap: $spacing-medium;
+    margin-right: auto;
 
     @media screen and (max-width: 600px) {
       display: none;
@@ -60,13 +61,5 @@
 
   &--right {
     color: #08bdba;
-  }
-}
-
-.language-toggle {
-  margin-left: auto;
-
-  @media screen and (max-width: 600px) {
-    display: none;
   }
 }

@@ -1,0 +1,41 @@
+.language-toggle {
+  border: none;
+  background-color: transparent;
+  font-size: 1.8rem;
+  cursor: pointer;
+  font-family: monospace;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+
+  .json-brace {
+    color: #a6accd;
+  }
+
+  .json-key {
+    color: #7dcfff;
+  }
+
+  .json-colon {
+    color: #9ca0b0;
+  }
+
+  .json-quote {
+    color: #9ca0b0;
+  }
+
+  .json-space {
+    color: transparent;
+  }
+
+  .json-value {
+    &--en {
+      color: #9ece6a;
+    }
+
+    &--pt {
+      color: #e0af68;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<ng-container *ngIf="language.currentLocale$ | async as locale">
+  <button class="language-toggle" (click)="toggleLanguage()">
+    <span class="json-brace">{{ "{" }}</span>
+    <span class="json-space"> </span>
+    <span class="json-key">"locale"</span>
+    <span class="json-colon">:</span>
+    <span class="json-space"> </span>
+    <span class="json-quote">"</span>
+
+    <ng-container *ngIf="locale === 'en'; else ptLocale">
+      <span class="json-value json-value--en">en</span>
+    </ng-container>
+    <ng-template #ptLocale>
+      <span class="json-value json-value--pt">pt</span>
+    </ng-template>
+
+    <span class="json-quote">"</span>
+    <span class="json-space"> </span>
+    <span class="json-brace">{{ "}" }}</span>
+  </button>
+</ng-container>

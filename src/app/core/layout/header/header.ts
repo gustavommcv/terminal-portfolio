@@ -1,51 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LanguageService } from '../../../services/language.service';
+import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, LanguageToggleButton],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header implements OnInit {
-  currentLocale: string = 'en';
-  currentPath: string = '/';
+export class Header {
+  constructor(public language: LanguageService) {}
 
-  constructor(private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentPath = this.router.url.split('?')[0];
-        const urlLocale = this.router.parseUrl(this.router.url).queryParams[
-          'locale'
-        ];
-        this.currentLocale = urlLocale === 'pt' ? 'pt' : 'en';
-      }
-    });
+  toggleLanguage() {
+    this.language.toggleLanguage();
   }
 
-  ngOnInit() {
-    this.currentPath = this.router.url.split('?')[0];
-    const urlLocale = this.router.parseUrl(this.router.url).queryParams[
-      'locale'
-    ];
-    this.currentLocale = urlLocale === 'pt' ? 'pt' : 'en';
+  isActive(route: string) {
+    return this.language.isActive(route);
   }
 
   navigateWithLocale(route: string) {
-    const queryParams = this.currentLocale === 'pt' ? { locale: 'pt' } : {};
-    this.router.navigate([route], { queryParams });
-  }
-
-  toggleLanguage() {
-    const newLocale = this.currentLocale === 'en' ? 'pt' : 'en';
-    this.currentLocale = newLocale;
-
-    const queryParams = newLocale === 'pt' ? { locale: 'pt' } : {};
-    this.router.navigate([this.currentPath], { queryParams });
-  }
-
-  isActive(route: string): boolean {
-    return this.currentPath === route;
+    this.language.navigateWithLocale(route);
   }
 }
