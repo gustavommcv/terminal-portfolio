@@ -30,6 +30,10 @@ $color-refused-command-dark: #cc0403;
   }
 }
 
+.path-container {
+  display: flex;
+}
+
 .command {
   color: $color-accepted-command-dark;
 }

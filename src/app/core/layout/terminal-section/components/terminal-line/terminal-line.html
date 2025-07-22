@@ -1,9 +1,15 @@
-<div class="terminal-line typing-animation">
-  <span class="user-host">{{ username }}{{ hostname }}</span>
+<div class="terminal-line" [class.typing-animation]="!short()">
+  @if (!short()) {
+    <span class="user-host">[{{ username }}{{ hostname }}</span>
+  }
 
-  <div>
-    <span class="path">{{ path }}</span>
-    <span class="prompt">{{ prompt }}</span>
+  <div class="path-container">
+    <span class="path">{{ path }} </span>
+    @if (!short()) {
+      ]
+    }
+
+    <span class="prompt">{{ prompt }} </span>
   </div>
 
   <span class="command">{{ command }}</span>

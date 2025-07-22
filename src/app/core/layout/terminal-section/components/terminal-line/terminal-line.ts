@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-terminal-line',
@@ -7,9 +7,11 @@ import { Component } from '@angular/core';
   styleUrl: './terminal-line.scss',
 })
 export class TerminalLine {
-  username = '[guga@';
+  short = input(false);
+
+  username = 'guga@';
   hostname = 'arch';
-  path = '~]';
+  path = '~';
   prompt = '$';
-  command = "whoami"
+  command = 'whoami';
 }

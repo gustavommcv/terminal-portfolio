@@ -9,5 +9,8 @@ import { TerminalLine } from './components/terminal-line/terminal-line';
 })
 export class TerminalSection {
   customTitle = input('Who am I');
-  isFirstTitle = input(false)
+  isFirstTitle = input(false);
+
+  shortTerminalLine = input(false);
+  customCommand = input('Custom command');
 }
