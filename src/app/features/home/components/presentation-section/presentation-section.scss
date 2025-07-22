@@ -1,5 +1,8 @@
 @use "abstracts/variables" as *;
 
+// TODO
+// THEME
+
 .role,
 .name,
 .paragraph,
@@ -25,9 +28,20 @@
 }
 
 .social-links {
+  margin-left: 5rem;
+  margin-top: $spacing-medium;
 
   &__link {
-    text-decoration: none;
+    color: $color-external-link-dark;
+
+    & a {
+      text-decoration: none;
+      color: $color-external-link-dark;
+
+      &:hover {
+        text-decoration: underline wavy;
+      }
+    }
   }
 
   @media screen and (max-width: 600px) {
