@@ -1,5 +1,9 @@
 <div class="terminal-section-container">
-  <h2 class="terminal-section__title">{{ customTitle() }}</h2>
+  @if (isFirstTitle()) {
+    <h1 class="terminal-section__title">{{ customTitle() }}</h1>
+  } @else {
+    <h2 class="terminal-section__title">{{ customTitle() }}</h2>
+  }
 
   <section class="terminal-section">
     <app-terminal-line />
