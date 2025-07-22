@@ -36,6 +36,10 @@ $color-refused-command-dark: #cc0403;
 
 .command {
   color: $color-accepted-command-dark;
+
+  &--error {
+    color: $color-refused-command-dark;
+  }
 }
 
 .typing-animation {

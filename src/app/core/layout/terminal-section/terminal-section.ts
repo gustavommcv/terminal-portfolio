@@ -12,5 +12,6 @@ export class TerminalSection {
   isFirstTitle = input(false);
 
   shortTerminalLine = input(false);
-  customCommand = input('Custom command');
+  customCommand = input('whoami');
+  errorCommand = input(false);
 }

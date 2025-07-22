@@ -8,10 +8,11 @@ import { Component, input } from '@angular/core';
 })
 export class TerminalLine {
   short = input(false);
+  command = input('whoami');
+  error = input(false);
 
   username = 'guga@';
   hostname = 'arch';
   path = '~';
   prompt = '$';
-  command = 'whoami';
 }

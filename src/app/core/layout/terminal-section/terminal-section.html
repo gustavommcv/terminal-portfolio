@@ -6,7 +6,11 @@
   }
 
   <section class="terminal-section">
-    <app-terminal-line [short]="shortTerminalLine()" />
+    <app-terminal-line
+      [short]="shortTerminalLine()"
+      [command]="customCommand()"
+      [error]="errorCommand()"
+    />
     <ng-content></ng-content>
   </section>
 </div>
