@@ -20,9 +20,13 @@ $color-refused-command-dark: #cc0403;
   font-size: $font-size-big;
 
   @media screen and (max-width: 600px) {
-    font-size: 2rem;
+    font-size: $font-size-default;
     margin-bottom: $spacing-medium;
     gap: $spacing-small;
+  }
+
+  @media screen and (max-width: 390px) {
+    font-size: 2rem;
   }
 }
 
