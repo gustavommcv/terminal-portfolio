@@ -4,6 +4,18 @@
       "role": "Desenvolvedor de Software",
       "about": "Desenvolvedor Full Stack com foco em criar soluções digitais modernas e bem estruturadas, garantindo qualidade de código, boas práticas e arquitetura robusta.",
       "contact": "Contato"
+    },
+    "services-section": {
+      "title": "Serviços",
+      "subtitle": "Meus Serviços",
+      "services": [
+        "Landing pages",
+        "Portfólios",
+        "Manutenção de código",
+        "Conversão de design para código",
+        "Componentização em framework"
+      ],
+      "button": "Portfólio"
     }
   }
 }

@@ -1,0 +1,25 @@
+<div class="services-section fade">
+  <app-terminal-section
+    [customTitle]="'home-page.services-section.subtitle' | translate"
+    customCommand="bat services.md"
+    [shortTerminalLine]="true"
+    [isFirstTitle]="true"
+  >
+    <h3 class="services-section__subtitle">
+      {{ "home-page.services-section.subtitle" | translate }}
+    </h3>
+
+    <ul class="services-section__list">
+      @for (
+        service of "home-page.services-section.services" | translate;
+        track service
+      ) {
+        <li class="services-section__item">{{ service }}</li>
+      }
+    </ul>
+
+    <app-button>{{
+      "home-page.services-section.button" | translate
+    }}</app-button>
+  </app-terminal-section>
+</div>

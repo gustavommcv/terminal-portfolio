@@ -16,6 +16,10 @@
   &__nav {
     display: flex;
     gap: $spacing-medium;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   &__link {
@@ -61,4 +65,8 @@
 
 .language-toggle {
   margin-left: auto;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
 }
