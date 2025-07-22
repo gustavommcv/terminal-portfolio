@@ -2,12 +2,10 @@
   <app-terminal-section customTitle="Who am I" [isFirstTitle]=true>
     <div class="fade">
       <p class="name">gustavo_monnerat</p>
-      <p class="role">Software Developer</p>
+      <p class="role">{{ 'home-page.presentation-section.role' | translate }}</p>
 
       <p class="paragraph">
-        Full Stack Developer focused on creating modern and well-structured
-        digital solutions, ensuring code quality, good practices and robust
-        architecture.
+        {{ 'home-page.presentation-section.about' | translate }}
       </p>
 
       <ul class="social-links">
@@ -22,7 +20,7 @@
         </li>
       </ul>
 
-      <app-button>Contact</app-button>
+      <app-button>{{ 'home-page.presentation-section.contact' | translate }}</app-button>
     </div>
   </app-terminal-section>
 </div>
