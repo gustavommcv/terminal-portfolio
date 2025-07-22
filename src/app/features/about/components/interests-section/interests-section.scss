@@ -1,8 +1,11 @@
 @use "abstracts/variables" as *;
 
+.interests-section {
+  margin-bottom: $spacing-big;
+}
+
 .interests-container {
   font-size: $font-size-default;
-  margin-bottom: $spacing-big;
 
   margin-left: 5rem;
 
