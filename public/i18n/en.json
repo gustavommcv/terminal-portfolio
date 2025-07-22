@@ -17,5 +17,15 @@
       ],
       "button": "Portfolio"
     }
+  },
+  "about-page": {
+    "about-section": {
+      "title": "About me",
+      "p1": "My name is Gustavo Monnerat, I'm a software developer and a postgraduate student in Software Architecture.",
+      "p2": "I work as a full-stack freelancer, developing projects with technologies such as Golang, Express.js (Node), React, Angular, Docker and AWS.",
+      "p3": "My career has been marked by a constant quest for learning and technical improvement, with the aim of creating efficient and scalable solutions, combining theory and practice.",
+      "pronouns": "He/Him",
+      "country": "Brazil"
+    }
   }
 }

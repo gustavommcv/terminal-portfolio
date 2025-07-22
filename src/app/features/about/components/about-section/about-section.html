@@ -1,0 +1,39 @@
+<div class="about-section">
+  <app-terminal-section
+    [customTitle]="'about-page.about-section.title' | translate"
+    customCommand="bat me.md"
+    [shortTerminalLine]="true"
+    [isFirstTitle]="true"
+  >
+    <div class="about-section__container">
+      <div class="about-section__text">
+        <h3 class="about-section__title">"Hello, World!"</h3>
+
+        <p class="about-section__paragraph">
+          {{ "about-page.about-section.p1" | translate }}
+        </p>
+
+        <p class="about-section__paragraph">
+          {{ "about-page.about-section.p2" | translate }}
+        </p>
+
+        <p class="about-section__paragraph">
+          {{ "about-page.about-section.p3" | translate }}
+        </p>
+
+        <div class="about-section__additional-info">
+          <p>
+            Curitiba/PR - {{ "about-page.about-section.country" | translate }}
+          </p>
+          <p>
+            {{ age }}y - {{ "about-page.about-section.pronouns" | translate }}
+          </p>
+        </div>
+      </div>
+
+      <div class="about-section__image-container">
+        <img src="images/me.webp" alt="Gustavo Monnerat" />
+      </div>
+    </div>
+  </app-terminal-section>
+</div>
