@@ -19,6 +19,11 @@
       "button": "Portfolio"
     },
 
+    "featured-projects-section": {
+      "title": "Featured Projects",
+      "warning": "*Swipe to the right to see the projects*"
+    },
+
     "contact-section": {
       "title": "Contact",
       "warning": "*Open to full-time opportunities*",

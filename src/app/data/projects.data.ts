@@ -46,6 +46,7 @@ export const projectsData: Project[] = [
       demo: 'https://gustavommcv.github.io/chmod_calculator/',
     },
     tags: ['JavaScript', 'HTML/CSS'],
+    featured: true,
   },
   {
     id: 'xp-bootcamp',
@@ -106,3 +107,7 @@ export const projectsData: Project[] = [
     tags: ['React', 'Node.js', 'Fullstack'],
   },
 ];
+
+export const featuredProjectsData = projectsData.filter(
+  (project) => project.featured,
+);

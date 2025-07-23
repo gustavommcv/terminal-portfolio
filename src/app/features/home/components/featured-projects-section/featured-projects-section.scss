@@ -1,0 +1,35 @@
+@use "abstracts/variables" as *;
+
+.featured-projects-section {
+  &__warning {
+    text-align: center;
+    font-size: $font-size-small;
+
+    margin-bottom: $spacing-big;
+
+    color: $color-text-dark;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__container {
+    display: flex;
+    gap: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+    margin-bottom: 2rem;
+
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      height: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb);
+      border-radius: 1rem;
+    }
+  }
+}
