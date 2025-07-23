@@ -5,6 +5,7 @@
       "about": "Full Stack Developer focused on creating modern and well-structured digital solutions, ensuring code quality, good practices and robust architecture. ",
       "contact": "Contact"
     },
+
     "services-section": {
       "title": "Services",
       "subtitle": "My Services",
@@ -16,17 +17,30 @@
         "Framework componentization"
       ],
       "button": "Portfolio"
+    },
+
+    "contact-section": {
+      "title": "Contact",
+      "warning": "*Open to full-time opportunities*",
+      "paragraph": "For quotes/questions, please get in touch:"
     }
   },
+
   "about-page": {
     "about-section": {
       "title": "About me",
+
       "p1": "My name is Gustavo Monnerat, I'm a software developer and a postgraduate student in Software Architecture.",
+
       "p2": "I work as a full-stack freelancer, developing projects with technologies such as Golang, Express.js (Node), React, Angular, Docker and AWS.",
+
       "p3": "My career has been marked by a constant quest for learning and technical improvement, with the aim of creating efficient and scalable solutions, combining theory and practice.",
+
       "pronouns": "He/Him",
+
       "country": "Brazil"
     },
+
     "education-section": {
       "title": "Education",
       "warning": "*scroll down to view all my education background*",
@@ -36,6 +50,7 @@
           "type": "Technology Degree",
           "data": "MAY/22 - SEP/24"
         },
+
         {
           "title": "Software Architecture and Solutions",
           "type": "Postgraduate",
@@ -43,6 +58,7 @@
         }
       ]
     },
+
     "interests-section": {
       "title": "Interests",
       "interests": [
@@ -52,10 +68,12 @@
         "Cyber security"
       ]
     },
+
     "languages-section": {
       "title": "Languages",
       "languages": ["Portuguese - Native", "English - Advanced (C1)"]
     },
+
     "download-section": {
       "warning": "*current language: {\"locale\": \"en\"}*"
     }

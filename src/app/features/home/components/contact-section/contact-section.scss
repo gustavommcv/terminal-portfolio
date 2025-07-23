@@ -1,0 +1,84 @@
+@use "abstracts/variables" as *;
+
+.contact-section {
+  &__warning {
+    text-align: center;
+    font-size: $font-size-small;
+
+    margin-bottom: $spacing-big;
+
+    color: $color-text-dark;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1.8rem;
+    }
+
+    // &--light {
+    //   color: var(--normal-text-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--normal-text-color-dark);
+    // }
+  }
+
+  &__paragraph {
+    font-size: $font-size-default;
+
+    margin-bottom: $spacing-medium;
+
+    @media screen and (max-width: 600px) {
+      font-size: $font-size-small;
+    }
+
+    color: $color-text-dark;
+    // &--light {
+    //   color: var(--normal-text-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--normal-text-color-dark);
+    // }
+  }
+
+  &__links {
+    font-size: 2.5rem;
+    margin-left: 4rem;
+    margin-bottom: 4rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    @media screen and (max-width: 600px) {
+      font-size: 2rem;
+      margin-left: 4rem;
+    }
+
+    color: $color-external-link-dark;
+    // &--light {
+    //   color: var(--external-link-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--external-link-color-dark);
+    // }
+  }
+
+  &__link {
+    // &--light {
+    //   color: var(--external-link-color-light);
+    // }
+    //
+    // &--dark {
+    //   color: var(--external-link-color-dark);
+    // }
+
+    & a {
+      color: $color-external-link-dark;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline wavy;
+      }
+    }
+  }
+}

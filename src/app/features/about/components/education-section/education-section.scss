@@ -45,11 +45,11 @@
     font-size: $font-size-default;
     font-weight: $font-weight-normal;
 
+    color: $color-subtitle-dark;
+
     @media screen and (max-width: 600px) {
       font-size: 2.2rem;
     }
-
-    color: $color-subtitle-dark;
     // &--light {
     //   color: var(--subtitle-color-light);
     // }

@@ -5,6 +5,7 @@
       "about": "Desenvolvedor Full Stack com foco em criar soluções digitais modernas e bem estruturadas, garantindo qualidade de código, boas práticas e arquitetura robusta.",
       "contact": "Contato"
     },
+
     "services-section": {
       "title": "Serviços",
       "subtitle": "Meus Serviços",
@@ -16,17 +17,30 @@
         "Componentização em framework"
       ],
       "button": "Portfólio"
+    },
+
+    "contact-section": {
+      "title": "Contato",
+      "warning": "*Disponível para oportunidades fixas*",
+      "paragraph": "Para orçamentos/dúvidas entre em contato:"
     }
   },
+
   "about-page": {
     "about-section": {
       "title": "Sobre mim",
+
       "p1": "Me chamo Gustavo Monnerat, sou desenvolvedor de software e pós-graduando em Arquitetura de Software.",
+
       "p2": "Atuo como freelancer full-stack, desenvolvendo projetos com tecnologias como Gin, Express.js (Node), React, Angular, Docker e AWS.",
+
       "p3": "Minha trajetória é marcada pela busca constante por aprendizado e  aprimoramento técnico, com o objetivo de criar soluções eficientes e  escaláveis, combinando teoria e prática.",
+
       "pronouns": "Ele/Dele",
+
       "country": "Brasil"
     },
+
     "education-section": {
       "title": "Educação",
       "warning": "*role para baixo para ver todo o meu histórico educacional*",
@@ -36,6 +50,7 @@
           "type": "Graduação Tecnólogo",
           "data": "MAI/22 - SET/24"
         },
+
         {
           "title": "Arquitetura de Software e Soluções",
           "type": "Pós-graduação",
@@ -43,6 +58,7 @@
         }
       ]
     },
+
     "interests-section": {
       "title": "Interesses",
       "interests": [
@@ -52,10 +68,12 @@
         "Segurança da informação"
       ]
     },
+
     "languages-section": {
       "title": "Idiomas",
       "languages": ["Português - Nativo", "Inglês - Avançado (C1)"]
     },
+
     "download-section": {
       "warning": "*idioma atual: {\"locale\": \"pt\"}*"
     }

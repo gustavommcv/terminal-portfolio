@@ -1,0 +1,29 @@
+<div class="contact-section fade">
+  <app-terminal-section
+    [customTitle]="'home-page.contact-section.title' | translate"
+    customCommand="glow contact.md"
+    [shortTerminalLine]="true"
+  >
+    <div class="contact-section__warning">
+      {{ "home-page.contact-section.warning" | translate }}
+    </div>
+
+    <p class="contact-section__paragraph">
+      {{ "home-page.contact-section.paragraph" | translate }}
+    </p>
+
+    <ul class="contact-section__links">
+      <li class="contact-section__link">
+        <a
+          href="mailto:monnerat.gustavo@outlook.com"
+          [innerHTML]="formatEmail('monnerat.gustavo&#64;outlook.com')"
+        >
+        </a>
+      </li>
+
+      <li class="contact-section__link">
+        <a href="tel:+5541991892192">+5541991892192</a>
+      </li>
+    </ul>
+  </app-terminal-section>
+</div>
