@@ -1,0 +1,48 @@
+<div *ngIf="project" class="project-detail-page">
+  <app-terminal-section
+    [customTitle]="project.command || project.id"
+    [customCommand]="project.command || 'glow project.md'"
+    [shortTerminalLine]="true"
+    [isFirstTitle]="true"
+  >
+    <div class="project-detail-page__info">
+      <img
+        [src]="project.gif || project.image"
+        [alt]="'projects-page.projects.' + project.id + '.title' | translate"
+        class="project-detail-page__thumbnail"
+        [class.project-gif]="project.gif"
+      />
+
+      <div class="project-detail-page__description">
+        <h2>
+          {{ "projects-page.projects." + project.id + ".title" | translate }}
+        </h2>
+
+        <p>
+          {{
+            "projects-page.projects." + project.id + ".description" | translate
+          }}
+        </p>
+
+        <div class="project-detail-page__links">
+          <a
+            *ngIf="project.links.github"
+            [href]="project.links.github"
+            target="_blank"
+            class="project-link"
+          >
+            Repository
+          </a>
+          <a
+            *ngIf="project.links.demo"
+            [href]="project.links.demo"
+            target="_blank"
+            class="project-link"
+          >
+            Live Demo
+          </a>
+        </div>
+      </div>
+    </div>
+  </app-terminal-section>
+</div>

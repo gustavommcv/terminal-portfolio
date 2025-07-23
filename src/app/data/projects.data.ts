@@ -1,6 +1,7 @@
 export interface Project {
   id: string;
   image: string;
+  gif?: string;
   links: {
     github?: string;
     demo?: string;
@@ -8,6 +9,7 @@ export interface Project {
   };
   tags?: string[];
   featured?: boolean;
+  command?: string;
 }
 
 export const projectsData: Project[] = [
@@ -20,16 +22,20 @@ export const projectsData: Project[] = [
     tags: ['Lua', 'Neovim', 'CLI'],
     featured: true,
   },
+
   {
     id: 'gomodoro',
     image: 'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
+    gif: 'images/projects/gomodoro/gifs/gomodoro.gif',
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
       internal: '/projects/gomodoro',
     },
     tags: ['Go', 'CLI', 'Productivity'],
     featured: true,
+    command: 'gomodoro',
   },
+
   {
     id: 'voting-system',
     image: 'images/projects/signotech/images/signo-tech-thumbnail.webp',
