@@ -16,6 +16,8 @@
   &__info {
     display: flex;
     justify-content: space-between;
+    max-width: 120rem;
+    margin: 0 auto;
 
     @media screen and (max-width: 1220px) {
       align-items: center;

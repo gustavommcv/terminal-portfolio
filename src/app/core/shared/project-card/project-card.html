@@ -1,4 +1,9 @@
-<div class="project-card">
+<div
+  class="project-card"
+  (click)="navigateToDetail()"
+  role="button"
+  tabindex="0"
+>
   <img
     [src]="project.image"
     [alt]="'projects-page.projects.' + project.id + '.title' | translate"
