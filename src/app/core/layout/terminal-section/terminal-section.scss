@@ -1,7 +1,5 @@
 @use "abstracts/variables" as *;
 
-// TODO
-// Theme
 .terminal-section {
   font-weight: 400;
   box-shadow: $box-shadow-default;
@@ -32,19 +30,5 @@
     &::before {
       content: "# ";
     }
-    // &--light {
-    //   color: var(--title-color-light);
-    // }
-    //
-    // &--dark {
-    //   color: var(--title-color-dark);
   }
-
-  // &--light {
-  //   background-color: var(--section-background-color-light);
-  // }
-  //
-  // &--dark {
-  //   background-color: var(--section-background-color-dark);
-  // }
 }

@@ -12,14 +12,6 @@
     @media screen and (max-width: 600px) {
       font-size: 1.8rem;
     }
-
-    // &--light {
-    //   color: var(--normal-text-color-light);
-    // }
-    //
-    // &--dark {
-    //   color: var(--normal-text-color-dark);
-    // }
   }
 
   &__paragraph {
@@ -32,13 +24,6 @@
     @media screen and (max-width: 600px) {
       font-size: $font-size-small;
     }
-    // &--light {
-    //   color: var(--normal-text-color-light);
-    // }
-    //
-    // &--dark {
-    //   color: var(--normal-text-color-dark);
-    // }
   }
 
   &__links {
@@ -54,24 +39,9 @@
       font-size: $font-size-small;
       margin-left: $spacing-xbig;
     }
-    // &--light {
-    //   color: var(--external-link-color-light);
-    // }
-    //
-    // &--dark {
-    //   color: var(--external-link-color-dark);
-    // }
   }
 
   &__link {
-    // &--light {
-    //   color: var(--external-link-color-light);
-    // }
-    //
-    // &--dark {
-    //   color: var(--external-link-color-dark);
-    // }
-
     & a {
       color: $color-external-link-dark;
       text-decoration: none;

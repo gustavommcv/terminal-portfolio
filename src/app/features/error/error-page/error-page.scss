@@ -18,13 +18,6 @@
   text-align: center;
 
   color: $color-text-dark;
-  &--light {
-    color: var(--normal-text-color-light);
-  }
-
-  &--dark {
-    color: var(--normal-text-color-dark);
-  }
 
   &__title {
     font-size: 4.5rem;
