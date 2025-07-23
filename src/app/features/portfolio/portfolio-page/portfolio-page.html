@@ -1,1 +1,34 @@
-<p>portfolio-page works!</p>
+<div class="portfolio-page">
+  <app-terminal-section
+    [customTitle]="'home-page.contact-section.title' | translate"
+    customCommand="glow contact.md"
+    [shortTerminalLine]="true"
+  >
+    <div class="projects-container">
+      @for (project of projectsData; track project.id) {
+        <div class="project-card">
+          <img
+            [src]="project.image"
+            [alt]="
+              'projects-page.projects.' + project.id + '.title' | translate
+            "
+            class="project-card__image"
+          />
+          <div class="project-card__container">
+            <h3 class="project-card__title">
+              {{
+                "projects-page.projects." + project.id + ".title" | translate
+              }}
+            </h3>
+            <p class="project-card__description">
+              {{
+                "projects-page.projects." + project.id + ".description"
+                  | translate
+              }}
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+  </app-terminal-section>
+</div>
