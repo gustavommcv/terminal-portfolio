@@ -13,7 +13,7 @@ export interface Project {
 export const projectsData: Project[] = [
   {
     id: 'minimal-neovim',
-    image: 'images/projects/minimalneovim/minimal-neovim.webp',
+    image: 'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
@@ -22,7 +22,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'gomodoro',
-    image: 'images/projects/gomodoro/images/gomodoro.webp',
+    image: 'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
       internal: '/projects/gomodoro',
@@ -32,7 +32,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'voting-system',
-    image: 'images/projects/signotech/signo-tech.webp',
+    image: 'images/projects/signotech/images/signo-tech-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
@@ -40,7 +40,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'chmod-calculator',
-    image: 'images/projects/chmod/chmod-calculator.webp',
+    image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/chmod_calculator',
       demo: 'https://gustavommcv.github.io/chmod_calculator/',
@@ -49,7 +49,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'xp-bootcamp',
-    image: 'images/projects/xpe1/xpe1.webp',
+    image: 'images/projects/xpe1/images/xpe1-thumbnail.webp',
     links: {
       github:
         'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
@@ -58,7 +58,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'itau-challenge',
-    image: 'images/projects/itau/itau.webp',
+    image: 'images/projects/itau/images/itau-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
     },
@@ -66,7 +66,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'books-app',
-    image: 'images/projects/booksapp/books-app.webp',
+    image: 'images/projects/booksapp/images/books-app-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
     },
@@ -74,7 +74,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'airlock-rest',
-    image: 'images/projects/airlock/airlock-rest.webp',
+    image: 'images/projects/airlock/images/airlock-rest-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/AirlockRest',
     },
@@ -82,7 +82,8 @@ export const projectsData: Project[] = [
   },
   {
     id: 'portfolio',
-    image: 'images/projects/firstportfolio/first-portfolio.webp',
+    image:
+      'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/Portfolio',
     },
@@ -90,7 +91,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'tic-tac-toe',
-    image: 'images/projects/tictactoe/tic-tac-toe.webp',
+    image: 'images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
@@ -98,7 +99,7 @@ export const projectsData: Project[] = [
   },
   {
     id: 'todo-list',
-    image: 'images/projects/todo/todo.webp',
+    image: 'images/projects/todo/images/todo-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/to-do-app-main',
     },
