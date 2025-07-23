@@ -1,11 +1,13 @@
 <div class="presentation-section">
-  <app-terminal-section customTitle="Who am I" [isFirstTitle]=true>
+  <app-terminal-section customTitle="Who am I" [isFirstTitle]="true">
     <div class="fade">
       <p class="name">gustavo_monnerat</p>
-      <p class="role">{{ 'home-page.presentation-section.role' | translate }}</p>
+      <p class="role">
+        {{ "home-page.presentation-section.role" | translate }}
+      </p>
 
       <p class="paragraph">
-        {{ 'home-page.presentation-section.about' | translate }}
+        {{ "home-page.presentation-section.about" | translate }}
       </p>
 
       <ul class="social-links">
@@ -20,7 +22,9 @@
         </li>
       </ul>
 
-      <app-button>{{ 'home-page.presentation-section.contact' | translate }}</app-button>
+      <app-button scrollTo="contact-section">
+        {{ "home-page.presentation-section.contact" | translate }}
+      </app-button>
     </div>
   </app-terminal-section>
 </div>

@@ -19,6 +19,13 @@
       (click)="navigateWithLocale('/about')"
       >about</a
     >
+
+    <a
+      class="header__link"
+      [ngClass]="{ 'header__link--active': isActive('/portfolio') }"
+      (click)="navigateWithLocale('/portfolio')"
+      >portfolio</a
+    >
   </nav>
 
   <language-toggle-button />

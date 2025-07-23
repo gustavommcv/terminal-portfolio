@@ -1,9 +1,8 @@
 .language-toggle {
   border: none;
   background-color: transparent;
-  font-size: 1.8rem;
+  font-size: 2rem;
   cursor: pointer;
-  font-family: monospace;
 
   @media screen and (max-width: 600px) {
     display: none;

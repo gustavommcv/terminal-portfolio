@@ -28,7 +28,6 @@
     display: flex;
     gap: $spacing-medium;
     overflow-x: auto;
-    padding-bottom: $spacing-xbig;
 
     &::-webkit-scrollbar {
       height: 0.5rem;
