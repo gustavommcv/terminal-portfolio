@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { projectsData } from '../../../data/projects.data';
+import { Project } from '../../../data/projects.data';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectCard } from '../../../core/shared/project-card/project-card';
+import { ProjectsDataService } from '../../../services/projects-data.service';
 
 @Component({
   selector: 'portfolio-page',
@@ -11,5 +12,9 @@ import { ProjectCard } from '../../../core/shared/project-card/project-card';
   styleUrl: './portfolio-page.scss',
 })
 export class PortfolioPage {
-  projectsData = projectsData;
+  projectsData: Project[];
+
+  constructor(private projectsService: ProjectsDataService) {
+    this.projectsData = this.projectsService.getAllProjects();
+  }
 }

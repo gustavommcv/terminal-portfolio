@@ -107,7 +107,3 @@ export const projectsData: Project[] = [
     tags: ['React', 'Node.js', 'Fullstack'],
   },
 ];
-
-export const featuredProjectsData = projectsData.filter(
-  (project) => project.featured,
-);

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
-import { featuredProjectsData } from '../../../../data/projects.data';
 import { ProjectCard } from '../../../../core/shared/project-card/project-card';
+import { ProjectsDataService } from '../../../../services/projects-data.service';
+import { Project } from '../../../../data/projects.data';
 
 @Component({
   selector: 'featured-projects-section',
@@ -11,5 +12,9 @@ import { ProjectCard } from '../../../../core/shared/project-card/project-card';
   styleUrl: './featured-projects-section.scss',
 })
 export class FeaturedProjectsSection {
-  projectsData = featuredProjectsData;
+  projectsData: Project[];
+
+  constructor(private projectsService: ProjectsDataService) {
+    this.projectsData = this.projectsService.getFeaturedProjects();
+  }
 }
