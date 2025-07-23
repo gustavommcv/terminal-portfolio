@@ -25,13 +25,13 @@
   &__paragraph {
     font-size: $font-size-default;
 
+    color: $color-text-dark;
+
     margin-bottom: $spacing-medium;
 
     @media screen and (max-width: 600px) {
       font-size: $font-size-small;
     }
-
-    color: $color-text-dark;
     // &--light {
     //   color: var(--normal-text-color-light);
     // }
@@ -42,18 +42,18 @@
   }
 
   &__links {
-    font-size: 2.5rem;
-    margin-left: 4rem;
-    margin-bottom: 4rem;
+    font-size: $font-size-default;
+    margin-left: $spacing-xbig;
+    margin-bottom: $spacing-xbig;
     overflow-wrap: break-word;
     word-break: break-word;
 
-    @media screen and (max-width: 600px) {
-      font-size: 2rem;
-      margin-left: 4rem;
-    }
-
     color: $color-external-link-dark;
+
+    @media screen and (max-width: 600px) {
+      font-size: $font-size-small;
+      margin-left: $spacing-xbig;
+    }
     // &--light {
     //   color: var(--external-link-color-light);
     // }
