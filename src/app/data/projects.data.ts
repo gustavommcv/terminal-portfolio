@@ -21,6 +21,7 @@ export const projectsData: Project[] = [
     },
     tags: ['Lua', 'Neovim', 'CLI'],
     featured: true,
+    command: 'glow neovim.md',
   },
 
   {
@@ -43,7 +44,9 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
     tags: ['Angular', 'Node.js', 'Fullstack'],
+    command: 'glow voting.md',
   },
+
   {
     id: 'chmod-calculator',
     image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
@@ -53,7 +56,9 @@ export const projectsData: Project[] = [
     },
     tags: ['JavaScript', 'HTML/CSS'],
     featured: true,
+    command: 'glow chmod.md',
   },
+
   {
     id: 'xp-bootcamp',
     image: 'images/projects/xpe1/images/xpe1-thumbnail.webp',
@@ -62,7 +67,9 @@ export const projectsData: Project[] = [
         'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
     },
     tags: ['Java', 'Spring Boot', 'API'],
+    command: 'glow xp1.md',
   },
+
   {
     id: 'itau-challenge',
     image: 'images/projects/itau/images/itau-thumbnail.webp',
@@ -70,6 +77,7 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
     },
     tags: ['Node.js', 'Express', 'API'],
+    command: 'glow itau1.md',
   },
   {
     id: 'books-app',
@@ -78,7 +86,9 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
     },
     tags: ['React', 'Node.js', 'Fullstack'],
+    command: 'glow booksapp.md',
   },
+
   {
     id: 'airlock-rest',
     image: 'images/projects/airlock/images/airlock-rest-thumbnail.webp',
@@ -86,16 +96,20 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/AirlockRest',
     },
     tags: ['Java', 'Clean Architecture', 'API'],
+    command: 'glow airlock.md',
   },
+
   {
     id: 'portfolio',
     image:
       'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
     links: {
-      github: 'https://github.com/gustavommcv/Portfolio',
+      github: 'https://github.com/gustavommcv/portfolio',
     },
     tags: ['Solid.js', 'TypeScript'],
+    command: 'glow portfolio.md',
   },
+
   {
     id: 'tic-tac-toe',
     image: 'images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp',
@@ -103,7 +117,9 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
     tags: ['C#', 'Algorithms'],
+    command: 'glow ttt.md',
   },
+
   {
     id: 'todo-list',
     image: 'images/projects/todo/images/todo-thumbnail.webp',
@@ -111,5 +127,6 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/to-do-app-main',
     },
     tags: ['React', 'Node.js', 'Fullstack'],
+    command: 'glow todo.md',
   },
 ];
