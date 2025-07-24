@@ -4,10 +4,6 @@
   font-size: 2rem;
   cursor: pointer;
 
-  @media screen and (max-width: 600px) {
-    display: none;
-  }
-
   .json-brace {
     color: #a6accd;
   }

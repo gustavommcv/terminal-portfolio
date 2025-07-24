@@ -13,6 +13,8 @@ import { LanguageToggleButton } from '../../shared/language-toggle-button/langua
 export class Header {
   constructor(public language: LanguageService) {}
 
+  isMenuOpen = false;
+
   toggleLanguage() {
     this.language.toggleLanguage();
   }
@@ -23,5 +25,15 @@ export class Header {
 
   navigateWithLocale(route: string) {
     this.language.navigateWithLocale(route);
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+
+    if (this.isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
   }
 }
