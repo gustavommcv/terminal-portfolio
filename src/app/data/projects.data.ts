@@ -114,6 +114,7 @@ export const projectsData: Project[] = [
       'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/portfolio',
+      demo: 'https://gustavommcv.github.io/portfolio/#/',
     },
     tags: ['Solid.js', 'TypeScript'],
     command: 'glow portfolio.md',
