@@ -1,6 +1,7 @@
 # [Deploy link](https://gustavommcv.github.io/portfolio/#/)
 
-![image](https://github.com/user-attachments/assets/d91da2f8-2ba9-4ccc-b454-3048f9028405)
+<img width="1366" height="648" alt="image" src="https://github.com/user-attachments/assets/861fa527-7368-4676-b967-3662f9f54199" />
+
 
 ## Image Credits
 
