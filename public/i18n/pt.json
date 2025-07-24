@@ -98,7 +98,7 @@
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "Um cronómetro CLI Pomodoro extremamente rápido para programadores, escrito em Go."
+        "description": "Um cronômetro CLI Pomodoro extremamente rápido para programadores, escrito em Go."
       },
       "voting-system": {
         "title": "Sistema de Votação",
