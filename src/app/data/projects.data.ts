@@ -13,6 +13,17 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
+    id: 'maquetaria',
+    image: 'images/projects/maquetaria/images/maquetaria2-thumbnail.webp',
+    links: {
+      demo: 'https://veronesemaquetes.com.br',
+    },
+    tags: ['Angular', 'GOlang', 'AWS Lambda'],
+    featured: true,
+    command: 'glow maquetaria.md',
+  },
+
+  {
     id: 'minimal-neovim',
     image: 'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
     links: {

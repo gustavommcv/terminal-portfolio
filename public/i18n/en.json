@@ -92,46 +92,61 @@
       "featured": "Featured"
     },
     "projects": {
+      "maquetaria": {
+        "title": "Architectural model website",
+        "description": "Website for a modeling studio. Highlights the visual accuracy and narrative of physical architectural models."
+      },
+
       "minimal-neovim": {
         "title": "Minimal Neovim",
         "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics. Built with Lua."
       },
+
       "gomodoro": {
         "title": "Gomodoro",
         "description": "A lightning-fast CLI Pomodoro timer for developers, built in Go."
       },
+
       "voting-system": {
         "title": "Voting System",
         "description": "Competence assessment - Signo Tech"
       },
+
       "chmod-calculator": {
         "title": "Chmod Calculator",
         "description": "Simple chmod website calculator, written with only js, html & css."
       },
+
       "xp-bootcamp": {
         "title": "Bootcamp challenge - XP",
         "description": "Challenge of the postgraduate bootcamp in software architecture and solutions (Api restful)."
       },
+
       "itau-challenge": {
         "title": "Itaú Unibanco - Challenge",
         "description": "REST API that receives Transactions and returns Statistics on those transactions."
       },
+
       "books-app": {
         "title": "BooksApp",
         "description": "A book management application that allows users to browse a catalog & leave ratings."
       },
+
       "airlock-rest": {
         "title": "Airlock REST",
         "description": "A clone of an API for a fictitious website, refactored to follow Clean Architecture principles."
       },
+
       "portfolio": {
         "title": "Portfolio",
         "description": "My first personal portfolio built with Solid.js to showcase my projects and skills as I began my development journey."
       },
+
       "tic-tac-toe": {
         "title": "Tic-Tac-Toe",
         "description": "A simple tic-tac-toe game implemented using the minimax algorithm in C#."
       },
+
       "todo-list": {
         "title": "Todo List",
         "description": "A simple task management project with a Node.js back-end and a React front-end."

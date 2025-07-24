@@ -92,46 +92,61 @@
       "featured": "Destaques"
     },
     "projects": {
+      "maquetaria": {
+        "title": "Site de maquetaria",
+        "description": "Site para um estúdio de modelagem. Destaca a precisão visual e a narrativa dos modelos arquitetônicos físicos."
+      },
+
       "minimal-neovim": {
         "title": "Minimal Neovim",
         "description": "Uma configuração moderna e modular do Neovim optimizada para produtividade e estética. Construído com Lua."
       },
+
       "gomodoro": {
         "title": "Gomodoro",
         "description": "Um cronômetro CLI Pomodoro extremamente rápido para programadores, escrito em Go."
       },
+
       "voting-system": {
         "title": "Sistema de Votação",
         "description": "Avaliação de competência - Signo Tech"
       },
+
       "chmod-calculator": {
         "title": "Chmod Calculator",
         "description": "Website de uma calculadora chmod simples, escrita usando apenas js, html & css."
       },
+
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
         "description": "Desafio do bootcamp da pós-graduação em arquitetura e soluções de software (Api restful)."
       },
+
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
         "description": "API REST que recebe Transações e retorna Estatísticas sob essas transações."
       },
+
       "books-app": {
         "title": "BooksApp",
         "description": "Um aplicativo de gerenciamento de livros que permite aos usuários navegar por um catálogo & deixar avaliações."
       },
+
       "airlock-rest": {
         "title": "Airlock REST",
         "description": "Um clone de uma API para um site fictício, refatorado para seguir os princípios da Clean Architecture."
       },
+
       "portfolio": {
         "title": "Portfólio",
         "description": "Meu primeiro portfólio pessoal, construído com Solid.js para exibir meus projetos e habilidades no início da minha jornada como desenvolvedor."
       },
+
       "tic-tac-toe": {
         "title": "Jogo da Velha",
         "description": "Um simples jogo da velha implementado usando o algoritmo minimax em C#."
       },
+
       "todo-list": {
         "title": "Lista de Tarefas",
         "description": "Um projeto simples de gerenciamento de tarefas com back-end em Node.js e front-end em React."
