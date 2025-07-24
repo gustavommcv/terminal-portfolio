@@ -81,6 +81,10 @@
   }
 
   &__links {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-small;
+
     & a {
       color: $color-external-link-dark;
       font-size: $font-size-default;

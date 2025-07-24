@@ -5,7 +5,6 @@ export interface Project {
   links: {
     github?: string;
     demo?: string;
-    internal?: string;
   };
   tags?: string[];
   featured?: boolean;
@@ -30,7 +29,6 @@ export const projectsData: Project[] = [
     gif: 'images/projects/gomodoro/gifs/gomodoro.gif',
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
-      internal: '/projects/gomodoro',
     },
     tags: ['Go', 'CLI', 'Productivity'],
     featured: true,

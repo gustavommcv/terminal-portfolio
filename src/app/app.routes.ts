@@ -19,7 +19,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'projects/:id',
+    path: 'portfolio/:id',
     loadComponent: () =>
       import(
         './features/projectDetail/project-detail-page/project-detail-page'

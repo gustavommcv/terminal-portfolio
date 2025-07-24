@@ -1,6 +1,6 @@
 <div *ngIf="project" class="project-detail-page">
   <app-terminal-section
-    [customTitle]="project.command || project.id"
+    [customTitle]="project.id"
     [customCommand]="project.command || 'glow project.md'"
     [shortTerminalLine]="true"
     [isFirstTitle]="true"
@@ -33,6 +33,7 @@
           >
             Repository
           </a>
+
           <a
             *ngIf="project.links.demo"
             [href]="project.links.demo"

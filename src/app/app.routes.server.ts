@@ -17,7 +17,7 @@ export const serverRoutes: ServerRoute[] = [
   },
 
   {
-    path: 'projects/:id',
+    path: 'portfolio/:id',
     renderMode: RenderMode.Client,
   },
 

@@ -17,6 +17,6 @@ export class ProjectCard {
   constructor(public language: LanguageService) {}
 
   navigateToDetail() {
-    this.language.navigateWithLocale('/projects/' + this.project.id);
+    this.language.navigateWithLocale('/portfolio/' + this.project.id);
   }
 }
