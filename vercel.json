@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "outputDirectory": "dist/portfolio/browser",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build"
+}
