@@ -12,7 +12,7 @@ import { LanguageService } from '../../../../services/language.service';
 export class DownloadSection {
   constructor(private languageService: LanguageService) {}
 
-  downloadCV(format: 'docx' | 'odt') {
+  downloadCV(format: 'docx' | 'odt' | 'pdf') {
     const lang = this.languageService.currentLocale;
     const fileName = `cv-${lang}.${format}`;
     const filePath = `cv/${fileName}`;
