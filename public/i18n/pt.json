@@ -80,7 +80,8 @@
     },
 
     "download-section": {
-      "warning": "*idioma atual: {\"locale\": \"pt\"}*"
+      "warning": "*idioma atual: {\"locale\": \"pt\"}*",
+      "warning2": "*Deslize para a direita para ver todos os formatos de download*"
     }
   },
 
