@@ -1,7 +1,6 @@
-# [Deploy link](https://gustavommcv.github.io/portfolio/#/)
+# [Deploy link](www.gusmonnerat.dev)
 
 <img width="1366" height="648" alt="image" src="https://github.com/user-attachments/assets/861fa527-7368-4676-b967-3662f9f54199" />
-
 
 ## Image Credits
 
