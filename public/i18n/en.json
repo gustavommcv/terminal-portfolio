@@ -95,7 +95,7 @@
     "projects": {
       "maquetaria": {
         "title": "Architectural model website",
-        "description": "Website for a modeling studio. Highlights the visual accuracy and narrative of physical architectural models."
+        "description": "Website developed to highlight physical models. Clean layout, smooth navigation, and focus on showcasing the company's technical work."
       },
 
       "minimal-neovim": {
@@ -110,7 +110,7 @@
 
       "voting-system": {
         "title": "Voting System",
-        "description": "Competence assessment - Signo Tech"
+        "description": "Competence assessment - Signo Tech, Allows you to register, count, and view votes"
       },
 
       "chmod-calculator": {

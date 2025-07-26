@@ -95,7 +95,7 @@
     "projects": {
       "maquetaria": {
         "title": "Site de maquetaria",
-        "description": "Site para um estúdio de modelagem. Destaca a precisão visual e a narrativa dos modelos arquitetônicos físicos."
+        "description": "Site desenvolvido para destacar maquetes físicas. Layout limpo, navegação fluida e foco na valorização do trabalho técnico da empresa."
       },
 
       "minimal-neovim": {
@@ -110,7 +110,7 @@
 
       "voting-system": {
         "title": "Sistema de Votação",
-        "description": "Avaliação de competência - Signo Tech"
+        "description": "Avaliação de competência - Signo Tech, Permite registrar, computar e visualizar votos "
       },
 
       "chmod-calculator": {
