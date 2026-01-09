@@ -8,4 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class Footer {
   @Input() key: string = '';
+
+  getCurrentYear() {
+    return new Date().getFullYear()
+  }
 }
