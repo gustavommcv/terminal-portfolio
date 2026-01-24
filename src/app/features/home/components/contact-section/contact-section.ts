@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppTitle } from '../../../../core/shared/app-title/app-title';
 
 @Component({
   selector: 'contact-section',
-  imports: [TerminalSection, TranslateModule],
+  imports: [TerminalSection, TranslateModule, AppTitle],
   templateUrl: './contact-section.html',
   styleUrl: './contact-section.scss',
 })

@@ -21,7 +21,7 @@
 
     "featured-projects-section": {
       "title": "Featured Projects",
-      "warning": "*Swipe to the right to see the projects*"
+      "warning": "*Swipe to the right to see more projects*"
     },
 
     "contact-section": {
@@ -35,11 +35,11 @@
     "about-section": {
       "title": "About me",
 
-      "p1": "My name is Gustavo Monnerat, I'm a software developer and a postgraduate student in Software Architecture.",
+      "p1": "My name is Gustavo Monnerat. I am a software developer, postgraduate in Software Architecture, and currently a student of Electrical Engineering.",
 
-      "p2": "I work as a full-stack freelancer, developing projects with technologies such as Golang, Express.js (Node), React, Angular, Docker and AWS.",
+      "p2": "I work as a full-stack freelancer, developing projects with technologies such as Golang, Express.js (Node), React, Angular, Docker, and AWS.",
 
-      "p3": "My career has been marked by a constant quest for learning and technical improvement, with the aim of creating efficient and scalable solutions, combining theory and practice.",
+      "p3": "My professional journey has been marked by a constant pursuit of learning and technical improvement, aiming to build efficient and scalable solutions.",
 
       "pronouns": "He/Him",
 
@@ -48,18 +48,23 @@
 
     "education-section": {
       "title": "Education",
-      "warning": "*scroll down to view all my education background*",
       "degrees": [
         {
-          "title": "Systems Analysis and Development",
-          "type": "Technology Degree",
-          "data": "MAY/22 - SEP/24"
+          "title": "Electrical engineering",
+          "type": "Bachelor's Degree",
+          "data": "JAN/26 - JAN/31"
         },
 
         {
           "title": "Software Architecture and Solutions",
           "type": "Postgraduate",
           "data": "FEB/25 - FEB/26"
+        },
+
+        {
+          "title": "Systems Analysis and Development",
+          "type": "Technology Degree",
+          "data": "MAY/22 - SEP/24"
         }
       ]
     },
@@ -67,10 +72,11 @@
     "interests-section": {
       "title": "Interests",
       "interests": [
-        "Linux",
+        "Mathematics",
+        "Electricity",
+        "Linux and operating systems",
         "Terminals and terminal tools",
-        "Fullstack development",
-        "Cyber security"
+        "Low-level systems and problem solving"
       ]
     },
 
@@ -80,6 +86,7 @@
     },
 
     "download-section": {
+      "title": "Curriculum",
       "warning": "*current language: {\"locale\": \"en\"}*",
       "warning2": "*Swipe right to see all download formats*"
     }
@@ -95,22 +102,22 @@
     "projects": {
       "maquetaria": {
         "title": "Architectural model website",
-        "description": "Website developed to highlight physical models. Clean layout, smooth navigation, and focus on showcasing the company's technical work."
+        "description": "Website developed to highlight physical models."
       },
 
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics. Built with Lua."
+        "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics."
       },
 
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "A lightning-fast CLI Pomodoro timer for developers, built in Go."
+        "description": "A lightning-fast CLI Pomodoro timer."
       },
 
       "voting-system": {
         "title": "Voting System",
-        "description": "Competence assessment - Signo Tech, Allows you to register, count, and view votes"
+        "description": "Competence assessment - Signo Tech, Allows you to register, count, and view votes."
       },
 
       "chmod-calculator": {

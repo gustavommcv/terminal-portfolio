@@ -4,10 +4,11 @@ import { TerminalSection } from '../../../../core/layout/terminal-section/termin
 import { ProjectCard } from '../../../../core/shared/project-card/project-card';
 import { ProjectsDataService } from '../../../../services/projects-data.service';
 import { Project } from '../../../../data/projects.data';
+import { AppTitle } from '../../../../core/shared/app-title/app-title';
 
 @Component({
   selector: 'featured-projects-section',
-  imports: [TranslateModule, TerminalSection, ProjectCard],
+  imports: [TranslateModule, TerminalSection, ProjectCard, AppTitle],
   templateUrl: './featured-projects-section.html',
   styleUrl: './featured-projects-section.scss',
 })

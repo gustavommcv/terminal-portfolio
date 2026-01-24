@@ -6,6 +6,8 @@
     customCommand="glow portfolio.md"
     [shortTerminalLine]="true"
   >
+    <app-title [title]="'projects-page.title' | translate" />
+
     <div class="projects-container">
       @for (project of projectsData; track project.id) {
         <project-card [project]="project"></project-card>

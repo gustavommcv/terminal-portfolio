@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { TranslateModule } from '@ngx-translate/core';
 import { LanguageService } from '../../../../services/language.service';
+import { AppTitle } from '../../../../core/shared/app-title/app-title';
 
 @Component({
   selector: 'download-section',
-  imports: [TerminalSection, TranslateModule],
+  imports: [TerminalSection, TranslateModule, AppTitle],
   templateUrl: './download-section.html',
   styleUrl: './download-section.scss',
 })

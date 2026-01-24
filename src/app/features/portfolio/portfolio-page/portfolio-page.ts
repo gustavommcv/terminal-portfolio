@@ -5,10 +5,11 @@ import { TerminalSection } from '../../../core/layout/terminal-section/terminal-
 import { ProjectCard } from '../../../core/shared/project-card/project-card';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { Meta, Title } from '@angular/platform-browser';
+import { AppTitle } from '../../../core/shared/app-title/app-title';
 
 @Component({
   selector: 'portfolio-page',
-  imports: [TranslateModule, TerminalSection, ProjectCard],
+  imports: [TranslateModule, TerminalSection, ProjectCard, AppTitle],
   templateUrl: './portfolio-page.html',
   styleUrl: './portfolio-page.scss',
 })
