@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
-import { CommonModule } from '@angular/common';
+
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './app-button.html',
   styleUrl: './app-button.scss',
 })

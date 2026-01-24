@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsDataService } from '../../../services/projects-data.service';
@@ -8,7 +8,7 @@ import { TerminalSection } from '../../../core/layout/terminal-section/terminal-
 @Component({
   selector: 'project-detail-page',
   standalone: true,
-  imports: [CommonModule, TranslateModule, TerminalSection],
+  imports: [TranslateModule, TerminalSection],
   templateUrl: './project-detail-page.html',
   styleUrl: './project-detail-page.scss',
 })
