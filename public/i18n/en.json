@@ -2,10 +2,9 @@
   "home-page": {
     "presentation-section": {
       "role": "Software Developer",
-      "about": "Full Stack Developer focused on creating modern and well-structured digital solutions, ensuring code quality, good practices and robust architecture. ",
+      "about": "Full Stack Developer specialized in building modern and scalable web applications. Focused on quality delivery and clean code.",
       "contact": "Contact"
     },
-
     "services-section": {
       "title": "Services",
       "subtitle": "My Services",
@@ -18,34 +17,25 @@
       ],
       "button": "Portfolio"
     },
-
     "featured-projects-section": {
       "title": "Featured Projects",
       "warning": "*Swipe to the right to see more projects*"
     },
-
     "contact-section": {
       "title": "Contact",
       "warning": "*Open to full-time opportunities*",
       "paragraph": "For quotes/questions, please get in touch:"
     }
   },
-
   "about-page": {
     "about-section": {
       "title": "About me",
-
-      "p1": "My name is Gustavo Monnerat. I am a software developer, postgraduate in Software Architecture, and currently a student of Electrical Engineering.",
-
-      "p2": "I work as a full-stack freelancer, developing projects with technologies such as Golang, Express.js (Node), React, Angular, Docker, and AWS.",
-
-      "p3": "My professional journey has been marked by a constant pursuit of learning and technical improvement, aiming to build efficient and scalable solutions.",
-
+      "p1": "I hold a degree in Systems Analysis and a Post-grad in Software Architecture. Currently, I am studying Electrical Engineering to deepen my foundation in exact sciences and computing.",
+      "p2": "I seek to validate my studies in practice. I have experience developing commercial systems from scratch, working through the full cycle from design to deploy.",
+      "p3": "I don't stick to a single stack; I believe in choosing the right tool for each challenge. Regardless of the language, my focus is always on code quality and structure.",
       "pronouns": "He/Him",
-
       "country": "Brazil"
     },
-
     "education-section": {
       "title": "Education",
       "degrees": [
@@ -54,13 +44,11 @@
           "type": "Bachelor's Degree",
           "data": "MAR/26 - MAR/31"
         },
-
         {
           "title": "Software Architecture and Solutions",
           "type": "Postgraduate",
           "data": "FEB/25 - FEB/26"
         },
-
         {
           "title": "Systems Analysis and Development",
           "type": "Technology Degree",
@@ -68,7 +56,6 @@
         }
       ]
     },
-
     "interests-section": {
       "title": "Interests",
       "interests": [
@@ -79,19 +66,19 @@
         "Low-level systems and problem solving"
       ]
     },
-
     "languages-section": {
       "title": "Languages",
-      "languages": ["Portuguese - Native", "English - Advanced (C1)"]
+      "languages": [
+        "Portuguese - Native",
+        "English - Advanced (C1)"
+      ]
     },
-
     "download-section": {
       "title": "Curriculum",
       "warning": "*current language: {\"locale\": \"en\"}*",
       "warning2": "*Swipe right to see all download formats*"
     }
   },
-
   "projects-page": {
     "title": "Portfolio",
     "subtitle": "My Projects",
@@ -104,57 +91,46 @@
         "title": "Architectural model website",
         "description": "Website developed to highlight physical models."
       },
-
       "minimal-neovim": {
         "title": "Minimal Neovim",
         "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics."
       },
-
       "gomodoro": {
         "title": "Gomodoro",
         "description": "A lightning-fast CLI Pomodoro timer."
       },
-
       "voting-system": {
         "title": "Voting System",
         "description": "Competence assessment - Signo Tech, Allows you to register, count, and view votes."
       },
-
       "chmod-calculator": {
         "title": "Chmod Calculator",
         "description": "Simple chmod website calculator, written with only js, html & css."
       },
-
       "xp-bootcamp": {
         "title": "Bootcamp challenge - XP",
         "description": "Challenge of the postgraduate bootcamp in software architecture and solutions (Api restful)."
       },
-
       "itau-challenge": {
         "title": "Itaú Unibanco - Challenge",
         "description": "REST API that receives Transactions and returns Statistics on those transactions."
       },
-
       "books-app": {
         "title": "BooksApp",
         "description": "A book management application that allows users to browse a catalog & leave ratings."
       },
-
       "airlock-rest": {
         "title": "Airlock REST",
         "description": "A clone of an API for a fictitious website, refactored to follow Clean Architecture principles."
       },
-
       "portfolio": {
         "title": "Portfolio",
         "description": "My first personal portfolio built with Solid.js to showcase my projects and skills as I began my development journey."
       },
-
       "tic-tac-toe": {
         "title": "Tic-Tac-Toe",
         "description": "A simple tic-tac-toe game implemented using the minimax algorithm in C#."
       },
-
       "todo-list": {
         "title": "Todo List",
         "description": "A simple task management project with a Node.js back-end and a React front-end."

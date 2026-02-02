@@ -2,10 +2,9 @@
   "home-page": {
     "presentation-section": {
       "role": "Desenvolvedor de Software",
-      "about": "Desenvolvedor Full Stack com foco em criar soluções digitais modernas e bem estruturadas, garantindo qualidade de código, boas práticas e arquitetura robusta.",
+      "about": "Desenvolvedor Full Stack especializado em criar aplicações web modernas e escaláveis. Foco em entregas de qualidade e código limpo.",
       "contact": "Contato"
     },
-
     "services-section": {
       "title": "Serviços",
       "subtitle": "Meus Serviços",
@@ -18,34 +17,25 @@
       ],
       "button": "Portfólio"
     },
-
     "featured-projects-section": {
       "title": "Projetos em Destaque",
       "warning": "*Deslize para ver mais projetos*"
     },
-
     "contact-section": {
       "title": "Contato",
       "warning": "*Disponível para oportunidades fixas*",
       "paragraph": "Para orçamentos/dúvidas entre em contato:"
     }
   },
-
   "about-page": {
     "about-section": {
       "title": "Sobre mim",
-
-      "p1": "Meu nome é Gustavo Monnerat. Sou desenvolvedor de software, pós-graduado em Arquitetura de Software e atualmente estudante de Engenharia Elétrica.",
-
-      "p2": "Atuo como freelancer full-stack, desenvolvendo projetos com tecnologias como Golang, Express.js (Node), React, Angular, Docker e AWS.",
-
-      "p3": "Minha trajetória profissional é marcada pela busca constante por aprendizado e aprimoramento técnico, com foco na criação de soluções eficientes e escaláveis.",
-
+      "p1": "Sou formado em Análise de Sistemas e pós-graduado em Arquitetura de Software. Atualmente, curso Engenharia Elétrica para aprofundar minha base em ciências exatas e computação.",
+      "p2": "Busco validar meus estudos na prática. Tive a experiência de desenvolver sistemas comerciais do zero, atuando em todo o ciclo, do design ao deploy.",
+      "p3": "Não me prendo a uma única stack; acredito em escolher a ferramenta certa para cada desafio. Independentemente da linguagem, meu foco é sempre a qualidade e a estrutura do código.",
       "pronouns": "Ele/Dele",
-
       "country": "Brasil"
     },
-
     "education-section": {
       "title": "Escolaridade",
       "degrees": [
@@ -54,13 +44,11 @@
           "type": "Graduação Bacharel",
           "data": "MAR/26 - MAR/31"
         },
-
         {
           "title": "Arquitetura de Software e Soluções",
           "type": "Pós-graduação",
           "data": "FEV/25 - FEV/26"
         },
-
         {
           "title": "Análise e Desenvolvimento de Sistemas",
           "type": "Graduação Tecnólogo",
@@ -68,7 +56,6 @@
         }
       ]
     },
-
     "interests-section": {
       "title": "Interesses",
       "interests": [
@@ -79,19 +66,19 @@
         "Terminais e ferramentas de linha de comando"
       ]
     },
-
     "languages-section": {
       "title": "Idiomas",
-      "languages": ["Português - Nativo", "Inglês - Avançado (C1)"]
+      "languages": [
+        "Português - Nativo",
+        "Inglês - Avançado (C1)"
+      ]
     },
-
     "download-section": {
       "title": "Currículo",
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
       "warning2": "*Deslize para a direita para ver todos os formatos de download*"
     }
   },
-
   "projects-page": {
     "title": "Portfólio",
     "subtitle": "Meus Projetos",
@@ -104,57 +91,46 @@
         "title": "Site de maquetaria",
         "description": "Site desenvolvido para destacar maquetes físicas."
       },
-
       "minimal-neovim": {
         "title": "Minimal Neovim",
         "description": "Uma configuração moderna e modular do Neovim otimizada para produtividade e estética."
       },
-
       "gomodoro": {
         "title": "Gomodoro",
         "description": "Um cronômetro CLI Pomodoro extremamente rápido."
       },
-
       "voting-system": {
         "title": "Sistema de Votação",
         "description": "Avaliação de competência - Signo Tech, Permite registrar, computar e visualizar votos."
       },
-
       "chmod-calculator": {
         "title": "Chmod Calculator",
         "description": "Website de uma calculadora chmod simples, escrita usando apenas js, html & css."
       },
-
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
         "description": "Desafio do bootcamp da pós-graduação em arquitetura e soluções de software (Api restful)."
       },
-
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
         "description": "API REST que recebe Transações e retorna Estatísticas sob essas transações."
       },
-
       "books-app": {
         "title": "BooksApp",
         "description": "Um aplicativo de gerenciamento de livros que permite aos usuários navegar por um catálogo & deixar avaliações."
       },
-
       "airlock-rest": {
         "title": "Airlock REST",
         "description": "Um clone de uma API para um site fictício, refatorado para seguir os princípios da Clean Architecture."
       },
-
       "portfolio": {
         "title": "Portfólio",
         "description": "Meu primeiro portfólio pessoal, construído com Solid.js para exibir meus projetos e habilidades no início da minha jornada como desenvolvedor."
       },
-
       "tic-tac-toe": {
         "title": "Jogo da Velha",
         "description": "Um simples jogo da velha implementado usando o algoritmo minimax em C#."
       },
-
       "todo-list": {
         "title": "Lista de Tarefas",
         "description": "Um projeto simples de gerenciamento de tarefas com back-end em Node.js e front-end em React."
