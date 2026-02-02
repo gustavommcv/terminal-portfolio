@@ -87,53 +87,57 @@
       "featured": "Featured"
     },
     "projects": {
+      "terminal-portfolio": {
+        "title": "Terminal Portfolio",
+        "description": "Interactive terminal portfolio."
+      },
       "maquetaria": {
-        "title": "Architectural model website",
-        "description": "Website developed to highlight physical models."
+        "title": "Veronese Maquetes",
+        "description": "Custom commercial solution: Virtual showcase and management."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics."
+        "description": "Modern and productive Neovim configuration."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "A lightning-fast CLI Pomodoro timer."
+        "description": "Fast CLI Pomodoro timer."
       },
       "voting-system": {
         "title": "Voting System",
-        "description": "Competence assessment - Signo Tech, Allows you to register, count, and view votes."
+        "description": "Real-time voting system. Technical challenge."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Simple chmod website calculator, written with only js, html & css."
+        "description": "Simple web chmod calculator."
       },
       "xp-bootcamp": {
         "title": "Bootcamp challenge - XP",
-        "description": "Challenge of the postgraduate bootcamp in software architecture and solutions (Api restful)."
+        "description": "RESTful API. XP Education Bootcamp challenge."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Challenge",
-        "description": "REST API that receives Transactions and returns Statistics on those transactions."
+        "description": "REST API for transactions and real-time statistics."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "A book management application that allows users to browse a catalog & leave ratings."
+        "description": "Book catalog and ratings app."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "A clone of an API for a fictitious website, refactored to follow Clean Architecture principles."
+        "description": "Clean Architecture API refactored."
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "My first personal portfolio built with Solid.js to showcase my projects and skills as I began my development journey."
+        "description": "First portfolio."
       },
       "tic-tac-toe": {
         "title": "Tic-Tac-Toe",
-        "description": "A simple tic-tac-toe game implemented using the minimax algorithm in C#."
+        "description": "Tic-Tac-Toe with Minimax."
       },
       "todo-list": {
         "title": "Todo List",
-        "description": "A simple task management project with a Node.js back-end and a React front-end."
+        "description": "Simple task manager."
       }
     }
   }

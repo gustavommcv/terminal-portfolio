@@ -87,53 +87,57 @@
       "featured": "Destaques"
     },
     "projects": {
+      "terminal-portfolio": {
+        "title": "Terminal Portfolio",
+        "description": "Portfólio interativo tipo terminal."
+      },
       "maquetaria": {
-        "title": "Site de maquetaria",
-        "description": "Site desenvolvido para destacar maquetes físicas."
+        "title": "Veronese Maquetes",
+        "description": "Solução comercial sob medida: Vitrine virtual e gestão."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "Uma configuração moderna e modular do Neovim otimizada para produtividade e estética."
+        "description": "Configuração Neovim moderna e produtiva."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "Um cronômetro CLI Pomodoro extremamente rápido."
+        "description": "Cronômetro Pomodoro CLI rápido."
       },
       "voting-system": {
         "title": "Sistema de Votação",
-        "description": "Avaliação de competência - Signo Tech, Permite registrar, computar e visualizar votos."
+        "description": "Sistema de votação em tempo real. Desafio técnico."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Website de uma calculadora chmod simples, escrita usando apenas js, html & css."
+        "description": "Calculadora chmod web simples."
       },
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
-        "description": "Desafio do bootcamp da pós-graduação em arquitetura e soluções de software (Api restful)."
+        "description": "API RESTful. Desafio Bootcamp XP Educação."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
-        "description": "API REST que recebe Transações e retorna Estatísticas sob essas transações."
+        "description": "API REST de transações e estatísticas em tempo real."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "Um aplicativo de gerenciamento de livros que permite aos usuários navegar por um catálogo & deixar avaliações."
+        "description": "Catálogo e avaliações de livros."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "Um clone de uma API para um site fictício, refatorado para seguir os princípios da Clean Architecture."
+        "description": "API Clean Architecture refatorada."
       },
       "portfolio": {
         "title": "Portfólio",
-        "description": "Meu primeiro portfólio pessoal, construído com Solid.js para exibir meus projetos e habilidades no início da minha jornada como desenvolvedor."
+        "description": "Primeiro portfólio."
       },
       "tic-tac-toe": {
         "title": "Jogo da Velha",
-        "description": "Um simples jogo da velha implementado usando o algoritmo minimax em C#."
+        "description": "Jogo da Velha com Minimax."
       },
       "todo-list": {
         "title": "Lista de Tarefas",
-        "description": "Um projeto simples de gerenciamento de tarefas com back-end em Node.js e front-end em React."
+        "description": "Gerenciador de tarefas simples."
       }
     }
   }

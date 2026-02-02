@@ -47,16 +47,6 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'voting-system',
-    image: 'images/projects/signotech/images/signo-tech-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
-    },
-    tags: ['Angular', 'Node.js', 'Fullstack'],
-    command: 'glow voting.md',
-  },
-
-  {
     id: 'chmod-calculator',
     image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
     links: {
@@ -66,6 +56,27 @@ export const projectsData: Project[] = [
     tags: ['JavaScript', 'HTML/CSS'],
     featured: true,
     command: 'glow chmod.md',
+  },
+
+  {
+    id: 'terminal-portfolio',
+    image: 'images/projects/terminalportfolio/terminal-portfolio.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/terminal-portfolio',
+    },
+    tags: ['Angular', 'TypeScript', 'Terminal'],
+    command: 'glow terminal-portfolio.md',
+    featured: true,
+  },
+
+  {
+    id: 'voting-system',
+    image: 'images/projects/signotech/images/signo-tech-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
+    },
+    tags: ['Angular', 'Node.js', 'Fullstack'],
+    command: 'glow voting.md',
   },
 
   {
