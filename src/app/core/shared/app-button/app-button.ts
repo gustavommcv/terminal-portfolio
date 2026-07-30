@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   standalone: true,
   imports: [],
   templateUrl: './app-button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app-button.scss',
 })
 export class AppButton {

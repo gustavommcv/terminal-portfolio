@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-error-page',
   imports: [TerminalSection],
   templateUrl: './error-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './error-page.scss',
 })
 export class ErrorPage {

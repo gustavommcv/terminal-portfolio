@@ -1,15 +1,16 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectsDataService } from '../../../services/projects-data.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 
 @Component({
   selector: 'project-detail-page',
   standalone: true,
-  imports: [TranslateModule, TerminalSection],
+  imports: [TranslatePipe, TerminalSection],
   templateUrl: './project-detail-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './project-detail-page.scss',
 })
 export class ProjectDetailPage {

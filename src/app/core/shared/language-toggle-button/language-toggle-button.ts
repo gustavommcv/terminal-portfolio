@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { LanguageService } from '../../../services/language.service';
 import { CommonModule } from '@angular/common';
 
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   selector: 'language-toggle-button',
   imports: [CommonModule],
   templateUrl: './language-toggle-button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './language-toggle-button.scss',
 })
 export class LanguageToggleButton {

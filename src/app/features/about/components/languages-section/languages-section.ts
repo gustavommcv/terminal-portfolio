@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'languages-section',
-  imports: [TerminalSection, AppTitle, TranslateModule],
+  imports: [TerminalSection, AppTitle, TranslatePipe],
   templateUrl: './languages-section.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './languages-section.scss',
 })
 export class LanguagesSection {}

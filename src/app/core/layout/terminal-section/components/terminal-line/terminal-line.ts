@@ -1,9 +1,10 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-terminal-line',
   imports: [],
   templateUrl: './terminal-line.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './terminal-line.scss',
 })
 export class TerminalLine {

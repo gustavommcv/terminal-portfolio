@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Project } from '../../../data/projects.data';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectCard } from '../../../core/shared/project-card/project-card';
@@ -9,8 +9,9 @@ import { AppTitle } from '../../../core/shared/app-title/app-title';
 
 @Component({
   selector: 'portfolio-page',
-  imports: [TranslateModule, TerminalSection, ProjectCard, AppTitle],
+  imports: [TranslatePipe, TerminalSection, ProjectCard, AppTitle],
   templateUrl: './portfolio-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './portfolio-page.scss',
 })
 export class PortfolioPage {

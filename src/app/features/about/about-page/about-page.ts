@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AboutSection } from '../components/about-section/about-section';
 import { EducationSection } from '../components/education-section/education-section';
 import { InterestsSection } from '../components/interests-section/interests-section';
@@ -16,6 +16,7 @@ import { Meta, Title } from '@angular/platform-browser';
     DownloadSection,
   ],
   templateUrl: './about-page.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './about-page.scss',
 })
 export class AboutPage {

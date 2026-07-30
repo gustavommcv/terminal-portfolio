@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, Header],
   templateUrl: './app.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
@@ -19,7 +20,6 @@ export class App implements OnInit {
     private router: Router,
   ) {
     translate.addLangs(['en', 'pt']);
-    translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class App implements OnInit {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        const currentLang = this.translate.currentLang;
+        const currentLang = this.translate.currentLang() ?? 'en';
         const currentParams = this.route.snapshot.queryParams;
 
         if (!currentParams['locale'] && currentLang !== 'en') {

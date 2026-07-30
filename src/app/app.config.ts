@@ -14,13 +14,11 @@ import { routes } from './app.routes';
 import {
   provideClientHydration,
   withEventReplay,
+  withNoIncrementalHydration,
 } from '@angular/platform-browser';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-const httpLoaderFactory = (http: HttpClient) =>
-  new TranslateHttpLoader(http, './i18n/', '.json');
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,17 +32,18 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),
 
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
 
     provideHttpClient(withFetch()),
 
     provideTranslateService({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
-        deps: [HttpClient],
-      },
-      defaultLanguage: 'en',
+      loader: provideTranslateHttpLoader({
+        prefix: './i18n/',
+        suffix: '.json',
+        failOnError: true,
+      }),
+      fallbackLang: 'en',
+      lang: 'en',
     }),
   ],
 };
