@@ -1,18 +1,13 @@
 @use "abstracts/variables" as *;
 
 .home-intro {
-  min-block-size: calc(100svh - 8rem);
-  padding: 2rem 8rem;
+  margin-bottom: $spacing-xbig;
 
-  @supports (height: 100dvh) {
-    min-block-size: calc(100dvh - 8rem);
-  }
+  &--active {
+    min-block-size: calc(100svh - 12rem);
 
-  @media screen and (max-width: 750px) {
-    padding: $spacing-medium $spacing-small;
-  }
-
-  @media screen and (max-width: 600px) {
-    padding-inline: $spacing-xsmall;
+    @supports (height: 100dvh) {
+      min-block-size: calc(100dvh - 12rem);
+    }
   }
 }

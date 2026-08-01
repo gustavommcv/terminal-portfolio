@@ -93,11 +93,14 @@ typing ── final character + final pause ► revealing ── animationend �
 typing/revealing ── route destruction ────────────────────────────────► completed
 ```
 
-`HomePage` owns the structural rendering boundary. While the service is `idle`
-or `typing`, its `@if` branch instantiates only `HomeIntro`. The presentation,
-services, stack, projects, contact, and footer components are created only in
-the `revealing` or `completed` branch. Consequently, their hooks, image loads,
-observers, and other side effects cannot run during typing.
+`HomePage` owns the structural rendering boundary. `HomeIntro` and its terminal
+shell remain mounted across the transition. While the service is `idle` or
+`typing`, every secondary `@if` block is absent. Presentation content, services,
+stack, projects, contact, and footer are created only in `revealing` or
+`completed`, and the reveal animation applies only to those inserted nodes.
+Consequently, secondary hooks, image loads, observers, and other side effects
+cannot run during typing, while the terminal DOM and cursor animation keep the
+same identity.
 
 `HomeIntro` owns one recursively scheduled timeout. Each callback appends one
 Unicode code point and schedules at most one successor. It clears the pending

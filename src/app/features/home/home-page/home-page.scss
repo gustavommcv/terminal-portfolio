@@ -14,7 +14,7 @@
   }
 }
 
-.home-content--revealing {
+.home-secondary--revealing {
   animation: home-content-reveal var(--home-reveal-duration) ease-out both;
 }
 
@@ -31,7 +31,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-content--revealing {
+  .home-secondary--revealing {
     animation: none;
   }
 }

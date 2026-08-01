@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { vi } from 'vitest';
 
+import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
 import { HomeIntroService } from '../services/home-intro.service';
@@ -108,19 +110,59 @@ describe('HomePage intro lifecycle', () => {
       'getFeaturedProjects',
     );
     const fixture = createHome();
+    const terminalElementBefore: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-section');
+    const terminalInstanceBefore = fixture.debugElement.query(
+      By.directive(TerminalSection),
+    ).componentInstance;
 
     vi.advanceTimersByTime(35);
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
+      terminalElementBefore,
+    );
 
     vi.advanceTimersByTime(7);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).toBeNull();
+    const terminalElementAfter: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-section');
+    const terminalInstanceAfter = fixture.debugElement.query(
+      By.directive(TerminalSection),
+    ).componentInstance;
+
+    expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('presentation-section')).not.toBeNull();
+    expect(terminalElementAfter).toBe(terminalElementBefore);
+    expect(terminalInstanceAfter).toBe(terminalInstanceBefore);
     expect(projectsConstructorEffect).toHaveBeenCalledTimes(1);
     expect(TestBed.inject(HomeIntroService).state()).toBe('revealing');
+  });
+
+  it('keeps the terminal outside the reveal animation applied to new content', () => {
+    const fixture = createHome();
+    const terminalElement: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-section');
+
+    completeTyping(fixture);
+
+    const presentation: HTMLElement = fixture.nativeElement.querySelector(
+      '.home-presentation',
+    );
+    const content: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-testid="home-content"]',
+    );
+    const footer: HTMLElement = fixture.nativeElement.querySelector('app-footer');
+
+    expect(terminalElement.closest('.home-secondary--revealing')).toBeNull();
+    expect(terminalElement.classList.contains('home-secondary--revealing')).toBe(
+      false,
+    );
+    expect(presentation.classList.contains('home-secondary--revealing')).toBe(true);
+    expect(content.classList.contains('home-secondary--revealing')).toBe(true);
+    expect(footer.classList.contains('home-secondary--revealing')).toBe(true);
   });
 
   it('finishes the initial reveal once and cannot replay it', () => {
@@ -130,14 +172,14 @@ describe('HomePage intro lifecycle', () => {
     const content: HTMLElement = fixture.nativeElement.querySelector(
       '[data-testid="home-content"]',
     );
-    expect(content.classList.contains('home-content--revealing')).toBe(true);
+    expect(content.classList.contains('home-secondary--revealing')).toBe(true);
 
     finishReveal(fixture);
     content.dispatchEvent(new Event('animationend'));
     fixture.detectChanges();
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
-    expect(content.classList.contains('home-content--revealing')).toBe(false);
+    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
   });
 
   it('consumes an interrupted typing run and returns immediately in the final state', () => {
@@ -153,9 +195,12 @@ describe('HomePage intro lifecycle', () => {
       '[data-testid="home-content"]',
     );
 
-    expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).toBeNull();
+    expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(content.classList.contains('home-content--revealing')).toBe(false);
+    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
+    expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
+      'whoami',
+    );
   });
 
   it('returns after normal completion without replaying typing or secondary reveal', () => {
@@ -169,8 +214,11 @@ describe('HomePage intro lifecycle', () => {
       '[data-testid="home-content"]',
     );
 
-    expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).toBeNull();
-    expect(content.classList.contains('home-content--revealing')).toBe(false);
+    expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
+    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
+    expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
+      'whoami',
+    );
     expect(vi.getTimerCount()).toBe(0);
   });
 
@@ -182,9 +230,9 @@ describe('HomePage intro lifecycle', () => {
     const content: HTMLElement = fixture.nativeElement.querySelector(
       '[data-testid="home-content"]',
     );
-    expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).toBeNull();
+    expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(content.classList.contains('home-content--revealing')).toBe(false);
+    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(vi.getTimerCount()).toBe(0);
   });

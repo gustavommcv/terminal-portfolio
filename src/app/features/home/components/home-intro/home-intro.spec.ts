@@ -78,7 +78,10 @@ describe('HomeIntro', () => {
     vi.advanceTimersByTime(10);
     expect(displayedCommand(fixture)).toBe('a');
 
-    vi.advanceTimersByTime(5);
+    vi.advanceTimersByTime(4);
+    expect(displayedCommand(fixture)).toBe('a');
+
+    vi.advanceTimersByTime(1);
     expect(displayedCommand(fixture)).toBe('ab');
 
     vi.advanceTimersByTime(5);

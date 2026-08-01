@@ -2,6 +2,7 @@ import {
   afterNextRender,
   ChangeDetectionStrategy,
   Component,
+  computed,
   DestroyRef,
   inject,
   input,
@@ -27,6 +28,18 @@ export class HomeIntro {
   readonly config = inject(HOME_INTRO_CONFIG);
 
   private readonly lifecycle = inject(HomeIntroService);
+  readonly introVisible = this.lifecycle.introVisible;
+  readonly commandToRender = computed(() => {
+    if (
+      this.lifecycle.state() === 'completed' &&
+      this.displayedCommand() === ''
+    ) {
+      return this.command();
+    }
+
+    return this.displayedCommand();
+  });
+
   private readonly destroyRef = inject(DestroyRef);
   private timeoutId: ReturnType<typeof setTimeout> | undefined;
   private motionQuery: MediaQueryList | undefined;

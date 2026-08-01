@@ -14,6 +14,7 @@ describe('PresentationSection', () => {
   it('renders its complete, final presentation state when instantiated', () => {
     expect(fixture.componentInstance).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.presentation-section')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('.home-reveal--pending')).toBeNull();
   });
 });

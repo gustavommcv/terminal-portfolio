@@ -1,18 +1,26 @@
-@if (intro.introVisible()) {
+<div class="home-page">
   <home-intro
     [command]="'home-page.presentation-section.command' | translate"
-  />
-} @else {
-  <div
-    class="home-content"
-    data-testid="home-content"
-    [class.home-content--revealing]="intro.shouldReveal()"
-    [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
-    (animationend)="onRevealAnimationEnd($event)"
   >
-    <div class="home-page">
-      <presentation-section />
+    @if (intro.contentVisible()) {
+      <div
+        class="home-presentation"
+        [class.home-secondary--revealing]="intro.shouldReveal()"
+        [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
+      >
+        <presentation-section />
+      </div>
+    }
+  </home-intro>
 
+  @if (intro.contentVisible()) {
+    <div
+      class="home-content"
+      data-testid="home-content"
+      [class.home-secondary--revealing]="intro.shouldReveal()"
+      [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
+      (animationend)="onRevealAnimationEnd($event)"
+    >
       <services-section />
 
       <tech-stack-section />
@@ -21,7 +29,13 @@
 
       <contact-section />
     </div>
+  }
+</div>
 
-    <app-footer />
-  </div>
+@if (intro.contentVisible()) {
+  <app-footer
+    class="home-footer"
+    [class.home-secondary--revealing]="intro.shouldReveal()"
+    [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
+  />
 }

@@ -19,7 +19,7 @@ export const HOME_INTRO_CONFIG = new InjectionToken<HomeIntroConfig>(
     providedIn: 'root',
     factory: () => ({
       initialDelayMs: 250,
-      typingIntervalMs: 70,
+      typingIntervalMs: 120,
       completionDelayMs: 300,
       cursorBlinkIntervalMs: 500,
       revealContent: true,

@@ -1,10 +1,16 @@
-<div class="home-intro" data-testid="home-intro">
+<div
+  class="home-intro"
+  data-testid="home-intro"
+  [class.home-intro--active]="introVisible()"
+>
   <app-terminal-section
     [customTitle]="title()"
     [isFirstTitle]="true"
-    [customCommand]="displayedCommand()"
+    [customCommand]="commandToRender()"
     [accessibleCommand]="command()"
     [showCursor]="true"
     [cursorBlinkIntervalMs]="config.cursorBlinkIntervalMs"
-  />
+  >
+    <ng-content />
+  </app-terminal-section>
 </div>
