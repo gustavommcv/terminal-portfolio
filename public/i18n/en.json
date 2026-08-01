@@ -1,6 +1,7 @@
 {
   "home-page": {
     "presentation-section": {
+      "command": "whoami",
       "role": "Software Developer",
       "about": "Full Stack Developer specialized in building modern and scalable web applications. Focused on quality delivery and clean code.",
       "contact": "Contact"

@@ -1,9 +1,5 @@
 @use "abstracts/variables" as *;
 
-.fade {
-  animation: $animation-fade;
-}
-
 .services-section {
   font-size: $font-size-default;
   margin-bottom: $spacing-xbig;

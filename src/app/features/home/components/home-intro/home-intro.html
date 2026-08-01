@@ -1,0 +1,10 @@
+<div class="home-intro" data-testid="home-intro">
+  <app-terminal-section
+    [customTitle]="title()"
+    [isFirstTitle]="true"
+    [customCommand]="displayedCommand()"
+    [accessibleCommand]="command()"
+    [showCursor]="true"
+    [cursorBlinkIntervalMs]="config.cursorBlinkIntervalMs"
+  />
+</div>

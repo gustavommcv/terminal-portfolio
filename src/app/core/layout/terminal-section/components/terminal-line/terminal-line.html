@@ -1,20 +1,27 @@
 <div
   class="terminal-line"
-  [class.typing-animation]="playIntroAnimation()"
-  (animationend)="onIntroAnimationEnd()"
+  aria-live="off"
+  [attr.aria-label]="accessibleLabel()"
+  [style.--terminal-cursor-blink-interval]="cursorBlinkIntervalMs() + 'ms'"
 >
-  @if (!short()) {
-    <span class="user-host">[{{ username }}{{ hostname }}</span>
-  }
-
-  <div class="path-container">
-    <span class="path">{{ path }} </span>
+  <span class="prompt-container" [attr.aria-hidden]="accessibleLabel() ? 'true' : null">
     @if (!short()) {
-      ]
+      <span class="user-host">[{{ username }}{{ hostname }} </span>
     }
-
+    <span class="path">{{ path }}</span>
+    @if (!short()) {
+      <span>]</span>
+    }
     <span class="prompt">{{ prompt }} </span>
-  </div>
+  </span>
 
-  <span class="command" [class.command--error]="error()">{{ command() }}</span>
+  <span
+    class="command-container"
+    [attr.aria-hidden]="accessibleLabel() ? 'true' : null"
+  >
+    <span class="command" [class.command--error]="error()">{{ command() }}</span>
+    @if (showCursor()) {
+      <span class="terminal-cursor" aria-hidden="true"></span>
+    }
+  </span>
 </div>

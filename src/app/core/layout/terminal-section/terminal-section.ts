@@ -14,5 +14,8 @@ export class TerminalSection {
 
   shortTerminalLine = input(false);
   customCommand = input('whoami');
+  accessibleCommand = input<string | undefined>(undefined);
+  showCursor = input(false);
+  cursorBlinkIntervalMs = input(500);
   errorCommand = input(false);
 }

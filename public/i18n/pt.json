@@ -1,6 +1,7 @@
 {
   "home-page": {
     "presentation-section": {
+      "command": "whoami",
       "role": "Desenvolvedor de Software",
       "about": "Desenvolvedor Full Stack especializado em criar aplicações web modernas e escaláveis. Foco em entregas de qualidade e código limpo.",
       "contact": "Contato"

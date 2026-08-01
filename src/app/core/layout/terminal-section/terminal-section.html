@@ -9,6 +9,9 @@
     <app-terminal-line
       [short]="shortTerminalLine()"
       [command]="customCommand()"
+      [accessibleCommand]="accessibleCommand()"
+      [showCursor]="showCursor()"
+      [cursorBlinkIntervalMs]="cursorBlinkIntervalMs()"
       [error]="errorCommand()"
     />
     <ng-content></ng-content>

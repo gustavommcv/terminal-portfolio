@@ -1,9 +1,5 @@
 @use "abstracts/variables" as *;
 
-.fade {
-  animation: $animation-fade;
-}
-
 .presentation-section {
   margin-bottom: $spacing-xbig;
 }

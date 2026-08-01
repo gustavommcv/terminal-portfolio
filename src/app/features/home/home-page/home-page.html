@@ -1,16 +1,27 @@
-<!-- TODO -->
-<!-- Fade animation only at the first time the user logs into page -->
-<!-- Replay the animation after reload -->
-<div class="home-page">
-  <presentation-section />
+@if (intro.introVisible()) {
+  <home-intro
+    [command]="'home-page.presentation-section.command' | translate"
+  />
+} @else {
+  <div
+    class="home-content"
+    data-testid="home-content"
+    [class.home-content--revealing]="intro.shouldReveal()"
+    [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
+    (animationend)="onRevealAnimationEnd($event)"
+  >
+    <div class="home-page">
+      <presentation-section />
 
-  <services-section />
+      <services-section />
 
-  <tech-stack-section />
+      <tech-stack-section />
 
-  <featured-projects-section />
+      <featured-projects-section />
 
-  <contact-section />
-</div>
+      <contact-section />
+    </div>
 
-<app-footer />
+    <app-footer />
+  </div>
+}

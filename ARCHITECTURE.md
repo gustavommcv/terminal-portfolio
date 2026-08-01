@@ -36,6 +36,7 @@ flowchart TD
     Home --> Featured["FeaturedProjectsSection"]
     Home --> Contact["ContactSection"]
     Home --> Footer["Footer"]
+    Home --> Intro["HomeIntro<br/>first eligible visit only"]
 
     About --> AboutSection["AboutSection"]
     About --> Education["EducationSection"]
@@ -80,6 +81,40 @@ flowchart TD
 | `portfolio` | Full project catalog listing. | `PortfolioPage`, `ProjectCard`. |
 | `projectDetail` | Resolves `:id` and displays a single project. | `ProjectDetailPage`. |
 | `error` | Shows a visual response for unknown routes. | `ErrorPage`. |
+
+### Home intro lifecycle
+
+`HomeIntroService` is a root-provided, in-memory state machine with four states:
+
+```text
+idle ── browser post-hydration start ──► typing
+  └── reduced motion ──────────────────► completed
+typing ── final character + final pause ► revealing ── animationend ──► completed
+typing/revealing ── route destruction ────────────────────────────────► completed
+```
+
+`HomePage` owns the structural rendering boundary. While the service is `idle`
+or `typing`, its `@if` branch instantiates only `HomeIntro`. The presentation,
+services, stack, projects, contact, and footer components are created only in
+the `revealing` or `completed` branch. Consequently, their hooks, image loads,
+observers, and other side effects cannot run during typing.
+
+`HomeIntro` owns one recursively scheduled timeout. Each callback appends one
+Unicode code point and schedules at most one successor. It clears the pending
+timeout on destruction and reports completion only after the last character is
+present. The reusable terminal components contain no lifecycle or timing state.
+
+The sequence is configured in
+`src/app/features/home/home-intro.config.ts`. `HOME_INTRO_CONFIG` controls the
+initial delay, per-character interval, final pause, cursor blink, and optional
+content reveal/duration. Translated command text remains in `public/i18n`.
+
+Browser-only startup and `matchMedia` access run inside `afterNextRender`, which
+Angular skips during server rendering and runs after hydration. The server and
+initial browser render therefore agree on the intro-only tree. A non-home
+initial route never constructs `HomeIntro` and does not consume the sequence.
+Reduced-motion users transition to the complete tree at that post-hydration
+boundary without typing or reveal animation.
 
 ### Core and shared
 

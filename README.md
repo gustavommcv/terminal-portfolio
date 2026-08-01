@@ -104,6 +104,13 @@ Project data lives in a local, typed catalog and is exposed through `ProjectsDat
 
 The `/`, `/about`, and `/portfolio` routes are prerendered at build time. The dynamic `/portfolio/:id` route and the fallback route use client-side rendering. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full diagram and detailed flows.
 
+The home page's first-visit terminal sequence uses application-scoped in-memory
+state and a structural rendering boundary: secondary home components do not
+exist in the DOM until the command finishes. Timing and reveal options are
+centralized in `src/app/features/home/home-intro.config.ts`; command text stays
+in the translation catalogs. The state resets on a real reload and is never
+persisted in browser storage.
+
 ## Internationalization
 
 The site supports English and Brazilian Portuguese through ngx-translate. The active locale is tracked via the `locale` query string (`en` is the default and fallback; `pt`/`pt_BR` selects Portuguese), so direct navigation, page refreshes, and shared links preserve the expected language. Translation catalogs live in `public/i18n/en.json` and `public/i18n/pt.json` and must be kept structurally in sync — the English catalog holds English text, the Portuguese catalog holds Portuguese text, and both are equally part of the product, not a translation of internal documentation.

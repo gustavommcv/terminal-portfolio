@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  input,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { HomeIntroAnimationService } from '../../../../../services/home-intro-animation.service';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-terminal-line',
@@ -16,9 +7,12 @@ import { HomeIntroAnimationService } from '../../../../../services/home-intro-an
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './terminal-line.scss',
 })
-export class TerminalLine implements OnInit, OnDestroy {
+export class TerminalLine {
   short = input(false);
   command = input('whoami');
+  accessibleCommand = input<string | undefined>(undefined);
+  showCursor = input(false);
+  cursorBlinkIntervalMs = input(500);
   error = input(false);
 
   username = 'guga@';
@@ -26,31 +20,14 @@ export class TerminalLine implements OnInit, OnDestroy {
   path = '~';
   prompt = '$';
 
-  private readonly introAnimation = inject(HomeIntroAnimationService);
-
-  /** Whether the typing/cursor CSS animation should run for this instance. */
-  readonly playIntroAnimation = signal(false);
-
-  ngOnInit(): void {
-    if (!this.short()) {
-      this.playIntroAnimation.set(this.introAnimation.requestPlay());
+  readonly accessibleLabel = computed(() => {
+    const command = this.accessibleCommand();
+    if (command === undefined) {
+      return null;
     }
-  }
 
-  onIntroAnimationEnd(): void {
-    this.introAnimation.complete();
-  }
-
-  /**
-   * If this instance claimed the animation but is destroyed before it
-   * finishes (the user navigated away mid-typing), the shared state must
-   * still settle to `completed`. Otherwise it would stay stuck at
-   * `running` forever, and the reveal of the rest of the home page would
-   * never unblock on a later visit.
-   */
-  ngOnDestroy(): void {
-    if (this.playIntroAnimation()) {
-      this.introAnimation.complete();
-    }
-  }
+    return this.short()
+      ? `${this.path} ${this.prompt} ${command}`
+      : `[${this.username}${this.hostname} ${this.path}] ${this.prompt} ${command}`;
+  });
 }

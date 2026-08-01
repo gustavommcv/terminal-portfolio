@@ -7,10 +7,9 @@ $color-refused-command-dark: #cc0403;
 
 .terminal-line {
   display: flex;
+  flex-wrap: wrap;
   gap: $spacing-medium;
-  overflow: hidden;
-  white-space: nowrap;
-  width: fit-content;
+  width: 100%;
   margin-bottom: $spacing-big;
 
   color: $color-text-dark;
@@ -28,8 +27,17 @@ $color-refused-command-dark: #cc0403;
   }
 }
 
-.path-container {
-  display: flex;
+.prompt-container {
+  display: inline-flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.command-container {
+  flex: 1 1 12ch;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .command {
@@ -40,38 +48,24 @@ $color-refused-command-dark: #cc0403;
   }
 }
 
-.typing-animation {
-  animation:
-    typing 2s steps(25),
-    blink 0.5s step-end infinite alternate;
-
-  // cursor
-  border-right: 10px solid $color-text-dark;
+.terminal-cursor {
+  display: inline-block;
+  block-size: 1em;
+  border-inline-end: 0.35rem solid $color-text-dark;
+  margin-inline-start: 0.2ch;
+  vertical-align: -0.12em;
+  animation: terminal-cursor-blink var(--terminal-cursor-blink-interval) step-end
+    infinite alternate;
 }
 
-@keyframes typing {
-  0% {
-    width: 0;
-  }
-
-  100% {
-    width: 22ch;
-  }
-}
-
-@keyframes blink {
+@keyframes terminal-cursor-blink {
   50% {
     border-color: transparent;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  // The service already skips this class for reduced-motion users, but the
-  // build-time prerendered HTML cannot know an individual visitor's
-  // preference, so this covers the brief window before hydration corrects it.
-  .typing-animation {
+  .terminal-cursor {
     animation: none;
-    width: auto;
-    border-right: none;
   }
 }
