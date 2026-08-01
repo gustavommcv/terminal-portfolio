@@ -1,8 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../../../services/language.service';
+
+import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
+import { LanguageService } from '../../../../services/language.service';
 
 @Component({
   selector: 'download-section',
@@ -12,18 +14,18 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   styleUrl: './download-section.scss',
 })
 export class DownloadSection {
-  constructor(private languageService: LanguageService) {}
+  private readonly language = inject(LanguageService);
+  private readonly document = inject(DOCUMENT);
 
-  downloadCV(format: 'docx' | 'odt' | 'pdf') {
-    const lang = this.languageService.currentLocale;
-    const fileName = `cv-${lang}.${format}`;
-    const filePath = `cv/${fileName}`;
+  downloadCV(format: 'docx' | 'odt' | 'pdf'): void {
+    const language = this.language.currentLocale();
+    const fileName = `cv-${language}.${format}`;
+    const link = this.document.createElement('a');
 
-    const link = document.createElement('a');
-    link.href = filePath;
+    link.href = `cv/${fileName}`;
     link.download = fileName;
-    document.body.appendChild(link);
+    this.document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
   }
 }

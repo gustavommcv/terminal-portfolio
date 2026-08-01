@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  effect,
   inject,
   input,
   signal,
@@ -11,6 +12,7 @@ import {
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { HOME_INTRO_CONFIG } from '../../home-intro.config';
+import type { HomeIntroCommandState } from '../../services/home-intro-command.service';
 import { HomeIntroService } from '../../services/home-intro.service';
 
 @Component({
@@ -21,23 +23,34 @@ import { HomeIntroService } from '../../services/home-intro.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeIntro {
-  readonly command = input.required<string>();
+  readonly commandState = input.required<HomeIntroCommandState>();
   readonly title = input('Who am I');
 
   readonly displayedCommand = signal('');
   readonly config = inject(HOME_INTRO_CONFIG);
 
   private readonly lifecycle = inject(HomeIntroService);
+  private readonly browserReady = signal(false);
+  private readonly activeCommand = signal<string | null>(null);
+
   readonly introVisible = this.lifecycle.introVisible;
+  readonly resolvedCommand = computed(() => {
+    const command = this.commandState();
+    return command.status === 'ready' ? command.command : null;
+  });
   readonly commandToRender = computed(() => {
-    if (
-      this.lifecycle.state() === 'completed' &&
-      this.displayedCommand() === ''
-    ) {
-      return this.command();
+    if (this.lifecycle.state() === 'completed') {
+      return this.resolvedCommand() ?? this.lifecycle.completedCommand() ?? '';
     }
 
     return this.displayedCommand();
+  });
+  readonly accessibleCommand = computed(() => {
+    if (this.lifecycle.state() === 'typing') {
+      return this.activeCommand() ?? '';
+    }
+
+    return this.commandToRender();
   });
 
   private readonly destroyRef = inject(DestroyRef);
@@ -47,61 +60,86 @@ export class HomeIntro {
   private characterIndex = 0;
 
   constructor() {
-    // Angular skips this hook during SSR and runs it after hydration in the
-    // browser, keeping the server and initial browser trees identical.
-    afterNextRender(() => this.beginInBrowser());
+    // This is client-only. SSR and the first hydration pass both render the
+    // same empty, stable terminal while the active catalog is unresolved.
+    afterNextRender(() => this.claimInBrowser());
+
+    effect(() => {
+      if (!this.browserReady()) {
+        return;
+      }
+
+      const commandState = this.commandState();
+      const lifecycleState = this.lifecycle.state();
+
+      if (lifecycleState === 'completed') {
+        if (commandState.status === 'ready') {
+          this.lifecycle.rememberCompletedCommand(commandState.command);
+        }
+        return;
+      }
+
+      if (lifecycleState !== 'waiting' || commandState.status === 'waiting') {
+        return;
+      }
+
+      if (commandState.status === 'unavailable') {
+        this.lifecycle.completeWithoutTyping();
+        return;
+      }
+
+      if (this.lifecycle.startTyping()) {
+        this.beginTyping(commandState.command);
+      }
+    });
 
     this.destroyRef.onDestroy(() => {
       this.cancelPendingTimeout();
       this.removeMotionListener();
-      if (this.lifecycle.state() === 'typing') {
-        this.lifecycle.interrupt();
-      }
+      this.lifecycle.interrupt(
+        this.activeCommand() ?? this.resolvedCommand(),
+      );
     });
   }
 
-  private beginInBrowser(): void {
+  private claimInBrowser(): void {
     this.motionQuery =
       typeof window.matchMedia === 'function'
         ? window.matchMedia('(prefers-reduced-motion: reduce)')
         : undefined;
 
-    if (this.motionQuery) {
-      this.motionQuery.addEventListener('change', this.onMotionChange);
-    }
+    this.motionQuery?.addEventListener('change', this.onMotionChange);
+    this.lifecycle.claim(this.motionQuery?.matches ?? false);
+    this.browserReady.set(true);
+  }
 
-    const fullCommand = this.command();
-    if (!this.lifecycle.begin(this.motionQuery?.matches ?? false)) {
-      this.displayedCommand.set(fullCommand);
-      return;
-    }
-
+  private beginTyping(command: string): void {
+    this.activeCommand.set(command);
     // Array.from advances by Unicode code point instead of UTF-16 code unit.
-    this.characters = Array.from(fullCommand);
+    this.characters = Array.from(command);
     this.characterIndex = 0;
     this.displayedCommand.set('');
     this.schedule(this.config.initialDelayMs, () => this.typeNextCharacter());
   }
 
   private readonly onMotionChange = (event: MediaQueryListEvent): void => {
-    if (!event.matches || this.lifecycle.state() !== 'typing') {
+    if (!event.matches) {
       return;
     }
 
-    this.cancelPendingTimeout();
-    this.displayedCommand.set(this.command());
-    this.lifecycle.interrupt();
+    const state = this.lifecycle.state();
+    if (state === 'typing') {
+      this.cancelPendingTimeout();
+      const command = this.activeCommand();
+      this.displayedCommand.set(command ?? '');
+      this.lifecycle.interrupt(command);
+    } else if (state === 'waiting') {
+      this.lifecycle.completeWithoutTyping(this.resolvedCommand());
+    }
   };
 
   private typeNextCharacter(): void {
     if (this.lifecycle.state() !== 'typing') {
-      return;
-    }
-
-    if (this.characterIndex >= this.characters.length) {
-      this.schedule(this.config.completionDelayMs, () =>
-        this.lifecycle.finishTyping(),
-      );
       return;
     }
 
@@ -110,15 +148,16 @@ export class HomeIntro {
       this.characters.slice(0, this.characterIndex).join(''),
     );
 
-    if (this.characterIndex === this.characters.length) {
-      this.schedule(this.config.completionDelayMs, () =>
-        this.lifecycle.finishTyping(),
-      );
+    if (this.characterIndex >= this.characters.length) {
+      this.schedule(this.config.completionDelayMs, () => {
+        const command = this.activeCommand();
+        if (command !== null) {
+          this.lifecycle.finishTyping(command);
+        }
+      });
       return;
     }
 
-    // Only one callback is pending at a time, so slow/backgrounded tabs
-    // cannot create overlapping typing loops.
     this.schedule(this.config.typingIntervalMs, () =>
       this.typeNextCharacter(),
     );

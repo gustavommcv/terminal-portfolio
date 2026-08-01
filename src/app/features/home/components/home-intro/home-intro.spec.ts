@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../../home-intro.config';
+import { HomeIntroCommandState } from '../../services/home-intro-command.service';
 import { HomeIntroService } from '../../services/home-intro.service';
 import { HomeIntro } from './home-intro';
 
@@ -48,13 +49,18 @@ describe('HomeIntro', () => {
     });
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+  afterEach(() => vi.useRealTimers());
 
-  function createIntro(command = 'abc'): ComponentFixture<HomeIntro> {
+  function ready(command: string): HomeIntroCommandState {
+    return { status: 'ready', language: 'en', command };
+  }
+
+  function createIntro(
+    commandState: HomeIntroCommandState = ready('abc'),
+  ): ComponentFixture<HomeIntro> {
     const fixture = TestBed.createComponent(HomeIntro);
-    fixture.componentRef.setInput('command', command);
+    fixture.componentRef.setInput('commandState', commandState);
+    fixture.detectChanges();
     fixture.detectChanges();
     return fixture;
   }
@@ -66,80 +72,113 @@ describe('HomeIntro', () => {
     ).trim();
   }
 
-  it('types one complete command in order and finishes from the final character', () => {
-    const fixture = createIntro();
-    const service = TestBed.inject(HomeIntroService);
+  it('keeps a stable, empty terminal while the catalog is unresolved', () => {
+    const fixture = createIntro({ status: 'waiting' });
+    const terminal = fixture.nativeElement.querySelector('.terminal-section');
 
-    expect(service.state()).toBe('typing');
+    vi.advanceTimersByTime(1_000);
+
+    expect(TestBed.inject(HomeIntroService).state()).toBe('waiting');
     expect(displayedCommand(fixture)).toBe('');
-
-    vi.advanceTimersByTime(10);
-    expect(displayedCommand(fixture)).toBe('a');
-
-    vi.advanceTimersByTime(4);
-    expect(displayedCommand(fixture)).toBe('a');
-
-    vi.advanceTimersByTime(1);
-    expect(displayedCommand(fixture)).toBe('ab');
-
-    vi.advanceTimersByTime(5);
-    expect(displayedCommand(fixture)).toBe('abc');
-    expect(service.state()).toBe('typing');
-
-    vi.advanceTimersByTime(7);
-    expect(service.state()).toBe('completed');
+    expect(fixture.nativeElement.textContent).not.toContain(
+      'home-page.presentation-section.command',
+    );
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
+      terminal,
+    );
+    expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('does not finish when only part of the typing time has elapsed', () => {
-    const fixture = createIntro('abcdef');
-    const service = TestBed.inject(HomeIntroService);
+  it('starts once after the resolved command arrives', () => {
+    const fixture = createIntro({ status: 'waiting' });
 
-    vi.advanceTimersByTime(20);
+    fixture.componentRef.setInput('commandState', ready('abc'));
+    fixture.detectChanges();
 
+    expect(TestBed.inject(HomeIntroService).state()).toBe('typing');
+    expect(displayedCommand(fixture)).toBe('');
+    vi.advanceTimersByTime(10);
+    expect(displayedCommand(fixture)).toBe('a');
+    vi.advanceTimersByTime(10);
     expect(displayedCommand(fixture)).toBe('abc');
-    expect(service.state()).toBe('typing');
+    vi.advanceTimersByTime(7);
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+  });
+
+  it('does not mix languages when the catalog changes during typing', () => {
+    const fixture = createIntro(ready('whoami'));
+    vi.advanceTimersByTime(15);
+    expect(displayedCommand(fixture)).toBe('wh');
+
+    fixture.componentRef.setInput('commandState', {
+      status: 'ready',
+      language: 'pt',
+      command: 'quem-sou-eu',
+    });
+    fixture.detectChanges();
+    vi.advanceTimersByTime(25);
+
+    expect(displayedCommand(fixture)).toBe('whoami');
+    vi.advanceTimersByTime(7);
+    expect(displayedCommand(fixture)).toBe('quem-sou-eu');
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('completes safely without exposing a key when loading fails', () => {
+    const fixture = createIntro({ status: 'waiting' });
+
+    fixture.componentRef.setInput('commandState', {
+      status: 'unavailable',
+      language: 'en',
+      reason: 'catalog-load-failed',
+    });
+    fixture.detectChanges();
+
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+    expect(displayedCommand(fixture)).toBe('');
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('cancels pending callbacks and consumes the sequence on destroy', () => {
-    const fixture = createIntro('abcdef');
-    const service = TestBed.inject(HomeIntroService);
+    const fixture = createIntro(ready('abcdef'));
     const clearTimeoutSpy = vi.spyOn(globalThis, 'clearTimeout');
-
     vi.advanceTimersByTime(10);
     fixture.destroy();
 
-    expect(service.state()).toBe('completed');
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(clearTimeoutSpy).toHaveBeenCalled();
-
-    vi.advanceTimersByTime(1_000);
-    expect(service.state()).toBe('completed');
   });
 
-  it('does not create another typing loop after the lifecycle was consumed', () => {
-    const first = createIntro('abc');
+  it('does not replay after the lifecycle was consumed', () => {
+    const first = createIntro(ready('abc'));
     first.destroy();
 
-    const second = createIntro('abc');
+    const second = createIntro(ready('abc'));
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
-    expect(vi.getTimerCount()).toBe(0);
     expect(displayedCommand(second)).toBe('abc');
+    expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('skips typing immediately when reduced motion is already requested', () => {
+  it('mounts immediately and waits without animation for reduced motion', () => {
     mockMatchMedia(true);
-    const fixture = createIntro('whoami');
+    const fixture = createIntro({ status: 'waiting' });
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+    expect(displayedCommand(fixture)).toBe('');
+
+    fixture.componentRef.setInput('commandState', ready('whoami'));
+    fixture.detectChanges();
+
     expect(displayedCommand(fixture)).toBe('whoami');
     expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('stops an active sequence if reduced motion is enabled while typing', () => {
+  it('stops an active sequence if reduced motion is enabled', () => {
     const media = mockMatchMedia(false);
-    const fixture = createIntro('whoami');
-
+    const fixture = createIntro(ready('whoami'));
     vi.advanceTimersByTime(10);
+
     media.dispatch(true);
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
@@ -147,26 +186,9 @@ describe('HomeIntro', () => {
     expect(vi.getTimerCount()).toBe(0);
   });
 
-  it('types Unicode code points without truncating translated commands', () => {
-    const fixture = createIntro('ação');
-
+  it('types Unicode code points without truncation', () => {
+    const fixture = createIntro(ready('ação'));
     vi.advanceTimersByTime(10 + 5 * 3);
-
     expect(displayedCommand(fixture)).toBe('ação');
-  });
-
-  it.each([
-    ['English', 'whoami'],
-    ['Brazilian Portuguese', 'whoami'],
-  ])('completes the %s catalog command', (_language, command) => {
-    const fixture = createIntro(command);
-
-    vi.advanceTimersByTime(10 + 5 * (Array.from(command).length - 1));
-
-    expect(displayedCommand(fixture)).toBe(command);
-    expect(TestBed.inject(HomeIntroService).state()).toBe('typing');
-
-    vi.advanceTimersByTime(7);
-    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
   });
 });

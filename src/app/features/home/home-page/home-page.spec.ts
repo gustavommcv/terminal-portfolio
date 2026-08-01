@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,6 +7,7 @@ import { vi } from 'vitest';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
+import { HomeIntroCommandService } from '../services/home-intro-command.service';
 import { HomeIntroService } from '../services/home-intro.service';
 import { HomePage } from './home-page';
 
@@ -35,7 +37,19 @@ describe('HomePage intro lifecycle', () => {
     mockMatchMedia(false);
     TestBed.configureTestingModule({
       imports: [HomePage],
-      providers: [{ provide: HOME_INTRO_CONFIG, useValue: config }],
+      providers: [
+        { provide: HOME_INTRO_CONFIG, useValue: config },
+        {
+          provide: HomeIntroCommandService,
+          useValue: {
+            state: signal({
+              status: 'ready' as const,
+              language: 'en' as const,
+              command: 'whoami',
+            }).asReadonly(),
+          },
+        },
+      ],
     });
 
     const translate = TestBed.inject(TranslateService);
@@ -54,6 +68,7 @@ describe('HomePage intro lifecycle', () => {
 
   function createHome(): ComponentFixture<HomePage> {
     const fixture = TestBed.createComponent(HomePage);
+    fixture.detectChanges();
     fixture.detectChanges();
     return fixture;
   }

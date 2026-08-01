@@ -12,8 +12,8 @@ import { ContactSection } from '../components/contact-section/contact-section';
 import { FeaturedProjectsSection } from '../components/featured-projects-section/featured-projects-section';
 import { Footer } from '../../../core/layout/footer/footer';
 import { Meta, Title } from '@angular/platform-browser';
-import { TranslatePipe } from '@ngx-translate/core';
 import { HomeIntro } from '../components/home-intro/home-intro';
+import { HomeIntroCommandService } from '../services/home-intro-command.service';
 import { HomeIntroService } from '../services/home-intro.service';
 
 @Component({
@@ -26,7 +26,6 @@ import { HomeIntroService } from '../services/home-intro.service';
     FeaturedProjectsSection,
     Footer,
     HomeIntro,
-    TranslatePipe,
   ],
   templateUrl: './home-page.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -34,6 +33,7 @@ import { HomeIntroService } from '../services/home-intro.service';
 })
 export class HomePage implements OnInit, OnDestroy {
   readonly intro = inject(HomeIntroService);
+  readonly introCommand = inject(HomeIntroCommandService);
 
   constructor(
     private title: Title,

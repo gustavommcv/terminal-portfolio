@@ -1,7 +1,5 @@
 <div class="home-page">
-  <home-intro
-    [command]="'home-page.presentation-section.command' | translate"
-  >
+  <home-intro [commandState]="introCommand.state()">
     @if (intro.contentVisible()) {
       <div class="home-presentation">
         <presentation-section />

@@ -1,9 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Header } from './core/layout/header/header';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
+import { Header } from './core/layout/header/header';
+import { LanguageService } from './services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -13,40 +12,8 @@ import { RouterOutlet } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',
 })
-export class App implements OnInit {
-  constructor(
-    private translate: TranslateService,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {
-    translate.addLangs(['en', 'pt']);
-  }
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      const locale = params['locale'];
-      const lang = locale?.split('_')[0] || 'en';
-
-      if (this.translate.getLangs().includes(lang)) {
-        this.translate.use(lang);
-      }
-    });
-
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const currentLang = this.translate.currentLang() ?? 'en';
-        const currentParams = this.route.snapshot.queryParams;
-
-        if (!currentParams['locale'] && currentLang !== 'en') {
-          this.router.navigate([], {
-            queryParams: {
-              locale: currentLang === 'pt' ? 'pt_BR' : currentLang,
-            },
-            queryParamsHandling: 'merge',
-            replaceUrl: true,
-          });
-        }
-      });
-  }
+export class App {
+  // The root owns language initialization; every component consumes the same
+  // URL-derived state through LanguageService.
+  private readonly language = inject(LanguageService);
 }

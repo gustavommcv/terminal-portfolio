@@ -9,7 +9,7 @@
     <ul class="services-section__list">
       @for (
         service of "home-page.services-section.services" | translate;
-        track service
+        track $index
       ) {
         <li class="services-section__item">{{ service }}</li>
       }

@@ -1,80 +1,93 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
 import { HomeIntroService } from './home-intro.service';
-
-const config: HomeIntroConfig = {
-  initialDelayMs: 10,
-  typingIntervalMs: 5,
-  completionDelayMs: 7,
-  cursorBlinkIntervalMs: 500,
-};
 
 describe('HomeIntroService', () => {
   function createService(): HomeIntroService {
-    TestBed.configureTestingModule({
-      providers: [{ provide: HOME_INTRO_CONFIG, useValue: config }],
-    });
+    TestBed.configureTestingModule({});
     return TestBed.inject(HomeIntroService);
   }
 
-  it('starts idle with only the intro tree eligible to render', () => {
+  it('starts idle with only the stable intro tree eligible to render', () => {
     const service = createService();
 
     expect(service.state()).toBe('idle');
     expect(service.introVisible()).toBe(true);
     expect(service.contentVisible()).toBe(false);
+    expect(service.completedCommand()).toBeNull();
   });
 
-  it('allows exactly one typing run and prevents overlapping claims', () => {
+  it('claims exactly one run and waits for a resolved catalog', () => {
     const service = createService();
 
-    expect(service.begin(false)).toBe(true);
-    expect(service.begin(false)).toBe(false);
+    expect(service.claim(false)).toBe(true);
+    expect(service.claim(false)).toBe(false);
+    expect(service.state()).toBe('waiting');
+    expect(service.startTyping()).toBe(true);
+    expect(service.startTyping()).toBe(false);
     expect(service.state()).toBe('typing');
   });
 
-  it('moves directly from typing to completed without replaying', () => {
+  it('stores the command and completes without replaying', () => {
     const service = createService();
 
-    service.begin(false);
-    service.finishTyping();
-    expect(service.state()).toBe('completed');
-    expect(service.contentVisible()).toBe(true);
+    service.claim(false);
+    service.startTyping();
+    service.finishTyping('whoami');
 
-    expect(service.begin(false)).toBe(false);
+    expect(service.state()).toBe('completed');
+    expect(service.completedCommand()).toBe('whoami');
+    expect(service.contentVisible()).toBe(true);
+    expect(service.claim(false)).toBe(false);
   });
 
-  it('consumes an interrupted active sequence', () => {
-    const service = createService();
+  it.each(['waiting', 'typing'] as const)(
+    'consumes an interrupted %s sequence',
+    (state) => {
+      const service = createService();
+      service.claim(false);
+      if (state === 'typing') {
+        service.startTyping();
+      }
 
-    service.begin(false);
-    service.interrupt();
+      service.interrupt('whoami');
+
+      expect(service.state()).toBe('completed');
+      expect(service.completedCommand()).toBe('whoami');
+      expect(service.introVisible()).toBe(false);
+    },
+  );
+
+  it('can complete a waiting sequence when the catalog is unavailable', () => {
+    const service = createService();
+    service.claim(false);
+
+    service.completeWithoutTyping();
 
     expect(service.state()).toBe('completed');
-    expect(service.introVisible()).toBe(false);
+    expect(service.completedCommand()).toBeNull();
+    expect(service.contentVisible()).toBe(true);
   });
 
   it('skips directly to completed for reduced motion', () => {
     const service = createService();
 
-    expect(service.begin(true)).toBe(false);
+    expect(service.claim(true)).toBe(false);
     expect(service.state()).toBe('completed');
     expect(service.contentVisible()).toBe(true);
   });
 
-  it('gives a fresh application-scoped instance a fresh lifecycle', () => {
+  it('allows a resolved language change to update a completed command', () => {
     const service = createService();
-    service.begin(false);
-    service.interrupt();
+    service.claim(true);
 
-    const freshService = TestBed.runInInjectionContext(
-      () => new HomeIntroService(),
-    );
-    expect(freshService.state()).toBe('idle');
+    service.rememberCompletedCommand('quem-sou-eu');
+
+    expect(service.completedCommand()).toBe('quem-sou-eu');
+    expect(service.state()).toBe('completed');
   });
 
-  it('does not inspect browser APIs during construction, keeping SSR and browser initial state equal', () => {
+  it('does not inspect browser APIs during construction', () => {
     const originalMatchMedia = window.matchMedia;
     delete (window as unknown as { matchMedia?: typeof window.matchMedia })
       .matchMedia;
@@ -82,7 +95,6 @@ describe('HomeIntroService', () => {
     try {
       const service = createService();
       expect(service.state()).toBe('idle');
-      expect(service.introVisible()).toBe(true);
     } finally {
       window.matchMedia = originalMatchMedia;
     }
