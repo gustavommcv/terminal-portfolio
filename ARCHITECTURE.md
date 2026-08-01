@@ -1,17 +1,17 @@
-# Arquitetura
+# Architecture
 
-## Visão geral
+## Overview
 
-O Terminal Portfolio é uma aplicação Angular standalone, organizada por funcionalidades. Não há `AppModule` nem módulos de feature: providers são registrados em `ApplicationConfig`, páginas são carregadas com `loadComponent` e cada componente declara diretamente suas dependências de template.
+Terminal Portfolio is a standalone, feature-organized Angular application. There is no `AppModule` and no feature modules: providers are registered in `ApplicationConfig`, pages are loaded with `loadComponent`, and each component declares its template dependencies directly.
 
-O build combina:
+The build combines:
 
-- renderização no browser;
-- pré-renderização estática das páginas públicas conhecidas;
-- hidratação no cliente;
-- saída estática hospedada pela Vercel.
+- browser-side rendering;
+- static prerendering of the known public pages;
+- client-side hydration;
+- static output hosted by Vercel.
 
-## Diagrama de componentes
+## Component diagram
 
 ```mermaid
 flowchart TD
@@ -57,58 +57,58 @@ flowchart TD
     LanguageService --> Query["Query string ?locale=..."]
 ```
 
-## Camadas e responsabilidades
+## Layers and responsibilities
 
-### Bootstrap e configuração
+### Bootstrap and configuration
 
-- `src/main.ts`: inicializa `App` no browser.
-- `src/app/app.config.ts`: registra Router, scroll restoration, preload, hidratação, HttpClient e ngx-translate.
-- `src/main.server.ts`: adapta o bootstrap ao contexto de renderização.
-- `src/app/app.config.server.ts`: combina os providers do browser com `provideServerRendering`.
-- `src/server.ts`: cria o engine Angular sobre Express usado pela infraestrutura de renderização.
+- `src/main.ts`: bootstraps `App` in the browser.
+- `src/app/app.config.ts`: registers Router, scroll restoration, preloading, hydration, HttpClient, and ngx-translate.
+- `src/main.server.ts`: adapts the bootstrap process to the rendering context.
+- `src/app/app.config.server.ts`: merges the browser providers with `provideServerRendering`.
+- `src/server.ts`: creates the Angular engine on top of Express, used by the rendering infrastructure.
 
-### Shell da aplicação
+### Application shell
 
-`App` é o shell global. Ele mantém o `Header` visível e delega o conteúdo da página ao `RouterOutlet`. Também interpreta a query string de locale e sincroniza o idioma ativo do ngx-translate.
+`App` is the global shell. It keeps `Header` visible and delegates page content to `RouterOutlet`. It also reads the locale query string and synchronizes the active ngx-translate language.
 
 ### Features
 
-| Feature | Responsabilidade | Componentes principais |
+| Feature | Responsibility | Main components |
 | --- | --- | --- |
-| `home` | Apresentação, serviços, stack, projetos em destaque e contato. | `HomePage` e cinco seções. |
-| `about` | Biografia, educação, interesses, idiomas e currículo. | `AboutPage` e cinco seções. |
-| `portfolio` | Lista completa do catálogo de projetos. | `PortfolioPage`, `ProjectCard`. |
-| `projectDetail` | Resolve `:id` e apresenta um projeto individual. | `ProjectDetailPage`. |
-| `error` | Exibe uma resposta visual para rotas desconhecidas. | `ErrorPage`. |
+| `home` | Presentation, services, stack, featured projects, and contact. | `HomePage` and five sections. |
+| `about` | Biography, education, interests, languages, and résumé. | `AboutPage` and five sections. |
+| `portfolio` | Full project catalog listing. | `PortfolioPage`, `ProjectCard`. |
+| `projectDetail` | Resolves `:id` and displays a single project. | `ProjectDetailPage`. |
+| `error` | Shows a visual response for unknown routes. | `ErrorPage`. |
 
-### Core e compartilhados
+### Core and shared
 
-- `core/layout`: componentes estruturais, incluindo cabeçalho, rodapé e a composição visual que simula um terminal.
-- `core/shared`: elementos reutilizáveis de interface, como botão, título, seletor de idioma e card de projeto.
+- `core/layout`: structural components, including the header, footer, and the visual composition that simulates a terminal.
+- `core/shared`: reusable UI elements, such as the button, title, language toggle, and project card.
 
-### Dados e serviços
+### Data and services
 
-`projects.data.ts` é a fonte local tipada do catálogo. Não há API remota nem armazenamento persistente. `ProjectsDataService` fornece três operações somente leitura:
+`projects.data.ts` is the local, typed source of the catalog. There is no remote API and no persistent storage. `ProjectsDataService` exposes three read-only operations:
 
-- listar todos os projetos;
-- localizar um projeto pelo id;
-- filtrar projetos em destaque.
+- list all projects;
+- find a project by id;
+- filter featured projects.
 
-`LanguageService` mantém o locale atual em um `BehaviorSubject`, acompanha `NavigationEnd`, preserva o idioma durante navegação e altera a query string. O `TranslateService` é responsável por carregar e resolver os textos traduzidos.
+`LanguageService` keeps the current locale in a `BehaviorSubject`, tracks `NavigationEnd`, preserves the language across navigation, and updates the query string. `TranslateService` is responsible for loading and resolving the translated text.
 
-## Rotas e renderização
+## Routes and rendering
 
-| Rota | Página | Carregamento | Renderização |
+| Route | Page | Loading | Rendering |
 | --- | --- | --- | --- |
-| `/` | `HomePage` | Lazy | Pré-renderizada |
-| `/about` | `AboutPage` | Lazy | Pré-renderizada |
-| `/portfolio` | `PortfolioPage` | Lazy | Pré-renderizada |
-| `/portfolio/:id` | `ProjectDetailPage` | Lazy | Cliente |
-| `**` | `ErrorPage` | Lazy | Cliente |
+| `/` | `HomePage` | Lazy | Prerendered |
+| `/about` | `AboutPage` | Lazy | Prerendered |
+| `/portfolio` | `PortfolioPage` | Lazy | Prerendered |
+| `/portfolio/:id` | `ProjectDetailPage` | Lazy | Client |
+| `**` | `ErrorPage` | Lazy | Client |
 
-O build usa `outputMode: "static"`. A etapa de pré-renderização gera HTML para as três rotas estáticas e um shell CSR para as rotas executadas no cliente.
+The build uses `outputMode: "static"`. The prerendering step generates HTML for the three static routes and a CSR shell for the client-rendered routes.
 
-## Fluxo de projetos
+## Project data flow
 
 ```text
 projects.data.ts
@@ -120,40 +120,40 @@ ProjectsDataService
       └── getProjectById(id) ─────► ProjectDetailPage
                                          ▲
                                          │ :id
-ProjectCard ── navegação com locale ──► Router
+ProjectCard ── locale-aware navigation ──► Router
 ```
 
-Os componentes recebem objetos `Project` tipados. Títulos e descrições não ficam nesse catálogo; são resolvidos nos arquivos de tradução usando o id como parte da chave.
+Components receive typed `Project` objects. Titles and descriptions are not stored in this catalog; they are resolved from the translation files, using the id as part of the key.
 
-## Fluxo de idioma
+## Language flow
 
-1. `App` lê `locale` da rota.
-2. O locale é normalizado para `en` ou `pt`.
-3. `TranslateService.use()` carrega `public/i18n/<idioma>.json`.
-4. `TranslatePipe` atualiza os templates.
-5. `LanguageService` preserva o locale ao navegar entre páginas e projetos.
-6. O botão de idioma alterna o estado e atualiza a URL.
+1. `App` reads `locale` from the route.
+2. The locale is normalized to `en` or `pt`.
+3. `TranslateService.use()` loads `public/i18n/<language>.json`.
+4. `TranslatePipe` updates the templates.
+5. `LanguageService` preserves the locale when navigating between pages and projects.
+6. The language button toggles the state and updates the URL.
 
-O inglês é o idioma inicial e de fallback. O loader está configurado com `failOnError: true`; a ausência de um catálogo é tratada como erro em vez de resultar silenciosamente em traduções vazias.
+English is the initial and fallback language. The loader is configured with `failOnError: true`; a missing catalog is treated as an error instead of silently resulting in empty translations.
 
-## Estilos
+## Styles
 
-Cada componente possui SCSS encapsulado. Estilos compartilhados vivem em `src/styles`:
+Each component has encapsulated SCSS. Shared styles live in `src/styles`:
 
-- `abstracts/_variables.scss`: tokens e variáveis;
-- `abstracts/_animations.scss`: animações reutilizáveis;
-- `styles.scss`: folha global registrada no `angular.json`.
+- `abstracts/_variables.scss`: tokens and variables;
+- `abstracts/_animations.scss`: reusable animations;
+- `styles.scss`: global stylesheet registered in `angular.json`.
 
-`stylePreprocessorOptions.includePaths` permite importar recursos a partir de `src/styles`.
+`stylePreprocessorOptions.includePaths` allows importing resources from `src/styles`.
 
-## Testes
+## Testing
 
-O builder `@angular/build:unit-test` executa Vitest sobre jsdom. Cada componente possui um spec. `src/test-setup.ts` fornece Router e ngx-translate para todos os testes, reduzindo configuração repetida.
+The `@angular/build:unit-test` builder runs Vitest on top of jsdom. Every component has a spec file. `src/test-setup.ts` provides Router and ngx-translate to all tests, reducing repeated setup.
 
-## Build e entrega
+## Build and delivery
 
 ```text
-Código-fonte
+Source code
    │ npm ci
    ▼
 Angular 22 build + prerender
@@ -164,4 +164,4 @@ Angular 22 build + prerender
         Vercel Edge CDN
 ```
 
-O `vercel.json` escolhe o preset Angular, executa `npm ci` e `npm run build`, e publica somente `dist/portfolio/browser`. O projeto não exige variáveis de ambiente no estado atual.
+`vercel.json` selects the Angular preset, runs `npm ci` and `npm run build`, and publishes only `dist/portfolio/browser`. The project does not require any environment variables in its current state.

@@ -1,104 +1,104 @@
 # Changelog
 
-Todas as alterações relevantes do projeto são documentadas neste arquivo.
+All notable changes to this project are documented in this file.
 
-## [Não publicado] — 2026-07-30
+## [Unreleased] — 2026-07-30
 
-### Resumo
+### Summary
 
-- Atualização da aplicação de Angular 21.1.1 para Angular 22.1.0 por meio dos schematics oficiais.
-- Atualização do TypeScript para a única linha compatível com Angular 22, 6.0.x.
-- Migração do ngx-translate 16 para 18 e adaptação completa à API standalone baseada em signals.
-- Migração do runner de testes legado Karma/Jasmine para Vitest.
-- Atualização da configuração de deploy estático na Vercel.
-- Criação de documentação técnica, operacional e arquitetural.
+- Upgraded the application from Angular 21.1.1 to Angular 22.1.0 using the official schematics.
+- Upgraded TypeScript to the only line compatible with Angular 22, 6.0.x.
+- Migrated ngx-translate from 16 to 18 and fully adapted the code to the standalone, signal-based API.
+- Migrated the test runner from the legacy Karma/Jasmine stack to Vitest.
+- Updated the static deployment configuration on Vercel.
+- Authored technical, operational, and architectural documentation.
 
-### Dependências de produção
+### Production dependencies
 
-As versões abaixo são as versões efetivamente registradas no `package-lock.json`, não apenas os ranges declarados.
+The versions below are the versions actually recorded in `package-lock.json`, not just the declared ranges.
 
-| Pacote | Antes | Depois | Observação |
+| Package | Before | After | Note |
 | --- | ---: | ---: | --- |
-| `@angular/common` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/compiler` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/core` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/forms` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/platform-browser` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/platform-server` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/router` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@angular/ssr` | 21.1.1 | 22.1.0 | Atualizado pelo `ng update`. |
-| `@ngx-translate/core` | 16.0.4 | 18.0.0 | Migrado para providers standalone e signals. |
-| `@ngx-translate/http-loader` | 16.0.1 | 18.0.0 | Migrado para `provideTranslateHttpLoader`. |
-| `express` | 5.2.1 | 5.2.1 | Já estava na versão atual compatível. |
-| `rxjs` | 7.8.2 | 7.8.2 | Mantido na linha suportada pelo Angular 22. |
-| `tslib` | 2.8.1 | 2.8.1 | Já estava atualizado. |
-| `zone.js` | 0.15.1 | 0.16.2 | Atualizado dentro do peer range do Angular 22. |
+| `@angular/common` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/compiler` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/core` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/forms` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/platform-browser` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/platform-server` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/router` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@angular/ssr` | 21.1.1 | 22.1.0 | Updated by `ng update`. |
+| `@ngx-translate/core` | 16.0.4 | 18.0.0 | Migrated to standalone, signal-based providers. |
+| `@ngx-translate/http-loader` | 16.0.1 | 18.0.0 | Migrated to `provideTranslateHttpLoader`. |
+| `express` | 5.2.1 | 5.2.1 | Already on the current compatible version. |
+| `rxjs` | 7.8.2 | 7.8.2 | Kept on the line supported by Angular 22. |
+| `tslib` | 2.8.1 | 2.8.1 | Already up to date. |
+| `zone.js` | 0.15.1 | 0.16.2 | Updated within Angular 22's peer range. |
 
-### Dependências de desenvolvimento
+### Development dependencies
 
-| Pacote | Antes | Depois | Observação |
+| Package | Before | After | Note |
 | --- | ---: | ---: | --- |
-| `@angular/build` | 21.1.1 | 22.1.0 | Builder oficial atualizado. |
-| `@angular/cli` | 21.1.1 | 22.1.0 | CLI e schematics atualizados. |
-| `@angular/compiler-cli` | 21.1.1 | 22.1.0 | Compilador AOT atualizado. |
-| `@types/express` | 5.0.6 | 5.0.6 | Já estava atualizado. |
-| `@types/node` | 20.19.30 | 24.13.3 | Alinhado ao runtime Node 24 do projeto. |
-| `typescript` | 5.9.3 | 6.0.3 | Atualizado conforme peer dependency do Angular 22. |
-| `vitest` | — | 4.1.10 | Novo runner de testes. |
-| `jsdom` | — | 30.0.1 | Ambiente DOM dos testes não executados em browser. |
-| `@types/jasmine` | 5.1.15 | removido | Substituído pelos tipos globais do Vitest. |
-| `jasmine-core` | 5.8.0 | removido | Runner legado removido. |
-| `karma` | 6.4.4 | removido | Builder migrado para `@angular/build:unit-test`. |
-| `karma-chrome-launcher` | 3.2.0 | removido | Browser launcher não é mais necessário. |
-| `karma-coverage` | 2.2.1 | removido | Cadeia Karma removida. |
-| `karma-jasmine` | 5.1.0 | removido | Adaptador legado removido. |
-| `karma-jasmine-html-reporter` | 2.1.0 | removido | Reporter legado removido. |
+| `@angular/build` | 21.1.1 | 22.1.0 | Official builder updated. |
+| `@angular/cli` | 21.1.1 | 22.1.0 | CLI and schematics updated. |
+| `@angular/compiler-cli` | 21.1.1 | 22.1.0 | AOT compiler updated. |
+| `@types/express` | 5.0.6 | 5.0.6 | Already up to date. |
+| `@types/node` | 20.19.30 | 24.13.3 | Aligned with the project's Node 24 runtime. |
+| `typescript` | 5.9.3 | 6.0.3 | Updated per Angular 22's peer dependency. |
+| `vitest` | — | 4.1.10 | New test runner. |
+| `jsdom` | — | 30.0.1 | DOM environment for tests not running in a browser. |
+| `@types/jasmine` | 5.1.15 | removed | Replaced by Vitest's global types. |
+| `jasmine-core` | 5.8.0 | removed | Legacy runner removed. |
+| `karma` | 6.4.4 | removed | Builder migrated to `@angular/build:unit-test`. |
+| `karma-chrome-launcher` | 3.2.0 | removed | Browser launcher no longer needed. |
+| `karma-coverage` | 2.2.1 | removed | Karma chain removed. |
+| `karma-jasmine` | 5.1.0 | removed | Legacy adapter removed. |
+| `karma-jasmine-html-reporter` | 2.1.0 | removed | Legacy reporter removed. |
 
-### Adaptações de código
+### Code adaptations
 
-- Inclusão explícita de `ChangeDetectionStrategy.Eager` em todos os componentes, realizada pelo schematic do Angular 22 para preservar o comportamento anterior.
-- Inclusão de `withNoIncrementalHydration()` para manter a semântica de hidratação anterior à versão 22.
-- Supressão temporária dos diagnósticos estendidos `nullishCoalescingNotNullable` e `optionalChainNotNullable`, adicionada automaticamente pela migração oficial.
-- Substituição de `TranslateModule` por `TranslatePipe` nos componentes standalone.
-- Substituição da factory manual de `TranslateHttpLoader` por `provideTranslateHttpLoader`.
-- Renomeação da configuração `defaultLanguage` para `fallbackLang`.
-- Definição explícita do idioma inicial com `lang: 'en'`.
-- Substituição de `translate.currentLang` por `translate.currentLang()` e tratamento do retorno nulo.
-- Remoção de `setDefaultLang`, API removida no ngx-translate 18.
-- Preservação do comportamento fail-fast do loader com `failOnError: true`.
+- Added explicit `ChangeDetectionStrategy.Eager` to every component, applied by the Angular 22 schematic to preserve previous behavior.
+- Added `withNoIncrementalHydration()` to preserve hydration semantics from before version 22.
+- Temporarily suppressed the extended diagnostics `nullishCoalescingNotNullable` and `optionalChainNotNullable`, added automatically by the official migration.
+- Replaced `TranslateModule` with `TranslatePipe` in standalone components.
+- Replaced the manual `TranslateHttpLoader` factory with `provideTranslateHttpLoader`.
+- Renamed the `defaultLanguage` setting to `fallbackLang`.
+- Explicitly set the initial language with `lang: 'en'`.
+- Replaced `translate.currentLang` with `translate.currentLang()` and handled the nullable return value.
+- Removed `setDefaultLang`, an API removed in ngx-translate 18.
+- Preserved the loader's fail-fast behavior with `failOnError: true`.
 
-### Testes
+### Testing
 
-- Builder alterado de `@angular/build:karma` para `@angular/build:unit-test`.
-- Runner definido como Vitest.
-- Adição de `src/test-setup.ts` com providers compartilhados de Router e tradução.
-- Correção do teste do shell da aplicação, que ainda esperava o título do template inicial do Angular.
-- Inclusão de um projeto mínimo no teste de `ProjectCard`, satisfazendo o input obrigatório.
-- Resultado final: 24 arquivos e 25 testes aprovados.
+- Changed the builder from `@angular/build:karma` to `@angular/build:unit-test`.
+- Set the runner to Vitest.
+- Added `src/test-setup.ts` with shared Router and translation providers.
+- Fixed the application shell test, which still expected the initial Angular template's title.
+- Added a minimal project to the `ProjectCard` test to satisfy the required input.
+- Final result: 24 files and 25 tests passing.
 
-### Build e deploy
+### Build and deployment
 
-- `vercel.json` passou a usar o schema oficial.
-- Preset `angular` definido explicitamente.
-- `installCommand` alterado de `npm install` para `npm ci`.
-- Campo legado `version: 2` removido.
-- Diretório de saída confirmado como `dist/portfolio/browser`.
-- Runtime declarado em `package.json`: Node `>=24.15.0 <25` e npm 11+.
-- Scripts `build:production` e `test:ci` adicionados.
-- Script de SSR executável removido, pois `outputMode: "static"` não gera servidor para execução em produção.
+- `vercel.json` now uses the official schema.
+- The `angular` preset is set explicitly.
+- `installCommand` changed from `npm install` to `npm ci`.
+- Removed the legacy `version: 2` field.
+- Confirmed the output directory as `dist/portfolio/browser`.
+- Declared the runtime in `package.json`: Node `>=24.15.0 <25` and npm 11+.
+- Added the `build:production` and `test:ci` scripts.
+- Removed the executable SSR script, since `outputMode: "static"` does not generate a server for production execution.
 
-### Segurança
+### Security
 
-- A auditoria inicial encontrou 47 vulnerabilidades: 1 baixa, 12 moderadas, 32 altas e 2 críticas.
-- Após atualização, correções transitivas seguras e remoção de Karma/Jasmine, restaram 3 vulnerabilidades moderadas na cadeia de desenvolvimento do `@angular/cli`.
-- A auditoria restrita às dependências de produção terminou com 0 vulnerabilidades.
-- O `npm audit` sugere como “correção” o downgrade do Angular CLI para 21.0.4. Essa ação não foi aplicada porque quebraria o alinhamento com Angular 22 e reverteria a atualização solicitada.
-- Não foi utilizado `npm audit fix --force`.
-- `@types/node` foi mantido na linha 24 para corresponder ao runtime do projeto; a linha 26 não foi adotada.
-- TypeScript 7 não foi adotado porque Angular 22.1 exige TypeScript `>=6.0 <6.1`.
+- The initial audit found 47 vulnerabilities: 1 low, 12 moderate, 32 high, and 2 critical.
+- After the upgrade, safe transitive fixes, and the removal of Karma/Jasmine, 3 moderate vulnerabilities remained in the `@angular/cli` development chain.
+- An audit restricted to production dependencies finished with 0 vulnerabilities.
+- `npm audit` suggests, as a "fix," downgrading Angular CLI to 21.0.4. This was not applied, since it would break alignment with Angular 22 and revert the requested upgrade.
+- `npm audit fix --force` was not used.
+- `@types/node` was kept on the 24 line to match the project's runtime; the 26 line was not adopted.
+- TypeScript 7 was not adopted because Angular 22.1 requires TypeScript `>=6.0 <6.1`.
 
-### Validação
+### Validation
 
-- `npm run test:ci`: 25/25 testes aprovados.
-- `npm run build:production`: aprovado, com 3 rotas pré-renderizadas.
-- Bundle inicial: 350,30 kB brutos e 98,10 kB estimados na transferência, abaixo do budget de aviso de 500 kB.
+- `npm run test:ci`: 25/25 tests passing.
+- `npm run build:production`: passed, with 3 prerendered routes.
+- Initial bundle: 350.30 kB raw and an estimated 98.10 kB transferred, below the 500 kB warning budget.
