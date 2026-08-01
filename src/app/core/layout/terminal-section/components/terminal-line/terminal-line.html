@@ -1,4 +1,8 @@
-<div class="terminal-line" [class.typing-animation]="!short()">
+<div
+  class="terminal-line"
+  [class.typing-animation]="playIntroAnimation()"
+  (animationend)="onIntroAnimationEnd()"
+>
   @if (!short()) {
     <span class="user-host">[{{ username }}{{ hostname }}</span>
   }

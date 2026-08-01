@@ -1,4 +1,12 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { HomeIntroAnimationService } from '../../../../../services/home-intro-animation.service';
 
 @Component({
   selector: 'app-terminal-line',
@@ -7,7 +15,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './terminal-line.scss',
 })
-export class TerminalLine {
+export class TerminalLine implements OnInit {
   short = input(false);
   command = input('whoami');
   error = input(false);
@@ -16,4 +24,19 @@ export class TerminalLine {
   hostname = 'arch';
   path = '~';
   prompt = '$';
+
+  private readonly introAnimation = inject(HomeIntroAnimationService);
+
+  /** Whether the typing/cursor CSS animation should run for this instance. */
+  readonly playIntroAnimation = signal(false);
+
+  ngOnInit(): void {
+    if (!this.short()) {
+      this.playIntroAnimation.set(this.introAnimation.requestPlay());
+    }
+  }
+
+  onIntroAnimationEnd(): void {
+    this.introAnimation.complete();
+  }
 }
