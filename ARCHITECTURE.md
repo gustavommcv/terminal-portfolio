@@ -37,6 +37,8 @@ flowchart TD
     Home --> Contact["ContactSection"]
     Home --> Footer["Footer"]
     Home --> Intro["HomeIntro<br/>first eligible visit only"]
+    Intro --> IntroCommand["HomeIntroCommandService"]
+    IntroCommand --> LanguageService
 
     About --> AboutSection["AboutSection"]
     About --> Education["EducationSection"]
@@ -70,7 +72,9 @@ flowchart TD
 
 ### Application shell
 
-`App` is the global shell. It keeps `Header` visible and delegates page content to `RouterOutlet`. It also reads the locale query string and synchronizes the active ngx-translate language.
+`App` is the global shell. It keeps `Header` visible, delegates page content to
+`RouterOutlet`, and eagerly creates `LanguageService`. Locale ownership and
+translation loading are not duplicated in the shell.
 
 ### Features
 
@@ -84,28 +88,38 @@ flowchart TD
 
 ### Home intro lifecycle
 
-`HomeIntroService` is a root-provided, in-memory state machine with three states:
+`HomeIntroService` is a root-provided, in-memory state machine with four states:
 
 ```text
-idle ── browser post-hydration start ──► typing
+idle ── browser post-hydration claim ──► waiting
   └── reduced motion ──────────────────► completed
-typing ── final character + final pause ─────────────────────────────► completed
-typing ── route destruction ─────────────────────────────────────────► completed
+waiting ── active catalog + command ready ──► typing
+waiting ── catalog unavailable / route destruction ──► completed
+typing ── final character + final pause ──────────────► completed
+typing ── route destruction / reduced motion ────────► completed
 ```
 
 `HomePage` owns the structural rendering boundary. `HomeIntro` and its terminal
-shell remain mounted across the transition. While the service is `idle` or
-`typing`, every secondary `@if` block is absent. Presentation content, services,
+shell remain mounted across the transition. While the service is `idle`,
+`waiting`, or `typing`, every secondary `@if` block is absent. Presentation content, services,
 stack, projects, contact, and footer are created only in `completed` and are
 inserted immediately with their final styles, without a secondary animation.
 Consequently, secondary hooks, image loads, observers, and other side effects
 cannot run during typing, while the terminal component and DOM node keep the
 same identity.
 
+`HomeIntroCommandService` derives a discriminated command state directly from
+the catalog exposed by `LanguageService`: `waiting`, `ready`, or `unavailable`.
+It never uses the temporary return value of a translation pipe. `HomeIntro`
+freezes the first ready command for the duration of typing, so a language change
+cannot mix two commands. Once completed, later resolved catalogs can update the
+display without replaying the intro.
+
 `HomeIntro` owns one recursively scheduled timeout. Each callback appends one
 Unicode code point and schedules at most one successor. It clears the pending
 timeout on destruction and reports completion only after the last character is
-present. The reusable terminal components contain no lifecycle or timing state.
+present. A catalog error completes without typing or exposing a raw key, so the
+rest of the site is not permanently blocked.
 
 The sequence is configured in
 `src/app/features/home/home-intro.config.ts`. `HOME_INTRO_CONFIG` controls the
@@ -117,7 +131,9 @@ Angular skips during server rendering and runs after hydration. The server and
 initial browser render therefore agree on the intro-only tree. A non-home
 initial route never constructs `HomeIntro` and does not consume the sequence.
 Reduced-motion users transition to the complete tree at that post-hydration
-boundary without typing or an unnecessary delay.
+boundary without typing or an unnecessary delay. If their catalog is still
+loading, the terminal remains empty until the resolved command becomes
+available.
 
 ### Core and shared
 
@@ -132,7 +148,11 @@ boundary without typing or an unnecessary delay.
 - find a project by id;
 - filter featured projects.
 
-`LanguageService` keeps the current locale in a `BehaviorSubject`, tracks `NavigationEnd`, preserves the language across navigation, and updates the query string. `TranslateService` is responsible for loading and resolving the translated text.
+`LanguageService` tracks `NavigationEnd`, normalizes the locale, owns the
+`TranslateService.use()` subscription, preserves the locale across navigation,
+updates `<html lang>`, and publishes a signal-based catalog state. A stale load
+cannot overwrite a newer URL language. `TranslateService` remains responsible
+for fetching and storing catalogs.
 
 ## Routes and rendering
 
@@ -165,12 +185,14 @@ Components receive typed `Project` objects. Titles and descriptions are not stor
 
 ## Language flow
 
-1. `App` reads `locale` from the route.
-2. The locale is normalized to `en` or `pt`.
+1. `LanguageService` reads `locale` from each completed navigation.
+2. The locale is normalized to `en` or `pt` and published as `loading`.
 3. `TranslateService.use()` loads `public/i18n/<language>.json`.
-4. `TranslatePipe` updates the templates.
-5. `LanguageService` preserves the locale when navigating between pages and projects.
-6. The language button toggles the state and updates the URL.
+4. Only the winning request publishes `ready`; errors publish `failed`.
+5. `TranslatePipe` updates regular templates while command-sensitive flows use
+   the resolved catalog state directly.
+6. Locale-aware links preserve standard browser behavior and the language
+   button updates the URL.
 
 English is the initial and fallback language. The loader is configured with `failOnError: true`; a missing catalog is treated as an error instead of silently resulting in empty translations.
 
@@ -185,7 +207,11 @@ Each component has encapsulated SCSS. Shared styles live in `src/styles`:
 
 ## Testing
 
-The `@angular/build:unit-test` builder runs Vitest on top of jsdom. Every component has a spec file. `src/test-setup.ts` provides Router and ngx-translate to all tests, reducing repeated setup.
+The `@angular/build:unit-test` builder runs Vitest on top of jsdom. Every
+component has a spec file. Intro tests use controlled catalog states and cover
+delayed loads, both languages, stale completion, failures, navigation
+interruption, reduced motion, Unicode, and one-run behavior. The production
+build additionally verifies SSR/SSG compilation and prerendering.
 
 ## Build and delivery
 

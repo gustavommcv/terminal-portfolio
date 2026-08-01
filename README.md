@@ -49,7 +49,7 @@ By default, the application is available at `http://localhost:4200`.
 | --- | --- |
 | `npm start` | Starts the local server in development mode. |
 | `npm run dev` | Starts the local server accepting connections on `0.0.0.0`. |
-| `npm run preview` | Starts Angular using the production configuration. |
+| `npm run preview` | Starts the production configuration without development prebundling or HMR. |
 | `npm run build` | Generates the default build, configured as production. |
 | `npm run build:production` | Explicitly generates the production build. |
 | `npm run watch` | Rebuilds in development mode on every change. |
@@ -106,14 +106,22 @@ The `/`, `/about`, and `/portfolio` routes are prerendered at build time. The dy
 
 The home page's first-visit terminal sequence uses application-scoped in-memory
 state and a structural rendering boundary: secondary home components do not
-exist in the DOM until the command and final pause finish. Terminal typing and
-cursor timing are centralized in `src/app/features/home/home-intro.config.ts`;
-command text stays in the translation catalogs. The state resets on a real
+exist in the DOM until the active translation catalog resolves, the command is
+typed, and the final pause finishes. The terminal shell itself is stable from
+the server-rendered HTML onward. `HomeIntroCommandService` reads the command
+directly from the resolved catalog, so a transient translation key can never be
+captured as visitor-facing text. Terminal timing is centralized in
+`src/app/features/home/home-intro.config.ts`; the lifecycle resets on a real
 reload and is never persisted in browser storage.
 
 ## Internationalization
 
-The site supports English and Brazilian Portuguese through ngx-translate. The active locale is tracked via the `locale` query string (`en` is the default and fallback; `pt`/`pt_BR` selects Portuguese), so direct navigation, page refreshes, and shared links preserve the expected language. Translation catalogs live in `public/i18n/en.json` and `public/i18n/pt.json` and must be kept structurally in sync — the English catalog holds English text, the Portuguese catalog holds Portuguese text, and both are equally part of the product, not a translation of internal documentation.
+The site supports English and Brazilian Portuguese through ngx-translate.
+`LanguageService` is the single owner of the URL-derived locale and exposes the
+active catalog as `loading`, `ready`, or `failed`. The `locale` query string
+uses English as the default; `pt` and legacy/shared `pt_BR` values select
+Portuguese. Translation catalogs live in `public/i18n/en.json` and
+`public/i18n/pt.json` and must be kept structurally in sync.
 
 ## Production build
 

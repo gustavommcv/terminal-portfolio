@@ -2,7 +2,43 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased] — 2026-07-30
+## [Unreleased] — 2026-08-01
+
+### Home intro and internationalization
+
+- Fixed the cold-load race that could type
+  `home-page.presentation-section.command` before the active catalog resolved.
+- Consolidated URL locale ownership, catalog loading, stale-request protection,
+  and document language updates in `LanguageService`.
+- Added explicit loading, ready, and failure catalog states plus a dedicated
+  command resolver for the home intro.
+- Expanded the intro lifecycle with a waiting state, frozen per-run command,
+  failure fallback, navigation interruption, and reduced-motion handling.
+- Preserved the terminal DOM node while delaying all secondary home content
+  until completion.
+
+### Quality, accessibility, and performance
+
+- Replaced click-only navigation surfaces with real links that retain modifier
+  click, keyboard, focus, and copy-link behavior.
+- Added mobile menu ARIA state, Escape handling, focus-visible styles, and body
+  scroll cleanup.
+- Added intrinsic image dimensions, deferred below-the-fold decoding/loading,
+  and safe external-link relationships.
+- Removed the unused Inter web-font request, duplicate SCSS variables, dead
+  comments, an unnecessary URL sanitizer bypass, and avoidable untyped code.
+- Aligned `npm run preview` with a production-like server without HMR or
+  development prebundling.
+
+### Validation
+
+- Added deterministic tests for delayed English and Portuguese catalogs,
+  missing/failed catalogs, out-of-order loads, mid-typing language changes,
+  reduced motion, navigation interruption, and Unicode typing.
+- Production build passes with three prerendered routes and a stable, empty
+  terminal command in the initial home HTML.
+
+## [22.1.0] — 2026-07-30
 
 ### Summary
 
