@@ -1,11 +1,13 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { vi } from 'vitest';
 
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectsDataService } from '../../../services/projects-data.service';
+import { InitialNavigationRouterStub } from '../../../../testing/initial-navigation-router.stub';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
 import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 import { HomeIntroCommandService } from '../services/home-intro-command.service';
@@ -33,13 +35,18 @@ function mockMatchMedia(matches: boolean): void {
 }
 
 describe('HomePage intro lifecycle', () => {
+  let router: InitialNavigationRouterStub;
+
   beforeEach(() => {
     vi.useFakeTimers();
     mockMatchMedia(false);
+    router = new InitialNavigationRouterStub();
+    router.hydrateAt('/');
     TestBed.configureTestingModule({
       imports: [HomePage],
       providers: [
         { provide: HOME_INTRO_CONFIG, useValue: config },
+        { provide: Router, useValue: router },
         {
           provide: HomeIntroCommandService,
           useValue: {
@@ -175,7 +182,7 @@ describe('HomePage intro lifecycle', () => {
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
   });
 
-  it('inserts secondary content directly in its final state without reveal styling', () => {
+  it('gives one lower container the eligible opacity entrance state', () => {
     const fixture = createHome();
     const terminalElement: HTMLElement =
       fixture.nativeElement.querySelector('.terminal-section');
@@ -190,11 +197,18 @@ describe('HomePage intro lifecycle', () => {
     );
     const footer: HTMLElement = fixture.nativeElement.querySelector('app-footer');
 
-    for (const element of [presentation, content, footer]) {
+    expect(content.classList.contains('home-content--intro-reveal')).toBe(true);
+    expect(
+      fixture.nativeElement.querySelectorAll('.home-content--intro-reveal'),
+    ).toHaveLength(1);
+
+    for (const element of [presentation, footer]) {
       expect(element.className).not.toMatch(/reveal|fade|stagger|transition|animation/i);
       expect(element.getAttribute('style')).toBeNull();
     }
-    expect(terminalElement.closest('[class*="reveal"]')).toBeNull();
+    expect(content.getAttribute('style')).toBeNull();
+    expect(terminalElement.className).toBe('terminal-section');
+    expect(terminalElement.closest('.home-content--intro-reveal')).toBeNull();
   });
 
   it('keeps reservation and visible layers stable when lower content mounts', () => {
@@ -266,6 +280,7 @@ describe('HomePage intro lifecycle', () => {
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
+    expect(content.classList.contains('home-content--intro-reveal')).toBe(false);
     expect(
       second.nativeElement
         .querySelector('.terminal-section__visible-content .command')
@@ -285,6 +300,7 @@ describe('HomePage intro lifecycle', () => {
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
+    expect(content.classList.contains('home-content--intro-reveal')).toBe(false);
     expect(
       second.nativeElement
         .querySelector('.terminal-section__visible-content .command')
@@ -303,7 +319,47 @@ describe('HomePage intro lifecycle', () => {
     );
     expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
+    expect(content.classList.contains('home-content--intro-reveal')).toBe(false);
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+    expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it.each(['/portfolio', '/about'])(
+    'renders completed content immediately after starting on %s',
+    (initialUrl) => {
+      router.hydrateAt(initialUrl);
+      const fixture = createHome();
+      const content: HTMLElement = fixture.nativeElement.querySelector(
+        '[data-testid="home-content"]',
+      );
+
+      expect(content).not.toBeNull();
+      expect(content.classList.contains('home-content--intro-reveal')).toBe(false);
+      expect(
+        fixture.nativeElement
+          .querySelector('.terminal-section__visible-content .command')
+          ?.textContent.trim(),
+      ).toBe('whoami');
+      expect(vi.getTimerCount()).toBe(0);
+    },
+  );
+
+  it('cannot leave returning content transparent after an interrupted reveal', () => {
+    const first = createHome();
+    completeTyping(first);
+    const firstContent: HTMLElement = first.nativeElement.querySelector(
+      '[data-testid="home-content"]',
+    );
+    expect(firstContent.classList.contains('home-content--intro-reveal')).toBe(true);
+    expect(firstContent.getAttribute('style')).toBeNull();
+    first.destroy();
+
+    const returning = createHome();
+    const returningContent: HTMLElement = returning.nativeElement.querySelector(
+      '[data-testid="home-content"]',
+    );
+    expect(returningContent.classList.contains('home-content--intro-reveal')).toBe(false);
+    expect(returningContent.getAttribute('style')).toBeNull();
     expect(vi.getTimerCount()).toBe(0);
   });
 });

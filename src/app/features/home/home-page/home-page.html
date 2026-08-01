@@ -11,7 +11,11 @@
   </home-intro>
 
   @if (intro.contentVisible()) {
-    <div class="home-content" data-testid="home-content">
+    <div
+      class="home-content"
+      [class.home-content--intro-reveal]="revealLowerContent()"
+      data-testid="home-content"
+    >
       <services-section />
 
       <tech-stack-section />

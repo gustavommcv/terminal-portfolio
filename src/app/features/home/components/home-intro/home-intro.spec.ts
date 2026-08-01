@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { vi } from 'vitest';
 
+import { InitialNavigationRouterStub } from '../../../../../testing/initial-navigation-router.stub';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../../home-intro.config';
 import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../../home-intro-layout-reservations';
 import { HomeIntroCommandState } from '../../services/home-intro-command.service';
@@ -44,9 +46,14 @@ describe('HomeIntro', () => {
   beforeEach(() => {
     vi.useFakeTimers();
     mockMatchMedia(false);
+    const router = new InitialNavigationRouterStub();
+    router.hydrateAt('/');
     TestBed.configureTestingModule({
       imports: [HomeIntro],
-      providers: [{ provide: HOME_INTRO_CONFIG, useValue: config }],
+      providers: [
+        { provide: HOME_INTRO_CONFIG, useValue: config },
+        { provide: Router, useValue: router },
+      ],
     });
   });
 

@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   OnDestroy,
   OnInit,
@@ -34,6 +35,10 @@ import { HomeIntroService } from '../services/home-intro.service';
 export class HomePage implements OnInit, OnDestroy {
   readonly intro = inject(HomeIntroService);
   readonly introCommand = inject(HomeIntroCommandService);
+  private readonly ownsEligibleIntro = this.intro.state() === 'eligible';
+  readonly revealLowerContent = computed(
+    () => this.ownsEligibleIntro && this.intro.completedByTyping(),
+  );
 
   constructor(
     private title: Title,
