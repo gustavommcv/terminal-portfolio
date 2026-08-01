@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +13,7 @@ import { LanguageToggleButton } from '../../shared/language-toggle-button/langua
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, LanguageToggleButton],
+  imports: [LanguageToggleButton],
   templateUrl: './header.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './header.scss',
