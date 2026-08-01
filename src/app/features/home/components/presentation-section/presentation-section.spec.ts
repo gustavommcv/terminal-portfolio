@@ -13,8 +13,12 @@ describe('PresentationSection', () => {
 
   it('renders its complete, final presentation state when instantiated', () => {
     expect(fixture.componentInstance).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('.presentation-section')).not.toBeNull();
+    const presentation: HTMLElement = fixture.nativeElement.querySelector(
+      '.presentation-section',
+    );
+    expect(presentation).not.toBeNull();
     expect(fixture.nativeElement.querySelector('.terminal-section')).toBeNull();
-    expect(fixture.nativeElement.querySelector('.home-reveal--pending')).toBeNull();
+    expect(presentation.className).not.toMatch(/reveal|fade|stagger|animation/i);
+    expect(presentation.getAttribute('style')).toBeNull();
   });
 });

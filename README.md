@@ -8,7 +8,7 @@ Live at [gusmonnerat.dev](https://gusmonnerat.dev).
 
 - Angular 22 with standalone components and route-level lazy loading
 - TypeScript 6 in strict mode
-- SCSS with shared global styles, variables, and animations
+- SCSS with shared global styles and variables
 - Angular Router
 - Angular SSR/SSG for prerendering static routes
 - ngx-translate 18 for signal-based internationalization
@@ -83,7 +83,7 @@ terminal-portfolio/
 │   │   ├── app.config*.ts      # Browser and rendering providers
 │   │   └── app.routes*.ts      # Client routes and rendering modes
 │   ├── environments/           # Per-environment configuration
-│   ├── styles/                 # Global SCSS, variables, and animations
+│   ├── styles/                 # Global SCSS and variables
 │   ├── main.ts                 # Browser bootstrap
 │   ├── main.server.ts          # Bootstrap used for rendering
 │   ├── server.ts               # Angular/Express engine for the build process
@@ -106,10 +106,10 @@ The `/`, `/about`, and `/portfolio` routes are prerendered at build time. The dy
 
 The home page's first-visit terminal sequence uses application-scoped in-memory
 state and a structural rendering boundary: secondary home components do not
-exist in the DOM until the command finishes. Timing and reveal options are
-centralized in `src/app/features/home/home-intro.config.ts`; command text stays
-in the translation catalogs. The state resets on a real reload and is never
-persisted in browser storage.
+exist in the DOM until the command and final pause finish. Terminal typing and
+cursor timing are centralized in `src/app/features/home/home-intro.config.ts`;
+command text stays in the translation catalogs. The state resets on a real
+reload and is never persisted in browser storage.
 
 ## Internationalization
 

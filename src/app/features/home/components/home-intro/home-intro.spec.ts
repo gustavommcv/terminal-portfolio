@@ -10,8 +10,6 @@ const config: HomeIntroConfig = {
   typingIntervalMs: 5,
   completionDelayMs: 7,
   cursorBlinkIntervalMs: 500,
-  revealContent: true,
-  revealDurationMs: 100,
 };
 
 function mockMatchMedia(initialMatches: boolean): {
@@ -89,7 +87,7 @@ describe('HomeIntro', () => {
     expect(service.state()).toBe('typing');
 
     vi.advanceTimersByTime(7);
-    expect(service.state()).toBe('revealing');
+    expect(service.state()).toBe('completed');
   });
 
   it('does not finish when only part of the typing time has elapsed', () => {
@@ -169,6 +167,6 @@ describe('HomeIntro', () => {
     expect(TestBed.inject(HomeIntroService).state()).toBe('typing');
 
     vi.advanceTimersByTime(7);
-    expect(TestBed.inject(HomeIntroService).state()).toBe('revealing');
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
   });
 });

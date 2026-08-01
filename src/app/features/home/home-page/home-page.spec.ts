@@ -14,8 +14,6 @@ const config: HomeIntroConfig = {
   typingIntervalMs: 5,
   completionDelayMs: 7,
   cursorBlinkIntervalMs: 500,
-  revealContent: true,
-  revealDurationMs: 100,
 };
 
 function mockMatchMedia(matches: boolean): void {
@@ -63,14 +61,6 @@ describe('HomePage intro lifecycle', () => {
   function completeTyping(fixture: ComponentFixture<HomePage>): void {
     // 10ms initial delay + five 5ms gaps for six characters + 7ms final pause.
     vi.advanceTimersByTime(42);
-    fixture.detectChanges();
-  }
-
-  function finishReveal(fixture: ComponentFixture<HomePage>): void {
-    const content: HTMLElement = fixture.nativeElement.querySelector(
-      '[data-testid="home-content"]',
-    );
-    content.dispatchEvent(new Event('animationend'));
     fixture.detectChanges();
   }
 
@@ -138,10 +128,10 @@ describe('HomePage intro lifecycle', () => {
     expect(terminalElementAfter).toBe(terminalElementBefore);
     expect(terminalInstanceAfter).toBe(terminalInstanceBefore);
     expect(projectsConstructorEffect).toHaveBeenCalledTimes(1);
-    expect(TestBed.inject(HomeIntroService).state()).toBe('revealing');
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
   });
 
-  it('keeps the terminal outside the reveal animation applied to new content', () => {
+  it('inserts secondary content directly in its final state without reveal styling', () => {
     const fixture = createHome();
     const terminalElement: HTMLElement =
       fixture.nativeElement.querySelector('.terminal-section');
@@ -156,30 +146,33 @@ describe('HomePage intro lifecycle', () => {
     );
     const footer: HTMLElement = fixture.nativeElement.querySelector('app-footer');
 
-    expect(terminalElement.closest('.home-secondary--revealing')).toBeNull();
-    expect(terminalElement.classList.contains('home-secondary--revealing')).toBe(
-      false,
-    );
-    expect(presentation.classList.contains('home-secondary--revealing')).toBe(true);
-    expect(content.classList.contains('home-secondary--revealing')).toBe(true);
-    expect(footer.classList.contains('home-secondary--revealing')).toBe(true);
+    for (const element of [presentation, content, footer]) {
+      expect(element.className).not.toMatch(/reveal|fade|stagger|transition|animation/i);
+      expect(element.getAttribute('style')).toBeNull();
+    }
+    expect(terminalElement.closest('[class*="reveal"]')).toBeNull();
   });
 
-  it('finishes the initial reveal once and cannot replay it', () => {
+  it('instantiates secondary content exactly once in the completed state', () => {
+    const projectsConstructorEffect = vi.spyOn(
+      ProjectsDataService.prototype,
+      'getFeaturedProjects',
+    );
     const fixture = createHome();
     completeTyping(fixture);
 
-    const content: HTMLElement = fixture.nativeElement.querySelector(
+    const contentBefore: HTMLElement = fixture.nativeElement.querySelector(
       '[data-testid="home-content"]',
     );
-    expect(content.classList.contains('home-secondary--revealing')).toBe(true);
-
-    finishReveal(fixture);
-    content.dispatchEvent(new Event('animationend'));
+    vi.advanceTimersByTime(1_000);
     fixture.detectChanges();
+    const contentAfter: HTMLElement = fixture.nativeElement.querySelector(
+      '[data-testid="home-content"]',
+    );
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
-    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
+    expect(contentAfter).toBe(contentBefore);
+    expect(projectsConstructorEffect).toHaveBeenCalledTimes(1);
   });
 
   it('consumes an interrupted typing run and returns immediately in the final state', () => {
@@ -197,7 +190,6 @@ describe('HomePage intro lifecycle', () => {
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
     expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
       'whoami',
     );
@@ -206,7 +198,6 @@ describe('HomePage intro lifecycle', () => {
   it('returns after normal completion without replaying typing or secondary reveal', () => {
     const first = createHome();
     completeTyping(first);
-    finishReveal(first);
     first.destroy();
 
     const second = createHome();
@@ -215,7 +206,7 @@ describe('HomePage intro lifecycle', () => {
     );
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
-    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
+    expect(content).not.toBeNull();
     expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
       'whoami',
     );
@@ -232,7 +223,6 @@ describe('HomePage intro lifecycle', () => {
     );
     expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(content.classList.contains('home-secondary--revealing')).toBe(false);
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(vi.getTimerCount()).toBe(0);
   });

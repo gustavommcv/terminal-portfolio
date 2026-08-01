@@ -13,25 +13,3 @@
     padding: 0 0.5rem;
   }
 }
-
-.home-secondary--revealing {
-  animation: home-content-reveal var(--home-reveal-duration) ease-out both;
-}
-
-@keyframes home-content-reveal {
-  from {
-    opacity: 0;
-    transform: translateY(0.75rem);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-secondary--revealing {
-    animation: none;
-  }
-}

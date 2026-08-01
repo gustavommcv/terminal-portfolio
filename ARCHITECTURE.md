@@ -84,22 +84,22 @@ flowchart TD
 
 ### Home intro lifecycle
 
-`HomeIntroService` is a root-provided, in-memory state machine with four states:
+`HomeIntroService` is a root-provided, in-memory state machine with three states:
 
 ```text
 idle ── browser post-hydration start ──► typing
   └── reduced motion ──────────────────► completed
-typing ── final character + final pause ► revealing ── animationend ──► completed
-typing/revealing ── route destruction ────────────────────────────────► completed
+typing ── final character + final pause ─────────────────────────────► completed
+typing ── route destruction ─────────────────────────────────────────► completed
 ```
 
 `HomePage` owns the structural rendering boundary. `HomeIntro` and its terminal
 shell remain mounted across the transition. While the service is `idle` or
 `typing`, every secondary `@if` block is absent. Presentation content, services,
-stack, projects, contact, and footer are created only in `revealing` or
-`completed`, and the reveal animation applies only to those inserted nodes.
+stack, projects, contact, and footer are created only in `completed` and are
+inserted immediately with their final styles, without a secondary animation.
 Consequently, secondary hooks, image loads, observers, and other side effects
-cannot run during typing, while the terminal DOM and cursor animation keep the
+cannot run during typing, while the terminal component and DOM node keep the
 same identity.
 
 `HomeIntro` owns one recursively scheduled timeout. Each callback appends one
@@ -109,15 +109,15 @@ present. The reusable terminal components contain no lifecycle or timing state.
 
 The sequence is configured in
 `src/app/features/home/home-intro.config.ts`. `HOME_INTRO_CONFIG` controls the
-initial delay, per-character interval, final pause, cursor blink, and optional
-content reveal/duration. Translated command text remains in `public/i18n`.
+initial delay, per-character interval, final pause, and cursor blink. Translated
+command text remains in `public/i18n`.
 
 Browser-only startup and `matchMedia` access run inside `afterNextRender`, which
 Angular skips during server rendering and runs after hydration. The server and
 initial browser render therefore agree on the intro-only tree. A non-home
 initial route never constructs `HomeIntro` and does not consume the sequence.
 Reduced-motion users transition to the complete tree at that post-hydration
-boundary without typing or reveal animation.
+boundary without typing or an unnecessary delay.
 
 ### Core and shared
 
@@ -179,7 +179,6 @@ English is the initial and fallback language. The loader is configured with `fai
 Each component has encapsulated SCSS. Shared styles live in `src/styles`:
 
 - `abstracts/_variables.scss`: tokens and variables;
-- `abstracts/_animations.scss`: reusable animations;
 - `styles.scss`: global stylesheet registered in `angular.json`.
 
 `stylePreprocessorOptions.includePaths` allows importing resources from `src/styles`.

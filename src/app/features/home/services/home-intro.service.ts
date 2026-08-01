@@ -1,8 +1,6 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
-import { HOME_INTRO_CONFIG } from '../home-intro.config';
-
-export type HomeIntroState = 'idle' | 'typing' | 'revealing' | 'completed';
+export type HomeIntroState = 'idle' | 'typing' | 'completed';
 
 /**
  * Application-scoped, in-memory state machine for the home intro lifecycle.
@@ -11,7 +9,6 @@ export type HomeIntroState = 'idle' | 'typing' | 'revealing' | 'completed';
  */
 @Injectable({ providedIn: 'root' })
 export class HomeIntroService {
-  private readonly config = inject(HOME_INTRO_CONFIG);
   private readonly internalState = signal<HomeIntroState>('idle');
 
   readonly state = this.internalState.asReadonly();
@@ -20,11 +17,8 @@ export class HomeIntroService {
     return state === 'idle' || state === 'typing';
   });
   readonly contentVisible = computed(() => !this.introVisible());
-  readonly shouldReveal = computed(
-    () => this.internalState() === 'revealing',
-  );
 
-  /** Claims the only eligible run. Reduced-motion users skip both animations. */
+  /** Claims the only eligible run. Reduced-motion users skip command typing. */
   begin(prefersReducedMotion: boolean): boolean {
     if (this.internalState() !== 'idle') {
       return false;
@@ -45,21 +39,12 @@ export class HomeIntroService {
       return;
     }
 
-    const revealEnabled =
-      this.config.revealContent && this.config.revealDurationMs > 0;
-    this.internalState.set(revealEnabled ? 'revealing' : 'completed');
-  }
-
-  finishReveal(): void {
-    if (this.internalState() === 'revealing') {
-      this.internalState.set('completed');
-    }
+    this.internalState.set('completed');
   }
 
   /** Consumes an active sequence when its home view is abandoned. */
   interrupt(): void {
-    const state = this.internalState();
-    if (state === 'typing' || state === 'revealing') {
+    if (this.internalState() === 'typing') {
       this.internalState.set('completed');
     }
   }

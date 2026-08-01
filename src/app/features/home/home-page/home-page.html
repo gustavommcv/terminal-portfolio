@@ -3,24 +3,14 @@
     [command]="'home-page.presentation-section.command' | translate"
   >
     @if (intro.contentVisible()) {
-      <div
-        class="home-presentation"
-        [class.home-secondary--revealing]="intro.shouldReveal()"
-        [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
-      >
+      <div class="home-presentation">
         <presentation-section />
       </div>
     }
   </home-intro>
 
   @if (intro.contentVisible()) {
-    <div
-      class="home-content"
-      data-testid="home-content"
-      [class.home-secondary--revealing]="intro.shouldReveal()"
-      [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
-      (animationend)="onRevealAnimationEnd($event)"
-    >
+    <div class="home-content" data-testid="home-content">
       <services-section />
 
       <tech-stack-section />
@@ -33,9 +23,5 @@
 </div>
 
 @if (intro.contentVisible()) {
-  <app-footer
-    class="home-footer"
-    [class.home-secondary--revealing]="intro.shouldReveal()"
-    [style.--home-reveal-duration]="introConfig.revealDurationMs + 'ms'"
-  />
+  <app-footer />
 }

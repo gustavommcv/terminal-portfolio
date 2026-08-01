@@ -8,8 +8,6 @@ const config: HomeIntroConfig = {
   typingIntervalMs: 5,
   completionDelayMs: 7,
   cursorBlinkIntervalMs: 500,
-  revealContent: true,
-  revealDurationMs: 100,
 };
 
 describe('HomeIntroService', () => {
@@ -36,17 +34,14 @@ describe('HomeIntroService', () => {
     expect(service.state()).toBe('typing');
   });
 
-  it('moves through typing, revealing, and completed without replaying', () => {
+  it('moves directly from typing to completed without replaying', () => {
     const service = createService();
 
     service.begin(false);
     service.finishTyping();
-    expect(service.state()).toBe('revealing');
+    expect(service.state()).toBe('completed');
     expect(service.contentVisible()).toBe(true);
 
-    service.finishReveal();
-    service.finishReveal();
-    expect(service.state()).toBe('completed');
     expect(service.begin(false)).toBe(false);
   });
 
@@ -66,7 +61,6 @@ describe('HomeIntroService', () => {
     expect(service.begin(true)).toBe(false);
     expect(service.state()).toBe('completed');
     expect(service.contentVisible()).toBe(true);
-    expect(service.shouldReveal()).toBe(false);
   });
 
   it('gives a fresh application-scoped instance a fresh lifecycle', () => {

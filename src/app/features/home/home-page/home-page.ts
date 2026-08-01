@@ -14,7 +14,6 @@ import { Footer } from '../../../core/layout/footer/footer';
 import { Meta, Title } from '@angular/platform-browser';
 import { TranslatePipe } from '@ngx-translate/core';
 import { HomeIntro } from '../components/home-intro/home-intro';
-import { HOME_INTRO_CONFIG } from '../home-intro.config';
 import { HomeIntroService } from '../services/home-intro.service';
 
 @Component({
@@ -35,7 +34,6 @@ import { HomeIntroService } from '../services/home-intro.service';
 })
 export class HomePage implements OnInit, OnDestroy {
   readonly intro = inject(HomeIntroService);
-  readonly introConfig = inject(HOME_INTRO_CONFIG);
 
   constructor(
     private title: Title,
@@ -49,12 +47,6 @@ export class HomePage implements OnInit, OnDestroy {
       content:
         "Hello, I'm Gustavo Monnerat — software developer/architect. I build full-stack apps with care and scalability. Freelancer open to cool and challenging projects.",
     });
-  }
-
-  onRevealAnimationEnd(event: AnimationEvent): void {
-    if (event.target === event.currentTarget) {
-      this.intro.finishReveal();
-    }
   }
 
   ngOnDestroy(): void {
