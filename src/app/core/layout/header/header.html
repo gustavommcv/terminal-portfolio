@@ -12,12 +12,13 @@
     </a>
 
     <button
+      #menuTrigger
       type="button"
       class="hamburger-button"
       (click)="toggleMenu()"
       aria-label="Menu"
       aria-controls="mobile-menu"
-      [attr.aria-expanded]="isMenuOpen"
+      [attr.aria-expanded]="isMenuOpen()"
     >
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
@@ -25,31 +26,34 @@
     </button>
   </div>
 
-  <div
-    id="mobile-menu"
-    class="menu-overlay"
-    [class.menu-overlay--open]="isMenuOpen"
-    [attr.aria-hidden]="!isMenuOpen"
-    (click)="closeMenu()"
-  >
-    <nav class="mobile-nav" aria-label="Mobile" (click)="$event.stopPropagation()">
-      <div class="nav-links">
-        @for (route of ['/', '/about', '/portfolio']; track route) {
-          <a
-            class="mobile-nav__link"
-            [class.mobile-nav__link--active]="isActive(route)"
-            [attr.aria-current]="isActive(route) ? 'page' : null"
-            [href]="language.localizedUrl(route)"
-            (click)="navigateWithLocale(route, $event, true)"
-          >{{ route === '/' ? 'home' : route.slice(1) }}</a>
-        }
-      </div>
+  @if (isMenuOpen()) {
+    <div id="mobile-menu" class="menu-overlay" (click)="closeMenu()">
+      <nav
+        class="mobile-nav"
+        aria-label="Mobile"
+        (click)="$event.stopPropagation()"
+      >
+        <div class="nav-links">
+          @for (
+            route of ['/', '/about', '/portfolio'];
+            track route
+          ) {
+            <a
+              class="mobile-nav__link"
+              [class.mobile-nav__link--active]="isActive(route)"
+              [attr.aria-current]="isActive(route) ? 'page' : null"
+              [href]="language.localizedUrl(route)"
+              (click)="navigateWithLocale(route, $event, true)"
+            >{{ route === '/' ? 'home' : route.slice(1) }}</a>
+          }
+        </div>
 
-      <div class="language-toggle-container">
-        <language-toggle-button />
-      </div>
-    </nav>
-  </div>
+        <div class="language-toggle-container">
+          <language-toggle-button />
+        </div>
+      </nav>
+    </div>
+  }
 
   <nav class="header__nav desktop-nav" aria-label="Primary">
     @for (route of ['/', '/about', '/portfolio']; track route) {

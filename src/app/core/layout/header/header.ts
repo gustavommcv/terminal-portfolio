@@ -2,9 +2,12 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   HostListener,
   inject,
   OnDestroy,
+  signal,
+  viewChild,
 } from '@angular/core';
 
 import { LanguageService } from '../../../services/language.service';
@@ -21,8 +24,10 @@ import { LanguageToggleButton } from '../../shared/language-toggle-button/langua
 export class Header implements OnDestroy {
   readonly language = inject(LanguageService);
   private readonly document = inject(DOCUMENT);
+  private readonly menuTrigger =
+    viewChild<ElementRef<HTMLButtonElement>>('menuTrigger');
 
-  isMenuOpen = false;
+  readonly isMenuOpen = signal(false);
 
   isActive(route: string): boolean {
     return this.language.isActive(route);
@@ -51,7 +56,7 @@ export class Header implements OnDestroy {
   }
 
   toggleMenu(): void {
-    this.setMenuOpen(!this.isMenuOpen);
+    this.setMenuOpen(!this.isMenuOpen());
   }
 
   closeMenu(): void {
@@ -68,7 +73,12 @@ export class Header implements OnDestroy {
   }
 
   private setMenuOpen(isOpen: boolean): void {
-    this.isMenuOpen = isOpen;
+    const wasOpen = this.isMenuOpen();
+    this.isMenuOpen.set(isOpen);
     this.document.body.style.overflow = isOpen ? 'hidden' : '';
+
+    if (wasOpen && !isOpen) {
+      this.menuTrigger()?.nativeElement.focus();
+    }
   }
 }
