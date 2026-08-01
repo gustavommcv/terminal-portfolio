@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
+
+import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
 
 @Component({
@@ -11,16 +12,12 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   styleUrl: './contact-section.scss',
 })
 export class ContactSection {
-  formatEmail = (email: any) => {
-    if (email.includes('@')) {
-      return email
-        .replace(/@/g, '@<wbr>')
-        .replace(/_/g, '_<wbr>')
-        .replace(/\./g, '<wbr>.')
-        .replace(/monnerat/g, 'monnerat<wbr>')
-        .replace(/gustavo/g, 'gustavo<wbr>');
-    }
-
-    return email;
-  };
+  formatEmail(email: string): string {
+    return email
+      .replace(/@/g, '@<wbr>')
+      .replace(/_/g, '_<wbr>')
+      .replace(/\./g, '<wbr>.')
+      .replace(/monnerat/g, 'monnerat<wbr>')
+      .replace(/gustavo/g, 'gustavo<wbr>');
+  }
 }

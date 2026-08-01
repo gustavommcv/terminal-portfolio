@@ -1,14 +1,24 @@
-<!-- TODO -->
-<!-- Hamburger menu style like neotree -->
 <header class="header">
   <div class="header__top">
-    <a (click)="navigateWithLocale('/')" class="logo">
+    <a
+      [href]="language.localizedUrl('/')"
+      (click)="navigateWithLocale('/', $event)"
+      class="logo"
+      aria-label="gus::monnerat — home"
+    >
       <span class="logo--left">gus</span>
       <span class="logo--middle">::</span>
       <span class="logo--right">monnerat</span>
     </a>
 
-    <button class="hamburger-button" (click)="toggleMenu()" aria-label="Menu">
+    <button
+      type="button"
+      class="hamburger-button"
+      (click)="toggleMenu()"
+      aria-label="Menu"
+      aria-controls="mobile-menu"
+      [attr.aria-expanded]="isMenuOpen"
+    >
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
@@ -16,30 +26,23 @@
   </div>
 
   <div
+    id="mobile-menu"
     class="menu-overlay"
     [class.menu-overlay--open]="isMenuOpen"
-    (click)="toggleMenu()"
+    [attr.aria-hidden]="!isMenuOpen"
+    (click)="closeMenu()"
   >
-    <nav class="mobile-nav" (click)="$event.stopPropagation()">
+    <nav class="mobile-nav" aria-label="Mobile" (click)="$event.stopPropagation()">
       <div class="nav-links">
-        <a
-          class="mobile-nav__link"
-          [ngClass]="{ 'mobile-nav__link--active': isActive('/') }"
-          (click)="navigateWithLocale('/'); toggleMenu()"
-          >home</a
-        >
-        <a
-          class="mobile-nav__link"
-          [ngClass]="{ 'mobile-nav__link--active': isActive('/about') }"
-          (click)="navigateWithLocale('/about'); toggleMenu()"
-          >about</a
-        >
-        <a
-          class="mobile-nav__link"
-          [ngClass]="{ 'mobile-nav__link--active': isActive('/portfolio') }"
-          (click)="navigateWithLocale('/portfolio'); toggleMenu()"
-          >portfolio</a
-        >
+        @for (route of ['/', '/about', '/portfolio']; track route) {
+          <a
+            class="mobile-nav__link"
+            [class.mobile-nav__link--active]="isActive(route)"
+            [attr.aria-current]="isActive(route) ? 'page' : null"
+            [href]="language.localizedUrl(route)"
+            (click)="navigateWithLocale(route, $event, true)"
+          >{{ route === '/' ? 'home' : route.slice(1) }}</a>
+        }
       </div>
 
       <div class="language-toggle-container">
@@ -48,25 +51,16 @@
     </nav>
   </div>
 
-  <nav class="header__nav desktop-nav">
-    <a
-      class="header__link"
-      [ngClass]="{ 'header__link--active': isActive('/') }"
-      (click)="navigateWithLocale('/')"
-      >home</a
-    >
-    <a
-      class="header__link"
-      [ngClass]="{ 'header__link--active': isActive('/about') }"
-      (click)="navigateWithLocale('/about')"
-      >about</a
-    >
-    <a
-      class="header__link"
-      [ngClass]="{ 'header__link--active': isActive('/portfolio') }"
-      (click)="navigateWithLocale('/portfolio')"
-      >portfolio</a
-    >
+  <nav class="header__nav desktop-nav" aria-label="Primary">
+    @for (route of ['/', '/about', '/portfolio']; track route) {
+      <a
+        class="header__link"
+        [class.header__link--active]="isActive(route)"
+        [attr.aria-current]="isActive(route) ? 'page' : null"
+        [href]="language.localizedUrl(route)"
+        (click)="navigateWithLocale(route, $event)"
+      >{{ route === '/' ? 'home' : route.slice(1) }}</a>
+    }
 
     <div class="desktop-language-toggle">
       <language-toggle-button />

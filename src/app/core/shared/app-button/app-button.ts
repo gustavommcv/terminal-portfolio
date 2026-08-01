@@ -1,7 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { LanguageService } from '../../../services/language.service';
+import { DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'app-button',
@@ -12,32 +17,47 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrl: './app-button.scss',
 })
 export class AppButton {
-  @Input() route: string = '';
-  @Input() scrollTo: string = '';
+  @Input() route = '';
+  @Input() scrollTo = '';
 
-  constructor(
-    private languageService: LanguageService,
-    private sanitizer: DomSanitizer,
-  ) { }
+  private readonly language = inject(LanguageService);
+  private readonly document = inject(DOCUMENT);
 
-  get safeHref(): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(this.route || '#');
+  get href(): string {
+    if (this.scrollTo) {
+      return `#${this.scrollTo}`;
+    }
+
+    return this.route ? this.language.localizedUrl(this.route) : '#';
   }
 
-  handleClick(event: Event) {
+  handleClick(event: MouseEvent): void {
+    if (
+      event.button !== 0 ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
     if (this.scrollTo) {
       event.preventDefault();
-      this.scrollToElement(this.scrollTo);
+      const element = this.document.getElementById(this.scrollTo);
+      element?.scrollIntoView({
+        behavior: this.prefersReducedMotion() ? 'instant' : 'smooth',
+      });
     } else if (this.route) {
       event.preventDefault();
-      this.languageService.navigateWithLocale(this.route);
+      void this.language.navigateWithLocale(this.route);
     }
   }
 
-  private scrollToElement(elementId: string) {
-    const element = document.getElementById(elementId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  private prefersReducedMotion(): boolean {
+    return (
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
   }
 }

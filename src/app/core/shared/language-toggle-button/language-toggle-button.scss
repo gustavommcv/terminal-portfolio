@@ -4,6 +4,11 @@
   font-size: 2rem;
   cursor: pointer;
 
+  &:focus-visible {
+    outline: 2px solid #52bdff;
+    outline-offset: 0.4rem;
+  }
+
   .json-brace {
     color: #a6accd;
   }

@@ -1,5 +1,12 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+} from '@angular/core';
+
 import { LanguageService } from '../../../services/language.service';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
 
@@ -11,30 +18,57 @@ import { LanguageToggleButton } from '../../shared/language-toggle-button/langua
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './header.scss',
 })
-export class Header {
-  constructor(public language: LanguageService) {}
+export class Header implements OnDestroy {
+  readonly language = inject(LanguageService);
+  private readonly document = inject(DOCUMENT);
 
   isMenuOpen = false;
 
-  toggleLanguage() {
-    this.language.toggleLanguage();
-  }
-
-  isActive(route: string) {
+  isActive(route: string): boolean {
     return this.language.isActive(route);
   }
 
-  navigateWithLocale(route: string) {
-    this.language.navigateWithLocale(route);
+  navigateWithLocale(
+    route: string,
+    event: MouseEvent,
+    closeMenu = false,
+  ): void {
+    if (
+      event.button !== 0 ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    void this.language.navigateWithLocale(route);
+    if (closeMenu) {
+      this.closeMenu();
+    }
   }
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+  toggleMenu(): void {
+    this.setMenuOpen(!this.isMenuOpen);
+  }
 
-    if (this.isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+  closeMenu(): void {
+    this.setMenuOpen(false);
+  }
+
+  @HostListener('document:keydown.escape')
+  closeMenuFromKeyboard(): void {
+    this.closeMenu();
+  }
+
+  ngOnDestroy(): void {
+    this.document.body.style.overflow = '';
+  }
+
+  private setMenuOpen(isOpen: boolean): void {
+    this.isMenuOpen = isOpen;
+    this.document.body.style.overflow = isOpen ? 'hidden' : '';
   }
 }

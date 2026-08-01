@@ -10,22 +10,31 @@ describe('ProjectCard', () => {
     links: {},
   };
 
-  let component: ProjectCard;
   let fixture: ComponentFixture<ProjectCard>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ProjectCard]
-    })
-    .compileComponents();
-
+  beforeEach(() => {
+    TestBed.configureTestingModule({ imports: [ProjectCard] });
     fixture = TestBed.createComponent(ProjectCard);
-    component = fixture.componentInstance;
-    component.project = project;
+    fixture.componentRef.setInput('project', project);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('uses a real link instead of a click-only button surrogate', () => {
+    const link: HTMLAnchorElement =
+      fixture.nativeElement.querySelector('.project-card');
+
+    expect(link.tagName).toBe('A');
+    expect(link.getAttribute('href')).toBe('/portfolio/test-project');
+    expect(link.hasAttribute('role')).toBe(false);
+    expect(link.hasAttribute('tabindex')).toBe(false);
+  });
+
+  it('reserves image space and defers below-the-fold work', () => {
+    const image: HTMLImageElement = fixture.nativeElement.querySelector('img');
+
+    expect(image.getAttribute('width')).toBe('640');
+    expect(image.getAttribute('height')).toBe('360');
+    expect(image.getAttribute('loading')).toBe('lazy');
+    expect(image.getAttribute('decoding')).toBe('async');
   });
 });

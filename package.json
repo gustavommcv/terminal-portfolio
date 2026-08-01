@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "preview": "ng serve --configuration production",
+    "preview": "ng serve --configuration production --prebundle=false --hmr=false",
     "build": "ng build",
     "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",

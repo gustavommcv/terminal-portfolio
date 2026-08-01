@@ -26,6 +26,11 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   }
 
+  &:focus-visible {
+    outline: 2px solid #52bdff;
+    outline-offset: 0.4rem;
+  }
+
   @media screen and (max-width: 600px) {
     font-size: 1.8rem;
     max-width: 35rem;
@@ -33,6 +38,8 @@
 
   &__image {
     width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     border-bottom: 2px solid $color-border;
   }

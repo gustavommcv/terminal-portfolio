@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -8,9 +8,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   styleUrl: './footer.scss',
 })
 export class Footer {
-  @Input() key: string = '';
-
-  getCurrentYear() {
-    return new Date().getFullYear()
-  }
+  readonly currentYear = new Date().getFullYear();
 }

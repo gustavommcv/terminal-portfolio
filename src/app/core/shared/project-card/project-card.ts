@@ -1,8 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Project } from '../../../data/projects.data';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { LanguageService } from '../../../services/language.service';
 
+import { Project } from '../../../data/projects.data';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
   selector: 'project-card',
@@ -13,11 +13,22 @@ import { LanguageService } from '../../../services/language.service';
   styleUrl: './project-card.scss',
 })
 export class ProjectCard {
-  @Input() project!: Project;
+  @Input({ required: true }) project!: Project;
 
-  constructor(public language: LanguageService) {}
+  constructor(readonly language: LanguageService) {}
 
-  navigateToDetail() {
-    this.language.navigateWithLocale('/portfolio/' + this.project.id);
+  navigateToDetail(event: MouseEvent): void {
+    if (
+      event.button !== 0 ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    void this.language.navigateWithLocale(`/portfolio/${this.project.id}`);
   }
 }
