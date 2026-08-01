@@ -37,7 +37,7 @@ describe('TerminalLine', () => {
     const fixture = createTerminalLine(true);
 
     expect(terminalLineEl(fixture).classList.contains('typing-animation')).toBe(false);
-    expect(TestBed.inject(HomeIntroAnimationService).state()).toBe('idle');
+    expect(TestBed.inject(HomeIntroAnimationService).state()).toBe('notStarted');
   });
 
   it('does not replay the animation for a line recreated later in the same app lifetime', () => {
@@ -82,16 +82,26 @@ describe('TerminalLine', () => {
     expect(service.requestPlay()).toBe(false);
   });
 
-  it('leaving before the animation ends still prevents a later replay (consumed once started)', () => {
+  it('settles the shared state on destroy if abandoned mid-animation, unblocking the reveal', () => {
     const first = createTerminalLine(false);
     // Component is destroyed before an `animationend` event is ever dispatched,
     // simulating navigating away mid-animation.
     first.destroy();
 
     const service = TestBed.inject(HomeIntroAnimationService);
-    expect(service.state()).toBe('running');
+    // Must settle to `completed`, not stay stuck at `running` forever: the
+    // rest of the home page depends on this to know it's safe to reveal on
+    // a later visit.
+    expect(service.state()).toBe('completed');
 
     const second = createTerminalLine(false);
     expect(terminalLineEl(second).classList.contains('typing-animation')).toBe(false);
+  });
+
+  it('does not settle the shared state on destroy for a short line that never claimed it', () => {
+    const fixture = createTerminalLine(true);
+    fixture.destroy();
+
+    expect(TestBed.inject(HomeIntroAnimationService).state()).toBe('notStarted');
   });
 });

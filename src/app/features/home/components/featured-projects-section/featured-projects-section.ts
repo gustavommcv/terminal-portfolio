@@ -5,10 +5,11 @@ import { ProjectCard } from '../../../../core/shared/project-card/project-card';
 import { ProjectsDataService } from '../../../../services/projects-data.service';
 import { Project } from '../../../../data/projects.data';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
+import { HomeRevealDirective } from '../../directives/home-reveal.directive';
 
 @Component({
   selector: 'featured-projects-section',
-  imports: [TranslatePipe, TerminalSection, ProjectCard, AppTitle],
+  imports: [TranslatePipe, TerminalSection, ProjectCard, AppTitle, HomeRevealDirective],
   templateUrl: './featured-projects-section.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './featured-projects-section.scss',

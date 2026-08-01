@@ -55,3 +55,25 @@ body {
     opacity: 1;
   }
 }
+
+// Applied by [homeReveal] while the home page's intro sequence hasn't
+// settled yet, so secondary content cannot appear or be scrolled to before
+// its reveal point.
+.home-reveal--pending {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    animation: none;
+    opacity: 1;
+  }
+
+  .home-reveal--pending {
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+  }
+}

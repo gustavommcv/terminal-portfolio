@@ -64,3 +64,14 @@ $color-refused-command-dark: #cc0403;
     border-color: transparent;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  // The service already skips this class for reduced-motion users, but the
+  // build-time prerendered HTML cannot know an individual visitor's
+  // preference, so this covers the brief window before hydration corrects it.
+  .typing-animation {
+    animation: none;
+    width: auto;
+    border-right: none;
+  }
+}
