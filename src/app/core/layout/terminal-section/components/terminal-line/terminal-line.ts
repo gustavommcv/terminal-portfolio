@@ -12,6 +12,7 @@ export class TerminalLine {
   command = input('whoami');
   accessibleCommand = input<string | undefined>(undefined);
   showCursor = input(false);
+  animateCursor = input(true);
   cursorBlinkIntervalMs = input(500);
   error = input(false);
 

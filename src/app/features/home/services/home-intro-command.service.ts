@@ -5,6 +5,7 @@ import {
   LanguageService,
   SupportedLanguage,
 } from '../../../services/language.service';
+import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 
 export type HomeIntroCommandState =
   | { readonly status: 'waiting' }
@@ -22,6 +23,10 @@ export type HomeIntroCommandState =
 @Injectable({ providedIn: 'root' })
 export class HomeIntroCommandService {
   private readonly language = inject(LanguageService);
+
+  readonly layoutReservation = computed(
+    () => HOME_INTRO_LAYOUT_RESERVATIONS[this.language.currentLocale()],
+  );
 
   readonly state = computed<HomeIntroCommandState>(() => {
     const catalog = this.language.catalogState();

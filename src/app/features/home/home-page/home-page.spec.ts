@@ -7,6 +7,7 @@ import { vi } from 'vitest';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
+import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 import { HomeIntroCommandService } from '../services/home-intro-command.service';
 import { HomeIntroService } from '../services/home-intro.service';
 import { HomePage } from './home-page';
@@ -47,6 +48,9 @@ describe('HomePage intro lifecycle', () => {
               language: 'en' as const,
               command: 'whoami',
             }).asReadonly(),
+            layoutReservation: signal(
+              HOME_INTRO_LAYOUT_RESERVATIONS.en,
+            ).asReadonly(),
           },
         },
       ],
@@ -88,7 +92,16 @@ describe('HomePage intro lifecycle', () => {
 
     expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).toBeNull();
-    expect(fixture.nativeElement.querySelector('presentation-section')).toBeNull();
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__visible-content presentation-section',
+      ),
+    ).toBeNull();
+    const reservation: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__layout-reservation',
+    );
+    expect(reservation.getAttribute('aria-hidden')).toBe('true');
+    expect(reservation.hasAttribute('inert')).toBe(true);
     expect(fixture.nativeElement.querySelector('services-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('tech-stack-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('featured-projects-section')).toBeNull();
@@ -103,9 +116,11 @@ describe('HomePage intro lifecycle', () => {
     vi.advanceTimersByTime(20);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
-      'who',
-    );
+    expect(
+      fixture.nativeElement
+        .querySelector('.terminal-section__visible-content .command')
+        ?.textContent.trim(),
+    ).toBe('who');
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).toBeNull();
   });
 
@@ -117,6 +132,9 @@ describe('HomePage intro lifecycle', () => {
     const fixture = createHome();
     const terminalElementBefore: HTMLElement =
       fixture.nativeElement.querySelector('.terminal-section');
+    const reservationBefore: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__layout-reservation',
+    );
     const terminalInstanceBefore = fixture.debugElement.query(
       By.directive(TerminalSection),
     ).componentInstance;
@@ -139,8 +157,19 @@ describe('HomePage intro lifecycle', () => {
 
     expect(fixture.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).not.toBeNull();
-    expect(fixture.nativeElement.querySelector('presentation-section')).not.toBeNull();
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__visible-content presentation-section',
+      ),
+    ).not.toBeNull();
     expect(terminalElementAfter).toBe(terminalElementBefore);
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__layout-reservation',
+      ),
+    ).toBe(reservationBefore);
+    expect(reservationBefore.getAttribute('aria-hidden')).toBe('true');
+    expect(reservationBefore.hasAttribute('inert')).toBe(true);
     expect(terminalInstanceAfter).toBe(terminalInstanceBefore);
     expect(projectsConstructorEffect).toHaveBeenCalledTimes(1);
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
@@ -166,6 +195,38 @@ describe('HomePage intro lifecycle', () => {
       expect(element.getAttribute('style')).toBeNull();
     }
     expect(terminalElement.closest('[class*="reveal"]')).toBeNull();
+  });
+
+  it('keeps reservation and visible layers stable when lower content mounts', () => {
+    const fixture = createHome();
+    const terminal: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-section');
+    const reservation: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__layout-reservation',
+    );
+    const visibleLayer: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__visible-content',
+    );
+
+    completeTyping(fixture);
+
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
+      terminal,
+    );
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__layout-reservation',
+      ),
+    ).toBe(reservation);
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__visible-content',
+      ),
+    ).toBe(visibleLayer);
+    expect(reservation.className).toBe(
+      'terminal-section__layout-reservation',
+    );
+    expect(terminal.className).toBe('terminal-section');
   });
 
   it('instantiates secondary content exactly once in the completed state', () => {
@@ -205,9 +266,11 @@ describe('HomePage intro lifecycle', () => {
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
-      'whoami',
-    );
+    expect(
+      second.nativeElement
+        .querySelector('.terminal-section__visible-content .command')
+        ?.textContent.trim(),
+    ).toBe('whoami');
   });
 
   it('returns after normal completion without replaying typing or secondary reveal', () => {
@@ -222,9 +285,11 @@ describe('HomePage intro lifecycle', () => {
 
     expect(second.nativeElement.querySelector('[data-testid="home-intro"]')).not.toBeNull();
     expect(content).not.toBeNull();
-    expect(second.nativeElement.querySelector('.command')?.textContent.trim()).toBe(
-      'whoami',
-    );
+    expect(
+      second.nativeElement
+        .querySelector('.terminal-section__visible-content .command')
+        ?.textContent.trim(),
+    ).toBe('whoami');
     expect(vi.getTimerCount()).toBe(0);
   });
 

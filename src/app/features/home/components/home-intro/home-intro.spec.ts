@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../../home-intro.config';
+import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../../home-intro-layout-reservations';
 import { HomeIntroCommandState } from '../../services/home-intro-command.service';
 import { HomeIntroService } from '../../services/home-intro.service';
 import { HomeIntro } from './home-intro';
@@ -60,6 +61,10 @@ describe('HomeIntro', () => {
   ): ComponentFixture<HomeIntro> {
     const fixture = TestBed.createComponent(HomeIntro);
     fixture.componentRef.setInput('commandState', commandState);
+    fixture.componentRef.setInput(
+      'layoutReservation',
+      HOME_INTRO_LAYOUT_RESERVATIONS.en,
+    );
     fixture.detectChanges();
     fixture.detectChanges();
     return fixture;
@@ -68,13 +73,18 @@ describe('HomeIntro', () => {
   function displayedCommand(fixture: ComponentFixture<HomeIntro>): string {
     fixture.detectChanges();
     return (
-      fixture.nativeElement.querySelector('.command')?.textContent ?? ''
+      fixture.nativeElement.querySelector(
+        '.terminal-section__visible-content .command',
+      )?.textContent ?? ''
     ).trim();
   }
 
   it('keeps a stable, empty terminal while the catalog is unresolved', () => {
     const fixture = createIntro({ status: 'waiting' });
     const terminal = fixture.nativeElement.querySelector('.terminal-section');
+    const reservation: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__layout-reservation',
+    );
 
     vi.advanceTimersByTime(1_000);
 
@@ -86,7 +96,72 @@ describe('HomeIntro', () => {
     expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
       terminal,
     );
+    expect(reservation.getAttribute('aria-hidden')).toBe('true');
+    expect(reservation.hasAttribute('inert')).toBe(true);
+    expect(reservation.textContent).toContain('whoami');
+    expect(reservation.querySelectorAll('[id]')).toHaveLength(0);
+    expect(reservation.querySelectorAll('a').length).toBeGreaterThan(0);
+    expect(
+      reservation.querySelector('.terminal-cursor--static'),
+    ).not.toBeNull();
     expect(vi.getTimerCount()).toBe(0);
+  });
+
+  it('keeps the same reserved rows and terminal node through typing and completion', () => {
+    const fixture = createIntro(ready('abc'));
+    const terminal: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-section');
+    const reservation: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__layout-reservation',
+    );
+    const visibleContent: HTMLElement = fixture.nativeElement.querySelector(
+      '.terminal-section__visible-content',
+    );
+
+    vi.advanceTimersByTime(10);
+    fixture.detectChanges();
+    expect(displayedCommand(fixture)).toBe('a');
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
+      terminal,
+    );
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__layout-reservation',
+      ),
+    ).toBe(reservation);
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__visible-content',
+      ),
+    ).toBe(visibleContent);
+
+    vi.advanceTimersByTime(17);
+    fixture.detectChanges();
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+    expect(fixture.nativeElement.querySelector('.terminal-section')).toBe(
+      terminal,
+    );
+    expect(
+      fixture.nativeElement.querySelector(
+        '.terminal-section__layout-reservation',
+      ),
+    ).toBe(reservation);
+  });
+
+  it('does not restart typing or create stale callbacks after a resize', () => {
+    const fixture = createIntro(ready('abcdef'));
+    vi.advanceTimersByTime(15);
+    fixture.detectChanges();
+    const progress = displayedCommand(fixture);
+    const timersBeforeResize = vi.getTimerCount();
+
+    window.dispatchEvent(new Event('resize'));
+    fixture.detectChanges();
+
+    expect(displayedCommand(fixture)).toBe(progress);
+    expect(vi.getTimerCount()).toBe(timersBeforeResize);
+    vi.advanceTimersByTime(22);
+    expect(displayedCommand(fixture)).toBe('abcdef');
   });
 
   it('starts once after the resolved command arrives', () => {

@@ -1,6 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { AppButton } from '../../../../core/shared/app-button/app-button';
 import { TranslatePipe } from '@ngx-translate/core';
+import type { HomeIntroPresentationContent } from '../../home-intro-layout-reservations';
 
 @Component({
   selector: 'presentation-section',
@@ -9,4 +10,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './presentation-section.scss',
 })
-export class PresentationSection { }
+export class PresentationSection {
+  readonly content = input<HomeIntroPresentationContent | null>(null);
+}

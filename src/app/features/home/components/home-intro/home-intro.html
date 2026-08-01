@@ -1,8 +1,4 @@
-<div
-  class="home-intro"
-  data-testid="home-intro"
-  [class.home-intro--active]="introVisible()"
->
+<div class="home-intro" data-testid="home-intro">
   <app-terminal-section
     [customTitle]="title()"
     [isFirstTitle]="true"
@@ -11,6 +7,17 @@
     [showCursor]="true"
     [cursorBlinkIntervalMs]="config.cursorBlinkIntervalMs"
   >
+    <div terminalLayoutReservation class="home-intro__layout-reservation">
+      <app-terminal-line
+        [command]="layoutReservation().command"
+        [showCursor]="true"
+        [animateCursor]="false"
+      />
+      <presentation-section
+        [content]="layoutReservation().presentation"
+      />
+    </div>
+
     <ng-content />
   </app-terminal-section>
 </div>

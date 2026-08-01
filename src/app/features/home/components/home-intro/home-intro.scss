@@ -2,12 +2,5 @@
 
 .home-intro {
   margin-bottom: $spacing-xbig;
-
-  &--active {
-    min-block-size: calc(100svh - 12rem);
-
-    @supports (height: 100dvh) {
-      min-block-size: calc(100dvh - 12rem);
-    }
-  }
+  line-height: $line-height-default;
 }

@@ -11,19 +11,23 @@ import {
 } from '@angular/core';
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
+import { TerminalLine } from '../../../../core/layout/terminal-section/components/terminal-line/terminal-line';
 import { HOME_INTRO_CONFIG } from '../../home-intro.config';
+import type { HomeIntroLayoutReservation } from '../../home-intro-layout-reservations';
 import type { HomeIntroCommandState } from '../../services/home-intro-command.service';
 import { HomeIntroService } from '../../services/home-intro.service';
+import { PresentationSection } from '../presentation-section/presentation-section';
 
 @Component({
   selector: 'home-intro',
-  imports: [TerminalSection],
+  imports: [TerminalSection, TerminalLine, PresentationSection],
   templateUrl: './home-intro.html',
   styleUrl: './home-intro.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeIntro {
   readonly commandState = input.required<HomeIntroCommandState>();
+  readonly layoutReservation = input.required<HomeIntroLayoutReservation>();
   readonly title = input('Who am I');
 
   readonly displayedCommand = signal('');
@@ -33,7 +37,6 @@ export class HomeIntro {
   private readonly browserReady = signal(false);
   private readonly activeCommand = signal<string | null>(null);
 
-  readonly introVisible = this.lifecycle.introVisible;
   readonly resolvedCommand = computed(() => {
     const command = this.commandState();
     return command.status === 'ready' ? command.command : null;

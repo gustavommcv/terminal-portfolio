@@ -56,6 +56,10 @@ $color-refused-command-dark: #cc0403;
   vertical-align: -0.12em;
   animation: terminal-cursor-blink var(--terminal-cursor-blink-interval) step-end
     infinite alternate;
+
+  &--static {
+    animation: none;
+  }
 }
 
 @keyframes terminal-cursor-blink {

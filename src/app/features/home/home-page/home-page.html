@@ -1,5 +1,8 @@
 <div class="home-page">
-  <home-intro [commandState]="introCommand.state()">
+  <home-intro
+    [commandState]="introCommand.state()"
+    [layoutReservation]="introCommand.layoutReservation()"
+  >
     @if (intro.contentVisible()) {
       <div class="home-presentation">
         <presentation-section />

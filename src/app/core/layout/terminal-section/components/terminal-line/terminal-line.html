@@ -21,7 +21,11 @@
   >
     <span class="command" [class.command--error]="error()">{{ command() }}</span>
     @if (showCursor()) {
-      <span class="terminal-cursor" aria-hidden="true"></span>
+      <span
+        class="terminal-cursor"
+        [class.terminal-cursor--static]="!animateCursor()"
+        aria-hidden="true"
+      ></span>
     }
   </span>
 </div>

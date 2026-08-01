@@ -1,12 +1,25 @@
 @use "abstracts/variables" as *;
 
 .terminal-section {
+  display: grid;
   font-weight: 400;
   box-shadow: $box-shadow-default;
   border-radius: $border-radius-default;
   border: $border-default;
   padding: $spacing-big;
   background-color: $color-section-background-dark;
+
+  &__layout-reservation,
+  &__visible-content {
+    grid-area: 1 / 1;
+    min-inline-size: 0;
+  }
+
+  &__layout-reservation {
+    visibility: hidden;
+    pointer-events: none;
+    user-select: none;
+  }
 
   &-container {
     margin: 0 auto;

@@ -6,14 +6,24 @@
   }
 
   <section class="terminal-section">
-    <app-terminal-line
-      [short]="shortTerminalLine()"
-      [command]="customCommand()"
-      [accessibleCommand]="accessibleCommand()"
-      [showCursor]="showCursor()"
-      [cursorBlinkIntervalMs]="cursorBlinkIntervalMs()"
-      [error]="errorCommand()"
-    />
-    <ng-content></ng-content>
+    <div
+      class="terminal-section__layout-reservation"
+      aria-hidden="true"
+      inert
+    >
+      <ng-content select="[terminalLayoutReservation]" />
+    </div>
+
+    <div class="terminal-section__visible-content">
+      <app-terminal-line
+        [short]="shortTerminalLine()"
+        [command]="customCommand()"
+        [accessibleCommand]="accessibleCommand()"
+        [showCursor]="showCursor()"
+        [cursorBlinkIntervalMs]="cursorBlinkIntervalMs()"
+        [error]="errorCommand()"
+      />
+      <ng-content />
+    </div>
   </section>
 </div>

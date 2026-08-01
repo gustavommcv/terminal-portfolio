@@ -1,11 +1,19 @@
 <div class="presentation-section">
   <p class="name">gustavo_monnerat</p>
   <p class="role">
-    {{ "home-page.presentation-section.role" | translate }}
+    @if (content(); as reservedContent) {
+      {{ reservedContent.role }}
+    } @else {
+      {{ "home-page.presentation-section.role" | translate }}
+    }
   </p>
 
   <p class="paragraph">
-    {{ "home-page.presentation-section.about" | translate }}
+    @if (content(); as reservedContent) {
+      {{ reservedContent.about }}
+    } @else {
+      {{ "home-page.presentation-section.about" | translate }}
+    }
   </p>
 
   <ul class="social-links">
@@ -29,6 +37,10 @@
   </ul>
 
   <app-button scrollTo="contact-section">
-    {{ "home-page.presentation-section.contact" | translate }}
+    @if (content(); as reservedContent) {
+      {{ reservedContent.contact }}
+    } @else {
+      {{ "home-page.presentation-section.contact" | translate }}
+    }
   </app-button>
 </div>

@@ -9,6 +9,7 @@ describe('TerminalLine', () => {
       command: string;
       accessibleCommand: string;
       showCursor: boolean;
+      animateCursor: boolean;
     }> = {},
   ): ComponentFixture<TerminalLine> {
     TestBed.configureTestingModule({ imports: [TerminalLine] });
@@ -49,5 +50,17 @@ describe('TerminalLine', () => {
 
     expect(fixture.nativeElement.querySelector('.prompt-container')).not.toBeNull();
     expect(fixture.nativeElement.querySelector('.command-container')).not.toBeNull();
+  });
+
+  it('reserves cursor geometry without running a second cursor animation', () => {
+    const fixture = createTerminalLine({
+      command: 'whoami',
+      showCursor: true,
+      animateCursor: false,
+    });
+    const cursor: HTMLElement =
+      fixture.nativeElement.querySelector('.terminal-cursor');
+
+    expect(cursor.classList.contains('terminal-cursor--static')).toBe(true);
   });
 });

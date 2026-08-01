@@ -5,6 +5,7 @@ import {
   LanguageCatalogState,
   LanguageService,
 } from '../../../services/language.service';
+import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 import { HomeIntroCommandService } from './home-intro-command.service';
 
 describe('HomeIntroCommandService', () => {
@@ -17,7 +18,10 @@ describe('HomeIntroCommandService', () => {
       providers: [
         {
           provide: LanguageService,
-          useValue: { catalogState: state.asReadonly() },
+          useValue: {
+            catalogState: state.asReadonly(),
+            currentLocale: () => state().language,
+          },
         },
       ],
     });
@@ -31,6 +35,26 @@ describe('HomeIntroCommandService', () => {
     expect(command.state()).toEqual({ status: 'waiting' });
     expect(JSON.stringify(command.state())).not.toContain(
       'home-page.presentation-section.command',
+    );
+    expect(command.layoutReservation()).toBe(
+      HOME_INTRO_LAYOUT_RESERVATIONS.en,
+    );
+  });
+
+  it('selects the complete layout reservation before either catalog resolves', () => {
+    const { state, command } = setup({ status: 'loading', language: 'en' });
+
+    expect(command.layoutReservation()).toBe(
+      HOME_INTRO_LAYOUT_RESERVATIONS.en,
+    );
+
+    state.set({ status: 'loading', language: 'pt' });
+
+    expect(command.layoutReservation()).toBe(
+      HOME_INTRO_LAYOUT_RESERVATIONS.pt,
+    );
+    expect(JSON.stringify(command.layoutReservation())).not.toContain(
+      'home-page.presentation-section',
     );
   });
 
