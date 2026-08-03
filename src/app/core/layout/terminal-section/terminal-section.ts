@@ -5,7 +5,7 @@ import { TerminalLine } from './components/terminal-line/terminal-line';
   selector: 'app-terminal-section',
   imports: [TerminalLine],
   templateUrl: './terminal-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './terminal-section.scss',
 })
 export class TerminalSection {
