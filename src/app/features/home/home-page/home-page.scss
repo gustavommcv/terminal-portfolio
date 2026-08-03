@@ -15,7 +15,7 @@
 }
 
 .home-content--intro-reveal {
-  transition: opacity 220ms cubic-bezier(0.2, 0, 0, 1);
+  transition: opacity $transition-reveal;
 
   @starting-style {
     opacity: 0;

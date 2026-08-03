@@ -54,3 +54,10 @@ $z-index-sticky-header: 1000;
 $z-index-mobile-nav-overlay: 999;
 $z-index-mobile-nav-panel: 1000;
 $z-index-mobile-nav-trigger: 1001;
+
+// $transition-fast: hover micro-interactions (card lift, link underline).
+// $transition-reveal: the home intro's one-time content reveal — its exact
+// timing is a deliberate, previously-tuned product decision; this token only
+// names the existing value, it does not change it.
+$transition-fast: 0.2s ease;
+$transition-reveal: 220ms cubic-bezier(0.2, 0, 0, 1);

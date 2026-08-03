@@ -15,8 +15,8 @@
 
   text-decoration: none;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform $transition-fast,
+    box-shadow $transition-fast;
   cursor: pointer;
 
   color: $color-text-dark;
