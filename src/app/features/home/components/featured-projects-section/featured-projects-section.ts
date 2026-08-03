@@ -10,7 +10,7 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   selector: 'featured-projects-section',
   imports: [TranslatePipe, TerminalSection, ProjectCard, AppTitle],
   templateUrl: './featured-projects-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './featured-projects-section.scss',
 })
 export class FeaturedProjectsSection {
