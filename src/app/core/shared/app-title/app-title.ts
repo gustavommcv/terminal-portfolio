@@ -4,7 +4,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-title',
   imports: [],
   templateUrl: './app-title.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-title.scss',
 })
 export class AppTitle {
