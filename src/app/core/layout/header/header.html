@@ -44,7 +44,7 @@
               [attr.aria-current]="isActive(route) ? 'page' : null"
               [href]="language.localizedUrl(route)"
               (click)="navigateWithLocale(route, $event, true)"
-            >{{ route === '/' ? 'home' : route.slice(1) }}</a>
+            >{{ routeLabel(route) }}</a>
           }
         </div>
 
@@ -63,7 +63,7 @@
         [attr.aria-current]="isActive(route) ? 'page' : null"
         [href]="language.localizedUrl(route)"
         (click)="navigateWithLocale(route, $event)"
-      >{{ route === '/' ? 'home' : route.slice(1) }}</a>
+      >{{ routeLabel(route) }}</a>
     }
 
     <div class="desktop-language-toggle">

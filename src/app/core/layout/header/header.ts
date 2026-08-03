@@ -12,6 +12,7 @@ import {
 
 import { LanguageService } from '../../../services/language.service';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
+import { routeLabel } from './header.utils';
 
 @Component({
   selector: 'app-header',
@@ -28,6 +29,7 @@ export class Header implements OnDestroy {
     viewChild<ElementRef<HTMLButtonElement>>('menuTrigger');
 
   readonly isMenuOpen = signal(false);
+  protected readonly routeLabel = routeLabel;
 
   isActive(route: string): boolean {
     return this.language.isActive(route);
