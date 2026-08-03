@@ -45,3 +45,12 @@ $color-button-background: #2d2d2d;
 $line-height-default: 1.4;
 
 $box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Stacking layers, low to high. Component SCSS should reference one of these
+// instead of writing a raw z-index. $z-index-sticky-header and
+// $z-index-mobile-nav-panel are unrelated layers that currently share a
+// value by coincidence, not by dependency — keep them as separate tokens.
+$z-index-sticky-header: 1000;
+$z-index-mobile-nav-overlay: 999;
+$z-index-mobile-nav-panel: 1000;
+$z-index-mobile-nav-trigger: 1001;
