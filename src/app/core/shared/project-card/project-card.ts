@@ -9,7 +9,7 @@ import { LanguageService } from '../../../services/language.service';
   standalone: true,
   imports: [TranslatePipe],
   templateUrl: './project-card.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-card.scss',
 })
 export class ProjectCard {
