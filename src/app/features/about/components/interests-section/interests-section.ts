@@ -7,7 +7,7 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   selector: 'interests-section',
   imports: [TerminalSection, TranslatePipe, AppTitle],
   templateUrl: './interests-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './interests-section.scss',
 })
 export class InterestsSection {}
