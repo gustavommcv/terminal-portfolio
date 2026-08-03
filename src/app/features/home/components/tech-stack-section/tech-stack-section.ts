@@ -6,7 +6,7 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   selector: 'tech-stack-section',
   imports: [TerminalSection, AppTitle],
   templateUrl: './tech-stack-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './tech-stack-section.scss',
 })
 export class TechStackSection {}
