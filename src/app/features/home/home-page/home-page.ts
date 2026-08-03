@@ -29,7 +29,7 @@ import { HomeIntroService } from '../services/home-intro.service';
     HomeIntro,
   ],
   templateUrl: './home-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './home-page.scss',
 })
 export class HomePage implements OnInit, OnDestroy {
