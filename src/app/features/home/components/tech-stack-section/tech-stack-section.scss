@@ -4,7 +4,7 @@
   font-size: $font-size-default;
   margin-bottom: $spacing-xbig;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: #{$breakpoint-mobile}) {
     font-size: $font-size-small;
   }
 
@@ -18,7 +18,7 @@
     margin-bottom: $spacing-big;
     color: $color-text-dark;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       margin-left: $spacing-big;
     }
   }
@@ -51,7 +51,7 @@
         transform: translateX(50%);
       }
 
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: #{$breakpoint-mobile}) {
         bottom: -15%;
         right: 50%;
         transform: translateX(50%);

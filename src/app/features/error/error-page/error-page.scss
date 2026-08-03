@@ -3,12 +3,12 @@
 .error-page {
   padding: 2rem 8rem;
 
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: #{$breakpoint-tablet}) {
     padding: 0 1rem;
     margin-top: $spacing-medium;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: #{$breakpoint-mobile}) {
     margin-top: $spacing-medium;
     padding: 0 0.5rem;
   }
@@ -22,7 +22,7 @@
   &__title {
     font-size: 4.5rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 3rem;
     }
   }
@@ -31,7 +31,7 @@
     font-size: 3.2rem;
     margin-bottom: 2.5rem;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 2.8rem;
     }
   }
@@ -39,7 +39,7 @@
   &__description {
     font-size: $font-size-default;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: $font-size-small;
     }
   }

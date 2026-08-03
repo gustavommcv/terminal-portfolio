@@ -14,7 +14,7 @@
       margin-bottom: $spacing-big;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 1.8rem;
     }
   }
@@ -73,7 +73,7 @@
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: $font-size-small;
       width: 19rem;
     }

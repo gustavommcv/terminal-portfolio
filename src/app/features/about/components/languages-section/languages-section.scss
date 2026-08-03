@@ -16,7 +16,7 @@
     word-break: break-word;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: #{$breakpoint-mobile}) {
     font-size: $font-size-small;
 
     margin-left: $spacing-big;

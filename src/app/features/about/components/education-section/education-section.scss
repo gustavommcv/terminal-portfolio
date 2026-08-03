@@ -11,7 +11,7 @@
 
     color: $color-text-dark;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 1.8rem;
     }
   }
@@ -24,7 +24,7 @@
   flex-direction: column;
   gap: $spacing-medium;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: #{$breakpoint-mobile}) {
     gap: $spacing-small;
   }
 
@@ -34,7 +34,7 @@
 
     color: $color-subtitle-dark;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 2.2rem;
     }
   }
@@ -49,7 +49,7 @@
     border: $border-default;
     border-radius: $border-radius-default;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 1.8rem;
     }
   }

@@ -61,3 +61,11 @@ $z-index-mobile-nav-trigger: 1001;
 // names the existing value, it does not change it.
 $transition-fast: 0.2s ease;
 $transition-reveal: 220ms cubic-bezier(0.2, 0, 0, 1);
+
+// Only the two breakpoints that repeat across many files are tokenized.
+// Most other max-width values in this codebase are one-off, precisely tuned
+// to where a specific layout wraps (e.g. the About page's photo column) —
+// forcing those onto a generic scale risks shifting that exact wrap point,
+// so they intentionally stay as local literals.
+$breakpoint-mobile: 600px;
+$breakpoint-tablet: 750px;

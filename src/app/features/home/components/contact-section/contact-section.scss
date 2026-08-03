@@ -9,7 +9,7 @@
 
     color: $color-text-dark;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: 1.8rem;
     }
   }
@@ -21,7 +21,7 @@
 
     margin-bottom: $spacing-medium;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: $font-size-small;
     }
   }
@@ -35,7 +35,7 @@
 
     color: $color-external-link-dark;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: #{$breakpoint-mobile}) {
       font-size: $font-size-small;
       margin-left: $spacing-xbig;
     }

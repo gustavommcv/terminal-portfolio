@@ -14,7 +14,7 @@ $color-refused-command-dark: #cc0403;
 
   font-size: $font-size-big;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: #{$breakpoint-mobile}) {
     font-size: $font-size-default;
     margin-bottom: $spacing-medium;
     gap: $spacing-small;
