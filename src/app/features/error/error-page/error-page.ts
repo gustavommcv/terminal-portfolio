@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-error-page',
   imports: [TerminalSection],
   templateUrl: './error-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './error-page.scss',
 })
 export class ErrorPage {
