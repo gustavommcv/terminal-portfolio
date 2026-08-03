@@ -7,7 +7,7 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   selector: 'education-section',
   imports: [TerminalSection, TranslatePipe, AppTitle],
   templateUrl: './education-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './education-section.scss',
 })
 export class EducationSection {}
