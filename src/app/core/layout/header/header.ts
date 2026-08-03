@@ -19,7 +19,7 @@ import { routeLabel } from './header.utils';
   standalone: true,
   imports: [LanguageToggleButton],
   templateUrl: './header.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './header.scss',
 })
 export class Header implements OnDestroy {
