@@ -13,7 +13,7 @@ import { LanguageService } from '../../../services/language.service';
   standalone: true,
   imports: [],
   templateUrl: './app-button.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-button.scss',
 })
 export class AppButton {
