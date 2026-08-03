@@ -11,7 +11,7 @@ import { AppTitle } from '../../../core/shared/app-title/app-title';
   selector: 'portfolio-page',
   imports: [TranslatePipe, TerminalSection, ProjectCard, AppTitle],
   templateUrl: './portfolio-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './portfolio-page.scss',
 })
 export class PortfolioPage {
