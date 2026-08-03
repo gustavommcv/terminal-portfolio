@@ -8,7 +8,7 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   selector: 'contact-section',
   imports: [TerminalSection, TranslatePipe, AppTitle],
   templateUrl: './contact-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './contact-section.scss',
 })
 export class ContactSection {
