@@ -201,9 +201,20 @@ English is the initial and fallback language. The loader is configured with `fai
 Each component has encapsulated SCSS. Shared styles live in `src/styles`:
 
 - `abstracts/_variables.scss`: tokens and variables;
+- `abstracts/_fonts.scss`: the self-hosted JetBrains Mono `@font-face` declarations;
 - `styles.scss`: global stylesheet registered in `angular.json`.
 
 `stylePreprocessorOptions.includePaths` allows importing resources from `src/styles`.
+
+JetBrains Mono is served from `public/fonts` instead of Google Fonts. Google
+distributes it as a single variable-weight binary per Unicode subset — every
+static weight resolves to the same file, so self-hosting only needs the
+`latin` and `latin-ext` subsets (English and Brazilian Portuguese, including
+accented characters) declared with `font-weight: 100 900`. This removes the
+`fonts.googleapis.com` / `fonts.gstatic.com` requests entirely: no visitor IP
+reaches Google before the page renders, and the two DNS/TLS round trips that
+previously preceded the stylesheet fetch are gone. See
+`public/fonts/README.md` for provenance and how to refresh the files.
 
 ## Testing
 
@@ -228,3 +239,24 @@ Angular 22 build + prerender
 ```
 
 `vercel.json` selects the Angular preset, runs `npm ci` and `npm run build`, and publishes only `dist/portfolio/browser`. The project does not require any environment variables in its current state.
+
+## Security headers
+
+`vercel.json` attaches a `headers` rule matching every path, since the site
+has no server running at request time to set headers dynamically — the
+Vercel CDN applies them to the static output directly. It sets
+`Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy`, `Permissions-Policy`, and `Content-Security-Policy`.
+
+The CSP's `script-src` and `style-src` include `'unsafe-inline'` rather than
+a nonce or hash allowlist. A nonce needs a fresh value generated per
+response, which a build-once static file cannot provide — the same "nonce"
+would appear in every visitor's copy of the page, which is not a nonce
+anymore. A hash allowlist would work, but Angular emits several inline
+`<script>` elements whose content changes across builds (`ng-state`
+transfer-cache data, the `ng-event-dispatch-contract` bootstrap, this
+project's own JSON-LD block) and one component binds an inline
+custom-property style (`terminal-line`'s cursor-blink interval). Given the
+site has no user input and no backend, `'unsafe-inline'` was accepted as the
+pragmatic tradeoff; revisit with a build-time hash-computation step if the
+attack surface grows.

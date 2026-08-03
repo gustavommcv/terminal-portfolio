@@ -63,6 +63,7 @@ By default, the application is available at `http://localhost:4200`.
 terminal-portfolio/
 ├── public/
 │   ├── cv/                     # Résumé files in Portuguese and English
+│   ├── fonts/                  # Self-hosted JetBrains Mono (see public/fonts/README.md)
 │   ├── i18n/                   # Translation catalogs, en.json and pt.json
 │   ├── images/                 # Personal photos and project thumbnails
 │   ├── robots.txt
@@ -158,6 +159,10 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. Sh
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`
+- Response headers applied to every path: `Strict-Transport-Security`,
+  `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`, and `Content-Security-Policy`. See
+  [ARCHITECTURE.md](ARCHITECTURE.md#security-headers) for the CSP tradeoffs.
 
 To deploy via Git integration:
 
@@ -174,6 +179,12 @@ npx vercel --prod
 ```
 
 There are currently no required environment variables. The files in `src/environments` export empty objects. If new integrations are added, register their variables separately for Development, Preview, and Production in Vercel, and never commit secrets.
+
+## Dependency updates
+
+Dependabot (`.github/dependabot.yml`) checks the npm dependencies weekly and
+opens a pull request for each update; `npm audit --omit=dev` reports 0
+vulnerabilities as of this writing.
 
 ## Contributing
 

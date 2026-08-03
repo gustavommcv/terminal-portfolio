@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased] — 2026-08-02
+
+### Privacy, security, and performance
+
+- Self-hosted JetBrains Mono (`public/fonts`, `src/styles/abstracts/_fonts.scss`),
+  removing the `fonts.googleapis.com` / `fonts.gstatic.com` requests and the
+  visitor IP disclosure to Google that came with them; subsetted to the
+  `latin`/`latin-ext` Unicode ranges actually needed for English and
+  Brazilian Portuguese.
+- Added response headers in `vercel.json`: `Strict-Transport-Security`,
+  `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Permissions-Policy`, and a `Content-Security-Policy` (see
+  [ARCHITECTURE.md](ARCHITECTURE.md#security-headers) for why `script-src`
+  and `style-src` allow `'unsafe-inline'` on this static deployment).
+- Added Open Graph and Twitter Card meta tags to `src/index.html` so shared
+  links render a title, description, and image instead of a bare URL.
+- Added `.github/dependabot.yml` for weekly npm dependency-update pull
+  requests.
+
 ## [Unreleased] — 2026-08-01
 
 ### Home intro and internationalization
