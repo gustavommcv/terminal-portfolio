@@ -7,7 +7,7 @@ import type { HomeIntroPresentationContent } from '../../home-intro-layout-reser
   selector: 'presentation-section',
   imports: [AppButton, TranslatePipe],
   templateUrl: './presentation-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './presentation-section.scss',
 })
 export class PresentationSection {
