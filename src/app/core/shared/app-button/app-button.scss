@@ -7,22 +7,22 @@
   margin-left: auto;
 
   border: none;
-  border-radius: 5px;
+  border-radius: $border-radius-small;
 
   font-size: $font-size-default;
 
   cursor: pointer;
   text-decoration: none;
 
-  background-color: #2d2d2d;
-  color: #25be6a;
+  background-color: $color-button-background;
+  color: $color-subtitle-dark;
 
   &:hover {
     text-decoration: underline;
   }
 
   &:focus-visible {
-    outline: 2px solid #52bdff;
+    outline: 2px solid $color-focus-ring;
     outline-offset: 0.4rem;
   }
 

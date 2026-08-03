@@ -98,16 +98,16 @@
   cursor: pointer;
 
   &--active {
-    color: #52bdff;
+    color: $color-accent-primary;
     font-weight: $font-weight-bold;
   }
 
   &:hover {
-    color: #08bdba;
+    color: $color-accent-secondary;
   }
 
   &:focus-visible {
-    outline: 2px solid #52bdff;
+    outline: 2px solid $color-focus-ring;
     outline-offset: 0.4rem;
   }
 }
@@ -134,16 +134,16 @@
   cursor: pointer;
 
   &--active {
-    color: #52bdff;
+    color: $color-accent-primary;
     font-weight: $font-weight-bold;
   }
 
   &:hover {
-    color: #08bdba;
+    color: $color-accent-secondary;
   }
 
   &:focus-visible {
-    outline: 2px solid #52bdff;
+    outline: 2px solid $color-focus-ring;
     outline-offset: 0.4rem;
   }
 }
@@ -156,7 +156,7 @@
   cursor: pointer;
 
   &--left {
-    color: #52bdff;
+    color: $color-accent-primary;
   }
 
   &--middle {
@@ -164,11 +164,11 @@
   }
 
   &--right {
-    color: #08bdba;
+    color: $color-accent-secondary;
   }
 
   &:focus-visible {
-    outline: 2px solid #52bdff;
+    outline: 2px solid $color-focus-ring;
     outline-offset: 0.4rem;
   }
 }

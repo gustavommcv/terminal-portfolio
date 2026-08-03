@@ -19,26 +19,28 @@ $spacing-xbig: 4rem;
 
 $border-default: #b6b8bb 2px solid;
 $border-radius-default: 8px;
+// app-button's compact touch target uses a smaller radius than sections and
+// cards; named rather than changed to preserve the current visual design.
+$border-radius-small: 5px;
 
 $color-border: #b6b8bb;
 
 $color-background-dark: #0c0c0c;
-$color-background-light: #e9e0d9;
-
 $color-text-dark: #c5c5c5;
-$color-text-light: #71665f;
-
 $color-title-dark: #fff;
-$color-title-light: #6986ba;
-
 $color-subtitle-dark: #25be6a;
-$color-subtitle-light: #4f9a9c;
-
 $color-external-link-dark: #0dcdcd;
-$color-external-link-light: #ad86e1;
-
 $color-section-background-dark: #161616;
-$color-section-background-light: #f8f4f0;
+
+// Interactive-state accents shared across header, footer, and shared UI.
+// $color-accent-primary also doubles as the site's focus-ring color today;
+// $color-focus-ring is a semantic alias so the two can diverge later without
+// touching every consumer.
+$color-accent-primary: #52bdff;
+$color-accent-secondary: #08bdba;
+$color-focus-ring: $color-accent-primary;
+
+$color-button-background: #2d2d2d;
 
 $line-height-default: 1.4;
 
