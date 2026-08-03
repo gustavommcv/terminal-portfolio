@@ -16,7 +16,7 @@ import { Meta, Title } from '@angular/platform-browser';
     DownloadSection,
   ],
   templateUrl: './about-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './about-page.scss',
 })
 export class AboutPage {
