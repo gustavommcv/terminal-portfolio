@@ -10,7 +10,7 @@ import { LanguageService } from '../../../../services/language.service';
   selector: 'download-section',
   imports: [TerminalSection, TranslatePipe, AppTitle],
   templateUrl: './download-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './download-section.scss',
 })
 export class DownloadSection {
