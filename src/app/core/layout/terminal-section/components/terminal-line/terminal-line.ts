@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   selector: 'app-terminal-line',
   imports: [],
   templateUrl: './terminal-line.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './terminal-line.scss',
 })
 export class TerminalLine {
