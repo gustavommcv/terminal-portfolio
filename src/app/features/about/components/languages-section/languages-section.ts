@@ -7,7 +7,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'languages-section',
   imports: [TerminalSection, AppTitle, TranslatePipe],
   templateUrl: './languages-section.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './languages-section.scss',
 })
 export class LanguagesSection {}
