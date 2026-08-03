@@ -10,7 +10,7 @@ import { TerminalSection } from '../../../core/layout/terminal-section/terminal-
   standalone: true,
   imports: [TranslatePipe, TerminalSection],
   templateUrl: './project-detail-page.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-detail-page.scss',
 })
 export class ProjectDetailPage {
