@@ -6,7 +6,7 @@ import { LanguageService } from '../../../services/language.service';
   selector: 'language-toggle-button',
   imports: [],
   templateUrl: './language-toggle-button.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './language-toggle-button.scss',
 })
 export class LanguageToggleButton {
