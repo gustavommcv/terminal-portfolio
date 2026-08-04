@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
@@ -9,6 +10,9 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 import { LanguageService } from '../../../services/language.service';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
@@ -30,6 +34,21 @@ export class Header implements OnDestroy {
 
   readonly isMenuOpen = signal(false);
   protected readonly routeLabel = routeLabel;
+
+  constructor() {
+    // isActive() reads LanguageService.currentPath, a plain (non-signal)
+    // property. Under OnPush, Angular only re-checks this view on its own
+    // template events/inputs/signals, so a route change resolved outside a
+    // click on this component (e.g. a direct reload settling its initial
+    // navigation) never re-renders the active nav item without this.
+    const changeDetectorRef = inject(ChangeDetectorRef);
+    inject(Router)
+      .events.pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => changeDetectorRef.markForCheck());
+  }
 
   isActive(route: string): boolean {
     return this.language.isActive(route);
