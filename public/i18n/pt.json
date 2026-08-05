@@ -3,7 +3,7 @@
     "presentation-section": {
       "command": "whoami",
       "role": "Desenvolvedor de Software",
-      "about": "Desenvolvedor Full Stack especializado em criar aplicações web modernas e escaláveis. Foco em entregas de qualidade e código limpo.",
+      "about": "Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.",
       "contact": "Contato"
     },
     "services-section": {
@@ -13,27 +13,32 @@
         "Landing pages",
         "Portfólios",
         "Manutenção de código",
-        "Conversão de design para código",
-        "Componentização em framework"
+        "Transformar design em código",
+        "Dividir suas telas em componentes reutilizáveis",
+        "Impressão 3D e modelagem de peças"
       ],
       "button": "Portfólio"
     },
+    "tech-stack-section": {
+      "title": "Minha Stack"
+    },
     "featured-projects-section": {
       "title": "Projetos em Destaque",
-      "warning": "*Deslize para ver mais projetos*"
+      "warning": "*desliza pra ver mais →*"
     },
     "contact-section": {
       "title": "Contato",
-      "warning": "*Disponível para oportunidades fixas*",
-      "paragraph": "Para orçamentos/dúvidas entre em contato:"
+      "warning": "*aberto a vagas CLT ou PJ*",
+      "paragraph": "É por aqui que você me encontra:"
     }
   },
   "about-page": {
     "about-section": {
       "title": "Sobre mim",
-      "p1": "Sou formado em Análise de Sistemas e pós-graduado em Arquitetura de Software. Atualmente, curso Engenharia Elétrica para aprofundar minha base em ciências exatas e computação.",
-      "p2": "Busco validar meus estudos na prática. Tive a experiência de desenvolver sistemas comerciais do zero, atuando em todo o ciclo, do design ao deploy.",
-      "p3": "Não me prendo a uma única stack; acredito em escolher a ferramenta certa para cada desafio. Independentemente da linguagem, meu foco é sempre a qualidade e a estrutura do código.",
+      "greeting": "Hello, World!",
+      "p1": "Sou formado em Análise e Desenvolvimento de Sistemas e fiz uma pós-graduação em Arquitetura de Software, pois sempre gostei de organização e de entender o porquê de os sistemas serem estruturados assim.",
+      "p2": "Essa curiosidade se estendeu para praticamente tudo e direcionou meus estudos para a matemática e a física, o que me fez escolher um curso mais alinhado com meus novos objetivos, sendo ele a Engenharia Elétrica, onde uno programação e sistemas de baixo nível às exatas.",
+      "p3": "Somado a isso, meu interesse por ferramentas de terminal e o princípio KISS mudou a forma como eu construo: soluções simples e práticas para problemas reais, unindo engenharia e computação — em software ou hardware.",
       "pronouns": "Ele/Dele",
       "country": "Brasil"
     },
@@ -60,11 +65,12 @@
     "interests-section": {
       "title": "Interesses",
       "interests": [
-        "Matemática",
-        "Elétrica",
-        "Linux e sistemas operacionais",
-        "Sistemas de baixo nível e resolução de problemas",
-        "Terminais e ferramentas de linha de comando"
+        "Matemática e física",
+        "Linux",
+        "Ferramentas de linha de comando",
+        "Sistemas embarcados",
+        "Impressão 3D",
+        "Modelagem CAD"
       ]
     },
     "languages-section": {
@@ -77,7 +83,7 @@
     "download-section": {
       "title": "Currículo",
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
-      "warning2": "*Deslize para a direita para ver todos os formatos de download*"
+      "warning2": "*desliza pra ver os outros formatos →*"
     }
   },
   "projects-page": {
@@ -90,56 +96,59 @@
     "projects": {
       "terminal-portfolio": {
         "title": "Terminal Portfolio",
-        "description": "Portfólio interativo tipo terminal."
+        "description": "Meu portfólio pessoal, construído em Angular com estilo de interface de terminal."
       },
       "maquetaria": {
         "title": "Veronese Maquetes",
-        "description": "Solução comercial sob medida: Vitrine virtual e gestão."
+        "description": "Plataforma sob medida para uma empresa de maquetes — vitrine virtual e gestão administrativa."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "Configuração Neovim moderna e produtiva."
+        "description": "Configuração de Neovim moderna e modular, otimizada para produtividade e estética. Construída em Lua."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "Cronômetro Pomodoro CLI rápido."
+        "description": "Cronômetro Pomodoro ultrarrápido para o terminal, construído em Go."
       },
       "voting-system": {
         "title": "Sistema de Votação",
-        "description": "Sistema de votação em tempo real. Desafio técnico."
+        "description": "Sistema de votação em tempo real para avaliação de competências, construído para a Signo Tech."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Calculadora chmod web simples."
+        "description": "Calculadora de chmod simples, feita só com JS, HTML e CSS."
       },
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
-        "description": "API RESTful. Desafio Bootcamp XP Educação."
+        "description": "API RESTful construída para o desafio do bootcamp de pós-graduação em arquitetura de software."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
-        "description": "API REST de transações e estatísticas em tempo real."
+        "description": "API REST que recebe transações e retorna estatísticas sobre elas — desafio do Itaú Unibanco."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "Catálogo e avaliações de livros."
+        "description": "App de catálogo de livros com avaliações, resenhas e recomendações baseadas no que você já leu."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "API Clean Architecture refatorada."
+        "description": "API REST refatorada com Clean Architecture, autenticação JWT e cobertura de testes com Jest."
       },
       "portfolio": {
         "title": "Portfólio",
-        "description": "Primeiro portfólio."
+        "description": "Meu primeiro portfólio pessoal, construído com Solid.js."
       },
       "tic-tac-toe": {
         "title": "Jogo da Velha",
-        "description": "Jogo da Velha com Minimax."
+        "description": "Jogo da velha em C# — jogue contra um amigo ou contra uma IA com Minimax."
       },
       "todo-list": {
         "title": "Lista de Tarefas",
-        "description": "Gerenciador de tarefas simples."
+        "description": "App de gerenciamento de tarefas simples, com front-end em React e back-end em Node.js."
       }
     }
+  },
+  "error-page": {
+    "title": "Erro"
   }
 }

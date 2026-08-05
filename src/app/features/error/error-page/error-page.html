@@ -1,6 +1,6 @@
 <div class="error-page">
   <app-terminal-section
-    customTitle="Error"
+    [customTitle]="'error-page.title' | translate"
     [shortTerminalLine]="true"
     [customCommand]="currentPath"
     [errorCommand]="true"
