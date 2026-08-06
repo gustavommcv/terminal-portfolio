@@ -3,7 +3,7 @@
     "presentation-section": {
       "command": "whoami",
       "role": "Software Developer",
-      "about": "Full Stack Developer specialized in building modern and scalable web applications. Focused on quality delivery and clean code.",
+      "about": "Full-stack developer by training, currently studying Electrical Engineering with a focus on embedded systems, math, physics, and CAD modeling. I like building things that actually work and solve real problems — in software, firmware, or hardware.",
       "contact": "Contact"
     },
     "services-section": {
@@ -13,27 +13,32 @@
         "Landing pages",
         "Portfolios",
         "Code maintenance",
-        "Design-to-code conversion",
-        "Framework componentization"
+        "Turning designs into working code",
+        "Breaking UIs into reusable components",
+        "3D printing and part design"
       ],
       "button": "Portfolio"
     },
+    "tech-stack-section": {
+      "title": "My Stack"
+    },
     "featured-projects-section": {
       "title": "Featured Projects",
-      "warning": "*Swipe to the right to see more projects*"
+      "warning": "*swipe right for more →*"
     },
     "contact-section": {
       "title": "Contact",
-      "warning": "*Open to full-time opportunities*",
-      "paragraph": "For quotes/questions, please get in touch:"
+      "warning": "*open to full-time roles*",
+      "paragraph": "You can find me here:"
     }
   },
   "about-page": {
     "about-section": {
       "title": "About me",
-      "p1": "I hold a degree in Systems Analysis and a Post-grad in Software Architecture. Currently, I am studying Electrical Engineering to deepen my foundation in exact sciences and computing.",
-      "p2": "I seek to validate my studies in practice. I have experience developing commercial systems from scratch, working through the full cycle from design to deploy.",
-      "p3": "I don't stick to a single stack; I believe in choosing the right tool for each challenge. Regardless of the language, my focus is always on code quality and structure.",
+      "greeting": "Hello, World!",
+      "p1": "I hold a degree in Systems Analysis and a postgrad in Software Architecture — I've always loved organization and wanted to understand why systems end up structured that way.",
+      "p2": "That curiosity spread to pretty much everything and pulled me back toward math and physics — that shift is what led me to Electrical Engineering, where I put programming and low-level systems together with the exact sciences.",
+      "p3": "On top of that, my interest in terminal tools and the KISS principle changed how I build: simple, practical solutions to real problems, mixing engineering and computing — in software or hardware.",
       "pronouns": "He/Him",
       "country": "Brazil"
     },
@@ -60,11 +65,12 @@
     "interests-section": {
       "title": "Interests",
       "interests": [
-        "Mathematics",
-        "Electricity",
-        "Linux and operating systems",
-        "Terminals and terminal tools",
-        "Low-level systems and problem solving"
+        "Mathematics and physics",
+        "Linux",
+        "Command-line tools",
+        "Embedded systems",
+        "3D printing",
+        "CAD modeling"
       ]
     },
     "languages-section": {
@@ -77,7 +83,7 @@
     "download-section": {
       "title": "Curriculum",
       "warning": "*current language: {\"locale\": \"en\"}*",
-      "warning2": "*Swipe right to see all download formats*"
+      "warning2": "*swipe right for more formats →*"
     }
   },
   "projects-page": {
@@ -90,56 +96,59 @@
     "projects": {
       "terminal-portfolio": {
         "title": "Terminal Portfolio",
-        "description": "Interactive terminal portfolio."
+        "description": "My personal portfolio, built with Angular and styled as a terminal interface."
       },
       "maquetaria": {
         "title": "Veronese Maquetes",
-        "description": "Custom commercial solution: Virtual showcase and management."
+        "description": "Custom platform for a model-making business — virtual showcase and back-office management."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "Modern and productive Neovim configuration."
+        "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics. Built with Lua."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "Fast CLI Pomodoro timer."
+        "description": "A lightning-fast CLI Pomodoro timer for developers, built in Go."
       },
       "voting-system": {
         "title": "Voting System",
-        "description": "Real-time voting system. Technical challenge."
+        "description": "Real-time voting system for competency assessments, built for Signo Tech."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Simple web chmod calculator."
+        "description": "Simple chmod calculator using only JS, HTML, and CSS."
       },
       "xp-bootcamp": {
         "title": "Bootcamp challenge - XP",
-        "description": "RESTful API. XP Education Bootcamp challenge."
+        "description": "RESTful API built for a postgraduate bootcamp challenge in software architecture."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Challenge",
-        "description": "REST API for transactions and real-time statistics."
+        "description": "REST API that ingests transactions and returns statistics over them — a challenge from Itaú Unibanco."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "Book catalog and ratings app."
+        "description": "Book catalog app with ratings, reviews, and recommendations based on what you've read."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "Clean Architecture API refactored."
+        "description": "REST API refactored to Clean Architecture, with JWT auth and test coverage via Jest."
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "First portfolio."
+        "description": "My first personal portfolio, built with Solid.js."
       },
       "tic-tac-toe": {
         "title": "Tic-Tac-Toe",
-        "description": "Tic-Tac-Toe with Minimax."
+        "description": "Tic-Tac-Toe in C# — play locally against a friend or against a Minimax-powered AI."
       },
       "todo-list": {
         "title": "Todo List",
-        "description": "Simple task manager."
+        "description": "Simple task management app with a React front-end and Node.js back-end."
       }
     }
+  },
+  "error-page": {
+    "title": "Error"
   }
 }
