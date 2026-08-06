@@ -7,11 +7,13 @@
   >
     <app-title [title]="'home-page.featured-projects-section.title' | translate" />
 
-    <div class="featured-projects-section__warning">
-      {{ "home-page.featured-projects-section.warning" | translate }}
-    </div>
+    @if (hasOverflow()) {
+      <div class="featured-projects-section__warning">
+        {{ "home-page.featured-projects-section.warning" | translate }}
+      </div>
+    }
 
-    <div class="featured-projects-section__container">
+    <div class="featured-projects-section__container" #scrollContainer>
       @for (project of projectsData; track project.id) {
         <project-card [project]="project"></project-card>
       }

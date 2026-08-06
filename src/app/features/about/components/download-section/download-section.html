@@ -10,11 +10,13 @@
       {{ "about-page.download-section.warning" | translate }}
     </div>
 
-    <div class="download-section__warning download-section__warning--2">
-      {{ "about-page.download-section.warning2" | translate }}
-    </div>
+    @if (hasOverflow()) {
+      <div class="download-section__warning download-section__warning--2">
+        {{ "about-page.download-section.warning2" | translate }}
+      </div>
+    }
 
-    <div class="download-section__container">
+    <div class="download-section__container" #scrollContainer>
       <div class="download-section__element">
         <h4 class="download-section__title">CV DOCX</h4>
         <button class="download-section__button" (click)="downloadCV('docx')">
