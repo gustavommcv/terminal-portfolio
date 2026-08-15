@@ -2,9 +2,9 @@
  * GitHub-README-style tech/platform badge, rendered as a Shields.io
  * "flat-square" static badge (see ProjectBadges). `slug` is the Simple
  * Icons logo slug; `color`/`logoColor` are hex without a leading `#`.
- * `slug` is optional - a handful of tools here (lazy.nvim, DirectInput,
- * Waybar...) have no real Simple Icons entry, so those badges render as a
- * plain colored label with no logo instead of guessing at one.
+ * `slug` is optional for a tool with no real Simple Icons entry - but
+ * stack entries without one are dropped rather than shown as a bare
+ * colored label (see projectsData below).
  */
 export interface ProjectBadge {
   label: string;
@@ -128,11 +128,10 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
-    stack: ['Lua', 'Neovim', 'lazy.nvim'],
+    stack: ['Lua', 'Neovim'],
     badges: [
       lua,
       { label: 'Neovim', slug: 'neovim', color: '57A143', category: 'tool' },
-      { label: 'lazy.nvim', color: '2D2D2D', category: 'tool' },
     ],
     featured: true,
     command: 'glow neovim.md',
@@ -202,12 +201,11 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
-    stack: ['Angular', 'TypeScript', 'RxJS', 'WebSockets'],
+    stack: ['Angular', 'TypeScript', 'RxJS'],
     badges: [
       angular,
       typescript,
       { label: 'RxJS', slug: 'reactivex', color: 'B7178C', category: 'tool' },
-      { label: 'WebSockets', color: '2D2D2D', category: 'tool' },
     ],
     command: 'glow voting.md',
   },
@@ -297,9 +295,8 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
-    stack: ['C#', '.NET'],
+    stack: ['.NET'],
     badges: [
-      { label: 'C#', color: '2D2D2D', category: 'language' },
       { label: '.NET', slug: 'dotnet', color: '512BD4', category: 'framework' },
     ],
     command: 'glow ttt.md',
@@ -343,11 +340,10 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/RVWheel',
     },
-    stack: ['C++', 'CMake', 'DirectInput'],
+    stack: ['C++', 'CMake'],
     badges: [
       { label: 'C++', slug: 'cplusplus', color: '00599C', category: 'language' },
       { label: 'CMake', slug: 'cmake', color: '064F8C', category: 'tool' },
-      { label: 'DirectInput', color: '2D2D2D', category: 'tool' },
     ],
     command: 'glow rvwheel.md',
   },
@@ -358,11 +354,9 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/dotfiles',
     },
-    stack: ['Hyprland', 'Waybar', 'Zsh'],
+    stack: ['Hyprland'],
     badges: [
       { label: 'Hyprland', slug: 'hyprland', color: '00C853', category: 'tool' },
-      { label: 'Waybar', color: '2D2D2D', category: 'tool' },
-      { label: 'Zsh', color: '2D2D2D', category: 'tool' },
     ],
     command: 'glow dotfiles.md',
   },

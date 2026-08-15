@@ -96,7 +96,9 @@ describe('ProjectDetailPage', () => {
   it('renders the Lua badge for the minimal-neovim project, replacing its old plain-text stack tags', () => {
     const fixture = createFixtureForProject('minimal-neovim');
 
-    expect(badgeAlts(fixture)).toEqual(['Lua', 'Neovim', 'lazy.nvim']);
+    // lazy.nvim has no real Simple Icons entry, so it's dropped entirely
+    // rather than shown as a bare, logo-less label.
+    expect(badgeAlts(fixture)).toEqual(['Lua', 'Neovim']);
     expect(
       fixture.nativeElement.querySelector('.project-detail-page__stack'),
     ).toBeNull();

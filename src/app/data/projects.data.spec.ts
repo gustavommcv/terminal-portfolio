@@ -36,8 +36,8 @@ describe('projectsData badges', () => {
 
     const dotfilesEntries = projectsData.filter((p) => p.id === 'dotfiles');
     expect(dotfilesEntries).toHaveLength(1);
-    // dotfiles is its own real project with its own stack (Hyprland/Waybar/
-    // Zsh), not a stand-in for minimal-neovim's Lua badge.
+    // dotfiles is its own real project with its own stack (Hyprland), not
+    // a stand-in for minimal-neovim's Lua badge.
     expect(
       dotfilesEntries[0].badges?.some((b) => b.slug === 'lua'),
     ).toBe(false);
