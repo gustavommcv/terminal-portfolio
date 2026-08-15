@@ -24,7 +24,7 @@
     },
     "featured-projects-section": {
       "title": "Projetos em Destaque",
-      "warning": "*desliza pra ver mais →*"
+      "warning": "*desliza pra ver mais*"
     },
     "contact-section": {
       "title": "Contato",
@@ -83,7 +83,7 @@
     "download-section": {
       "title": "Currículo",
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
-      "warning2": "*desliza pra ver os outros formatos →*"
+      "warning2": "*desliza pra ver os outros formatos*"
     }
   },
   "projects-page": {

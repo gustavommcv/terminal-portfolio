@@ -24,7 +24,7 @@
     },
     "featured-projects-section": {
       "title": "Featured Projects",
-      "warning": "*swipe right for more →*"
+      "warning": "*swipe right for more*"
     },
     "contact-section": {
       "title": "Contact",
@@ -83,7 +83,7 @@
     "download-section": {
       "title": "Curriculum",
       "warning": "*current language: {\"locale\": \"en\"}*",
-      "warning2": "*swipe right for more formats →*"
+      "warning2": "*swipe right for more formats*"
     }
   },
   "projects-page": {

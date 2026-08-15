@@ -17,7 +17,10 @@
   }
 
   &__container {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(26rem, 75vw, 32rem);
+    align-items: stretch;
     gap: 2rem;
     padding-top: 1rem;
     padding-bottom: $spacing-medium;
@@ -31,16 +34,6 @@
     &::-webkit-scrollbar-thumb {
       background-color: var(--scrollbar-thumb);
       border-radius: 1rem;
-    }
-
-    // A scrolling row, unlike a grid, has no track to size project-card for
-    // us. Its host is display:contents (see project-card.scss) and its
-    // real .project-card anchor renders under the *child's* own view
-    // encapsulation, so a descendant selector from here can't reach it -
-    // a custom property does, since it inherits through display:contents
-    // and isn't subject to Angular's style-scoping attributes.
-    project-card {
-      --project-card-basis: #{clamp(26rem, 75vw, 32rem)};
     }
   }
 }
