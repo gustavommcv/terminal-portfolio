@@ -26,6 +26,13 @@
             "projects-page.projects." + project.id + ".description" | translate
             }}
           </p>
+          @if (project.stack.length) {
+            <ul class="project-detail-page__stack">
+              @for (tech of project.stack; track tech) {
+                <li class="project-detail-page__stack-badge">{{ tech }}</li>
+              }
+            </ul>
+          }
           <div class="project-detail-page__links">
             @if (project.links.github) {
               <a

@@ -96,67 +96,83 @@
     "projects": {
       "terminal-portfolio": {
         "title": "Terminal Portfolio",
-        "description": "My personal portfolio, built with Angular and styled as a terminal interface."
+        "shortDescription": "My personal portfolio, built with Angular and styled as a terminal interface.",
+        "description": "This portfolio itself — an Angular 22 app styled as a terminal, with typing animations, bilingual content (EN/PT) via ngx-translate, and server-side rendering for a fast first paint. Built iteratively: OnPush change detection across every component, a signals-based intro sequence, and a design-token system driving spacing, color, and breakpoints instead of one-off values."
       },
       "maquetaria": {
         "title": "Veronese Maquetes",
-        "description": "Custom platform for a model-making business — virtual showcase and back-office management."
+        "shortDescription": "Custom platform for a model-making business — virtual showcase and back-office management.",
+        "description": "A commissioned platform for Veronese Maquetes, a physical model-making business: a public-facing virtual showcase for their work, plus an internal back-office for managing listings. Angular frontend, with a Go backend running as AWS Lambda functions."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "A modern, modular Neovim configuration optimized for productivity and aesthetics. Built with Lua."
+        "shortDescription": "A modern, modular Neovim configuration optimized for productivity and aesthetics. Built with Lua.",
+        "description": "A personal Neovim configuration built to be read and understood, not just installed — favoring Neovim's native APIs over plugins wherever that's enough. Uses lazy.nvim for plugin management, Treesitter and native LSP with Mason for language support, Telescope for fuzzy finding, and Neo-tree for file browsing, with support across Lua, JS/TS, Go, Python, and more."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "A lightning-fast CLI Pomodoro timer for developers, built in Go."
+        "shortDescription": "A lightning-fast CLI Pomodoro timer for developers, built in Go.",
+        "description": "A terminal Pomodoro timer in Go: four work sessions with short breaks, a long break after the fourth, then it exits — with desktop notifications and audio alerts at each transition, and pause/resume/skip while it's running. Configuration runs through a sandboxed Lua interpreter with no filesystem, network, or process access, and alert tones are generated in memory instead of shipped as audio files, so the binary stays dependency-free across Windows, Linux, and macOS."
       },
       "voting-system": {
         "title": "Voting System",
-        "description": "Real-time voting system for competency assessments, built for Signo Tech."
+        "shortDescription": "Real-time voting system for competency assessments, built for Signo Tech.",
+        "description": "A real-time polling system built for Signo Tech to run competency assessments: create polls, vote, and watch results update live over WebSockets as votes come in. Polls track status (not started / in progress / finished), voting is blocked once a poll closes or for unauthenticated users, and the Angular frontend talks to a separate backend API."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Simple chmod calculator using only JS, HTML, and CSS."
+        "shortDescription": "Simple chmod calculator using only JS, HTML, and CSS.",
+        "description": "A small tool for translating between symbolic (rwxr-xr--) and numeric (754) chmod permission formats — built with plain JavaScript, HTML, and CSS, no framework, as a focused exercise in DOM manipulation without any build tooling in the way."
       },
       "xp-bootcamp": {
         "title": "Bootcamp challenge - XP",
-        "description": "RESTful API built for a postgraduate bootcamp challenge in software architecture."
+        "shortDescription": "RESTful API built for a postgraduate bootcamp challenge in software architecture.",
+        "description": "A RESTful API built for a software architecture postgraduate bootcamp challenge, covering auth, users, products, and orders with full CRUD. Structured around MVC, a repository layer for data access, and a service layer for business rules, with InversifyJS for dependency injection and DTOs to keep internal models decoupled from the API's external shape. Runs on Express and MariaDB, containerized with Docker Compose."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Challenge",
-        "description": "REST API that ingests transactions and returns statistics over them — a challenge from Itaú Unibanco."
+        "shortDescription": "REST API that ingests transactions and returns statistics over them — a challenge from Itaú Unibanco.",
+        "description": "A REST API built for an Itaú Unibanco coding challenge: it ingests financial transactions and returns statistics computed over them within a rolling time window. Built in Java with Spring Boot and Gradle."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "Book catalog app with ratings, reviews, and recommendations based on what you've read."
+        "shortDescription": "Book catalog app with ratings, reviews, and recommendations based on what you've read.",
+        "description": "The frontend for a book catalog app: browsing, ratings, reviews, and recommendations based on what a user has already read, plus JWT-based login/signup and profile management. Built with React and React Router, Context API for state (deliberately skipping Redux to keep it simple), SCSS modules for styling, and Axios talking to a separate backend API."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "REST API refactored to Clean Architecture, with JWT auth and test coverage via Jest."
+        "shortDescription": "REST API refactored to Clean Architecture, with JWT auth and test coverage via Jest.",
+        "description": "A REST API originally built while following an Apollo Server/GraphQL course, later refactored into Clean Architecture as a deliberate exercise in separating concerns: a domain layer for entities and business logic, an application layer for DTOs and services, and an infrastructure layer for the database, controllers, and middleware. Built with TypeScript, Express, and MariaDB, with bcrypt and JWT for auth and Jest for test coverage, developed test-first."
       },
       "portfolio": {
         "title": "Portfolio",
-        "description": "My first personal portfolio, built with Solid.js."
+        "shortDescription": "My first personal portfolio, built with Solid.js.",
+        "description": "My first personal portfolio, and my first project with Solid.js after coming from React — built to learn Solid's fine-grained reactivity model firsthand instead of just reading about it. TypeScript throughout, bundled with Vite, containerized with Docker."
       },
       "tic-tac-toe": {
         "title": "Tic-Tac-Toe",
-        "description": "Tic-Tac-Toe in C# — play locally against a friend or against a Minimax-powered AI."
+        "shortDescription": "Tic-Tac-Toe in C# — play locally against a friend or against a Minimax-powered AI.",
+        "description": "A Tic-Tac-Toe implementation in C# with two modes: local two-player splitscreen, or against a bot. The bot plays via the Minimax algorithm, walking the full game tree to always pick an optimal move rather than relying on heuristics."
       },
       "todo-list": {
         "title": "Todo List",
-        "description": "Simple task management app with a React front-end and Node.js back-end."
+        "shortDescription": "Simple task management app with a React front-end and Node.js back-end.",
+        "description": "A task management app split into a Node.js API and a React frontend, in a monorepo with separate api and client directories. Covers create/edit/delete for tasks with persistent storage and JWT-based authentication, with a seed command for populating initial data."
       },
       "json-visual-editor": {
         "title": "JSON Visual Editor",
-        "description": "Browser-based visual editor for importing, editing, comparing, and exporting JSON files without hand-editing raw syntax."
+        "shortDescription": "Browser-based visual editor for importing, editing, comparing, and exporting JSON files without hand-editing raw syntax.",
+        "description": "A browser-based JSON editor built around one idea: edit structured data by interacting with it visually — forms for objects, tables or cards for arrays — instead of hand-editing raw text. Includes property/item creation, reordering, and deletion with confirmation prompts, global search across keys/values/paths, content-aware badges for dates, URLs, colors, emails, UUIDs, and more, 50-step undo/redo, a structural diff against the original file, and local autosave to IndexedDB for session recovery. Built with Vue 3 (script setup, no state library or CSS framework) and TypeScript in strict mode, everything running client-side — files never leave the browser."
       },
       "rv-wheel": {
         "title": "RVWheel",
-        "description": "Open-source racing wheel driver support for a game via UE4SS, built in C++ with DirectInput and force feedback."
+        "shortDescription": "Open-source racing wheel driver support for a game via UE4SS, built in C++ with DirectInput and force feedback.",
+        "description": "RV There Yet? doesn't support racing wheels natively, so this adds that support from the outside via UE4SS, without touching the game's executable. Enumerates and hot-plugs DirectInput devices, normalizes steering/pedal/button/POV input, and ships versioned JSON device profiles matched by VID/PID, with a guided calibration flow for unrecognized wheels at 60 Hz and optional force feedback with safety limits. Written in C++20, built with CMake and vcpkg, backed by 231+ Catch2 unit tests."
       },
       "dotfiles": {
         "title": "Dotfiles",
-        "description": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL."
+        "shortDescription": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL.",
+        "description": "My own Arch Linux setup, split across three branches for three contexts: a full Hyprland desktop, a notebook profile tuned for touchpad gestures and power management, and a terminal-only WSL2 setup. Covers Hyprland, Waybar, Rofi, Foot, tmux, and Zsh, with an install.sh that pulls packages via yay and symlinks everything into place."
       }
     }
   },
