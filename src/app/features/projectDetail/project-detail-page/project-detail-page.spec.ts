@@ -27,6 +27,12 @@ function createFixtureForProject(
   return fixture;
 }
 
+function badgeAlts(fixture: ComponentFixture<ProjectDetailPage>): string[] {
+  return Array.from(
+    fixture.nativeElement.querySelectorAll('.project-badges__image'),
+  ).map((img) => (img as HTMLImageElement).alt);
+}
+
 describe('ProjectDetailPage', () => {
   afterEach(() => {
     TestBed.resetTestingModule();
@@ -37,7 +43,7 @@ describe('ProjectDetailPage', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('keeps the semantic content order: media, then title, description, badges, stack, actions', () => {
+  it('keeps the semantic content order: media, then title, description, badges, actions - no separate plain-text stack list', () => {
     const fixture = createFixtureForProject('maquetaria');
     const root = fixture.nativeElement;
     const layout = root.querySelector('.project-detail-page__layout');
@@ -48,6 +54,7 @@ describe('ProjectDetailPage', () => {
     expect(layout.children[1]).toBe(info);
 
     const infoChildren = Array.from(info.children) as HTMLElement[];
+    expect(infoChildren).toHaveLength(4);
     expect(infoChildren[0].tagName).toBe('H2');
     expect(infoChildren[0].classList.contains('project-detail-page__title')).toBe(
       true,
@@ -57,69 +64,47 @@ describe('ProjectDetailPage', () => {
       infoChildren[1].classList.contains('project-detail-page__description'),
     ).toBe(true);
     expect(infoChildren[2].tagName.toLowerCase()).toBe('project-badges');
-    expect(infoChildren[3].tagName).toBe('UL');
-    expect(infoChildren[3].classList.contains('project-detail-page__stack')).toBe(
+    expect(infoChildren[3].classList.contains('project-detail-page__links')).toBe(
       true,
     );
-    expect(
-      infoChildren[infoChildren.length - 1].classList.contains(
-        'project-detail-page__links',
-      ),
-    ).toBe(true);
+    expect(root.querySelector('.project-detail-page__stack')).toBeNull();
   });
 
-  it('renders the Cloudflare badge for maquetaria from structured project data', () => {
+  it('renders a Cloudflare badge for maquetaria, in addition to its stack badges', () => {
     const fixture = createFixtureForProject('maquetaria');
-    const badgeImg: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-badges__image',
-    );
 
-    expect(badgeImg).not.toBeNull();
-    expect(badgeImg.getAttribute('src')).toContain('Cloudflare-F38020');
-    expect(badgeImg.getAttribute('alt')).toBe('Cloudflare');
+    expect(badgeAlts(fixture)).toEqual(['Angular', 'Go', 'AWS Lambda', 'Cloudflare']);
+    const cloudflareImg = Array.from(
+      fixture.nativeElement.querySelectorAll('.project-badges__image'),
+    ).find((img) => (img as HTMLImageElement).alt === 'Cloudflare') as
+      | HTMLImageElement
+      | undefined;
+    expect(cloudflareImg?.getAttribute('src')).toContain('Cloudflare-F38020');
   });
 
-  it('renders the Vercel badge for terminal-portfolio', () => {
+  it('renders a Vercel badge for terminal-portfolio, in addition to its stack badges', () => {
     const fixture = createFixtureForProject('terminal-portfolio');
-    const badgeImg: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-badges__image',
-    );
 
-    expect(badgeImg.getAttribute('src')).toContain('Vercel-000000');
+    expect(badgeAlts(fixture)).toEqual([
+      'Angular',
+      'TypeScript',
+      'SCSS',
+      'Vercel',
+    ]);
   });
 
-  it('renders the Lua badge for the minimal-neovim project', () => {
+  it('renders the Lua badge for the minimal-neovim project, replacing its old plain-text stack tags', () => {
     const fixture = createFixtureForProject('minimal-neovim');
-    const badgeImg: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-badges__image',
-    );
 
-    expect(badgeImg.getAttribute('src')).toContain('Lua-0051B3');
+    expect(badgeAlts(fixture)).toEqual(['Lua', 'Neovim', 'lazy.nvim']);
+    expect(
+      fixture.nativeElement.querySelector('.project-detail-page__stack'),
+    ).toBeNull();
   });
 
-  it('leaves no empty badge container for a project with no badges', () => {
+  it('renders every project stack entry as a badge, purely from data (no per-project template branching)', () => {
     const fixture = createFixtureForProject('todo-list');
-
-    expect(fixture.nativeElement.querySelector('.project-badges')).toBeNull();
-    expect(fixture.nativeElement.querySelector('project-badges')).not.toBeNull();
-  });
-
-  it('renders maquetaria badges purely from its own project data', () => {
-    const fixture = createFixtureForProject('maquetaria');
-    const alts = Array.from(
-      fixture.nativeElement.querySelectorAll('.project-badges__image'),
-    ).map((img) => (img as HTMLImageElement).alt);
-
-    expect(alts).toEqual(['Cloudflare']);
-  });
-
-  it('renders minimal-neovim badges purely from its own project data (same code path, different data)', () => {
-    const fixture = createFixtureForProject('minimal-neovim');
-    const alts = Array.from(
-      fixture.nativeElement.querySelectorAll('.project-badges__image'),
-    ).map((img) => (img as HTMLImageElement).alt);
-
-    expect(alts).toEqual(['Lua']);
+    expect(badgeAlts(fixture)).toEqual(['React', 'Node.js', 'JWT']);
   });
 
   it('renders both actions when a project has both a repository and a demo link', () => {

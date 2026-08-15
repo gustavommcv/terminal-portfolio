@@ -20,9 +20,14 @@ export class ProjectBadges {
   badgeSrc(badge: ProjectBadge): string {
     const label = encodeShieldsSegment(badge.label);
     const color = badge.color.replace(/^#/, '');
-    const logoColor = badge.logoColor ?? 'white';
+    const base = `https://img.shields.io/badge/${label}-${color}?style=flat-square`;
 
-    return `https://img.shields.io/badge/${label}-${color}?style=flat-square&logo=${badge.slug}&logoColor=${logoColor}`;
+    if (!badge.slug) {
+      return base;
+    }
+
+    const logoColor = badge.logoColor ?? 'white';
+    return `${base}&logo=${badge.slug}&logoColor=${logoColor}`;
   }
 
   badgeAlt(badge: ProjectBadge): string {
