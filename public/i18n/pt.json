@@ -145,6 +145,18 @@
       "todo-list": {
         "title": "Lista de Tarefas",
         "description": "App de gerenciamento de tarefas simples, com front-end em React e back-end em Node.js."
+      },
+      "json-visual-editor": {
+        "title": "JSON Visual Editor",
+        "description": "Editor visual de JSON no navegador — importe, edite, compare e exporte arquivos JSON sem editar a sintaxe bruta."
+      },
+      "rv-wheel": {
+        "title": "RVWheel",
+        "description": "Suporte open-source a volante de corrida para um jogo via UE4SS, construído em C++ com DirectInput e force feedback."
+      },
+      "dotfiles": {
+        "title": "Dotfiles",
+        "description": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL."
       }
     }
   },

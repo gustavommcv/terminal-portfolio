@@ -150,4 +150,36 @@ export const projectsData: Project[] = [
     tags: ['React', 'Node.js', 'Fullstack'],
     command: 'glow todo.md',
   },
+
+  {
+    id: 'json-visual-editor',
+    image:
+      'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/JSON-Visual-Editor',
+      demo: 'https://gustavommcv.github.io/JSON-Visual-Editor/',
+    },
+    tags: ['Vue', 'TypeScript', 'Vite'],
+    command: 'glow json-editor.md',
+  },
+
+  {
+    id: 'rv-wheel',
+    image: 'images/projects/rvwheel/images/rvwheel-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/RVWheel',
+    },
+    tags: ['C++', 'DirectInput', 'CMake'],
+    command: 'glow rvwheel.md',
+  },
+
+  {
+    id: 'dotfiles',
+    image: 'images/projects/dotfiles/images/dotfiles-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/dotfiles',
+    },
+    tags: ['Hyprland', 'Linux', 'Shell'],
+    command: 'glow dotfiles.md',
+  },
 ];

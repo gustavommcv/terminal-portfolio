@@ -145,6 +145,18 @@
       "todo-list": {
         "title": "Todo List",
         "description": "Simple task management app with a React front-end and Node.js back-end."
+      },
+      "json-visual-editor": {
+        "title": "JSON Visual Editor",
+        "description": "Browser-based visual editor for importing, editing, comparing, and exporting JSON files without hand-editing raw syntax."
+      },
+      "rv-wheel": {
+        "title": "RVWheel",
+        "description": "Open-source racing wheel driver support for a game via UE4SS, built in C++ with DirectInput and force feedback."
+      },
+      "dotfiles": {
+        "title": "Dotfiles",
+        "description": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL."
       }
     }
   },
