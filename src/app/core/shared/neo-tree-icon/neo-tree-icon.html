@@ -1,0 +1,43 @@
+<svg
+  class="neo-tree-icon"
+  viewBox="0 0 18 18"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.4"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  @switch (icon()) {
+    @case ('tree') {
+      <path d="M4 2.5v11.5" />
+      <path d="M4 6h3.6" />
+      <path d="M4 11h3.6" />
+      <rect x="2.6" y="1.1" width="2.8" height="2.8" rx="0.6" fill="currentColor" stroke="none" />
+      <rect x="7.6" y="4.6" width="2.8" height="2.8" rx="0.6" fill="currentColor" stroke="none" />
+      <rect x="7.6" y="9.6" width="2.8" height="2.8" rx="0.6" fill="currentColor" stroke="none" />
+    }
+    @case ('folder-open') {
+      <path d="M2 5.2V4a1 1 0 0 1 1-1h3.2l1.3 1.5H15a1 1 0 0 1 1 1v1.2" />
+      <path d="M1.6 5.2h14.7l-1.6 7.3a1 1 0 0 1-1 .8H4.1a1 1 0 0 1-1-.8L1.6 5.2Z" />
+    }
+    @case ('folder') {
+      <path d="M2 4.3a1 1 0 0 1 1-1h3.3l1.3 1.5h7.3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4.3Z" />
+    }
+    @case ('home') {
+      <rect x="2" y="3" width="14" height="12" rx="1.6" />
+      <path d="M5.4 7.6 7.8 9.4 5.4 11.2" />
+      <path d="M9.6 11.4h3.4" />
+    }
+    @case ('about') {
+      <path d="M5.2 2.2h5.4L14 5.8v9.2a1 1 0 0 1-1 1H5.2a1 1 0 0 1-1-1v-11.8a1 1 0 0 1 1-1Z" />
+      <path d="M10.4 2.2v3.4h3.4" />
+      <path d="M6.2 9.8h5.6M6.2 12.2h4" />
+    }
+    @case ('close') {
+      <path d="M4.8 4.8 13.2 13.2" />
+      <path d="M13.2 4.8 4.8 13.2" />
+    }
+  }
+</svg>

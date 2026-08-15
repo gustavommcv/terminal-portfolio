@@ -27,31 +27,69 @@
   </div>
 
   @if (isMenuOpen()) {
-    <div id="mobile-menu" class="menu-overlay" (click)="closeMenu()">
-      <nav
-        class="mobile-nav"
-        aria-label="Mobile"
+    <div class="menu-overlay" (click)="closeMenu()">
+      <div
+        #panel
+        id="mobile-menu"
+        class="neo-sidebar"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
         (click)="$event.stopPropagation()"
+        (keydown)="onPanelKeydown($event)"
       >
-        <div class="nav-links">
-          @for (
-            route of ['/', '/about', '/portfolio'];
-            track route
-          ) {
-            <a
-              class="mobile-nav__link"
-              [class.mobile-nav__link--active]="isActive(route)"
-              [attr.aria-current]="isActive(route) ? 'page' : null"
-              [href]="language.localizedUrl(route)"
-              (click)="navigateWithLocale(route, $event, true)"
-            >{{ routeLabel(route) }}</a>
-          }
+        <div class="neo-sidebar__source-bar">
+          <neo-tree-icon icon="tree" class="neo-sidebar__source-icon" />
+          <span class="neo-sidebar__source-label">NAVIGATION</span>
+          <button
+            type="button"
+            class="neo-sidebar__close"
+            (click)="closeMenu()"
+            aria-label="Close menu"
+          >
+            <neo-tree-icon icon="close" />
+          </button>
         </div>
 
-        <div class="language-toggle-container">
+        <div class="neo-sidebar__root">
+          <neo-tree-icon icon="folder-open" class="neo-sidebar__root-icon" />
+          <span class="neo-sidebar__root-label">
+            <span class="neo-sidebar__root-path">~/</span
+            ><span class="neo-sidebar__root-name--left">gus</span
+            ><span class="neo-sidebar__root-name--middle">::</span
+            ><span class="neo-sidebar__root-name--right">monnerat</span>
+          </span>
+        </div>
+
+        <nav #navList class="neo-sidebar__nav" aria-label="Mobile">
+          <ul class="neo-sidebar__tree">
+            @for (route of ['/', '/about', '/portfolio']; track route) {
+              <li class="neo-sidebar__row">
+                <a
+                  class="neo-sidebar__link"
+                  [class.neo-sidebar__link--active]="isActive(route)"
+                  [attr.aria-current]="isActive(route) ? 'page' : null"
+                  [href]="language.localizedUrl(route)"
+                  (click)="navigateWithLocale(route, $event, true)"
+                >
+                  <span class="neo-sidebar__guide" aria-hidden="true"></span>
+                  <neo-tree-icon
+                    [icon]="routeIcon(route)"
+                    class="neo-sidebar__link-icon"
+                  />
+                  <span class="neo-sidebar__link-label">{{
+                    routeLabel(route)
+                  }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </nav>
+
+        <div class="neo-sidebar__status">
           <language-toggle-button />
         </div>
-      </nav>
+      </div>
     </div>
   }
 
