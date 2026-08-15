@@ -23,7 +23,7 @@
 
   &-container {
     margin: 0 auto;
-    max-width: 150rem;
+    max-width: $content-max-width;
     width: 100%;
   }
 
@@ -34,7 +34,7 @@
 
     display: block;
     width: 100%;
-    max-width: 150rem;
+    max-width: $content-max-width;
     margin: 0 auto;
     margin-bottom: $spacing-medium;
 

@@ -1,14 +1,30 @@
 @use "abstracts/variables" as *;
 
+// The component's own template root is the <a class="project-card">, not
+// its <project-card> host element. display:contents removes that host from
+// the box tree so the anchor becomes the real flex/grid item wherever this
+// component is placed (the portfolio grid, the featured-projects carousel),
+// instead of being wrapped in an unstyled, content-sized box that would
+// otherwise fight with the parent's sizing.
+:host {
+  display: contents;
+}
+
 .project-card {
   height: 100%;
-  min-width: 30rem;
-  max-width: 40rem;
+  min-width: 0;
+  max-inline-size: 100%;
 
   border: $border-default;
 
   border-radius: $border-radius-default;
-  flex-shrink: 0;
+  // Grid contexts (the portfolio grid) size this via the track and never
+  // set the custom property, so it falls back to auto and stretches to
+  // fill the track. Flex row contexts (the featured-projects carousel) set
+  // --project-card-basis on the <project-card> host; custom properties
+  // inherit through display:contents and cross the encapsulation boundary
+  // that a plain descendant selector from the parent's stylesheet cannot.
+  flex: 0 0 var(--project-card-basis, auto);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -33,7 +49,6 @@
 
   @media screen and (max-width: #{$breakpoint-mobile}) {
     font-size: 1.8rem;
-    max-width: 35rem;
   }
 
   &__image {
@@ -46,15 +61,18 @@
 
   &__container {
     padding: 1rem 2rem;
+    min-width: 0;
   }
 
   &__title {
     font-weight: bold;
     font-size: 2rem;
     margin-bottom: 1.8rem;
+    overflow-wrap: anywhere;
   }
 
   &__description {
     font-size: 1.7rem;
+    overflow-wrap: break-word;
   }
 }

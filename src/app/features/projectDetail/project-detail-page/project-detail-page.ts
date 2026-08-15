@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ProjectsDataService } from '../../../services/projects-data.service';
 import { TranslatePipe } from '@ngx-translate/core';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
+import { ProjectBadges } from '../../../core/shared/project-badges/project-badges';
 
 @Component({
   selector: 'project-detail-page',
   standalone: true,
-  imports: [TranslatePipe, TerminalSection],
+  imports: [TranslatePipe, TerminalSection, ProjectBadges],
   templateUrl: './project-detail-page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-detail-page.scss',

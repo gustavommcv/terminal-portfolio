@@ -1,3 +1,17 @@
+/**
+ * GitHub-README-style tech/platform badge, rendered as a Shields.io
+ * "flat-square" static badge (see ProjectBadges). `slug` is the Simple
+ * Icons logo slug; `color`/`logoColor` are hex without a leading `#`.
+ */
+export interface ProjectBadge {
+  label: string;
+  slug: string;
+  color: string;
+  logoColor?: string;
+  category?: 'language' | 'framework' | 'platform' | 'hosting' | 'database' | 'tool';
+  description?: string;
+}
+
 export interface Project {
   id: string;
   image: string;
@@ -7,6 +21,7 @@ export interface Project {
     demo?: string;
   };
   stack: string[];
+  badges?: ProjectBadge[];
   featured?: boolean;
   command?: string;
 }
@@ -19,6 +34,15 @@ export const projectsData: Project[] = [
       demo: 'https://veronesemaquetes.com.br',
     },
     stack: ['Angular', 'Go', 'AWS Lambda'],
+    badges: [
+      {
+        label: 'Cloudflare',
+        slug: 'cloudflare',
+        color: 'F38020',
+        logoColor: 'white',
+        category: 'hosting',
+      },
+    ],
     featured: true,
     command: 'glow maquetaria.md',
   },
@@ -30,6 +54,15 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
     stack: ['Lua', 'Neovim', 'lazy.nvim'],
+    badges: [
+      {
+        label: 'Lua',
+        slug: 'lua',
+        color: '0051B3',
+        logoColor: 'white',
+        category: 'language',
+      },
+    ],
     featured: true,
     command: 'glow neovim.md',
   },
@@ -65,6 +98,15 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/terminal-portfolio',
     },
     stack: ['Angular', 'TypeScript', 'SCSS'],
+    badges: [
+      {
+        label: 'Vercel',
+        slug: 'vercel',
+        color: '000000',
+        logoColor: 'white',
+        category: 'hosting',
+      },
+    ],
     command: 'glow terminal-portfolio.md',
     featured: true,
   },

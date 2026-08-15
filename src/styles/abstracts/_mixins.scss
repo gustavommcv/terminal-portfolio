@@ -1,0 +1,11 @@
+@use "variables" as *;
+
+// Fluid page-shell gutter shared by every top-level page (home, about,
+// portfolio, project-detail, error). Replaces the identical
+// padding + two-breakpoint media-query block that used to be copied into
+// each page's stylesheet, with a single interpolation from mobile to
+// desktop instead of three discrete jumps.
+@mixin page-shell {
+  padding-inline: clamp(0.5rem, 4vw, 8rem);
+  padding-block-start: clamp(0.5rem, 3vw, 2rem);
+}
