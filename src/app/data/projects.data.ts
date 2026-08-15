@@ -6,7 +6,7 @@ export interface Project {
     github?: string;
     demo?: string;
   };
-  tags?: string[];
+  stack: string[];
   featured?: boolean;
   command?: string;
 }
@@ -18,7 +18,7 @@ export const projectsData: Project[] = [
     links: {
       demo: 'https://veronesemaquetes.com.br',
     },
-    tags: ['Angular', 'GOlang', 'AWS Lambda'],
+    stack: ['Angular', 'Go', 'AWS Lambda'],
     featured: true,
     command: 'glow maquetaria.md',
   },
@@ -29,7 +29,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
-    tags: ['Lua', 'Neovim', 'CLI'],
+    stack: ['Lua', 'Neovim', 'lazy.nvim'],
     featured: true,
     command: 'glow neovim.md',
   },
@@ -41,7 +41,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
     },
-    tags: ['Go', 'CLI', 'Productivity'],
+    stack: ['Go', 'Lua'],
     featured: true,
     command: 'gomodoro',
   },
@@ -53,7 +53,7 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/chmod_calculator',
       demo: 'https://gustavommcv.github.io/chmod_calculator/',
     },
-    tags: ['JavaScript', 'HTML/CSS'],
+    stack: ['JavaScript', 'HTML', 'CSS'],
     featured: true,
     command: 'glow chmod.md',
   },
@@ -64,7 +64,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/terminal-portfolio',
     },
-    tags: ['Angular', 'TypeScript', 'Terminal'],
+    stack: ['Angular', 'TypeScript', 'SCSS'],
     command: 'glow terminal-portfolio.md',
     featured: true,
   },
@@ -75,7 +75,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
-    tags: ['Angular', 'Node.js', 'Fullstack'],
+    stack: ['Angular', 'TypeScript', 'RxJS', 'WebSockets'],
     command: 'glow voting.md',
   },
 
@@ -86,7 +86,7 @@ export const projectsData: Project[] = [
       github:
         'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
     },
-    tags: ['Java', 'Spring Boot', 'API'],
+    stack: ['TypeScript', 'Express', 'MariaDB', 'Docker'],
     command: 'glow xp1.md',
   },
 
@@ -96,7 +96,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
     },
-    tags: ['Node.js', 'Express', 'API'],
+    stack: ['Java', 'Spring Boot'],
     command: 'glow itau1.md',
   },
   {
@@ -105,7 +105,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
     },
-    tags: ['React', 'Node.js', 'Fullstack'],
+    stack: ['React', 'SCSS', 'Vite'],
     command: 'glow booksapp.md',
   },
 
@@ -115,7 +115,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/AirlockRest',
     },
-    tags: ['Java', 'Clean Architecture', 'API'],
+    stack: ['TypeScript', 'Express', 'MariaDB', 'JWT'],
     command: 'glow airlock.md',
   },
 
@@ -127,7 +127,7 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/portfolio',
       demo: 'https://gustavommcv.github.io/portfolio/#/',
     },
-    tags: ['Solid.js', 'TypeScript'],
+    stack: ['Solid.js', 'TypeScript', 'Vite'],
     command: 'glow portfolio.md',
   },
 
@@ -137,7 +137,7 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
-    tags: ['C#', 'Algorithms'],
+    stack: ['C#', '.NET'],
     command: 'glow ttt.md',
   },
 
@@ -147,7 +147,39 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/to-do-app-main',
     },
-    tags: ['React', 'Node.js', 'Fullstack'],
+    stack: ['React', 'Node.js', 'JWT'],
     command: 'glow todo.md',
+  },
+
+  {
+    id: 'json-visual-editor',
+    image:
+      'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/JSON-Visual-Editor',
+      demo: 'https://gustavommcv.github.io/JSON-Visual-Editor/',
+    },
+    stack: ['Vue', 'TypeScript', 'Vite'],
+    command: 'glow json-editor.md',
+  },
+
+  {
+    id: 'rv-wheel',
+    image: 'images/projects/rvwheel/images/rvwheel-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/RVWheel',
+    },
+    stack: ['C++', 'CMake', 'DirectInput'],
+    command: 'glow rvwheel.md',
+  },
+
+  {
+    id: 'dotfiles',
+    image: 'images/projects/dotfiles/images/dotfiles-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/dotfiles',
+    },
+    stack: ['Hyprland', 'Waybar', 'Zsh'],
+    command: 'glow dotfiles.md',
   },
 ];

@@ -3,7 +3,7 @@
     "presentation-section": {
       "command": "whoami",
       "role": "Desenvolvedor de Software",
-      "about": "Desenvolvedor Full Stack especializado em criar aplicações web modernas e escaláveis. Foco em entregas de qualidade e código limpo.",
+      "about": "Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.",
       "contact": "Contato"
     },
     "services-section": {
@@ -13,27 +13,32 @@
         "Landing pages",
         "Portfólios",
         "Manutenção de código",
-        "Conversão de design para código",
-        "Componentização em framework"
+        "Transformar design em código",
+        "Dividir suas telas em componentes reutilizáveis",
+        "Impressão 3D e modelagem de peças"
       ],
       "button": "Portfólio"
     },
+    "tech-stack-section": {
+      "title": "Minha Stack"
+    },
     "featured-projects-section": {
       "title": "Projetos em Destaque",
-      "warning": "*Deslize para ver mais projetos*"
+      "warning": "*desliza pra ver mais →*"
     },
     "contact-section": {
       "title": "Contato",
-      "warning": "*Disponível para oportunidades fixas*",
-      "paragraph": "Para orçamentos/dúvidas entre em contato:"
+      "warning": "*aberto a vagas CLT ou PJ*",
+      "paragraph": "É por aqui que você me encontra:"
     }
   },
   "about-page": {
     "about-section": {
       "title": "Sobre mim",
-      "p1": "Sou formado em Análise de Sistemas e pós-graduado em Arquitetura de Software. Atualmente, curso Engenharia Elétrica para aprofundar minha base em ciências exatas e computação.",
-      "p2": "Busco validar meus estudos na prática. Tive a experiência de desenvolver sistemas comerciais do zero, atuando em todo o ciclo, do design ao deploy.",
-      "p3": "Não me prendo a uma única stack; acredito em escolher a ferramenta certa para cada desafio. Independentemente da linguagem, meu foco é sempre a qualidade e a estrutura do código.",
+      "greeting": "Hello, World!",
+      "p1": "Sou formado em Análise e Desenvolvimento de Sistemas e fiz uma pós-graduação em Arquitetura de Software, pois sempre gostei de organização e de entender o porquê de os sistemas serem estruturados assim.",
+      "p2": "Essa curiosidade se estendeu para praticamente tudo e direcionou meus estudos para a matemática e a física, o que me fez escolher um curso mais alinhado com meus novos objetivos, sendo ele a Engenharia Elétrica, onde uno programação e sistemas de baixo nível às exatas.",
+      "p3": "Somado a isso, meu interesse por ferramentas de terminal e o princípio KISS mudou a forma como eu construo: soluções simples e práticas para problemas reais, unindo engenharia e computação — em software ou hardware.",
       "pronouns": "Ele/Dele",
       "country": "Brasil"
     },
@@ -60,11 +65,12 @@
     "interests-section": {
       "title": "Interesses",
       "interests": [
-        "Matemática",
-        "Elétrica",
-        "Linux e sistemas operacionais",
-        "Sistemas de baixo nível e resolução de problemas",
-        "Terminais e ferramentas de linha de comando"
+        "Matemática e física",
+        "Linux",
+        "Ferramentas de linha de comando",
+        "Sistemas embarcados",
+        "Impressão 3D",
+        "Modelagem CAD"
       ]
     },
     "languages-section": {
@@ -77,7 +83,7 @@
     "download-section": {
       "title": "Currículo",
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
-      "warning2": "*Deslize para a direita para ver todos os formatos de download*"
+      "warning2": "*desliza pra ver os outros formatos →*"
     }
   },
   "projects-page": {
@@ -90,56 +96,87 @@
     "projects": {
       "terminal-portfolio": {
         "title": "Terminal Portfolio",
-        "description": "Portfólio interativo tipo terminal."
+        "shortDescription": "Meu portfólio pessoal, construído em Angular com estilo de interface de terminal.",
+        "description": "Este próprio portfólio — um app Angular 22 estilizado como terminal, com animações de digitação, conteúdo bilíngue (EN/PT) via ngx-translate e renderização no servidor para um primeiro carregamento rápido. Construído aos poucos: OnPush em todos os componentes, uma sequência de introdução baseada em signals, e um sistema de tokens de design controlando espaçamento, cor e breakpoints em vez de valores soltos."
       },
       "maquetaria": {
         "title": "Veronese Maquetes",
-        "description": "Solução comercial sob medida: Vitrine virtual e gestão."
+        "shortDescription": "Plataforma sob medida para uma empresa de maquetes — vitrine virtual e gestão administrativa.",
+        "description": "Plataforma sob encomenda para a Veronese Maquetes, empresa de maquetes físicas: uma vitrine virtual pública para o trabalho deles, além de um back-office interno para gerenciar os anúncios. Frontend em Angular, com backend em Go rodando como funções AWS Lambda."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
-        "description": "Configuração Neovim moderna e produtiva."
+        "shortDescription": "Configuração de Neovim moderna e modular, otimizada para produtividade e estética. Construída em Lua.",
+        "description": "Uma configuração pessoal de Neovim construída para ser lida e entendida, não só instalada — priorizando as APIs nativas do Neovim em vez de plugins sempre que isso já resolve. Usa lazy.nvim para gerenciar plugins, Treesitter e LSP nativo com Mason para suporte a linguagens, Telescope para busca fuzzy e Neo-tree para navegação de arquivos, com suporte a Lua, JS/TS, Go, Python e outras."
       },
       "gomodoro": {
         "title": "Gomodoro",
-        "description": "Cronômetro Pomodoro CLI rápido."
+        "shortDescription": "Cronômetro Pomodoro ultrarrápido para o terminal, construído em Go.",
+        "description": "Um cronômetro Pomodoro de terminal em Go: quatro sessões de trabalho com pausas curtas entre elas e uma pausa longa após a quarta, depois encerra — com notificações e alertas sonoros a cada transição, e pausar/retomar/pular enquanto roda. A configuração passa por um interpretador Lua isolado, sem acesso a arquivos, rede ou processos, e os tons de alerta são gerados em memória em vez de vir como arquivos de áudio, então o binário fica sem dependências externas em Windows, Linux e macOS."
       },
       "voting-system": {
         "title": "Sistema de Votação",
-        "description": "Sistema de votação em tempo real. Desafio técnico."
+        "shortDescription": "Sistema de votação em tempo real para avaliação de competências, construído para a Signo Tech.",
+        "description": "Um sistema de votação em tempo real construído para a Signo Tech rodar avaliações de competência: criar enquetes, votar e ver o resultado atualizar ao vivo via WebSockets conforme os votos chegam. As enquetes têm status (não iniciada / em andamento / finalizada), votar é bloqueado depois que uma enquete fecha ou para quem não está autenticado, e o frontend em Angular conversa com uma API separada."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
-        "description": "Calculadora chmod web simples."
+        "shortDescription": "Calculadora de chmod simples, feita só com JS, HTML e CSS.",
+        "description": "Uma ferramenta pequena para traduzir entre os formatos simbólico (rwxr-xr--) e numérico (754) de permissões chmod — feita com JavaScript, HTML e CSS puros, sem framework, como um exercício focado em manipulação de DOM sem nenhuma ferramenta de build no caminho."
       },
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
-        "description": "API RESTful. Desafio Bootcamp XP Educação."
+        "shortDescription": "API RESTful construída para o desafio do bootcamp de pós-graduação em arquitetura de software.",
+        "description": "Uma API RESTful construída para o desafio do bootcamp de pós-graduação em arquitetura de software, cobrindo autenticação, usuários, produtos e pedidos com CRUD completo. Estruturada em torno de MVC, uma camada de repositório para acesso a dados e uma camada de serviço para as regras de negócio, com InversifyJS para injeção de dependência e DTOs para manter os modelos internos desacoplados do formato exposto pela API. Roda em Express e MariaDB, containerizada com Docker Compose."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
-        "description": "API REST de transações e estatísticas em tempo real."
+        "shortDescription": "API REST que recebe transações e retorna estatísticas sobre elas — desafio do Itaú Unibanco.",
+        "description": "Uma API REST construída para um desafio de código do Itaú Unibanco: recebe transações financeiras e retorna estatísticas calculadas sobre elas dentro de uma janela de tempo móvel. Construída em Java com Spring Boot e Gradle."
       },
       "books-app": {
         "title": "BooksApp",
-        "description": "Catálogo e avaliações de livros."
+        "shortDescription": "App de catálogo de livros com avaliações, resenhas e recomendações baseadas no que você já leu.",
+        "description": "O frontend de um app de catálogo de livros: navegação, avaliações, resenhas e recomendações baseadas no que o usuário já leu, além de login/cadastro via JWT e gerenciamento de perfil. Construído com React e React Router, Context API para estado (optei por não usar Redux, para manter simples), SCSS modular para estilos, e Axios conversando com uma API separada."
       },
       "airlock-rest": {
         "title": "Airlock REST",
-        "description": "API Clean Architecture refatorada."
+        "shortDescription": "API REST refatorada com Clean Architecture, autenticação JWT e cobertura de testes com Jest.",
+        "description": "Uma API REST construída originalmente seguindo um curso de Apollo Server/GraphQL, depois refatorada para Clean Architecture como exercício deliberado de separação de responsabilidades: uma camada de domínio para entidades e regras de negócio, uma camada de aplicação para DTOs e serviços, e uma camada de infraestrutura para banco de dados, controllers e middlewares. Construída com TypeScript, Express e MariaDB, com bcrypt e JWT para autenticação e Jest para cobertura de testes, desenvolvida test-first."
       },
       "portfolio": {
         "title": "Portfólio",
-        "description": "Primeiro portfólio."
+        "shortDescription": "Meu primeiro portfólio pessoal, construído com Solid.js.",
+        "description": "Meu primeiro portfólio pessoal, e meu primeiro projeto com Solid.js depois de vir do React — construído para aprender o modelo de reatividade granular do Solid na prática, não só na teoria. TypeScript do início ao fim, empacotado com Vite, containerizado com Docker."
       },
       "tic-tac-toe": {
         "title": "Jogo da Velha",
-        "description": "Jogo da Velha com Minimax."
+        "shortDescription": "Jogo da velha em C# — jogue contra um amigo ou contra uma IA com Minimax.",
+        "description": "Um jogo da velha em C# com dois modos: dois jogadores localmente em splitscreen, ou contra um bot. O bot joga com o algoritmo Minimax, percorrendo toda a árvore de possibilidades do jogo para sempre escolher uma jogada ótima em vez de depender de heurísticas."
       },
       "todo-list": {
         "title": "Lista de Tarefas",
-        "description": "Gerenciador de tarefas simples."
+        "shortDescription": "App de gerenciamento de tarefas simples, com front-end em React e back-end em Node.js.",
+        "description": "Um app de gerenciamento de tarefas dividido em uma API Node.js e um frontend em React, em um monorepo com diretórios api e client separados. Cobre criar/editar/excluir tarefas com armazenamento persistente e autenticação via JWT, com um comando de seed para popular dados iniciais."
+      },
+      "json-visual-editor": {
+        "title": "JSON Visual Editor",
+        "shortDescription": "Editor visual de JSON no navegador — importe, edite, compare e exporte arquivos JSON sem editar a sintaxe bruta.",
+        "description": "Um editor de JSON no navegador construído em torno de uma ideia: editar dados estruturados interagindo visualmente com eles — formulários para objetos, tabelas ou cards para arrays — em vez de editar texto bruto na mão. Inclui criação, reordenação e remoção de propriedades/itens com confirmação, busca global por chaves/valores/caminhos, badges que reconhecem o tipo de conteúdo (datas, URLs, cores, e-mails, UUIDs...), undo/redo com 50 passos, comparação estrutural com o arquivo original, e auto-save local no IndexedDB para recuperar a sessão. Construído com Vue 3 (script setup, sem biblioteca de estado ou framework de CSS) e TypeScript em modo estrito, tudo rodando no cliente — os arquivos nunca saem do navegador."
+      },
+      "rv-wheel": {
+        "title": "RVWheel",
+        "shortDescription": "Suporte open-source a volante de corrida para um jogo via UE4SS, construído em C++ com DirectInput e force feedback.",
+        "description": "RV There Yet? não tem suporte nativo a volantes de corrida, então isso adiciona esse suporte por fora, via UE4SS, sem mexer no executável do jogo. Enumera e reconhece dispositivos DirectInput plugados a quente, normaliza a entrada de direção/pedais/botões/POV, e usa perfis de dispositivo em JSON versionados, casados por VID/PID, com um fluxo de calibração guiado a 60 Hz para volantes desconhecidos e force feedback opcional com limites de segurança. Escrito em C++20, construído com CMake e vcpkg, com mais de 231 testes unitários em Catch2."
+      },
+      "dotfiles": {
+        "title": "Dotfiles",
+        "shortDescription": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL.",
+        "description": "Minha própria configuração de Arch Linux, dividida em três branches para três contextos: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Cobre Hyprland, Waybar, Rofi, Foot, tmux e Zsh, com um install.sh que instala pacotes via yay e cria os symlinks necessários."
       }
     }
+  },
+  "error-page": {
+    "title": "Erro"
   }
 }

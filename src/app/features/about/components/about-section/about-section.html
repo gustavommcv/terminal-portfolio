@@ -7,7 +7,9 @@
   >
     <div class="about-section__container">
       <div class="about-section__text">
-        <app-title title="Hello, World!" />
+        <app-title
+          [title]="'about-page.about-section.greeting' | translate"
+        />
 
         <p class="about-section__paragraph">
           {{ "about-page.about-section.p1" | translate }}
