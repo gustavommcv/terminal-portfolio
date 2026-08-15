@@ -133,7 +133,6 @@ export const projectsData: Project[] = [
       lua,
       { label: 'Neovim', slug: 'neovim', color: '57A143', category: 'tool' },
     ],
-    featured: true,
     command: 'glow neovim.md',
   },
 
@@ -146,7 +145,6 @@ export const projectsData: Project[] = [
     },
     stack: ['Go', 'Lua'],
     badges: [go, lua],
-    featured: true,
     command: 'gomodoro',
   },
 
@@ -169,7 +167,6 @@ export const projectsData: Project[] = [
       { label: 'HTML', slug: 'html5', color: 'E34F26', category: 'language' },
       { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
     ],
-    featured: true,
     command: 'glow chmod.md',
   },
 
@@ -207,6 +204,7 @@ export const projectsData: Project[] = [
       typescript,
       { label: 'RxJS', slug: 'reactivex', color: 'B7178C', category: 'tool' },
     ],
+    featured: true,
     command: 'glow voting.md',
   },
 
@@ -331,6 +329,7 @@ export const projectsData: Project[] = [
       typescript,
       vite,
     ],
+    featured: true,
     command: 'glow json-editor.md',
   },
 
@@ -345,6 +344,7 @@ export const projectsData: Project[] = [
       { label: 'C++', slug: 'cplusplus', color: '00599C', category: 'language' },
       { label: 'CMake', slug: 'cmake', color: '064F8C', category: 'tool' },
     ],
+    featured: true,
     command: 'glow rvwheel.md',
   },
 
