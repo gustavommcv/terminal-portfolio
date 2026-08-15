@@ -1,38 +1,16 @@
 @use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
 
 .portfolio-page {
-  padding: 2rem 8rem;
-
-  @media screen and (max-width: #{$breakpoint-tablet}) {
-    padding: 0 1rem;
-    margin-top: $spacing-medium;
-  }
-
-  @media screen and (max-width: #{$breakpoint-mobile}) {
-    margin-top: $spacing-medium;
-    padding: 0 0.5rem;
-  }
+  @include page-shell;
 }
 
 .projects-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 0 8rem;
-  gap: 2rem;
-
-  @media screen and (max-width: 1500px) {
-    padding: 0 6rem;
-  }
-
-  @media screen and (max-width: 1250px) {
-    grid-template-columns: 1fr 1fr;
-    padding: 0 8rem;
-  }
-
-  @media screen and (max-width: 1000px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-  }
+  // Fits as many 30rem-minimum columns as the available width allows,
+  // reflowing continuously instead of jumping between three fixed
+  // breakpoints. min(30rem, 100%) is what keeps a single column from
+  // overflowing on viewports narrower than 30rem.
+  grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
+  gap: $spacing-medium;
 }

@@ -1,105 +1,112 @@
 @use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
 
 .project-detail-page {
-  padding: 2rem 8rem;
+  @include page-shell;
 
-  @media screen and (max-width: #{$breakpoint-tablet}) {
-    padding: 0 1rem;
-    margin-top: $spacing-medium;
-  }
-
-  @media screen and (max-width: #{$breakpoint-mobile}) {
-    margin-top: $spacing-medium;
-    padding: 0 0.5rem;
-  }
-
-  &__info {
-    display: flex;
-    justify-content: space-between;
+  &__layout {
+    display: grid;
+    // repeat(auto-fit, minmax(...)) rather than a hand-picked breakpoint:
+    // the browser only ever creates a second column once there is
+    // genuinely 34rem+ of room for *each* one, and collapses to a single
+    // stacked column otherwise. That was the actual bug - a fixed
+    // min-width breakpoint switched to two columns before either column
+    // had enough width to stay comfortable, so the shorter (image) column
+    // read as a tiny thumbnail next to a very tall text column.
+    // min(34rem, 100%) keeps that same 34rem floor from forcing the track
+    // (and the whole page) wider than the viewport on screens narrower
+    // than 34rem, where even a single column can't reach it.
+    grid-template-columns: repeat(auto-fit, minmax(min(34rem, 100%), 1fr));
+    gap: $spacing-xbig;
+    // Centers the shorter column (almost always the image, since its
+    // height is fixed by its aspect ratio while the text column's height
+    // varies with content) against the taller one, instead of pinning it
+    // to the top and leaving a lopsided gap underneath.
+    align-items: center;
     max-width: 120rem;
-    margin: 0 auto;
-
-    @media screen and (max-width: 1220px) {
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
+    margin-inline: auto;
   }
 
-  &__description {
-    padding: $spacing-medium;
-    text-align: center;
+  &__media {
+    min-width: 0;
+    inline-size: 100%;
+    // 70rem = 700px, the widest real project asset (the Gomodoro GIF);
+    // stops the frame from upscaling images past their native resolution.
+    max-inline-size: 70rem;
+    // A fixed-ratio frame is the "reusable media-container strategy":
+    // every project gets the same predictable shape regardless of its
+    // image's real dimensions, with object-fit doing the accommodation
+    // instead of per-project width rules.
+    aspect-ratio: 16 / 9;
 
-    & h2 {
-      font-size: 4rem;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 
-      @media screen and (max-width: 1368px) {
-        font-size: 3.5rem;
-      }
-
-      @media screen and (max-width: 720px) {
-        font-size: 2.5rem;
-      }
-    }
-
-    & p {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: $color-text-dark;
-
-      @media screen and (max-width: 1368px) {
-        font-size: 1.8rem;
-        max-width: 50rem;
-      }
-    }
+    border: $border-default;
+    border-radius: $border-radius-default;
+    background-color: $color-background-dark;
   }
 
   &__thumbnail {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    // contain, not cover: every project image stays fully visible and
+    // undistorted inside the frame, whatever its own aspect ratio -
+    // letterboxed rather than cropped if it doesn't match 16/9.
     object-fit: contain;
-    max-width: 70rem;
-    border: $border-default;
-    border-radius: $border-radius-default;
+  }
 
-    @media screen and (max-width: 1368px) {
-      max-width: 60rem;
-    }
+  &__info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $spacing-medium;
+  }
 
-    @media screen and (max-width: 800px) {
-      max-width: 50rem;
-    }
+  &__title {
+    margin: 0;
+    font-size: clamp(2.6rem, 2rem + 1.8vw, 4rem);
+    font-weight: 500;
+    color: $color-title-dark;
+    overflow-wrap: anywhere;
+  }
 
-    @media screen and (max-width: 550px) {
-      max-width: 40rem;
-    }
-
-    @media screen and (max-width: 450px) {
-      max-width: 30rem;
-    }
+  &__description {
+    margin: 0;
+    font-size: clamp(#{$font-size-small}, 1.7rem + 0.25vw, #{$font-size-default});
+    line-height: $line-height-default;
+    color: $color-text-dark;
+    max-inline-size: $measure-reading;
+    overflow-wrap: break-word;
   }
 
   &__links {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    gap: $spacing-medium;
+    margin-top: $spacing-xsmall;
+  }
+
+  &__link {
+    display: inline-flex;
     align-items: center;
-    gap: $spacing-small;
+    min-block-size: 4.4rem;
 
-    & a {
-      color: $color-external-link-dark;
-      font-size: $font-size-default;
-      overflow-wrap: break-word;
-      word-break: break-word;
-      width: fit-content;
+    color: $color-external-link-dark;
+    font-size: $font-size-default;
+    overflow-wrap: break-word;
+    word-break: break-word;
 
-      @media screen and (max-width: 720px) {
-        font-size: $font-size-small;
-      }
+    @media screen and (max-width: #{$breakpoint-mobile}) {
+      font-size: $font-size-small;
+    }
 
-      &:hover {
-        text-decoration: underline wavy;
-      }
+    &:hover {
+      text-decoration: underline wavy;
     }
   }
 }

@@ -17,7 +17,10 @@
   }
 
   &__container {
-    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: clamp(26rem, 75vw, 32rem);
+    align-items: stretch;
     gap: 2rem;
     padding-top: 1rem;
     padding-bottom: $spacing-medium;

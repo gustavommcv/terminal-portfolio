@@ -1,0 +1,26 @@
+.project-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  max-inline-size: 100%;
+
+  &__item {
+    display: flex;
+    min-width: 0;
+    max-inline-size: 100%;
+    // Reserves the badge's height before the remote image resolves, so a
+    // slow-loading or failed badge doesn't shift surrounding content.
+    block-size: 2rem;
+  }
+
+  &__image {
+    display: block;
+    block-size: 2rem;
+    inline-size: auto;
+    max-inline-size: 100%;
+  }
+}

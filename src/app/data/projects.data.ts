@@ -1,3 +1,20 @@
+/**
+ * GitHub-README-style tech/platform badge, rendered as a Shields.io
+ * "flat-square" static badge (see ProjectBadges). `slug` is the Simple
+ * Icons logo slug; `color`/`logoColor` are hex without a leading `#`.
+ * `slug` is optional for a tool with no real Simple Icons entry - but
+ * stack entries without one are dropped rather than shown as a bare
+ * colored label (see projectsData below).
+ */
+export interface ProjectBadge {
+  label: string;
+  slug?: string;
+  color: string;
+  logoColor?: string;
+  category?: 'language' | 'framework' | 'platform' | 'hosting' | 'database' | 'tool';
+  description?: string;
+}
+
 export interface Project {
   id: string;
   image: string;
@@ -6,10 +23,75 @@ export interface Project {
     github?: string;
     demo?: string;
   };
-  tags?: string[];
+  stack: string[];
+  badges?: ProjectBadge[];
   featured?: boolean;
   command?: string;
 }
+
+// Shared badge definitions for technologies that repeat across projects,
+// so each one is only sourced/verified once.
+const angular: ProjectBadge = {
+  label: 'Angular',
+  slug: 'angular',
+  color: 'DD0031',
+  category: 'framework',
+};
+const go: ProjectBadge = {
+  label: 'Go',
+  slug: 'go',
+  color: '00ADD8',
+  category: 'language',
+};
+const lua: ProjectBadge = {
+  label: 'Lua',
+  slug: 'lua',
+  color: '0051B3',
+  category: 'language',
+};
+const typescript: ProjectBadge = {
+  label: 'TypeScript',
+  slug: 'typescript',
+  color: '3178C6',
+  category: 'language',
+};
+const scss: ProjectBadge = {
+  label: 'SCSS',
+  slug: 'sass',
+  color: 'CC6699',
+  category: 'language',
+};
+const react: ProjectBadge = {
+  label: 'React',
+  slug: 'react',
+  color: '61DAFB',
+  logoColor: 'black',
+  category: 'framework',
+};
+const vite: ProjectBadge = {
+  label: 'Vite',
+  slug: 'vite',
+  color: '646CFF',
+  category: 'tool',
+};
+const express: ProjectBadge = {
+  label: 'Express',
+  slug: 'express',
+  color: '000000',
+  category: 'framework',
+};
+const mariadb: ProjectBadge = {
+  label: 'MariaDB',
+  slug: 'mariadb',
+  color: '003545',
+  category: 'database',
+};
+const nodejs: ProjectBadge = {
+  label: 'Node.js',
+  slug: 'nodedotjs',
+  color: '339933',
+  category: 'framework',
+};
 
 export const projectsData: Project[] = [
   {
@@ -18,7 +100,24 @@ export const projectsData: Project[] = [
     links: {
       demo: 'https://veronesemaquetes.com.br',
     },
-    tags: ['Angular', 'GOlang', 'AWS Lambda'],
+    stack: ['Angular', 'Go', 'AWS Lambda'],
+    badges: [
+      angular,
+      go,
+      {
+        label: 'AWS Lambda',
+        slug: 'awslambda',
+        color: 'FF9900',
+        logoColor: 'black',
+        category: 'hosting',
+      },
+      {
+        label: 'Cloudflare',
+        slug: 'cloudflare',
+        color: 'F38020',
+        category: 'hosting',
+      },
+    ],
     featured: true,
     command: 'glow maquetaria.md',
   },
@@ -29,8 +128,11 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
-    tags: ['Lua', 'Neovim', 'CLI'],
-    featured: true,
+    stack: ['Lua', 'Neovim'],
+    badges: [
+      lua,
+      { label: 'Neovim', slug: 'neovim', color: '57A143', category: 'tool' },
+    ],
     command: 'glow neovim.md',
   },
 
@@ -41,8 +143,8 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
     },
-    tags: ['Go', 'CLI', 'Productivity'],
-    featured: true,
+    stack: ['Go', 'Lua'],
+    badges: [go, lua],
     command: 'gomodoro',
   },
 
@@ -53,8 +155,18 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/chmod_calculator',
       demo: 'https://gustavommcv.github.io/chmod_calculator/',
     },
-    tags: ['JavaScript', 'HTML/CSS'],
-    featured: true,
+    stack: ['JavaScript', 'HTML', 'CSS'],
+    badges: [
+      {
+        label: 'JavaScript',
+        slug: 'javascript',
+        color: 'F7DF1E',
+        logoColor: 'black',
+        category: 'language',
+      },
+      { label: 'HTML', slug: 'html5', color: 'E34F26', category: 'language' },
+      { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
+    ],
     command: 'glow chmod.md',
   },
 
@@ -64,7 +176,18 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/terminal-portfolio',
     },
-    tags: ['Angular', 'TypeScript', 'Terminal'],
+    stack: ['Angular', 'TypeScript', 'SCSS'],
+    badges: [
+      angular,
+      typescript,
+      scss,
+      {
+        label: 'Vercel',
+        slug: 'vercel',
+        color: '000000',
+        category: 'hosting',
+      },
+    ],
     command: 'glow terminal-portfolio.md',
     featured: true,
   },
@@ -75,7 +198,13 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
-    tags: ['Angular', 'Node.js', 'Fullstack'],
+    stack: ['Angular', 'TypeScript', 'RxJS'],
+    badges: [
+      angular,
+      typescript,
+      { label: 'RxJS', slug: 'reactivex', color: 'B7178C', category: 'tool' },
+    ],
+    featured: true,
     command: 'glow voting.md',
   },
 
@@ -86,7 +215,13 @@ export const projectsData: Project[] = [
       github:
         'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
     },
-    tags: ['Java', 'Spring Boot', 'API'],
+    stack: ['TypeScript', 'Express', 'MariaDB', 'Docker'],
+    badges: [
+      typescript,
+      express,
+      mariadb,
+      { label: 'Docker', slug: 'docker', color: '2496ED', category: 'tool' },
+    ],
     command: 'glow xp1.md',
   },
 
@@ -96,7 +231,16 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
     },
-    tags: ['Node.js', 'Express', 'API'],
+    stack: ['Java', 'Spring Boot'],
+    badges: [
+      { label: 'Java', slug: 'openjdk', color: '437291', category: 'language' },
+      {
+        label: 'Spring Boot',
+        slug: 'springboot',
+        color: '6DB33F',
+        category: 'framework',
+      },
+    ],
     command: 'glow itau1.md',
   },
   {
@@ -105,7 +249,8 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
     },
-    tags: ['React', 'Node.js', 'Fullstack'],
+    stack: ['React', 'SCSS', 'Vite'],
+    badges: [react, scss, vite],
     command: 'glow booksapp.md',
   },
 
@@ -115,7 +260,13 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/AirlockRest',
     },
-    tags: ['Java', 'Clean Architecture', 'API'],
+    stack: ['TypeScript', 'Express', 'MariaDB', 'JWT'],
+    badges: [
+      typescript,
+      express,
+      mariadb,
+      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
+    ],
     command: 'glow airlock.md',
   },
 
@@ -127,7 +278,12 @@ export const projectsData: Project[] = [
       github: 'https://github.com/gustavommcv/portfolio',
       demo: 'https://gustavommcv.github.io/portfolio/#/',
     },
-    tags: ['Solid.js', 'TypeScript'],
+    stack: ['Solid.js', 'TypeScript', 'Vite'],
+    badges: [
+      { label: 'Solid.js', slug: 'solid', color: '2C4F7C', category: 'framework' },
+      typescript,
+      vite,
+    ],
     command: 'glow portfolio.md',
   },
 
@@ -137,7 +293,10 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
-    tags: ['C#', 'Algorithms'],
+    stack: ['.NET'],
+    badges: [
+      { label: '.NET', slug: 'dotnet', color: '512BD4', category: 'framework' },
+    ],
     command: 'glow ttt.md',
   },
 
@@ -147,7 +306,58 @@ export const projectsData: Project[] = [
     links: {
       github: 'https://github.com/gustavommcv/to-do-app-main',
     },
-    tags: ['React', 'Node.js', 'Fullstack'],
+    stack: ['React', 'Node.js', 'JWT'],
+    badges: [
+      react,
+      nodejs,
+      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
+    ],
     command: 'glow todo.md',
+  },
+
+  {
+    id: 'json-visual-editor',
+    image:
+      'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/JSON-Visual-Editor',
+      demo: 'https://gustavommcv.github.io/JSON-Visual-Editor/',
+    },
+    stack: ['Vue', 'TypeScript', 'Vite'],
+    badges: [
+      { label: 'Vue', slug: 'vuedotjs', color: '4FC08D', category: 'framework' },
+      typescript,
+      vite,
+    ],
+    featured: true,
+    command: 'glow json-editor.md',
+  },
+
+  {
+    id: 'rv-wheel',
+    image: 'images/projects/rvwheel/images/rvwheel-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/RVWheel',
+    },
+    stack: ['C++', 'CMake'],
+    badges: [
+      { label: 'C++', slug: 'cplusplus', color: '00599C', category: 'language' },
+      { label: 'CMake', slug: 'cmake', color: '064F8C', category: 'tool' },
+    ],
+    featured: true,
+    command: 'glow rvwheel.md',
+  },
+
+  {
+    id: 'dotfiles',
+    image: 'images/projects/dotfiles/images/dotfiles-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/dotfiles',
+    },
+    stack: ['Hyprland'],
+    badges: [
+      { label: 'Hyprland', slug: 'hyprland', color: '00C853', category: 'tool' },
+    ],
+    command: 'glow dotfiles.md',
   },
 ];

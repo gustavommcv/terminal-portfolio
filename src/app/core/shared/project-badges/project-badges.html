@@ -1,0 +1,16 @@
+@if (badges().length) {
+  <ul class="project-badges" aria-label="Technologies and hosting">
+    @for (badge of badges(); track badge.slug) {
+      <li class="project-badges__item">
+        <img
+          [src]="badgeSrc(badge)"
+          [alt]="badgeAlt(badge)"
+          class="project-badges__image"
+          height="20"
+          loading="lazy"
+          decoding="async"
+        />
+      </li>
+    }
+  </ul>
+}

@@ -5,35 +5,42 @@
       [customCommand]="project.command || 'glow project.md'"
       [shortTerminalLine]="true"
       [isFirstTitle]="true"
-      >
-      <div class="project-detail-page__info">
-        <img
-          [src]="project.gif || project.image"
-          [alt]="'projects-page.projects.' + project.id + '.title' | translate"
-          class="project-detail-page__thumbnail"
-          [class.project-gif]="project.gif"
-          [attr.width]="project.gif ? 700 : 640"
-          [attr.height]="project.gif ? 394 : 360"
-          decoding="async"
-          fetchpriority="high"
+    >
+      <div class="project-detail-page__layout">
+        <div class="project-detail-page__media">
+          <img
+            [src]="project.gif || project.image"
+            [alt]="'projects-page.projects.' + project.id + '.title' | translate"
+            class="project-detail-page__thumbnail"
+            [attr.width]="project.gif ? 700 : 640"
+            [attr.height]="project.gif ? 394 : 360"
+            decoding="async"
+            fetchpriority="high"
           />
-        <div class="project-detail-page__description">
-          <h2>
+        </div>
+
+        <div class="project-detail-page__info">
+          <h2 class="project-detail-page__title">
             {{ "projects-page.projects." + project.id + ".title" | translate }}
           </h2>
-          <p>
+
+          <p class="project-detail-page__description">
             {{
-            "projects-page.projects." + project.id + ".description" | translate
+              "projects-page.projects." + project.id + ".description"
+                | translate
             }}
           </p>
+
+          <project-badges [badges]="project.badges ?? []" />
+
           <div class="project-detail-page__links">
             @if (project.links.github) {
               <a
                 [href]="project.links.github"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-link"
-                >
+                class="project-detail-page__link"
+              >
                 Repository
               </a>
             }
@@ -42,8 +49,8 @@
                 [href]="project.links.demo"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="project-link"
-                >
+                class="project-detail-page__link"
+              >
                 Live Demo
               </a>
             }

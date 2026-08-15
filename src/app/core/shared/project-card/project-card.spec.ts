@@ -8,6 +8,7 @@ describe('ProjectCard', () => {
     id: 'test-project',
     image: 'images/test-project.webp',
     links: {},
+    stack: [],
   };
 
   let fixture: ComponentFixture<ProjectCard>;

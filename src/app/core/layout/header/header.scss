@@ -2,7 +2,7 @@
 
 .header {
   width: 100%;
-  max-width: 150rem;
+  max-width: $content-max-width;
   margin: 0 auto;
   padding: 1.5rem 3rem;
   display: flex;
@@ -37,6 +37,9 @@
   }
 }
 
+// Hamburger trigger: three compact, left-aligned, unequal-width rows with a
+// small square node on the middle line, evoking a collapsed file tree
+// rather than a generic centered hamburger. Geometry only — no motion.
 .hamburger-button {
   background: none;
   border: none;
@@ -44,16 +47,49 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 0.4rem;
+  width: 2.4rem;
   height: 2rem;
   z-index: $z-index-mobile-nav-trigger;
+
+  &:focus-visible {
+    outline: 2px solid $color-focus-ring;
+    outline-offset: 0.3rem;
+  }
 }
 
 .hamburger-line {
   display: block;
-  width: 2.5rem;
   height: 0.3rem;
   background-color: $color-text-dark;
+  border-radius: 1px;
+
+  &:nth-child(1) {
+    width: 100%;
+  }
+
+  &:nth-child(2) {
+    position: relative;
+    width: 65%;
+    background-color: $color-accent-primary;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -0.7rem;
+      top: 50%;
+      margin-top: -0.15rem;
+      width: 0.3rem;
+      height: 0.3rem;
+      background-color: $color-accent-secondary;
+    }
+  }
+
+  &:nth-child(3) {
+    width: 82%;
+  }
 }
 
 .menu-overlay {
@@ -66,58 +102,187 @@
   z-index: $z-index-mobile-nav-overlay;
 }
 
-.mobile-nav {
+// Neo-tree-inspired sidebar. Fixed left panel, opaque NightFox background,
+// dense left-aligned rows instead of a centered link stack.
+.neo-sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 80%;
-  max-width: 30rem;
-  height: 100%;
+  width: min(84vw, 34rem);
+  height: 100dvh;
   background-color: $color-section-background-dark;
-  padding: 2rem;
+  border-right: 1px solid $color-tree-sidebar-border;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  overflow-y: auto;
   z-index: $z-index-mobile-nav-panel;
-}
 
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3rem;
-  flex-grow: 1;
-  justify-content: center;
-}
+  padding-left: env(safe-area-inset-left, 0);
 
-.mobile-nav__link {
-  font-size: 2rem;
-  color: $color-text-dark;
-  text-decoration: none;
-  cursor: pointer;
-
-  &--active {
-    color: $color-accent-primary;
-    font-weight: $font-weight-bold;
+  &__source-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding: calc(env(safe-area-inset-top, 0) + 1.2rem) 1.2rem 1.2rem;
+    border-bottom: 1px solid $color-tree-sidebar-border;
   }
 
-  &:hover {
+  &__source-icon {
     color: $color-accent-secondary;
   }
 
-  &:focus-visible {
-    outline: 2px solid $color-focus-ring;
-    outline-offset: 0.4rem;
+  &__source-label {
+    font-size: $font-size-xsmall;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.1em;
+    color: $color-text-dark;
+    margin-right: auto;
   }
-}
 
-.language-toggle-container {
-  margin-top: auto;
-  padding-bottom: 3rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    color: $color-text-dark;
+
+    &:hover {
+      color: $color-title-dark;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0.2rem;
+    }
+  }
+
+  &__root {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding: 1.2rem;
+    color: $color-text-dark;
+  }
+
+  &__root-icon {
+    color: $color-accent-primary;
+  }
+
+  &__root-label {
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
+    overflow-wrap: anywhere;
+  }
+
+  &__root-path {
+    color: $color-text-dark;
+  }
+
+  &__root-name {
+    &--left {
+      color: $color-accent-primary;
+    }
+
+    &--middle {
+      color: $color-text-dark;
+    }
+
+    &--right {
+      color: $color-accent-secondary;
+    }
+  }
+
+  &__nav {
+    flex-shrink: 0;
+  }
+
+  &__tree {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0.8rem;
+  }
+
+  &__row {
+    &:last-child .neo-sidebar__guide::before {
+      bottom: 50%;
+    }
+
+    &:last-child .neo-sidebar__guide::after {
+      content: "";
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      width: 0.7rem;
+      height: 1px;
+      background-color: $color-tree-guide-muted;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.9rem 1.2rem 0.9rem 0;
+    color: $color-text-dark;
+    text-decoration: none;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background-color: $color-tree-row-hover;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+
+    &--active {
+      background-color: $color-tree-row-active;
+      border-left-color: $color-accent-primary;
+      color: $color-accent-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__guide {
+    position: relative;
+    width: 1.8rem;
+    align-self: stretch;
+    flex-shrink: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.7rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: $color-tree-guide-muted;
+    }
+  }
+
+  &__link-icon {
+    color: inherit;
+  }
+
+  &__link-label {
+    font-size: $font-size-small;
+  }
+
+  &__status {
+    margin-top: auto;
+    flex-shrink: 0;
+    padding: 1.2rem calc(1.2rem + env(safe-area-inset-left, 0))
+      calc(env(safe-area-inset-bottom, 0) + 1.2rem);
+    border-top: 1px solid $color-tree-sidebar-border;
+  }
 }
 
 .desktop-nav {
