@@ -42,6 +42,14 @@ $color-focus-ring: $color-accent-primary;
 
 $color-button-background: #2d2d2d;
 
+// Neo-tree-inspired mobile navigation panel. Kept distinct from the
+// header's existing hover/active tokens above (rather than reused) because
+// these read as a muted editor-style row selection, not a link hover.
+$color-tree-row-hover: rgba(255, 255, 255, 0.05);
+$color-tree-row-active: rgba(37, 190, 106, 0.16);
+$color-tree-guide-muted: #45494f;
+$color-tree-sidebar-border: #2d2d2d;
+
 $line-height-default: 1.4;
 
 $box-shadow-default: 0 4px 6px rgba(0, 0, 0, 0.1);
