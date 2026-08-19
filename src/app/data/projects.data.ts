@@ -93,6 +93,12 @@ const nodejs: ProjectBadge = {
   category: 'framework',
 };
 
+// Ordered by portfolio relevance (most compelling first), weighted toward
+// projects that are both market-relevant and genuinely enjoyed building
+// (gomodoro, minimal-neovim, dotfiles sit above some "safer" business
+// challenges for that reason). Drives both the portfolio grid and (after
+// filtering) the home page's featured carousel, so this order is the one
+// visitors see.
 export const projectsData: Project[] = [
   {
     id: 'maquetaria',
@@ -120,54 +126,6 @@ export const projectsData: Project[] = [
     ],
     featured: true,
     command: 'glow maquetaria.md',
-  },
-
-  {
-    id: 'minimal-neovim',
-    image: 'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/minimal-neovim',
-    },
-    stack: ['Lua', 'Neovim'],
-    badges: [
-      lua,
-      { label: 'Neovim', slug: 'neovim', color: '57A143', category: 'tool' },
-    ],
-    command: 'glow neovim.md',
-  },
-
-  {
-    id: 'gomodoro',
-    image: 'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
-    gif: 'images/projects/gomodoro/gifs/gomodoro.gif',
-    links: {
-      github: 'https://github.com/gustavommcv/gomodoro',
-    },
-    stack: ['Go', 'Lua'],
-    badges: [go, lua],
-    command: 'gomodoro',
-  },
-
-  {
-    id: 'chmod-calculator',
-    image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/chmod_calculator',
-      demo: 'https://gustavommcv.github.io/chmod_calculator/',
-    },
-    stack: ['JavaScript', 'HTML', 'CSS'],
-    badges: [
-      {
-        label: 'JavaScript',
-        slug: 'javascript',
-        color: 'F7DF1E',
-        logoColor: 'black',
-        category: 'language',
-      },
-      { label: 'HTML', slug: 'html5', color: 'E34F26', category: 'language' },
-      { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
-    ],
-    command: 'glow chmod.md',
   },
 
   {
@@ -209,113 +167,6 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'xp-bootcamp',
-    image: 'images/projects/xpe1/images/xpe1-thumbnail.webp',
-    links: {
-      github:
-        'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
-    },
-    stack: ['TypeScript', 'Express', 'MariaDB', 'Docker'],
-    badges: [
-      typescript,
-      express,
-      mariadb,
-      { label: 'Docker', slug: 'docker', color: '2496ED', category: 'tool' },
-    ],
-    command: 'glow xp1.md',
-  },
-
-  {
-    id: 'itau-challenge',
-    image: 'images/projects/itau/images/itau-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/Desafio-API-Itau',
-    },
-    stack: ['Java', 'Spring Boot'],
-    badges: [
-      { label: 'Java', slug: 'openjdk', color: '437291', category: 'language' },
-      {
-        label: 'Spring Boot',
-        slug: 'springboot',
-        color: '6DB33F',
-        category: 'framework',
-      },
-    ],
-    command: 'glow itau1.md',
-  },
-  {
-    id: 'books-app',
-    image: 'images/projects/booksapp/images/books-app-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/BooksApp_frontend',
-    },
-    stack: ['React', 'SCSS', 'Vite'],
-    badges: [react, scss, vite],
-    command: 'glow booksapp.md',
-  },
-
-  {
-    id: 'airlock-rest',
-    image: 'images/projects/airlock/images/airlock-rest-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/AirlockRest',
-    },
-    stack: ['TypeScript', 'Express', 'MariaDB', 'JWT'],
-    badges: [
-      typescript,
-      express,
-      mariadb,
-      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
-    ],
-    command: 'glow airlock.md',
-  },
-
-  {
-    id: 'portfolio',
-    image:
-      'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/portfolio',
-      demo: 'https://gustavommcv.github.io/portfolio/#/',
-    },
-    stack: ['Solid.js', 'TypeScript', 'Vite'],
-    badges: [
-      { label: 'Solid.js', slug: 'solid', color: '2C4F7C', category: 'framework' },
-      typescript,
-      vite,
-    ],
-    command: 'glow portfolio.md',
-  },
-
-  {
-    id: 'tic-tac-toe',
-    image: 'images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/TicTacToe',
-    },
-    stack: ['.NET'],
-    badges: [
-      { label: '.NET', slug: 'dotnet', color: '512BD4', category: 'framework' },
-    ],
-    command: 'glow ttt.md',
-  },
-
-  {
-    id: 'todo-list',
-    image: 'images/projects/todo/images/todo-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/to-do-app-main',
-    },
-    stack: ['React', 'Node.js', 'JWT'],
-    badges: [
-      react,
-      nodejs,
-      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
-    ],
-    command: 'glow todo.md',
-  },
-
-  {
     id: 'json-visual-editor',
     image:
       'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
@@ -349,6 +200,32 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'gomodoro',
+    image: 'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
+    gif: 'images/projects/gomodoro/gifs/gomodoro.gif',
+    links: {
+      github: 'https://github.com/gustavommcv/gomodoro',
+    },
+    stack: ['Go', 'Lua'],
+    badges: [go, lua],
+    command: 'gomodoro',
+  },
+
+  {
+    id: 'minimal-neovim',
+    image: 'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/minimal-neovim',
+    },
+    stack: ['Lua', 'Neovim'],
+    badges: [
+      lua,
+      { label: 'Neovim', slug: 'neovim', color: '57A143', category: 'tool' },
+    ],
+    command: 'glow neovim.md',
+  },
+
+  {
     id: 'dotfiles',
     image: 'images/projects/dotfiles/images/dotfiles-thumbnail.webp',
     links: {
@@ -359,5 +236,135 @@ export const projectsData: Project[] = [
       { label: 'Hyprland', slug: 'hyprland', color: '00C853', category: 'tool' },
     ],
     command: 'glow dotfiles.md',
+  },
+
+  {
+    id: 'itau-challenge',
+    image: 'images/projects/itau/images/itau-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/Desafio-API-Itau',
+    },
+    stack: ['Java', 'Spring Boot'],
+    badges: [
+      { label: 'Java', slug: 'openjdk', color: '437291', category: 'language' },
+      {
+        label: 'Spring Boot',
+        slug: 'springboot',
+        color: '6DB33F',
+        category: 'framework',
+      },
+    ],
+    command: 'glow itau1.md',
+  },
+
+  {
+    id: 'xp-bootcamp',
+    image: 'images/projects/xpe1/images/xpe1-thumbnail.webp',
+    links: {
+      github:
+        'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
+    },
+    stack: ['TypeScript', 'Express', 'MariaDB', 'Docker'],
+    badges: [
+      typescript,
+      express,
+      mariadb,
+      { label: 'Docker', slug: 'docker', color: '2496ED', category: 'tool' },
+    ],
+    command: 'glow xp1.md',
+  },
+
+  {
+    id: 'airlock-rest',
+    image: 'images/projects/airlock/images/airlock-rest-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/AirlockRest',
+    },
+    stack: ['TypeScript', 'Express', 'MariaDB', 'JWT'],
+    badges: [
+      typescript,
+      express,
+      mariadb,
+      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
+    ],
+    command: 'glow airlock.md',
+  },
+
+  {
+    id: 'todo-list',
+    image: 'images/projects/todo/images/todo-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/to-do-app-main',
+    },
+    stack: ['React', 'Node.js', 'JWT'],
+    badges: [
+      react,
+      nodejs,
+      { label: 'JWT', slug: 'jsonwebtokens', color: '000000', category: 'tool' },
+    ],
+    command: 'glow todo.md',
+  },
+
+  {
+    id: 'books-app',
+    image: 'images/projects/booksapp/images/books-app-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/BooksApp_frontend',
+    },
+    stack: ['React', 'SCSS', 'Vite'],
+    badges: [react, scss, vite],
+    command: 'glow booksapp.md',
+  },
+
+  {
+    id: 'chmod-calculator',
+    image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/chmod_calculator',
+      demo: 'https://gustavommcv.github.io/chmod_calculator/',
+    },
+    stack: ['JavaScript', 'HTML', 'CSS'],
+    badges: [
+      {
+        label: 'JavaScript',
+        slug: 'javascript',
+        color: 'F7DF1E',
+        logoColor: 'black',
+        category: 'language',
+      },
+      { label: 'HTML', slug: 'html5', color: 'E34F26', category: 'language' },
+      { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
+    ],
+    command: 'glow chmod.md',
+  },
+
+  {
+    id: 'tic-tac-toe',
+    image: 'images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/TicTacToe',
+    },
+    stack: ['.NET'],
+    badges: [
+      { label: '.NET', slug: 'dotnet', color: '512BD4', category: 'framework' },
+    ],
+    command: 'glow ttt.md',
+  },
+
+  {
+    id: 'portfolio',
+    image:
+      'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/portfolio',
+      demo: 'https://gustavommcv.github.io/portfolio/#/',
+    },
+    stack: ['Solid.js', 'TypeScript', 'Vite'],
+    badges: [
+      { label: 'Solid.js', slug: 'solid', color: '2C4F7C', category: 'framework' },
+      typescript,
+      vite,
+    ],
+    command: 'glow portfolio.md',
   },
 ];
