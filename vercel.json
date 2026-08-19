@@ -4,6 +4,12 @@
   "outputDirectory": "dist/portfolio/browser",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": true
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
