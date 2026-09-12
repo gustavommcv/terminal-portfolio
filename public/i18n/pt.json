@@ -164,6 +164,11 @@
         "shortDescription": "Editor visual de JSON no navegador — importe, edite, compare e exporte arquivos JSON sem editar a sintaxe bruta.",
         "description": "Um editor de JSON no navegador construído em torno de uma ideia: editar dados estruturados interagindo visualmente com eles — formulários para objetos, tabelas ou cards para arrays — em vez de editar texto bruto na mão. Inclui criação, reordenação e remoção de propriedades/itens com confirmação, busca global por chaves/valores/caminhos, badges que reconhecem o tipo de conteúdo (datas, URLs, cores, e-mails, UUIDs...), undo/redo com 50 passos, comparação estrutural com o arquivo original, e auto-save local no IndexedDB para recuperar a sessão. Construído com Vue 3 (script setup, sem biblioteca de estado ou framework de CSS) e TypeScript em modo estrito, tudo rodando no cliente — os arquivos nunca saem do navegador."
       },
+      "mangabind": {
+        "title": "Mangabind",
+        "shortDescription": "Reorganiza downloads de mangá feitos capítulo por capítulo em um .cbz por volume, pronto para um leitor ou conversor.",
+        "description": "Uma ferramenta de linha de comando que pega uma pasta de capítulos de mangá baixados um a um (ex.: via HakuNeko) — uma mistura de pastas de imagens soltas e arquivos .cbz, cada um reiniciando a numeração de páginas e muitas vezes com uma convenção de nomes diferente — e reorganiza tudo em um .cbz limpo por volume, pronto para passar ao Kindle Comic Converter ou qualquer leitor. A leitura dos nomes das pastas de capítulo funciona como uma cadeia de estratégias plugáveis em vez de uma única regex fixa, então lida bem com nomenclatura inconsistente dentro de um mesmo mangá. Construído em Go, distribuído como binários prontos para macOS, Linux e Windows."
+      },
       "rv-wheel": {
         "title": "RVWheel",
         "shortDescription": "Suporte open-source a volante de corrida para um jogo via UE4SS, construído em C++ com DirectInput e force feedback.",

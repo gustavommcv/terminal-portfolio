@@ -164,6 +164,11 @@
         "shortDescription": "Browser-based visual editor for importing, editing, comparing, and exporting JSON files without hand-editing raw syntax.",
         "description": "A browser-based JSON editor built around one idea: edit structured data by interacting with it visually — forms for objects, tables or cards for arrays — instead of hand-editing raw text. Includes property/item creation, reordering, and deletion with confirmation prompts, global search across keys/values/paths, content-aware badges for dates, URLs, colors, emails, UUIDs, and more, 50-step undo/redo, a structural diff against the original file, and local autosave to IndexedDB for session recovery. Built with Vue 3 (script setup, no state library or CSS framework) and TypeScript in strict mode, everything running client-side — files never leave the browser."
       },
+      "mangabind": {
+        "title": "Mangabind",
+        "shortDescription": "Reorganizes chapter-by-chapter manga downloads into one .cbz per volume, ready for a reader or converter.",
+        "description": "A CLI tool that takes a folder of manga chapters downloaded one-by-one (e.g. from HakuNeko) — a mix of loose image folders and .cbz files, each restarting page numbering and often using a different naming convention — and reorganizes them into a clean .cbz per volume, ready to hand off to Kindle Comic Converter or any reader. Chapter-folder parsing runs as a chain of pluggable strategies rather than one fixed regex, so it copes with inconsistent naming within a single manga. Built in Go, distributed as prebuilt binaries for macOS, Linux, and Windows."
+      },
       "rv-wheel": {
         "title": "RVWheel",
         "shortDescription": "Open-source racing wheel driver support for a game via UE4SS, built in C++ with DirectInput and force feedback.",

@@ -185,6 +185,18 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'mangabind',
+    image: 'images/projects/mangabind/images/mangabind-thumbnail.svg',
+    links: {
+      github: 'https://github.com/gustavommcv/mangabind',
+    },
+    stack: ['Go'],
+    badges: [go],
+    featured: true,
+    command: 'mangabind',
+  },
+
+  {
     id: 'rv-wheel',
     image: 'images/projects/rvwheel/images/rvwheel-thumbnail.webp',
     links: {
@@ -195,7 +207,6 @@ export const projectsData: Project[] = [
       { label: 'C++', slug: 'cplusplus', color: '00599C', category: 'language' },
       { label: 'CMake', slug: 'cmake', color: '064F8C', category: 'tool' },
     ],
-    featured: true,
     command: 'glow rvwheel.md',
   },
 
