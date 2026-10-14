@@ -9,18 +9,20 @@
 //
 //   1. 404.html          the prerendered /404 route, copied to the top level
 //   2. .vercel/output/static       the site itself
-//   3. .vercel/output/config.json  security headers on every response, then real
-//                                  files, and a 404 status + 404.html for the rest
+//   3. .vercel/output/config.json  security headers on every response, each page
+//                                  served at its clean address, then real files,
+//                                  and a 404 status + 404.html for the rest
 import {
   copyFileSync,
   cpSync,
   existsSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
   rmSync,
   writeFileSync,
 } from 'node:fs';
-import { join } from 'node:path';
+import { join, posix } from 'node:path';
 
 // Keep in sync with `outputDirectory` in vercel.json.
 const distDirectory = join('dist', 'portfolio', 'browser');
@@ -59,7 +61,32 @@ if (headerRoutes.length === 0) {
   fail('vercel.json defines no headers; refusing to deploy without security headers.');
 }
 
-// --- 3. the output --------------------------------------------------------------
+// --- 3. pages: serve <dir>/index.html at /<dir>, without a redirect -------------
+// Without this, a request for the directory /about is redirected (307) to
+// /about/ before the page is served. An internal rewrite avoids the extra round
+// trip and keeps the address the one the sitemap and canonical URLs declare.
+function pageDirectories(directory, prefix = '') {
+  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    if (!entry.isDirectory()) {
+      return [];
+    }
+
+    const path = posix.join(prefix, entry.name);
+    const own = existsSync(join(directory, entry.name, 'index.html')) ? [path] : [];
+    return [...own, ...pageDirectories(join(directory, entry.name), path)];
+  });
+}
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, (character) => `\\${character}`);
+}
+
+const pageRoutes = pageDirectories(distDirectory).map((page) => ({
+  src: `^/${escapeRegExp(page)}/?$`,
+  dest: `/${page}/index.html`,
+}));
+
+// --- 4. the output --------------------------------------------------------------
 rmSync(buildOutput, { recursive: true, force: true });
 mkdirSync(buildOutput, { recursive: true });
 cpSync(distDirectory, join(buildOutput, 'static'), { recursive: true });
@@ -68,7 +95,9 @@ const config = {
   version: 3,
   routes: [
     ...headerRoutes,
-    // A request that matches a file (a prerendered page, an asset) is served as is.
+    // A page's clean address (with or without a trailing slash) serves its index.html.
+    ...pageRoutes,
+    // A request that matches a file (an asset, or a page by its full path) is served as is.
     { handle: 'filesystem' },
     // Everything else is a miss: answer with the not-found page and a 404 status.
     { handle: 'error' },
@@ -78,5 +107,5 @@ const config = {
 writeFileSync(join(buildOutput, 'config.json'), `${JSON.stringify(config, null, 2)}\n`);
 
 console.log(
-  `create-build-output: ${join(distDirectory, '404.html')} and ${buildOutput} written (${headerRoutes.length} header rule(s))`,
+  `create-build-output: ${join(distDirectory, '404.html')} and ${buildOutput} written (${headerRoutes.length} header rule(s), ${pageRoutes.length} page(s))`,
 );
