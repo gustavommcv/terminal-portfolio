@@ -10,6 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
+    "test:scripts": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"scripts/**/*.test.mjs\"",
+    "badges": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-badges.mjs",
     "dev": "ng serve --host 0.0.0.0"
   },
   "engines": {
@@ -51,7 +53,9 @@
     "@angular/compiler-cli": "^22.2.2",
     "@types/express": "^5.0.6",
     "@types/node": "^24.19.2",
+    "badge-maker": "6.0.0",
     "jsdom": "^30.1.2",
+    "simple-icons": "16.35.0",
     "typescript": "~6.0.3",
     "vitest": "^4.1.11"
   }

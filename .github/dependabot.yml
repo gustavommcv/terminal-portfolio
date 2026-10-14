@@ -25,6 +25,10 @@ updates:
       # The types follow the Node line in package.json "engines" (24).
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
+      # Pinned exactly: they draw the badge files in public/images/badges, so a new
+      # version can change those files. Update them on purpose, then run `npm run badges`.
+      - dependency-name: "badge-maker"
+      - dependency-name: "simple-icons"
 
   - package-ecosystem: "github-actions"
     directory: "/"

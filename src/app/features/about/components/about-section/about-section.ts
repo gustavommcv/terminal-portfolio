@@ -2,6 +2,11 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { TranslatePipe } from '@ngx-translate/core';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
+import { ageFrom, BirthMonth } from './age.utils';
+
+// Only the year and the month: the site shows an age, and the full date would
+// ship to every visitor inside the JavaScript (see ageFrom).
+const BIRTH: BirthMonth = { year: 2004, month: 5 };
 
 @Component({
   selector: 'about-section',
@@ -11,19 +16,5 @@ import { AppTitle } from '../../../../core/shared/app-title/app-title';
   styleUrl: './about-section.scss',
 })
 export class AboutSection {
-  age = calculateAge('2004-05-16');
-}
-
-function calculateAge(birthDate: string): number {
-  const today = new Date();
-  const birth = new Date(birthDate);
-
-  let calculatedAge = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    calculatedAge--;
-  }
-
-  return calculatedAge;
+  age = ageFrom(BIRTH, new Date());
 }

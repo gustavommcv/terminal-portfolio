@@ -55,6 +55,8 @@ By default, the application is available at `http://localhost:4200`.
 | `npm run watch` | Rebuilds in development mode on every change. |
 | `npm test` | Runs Vitest in interactive/watch mode. |
 | `npm run test:ci` | Runs the full test suite once and exits. |
+| `npm run test:scripts` | Tests the build scripts (header and caching rules) and checks that the badge files are up to date. |
+| `npm run badges` | Draws the project badges into `public/images/badges` (see [Project badges](#project-badges)). |
 | `npm run ng -- <command>` | Runs a local Angular CLI command. |
 
 ## Project structure
@@ -135,6 +137,16 @@ redirected to `?locale=pt`. An explicit `?locale=` always wins and is remembered
 and so is the language toggle's choice. Prerendered pages are always English
 (there is no navigator on the server), and crawlers keep seeing English.
 
+**How the catalogs arrive.** The prerendered pages are English and carry the
+English catalog inside the HTML (Angular's transfer state), so an English
+visitor makes no catalog request at all. A Portuguese visitor needs
+`i18n/pt.json`, which would otherwise be requested only once the app has
+started; a small script in `src/index.html` asks for it while the scripts
+download, using the same rule as the app to pick the language. On a simulated
+slow 4G connection that put the Portuguese text on screen about 0.5 s sooner.
+`src/app/catalog-preload.spec.ts` runs the script against `LanguagePreference`,
+so the two cannot drift apart.
+
 ## SEO and metadata
 
 `SeoService` keeps the title, description, canonical URL, `hreflang`
@@ -170,6 +182,22 @@ entry**, and a test fails until you do.
 - **Colour.** Text must reach 4.5:1 (3:1 for large text) on its background; the
   "command not found" red was lightened for that.
 
+## Project badges
+
+The technology badges on the project pages (`flat-square` blocks with a logo)
+are SVG files in `public/images/badges`, drawn from the `badges` of each project
+in `src/app/data/projects.data.ts` by `npm run badges`. They used to be requested
+from img.shields.io on every page view; now no third party hears about a visit,
+and the Content-Security-Policy allows images from the site itself and `data:`
+only. `badge-maker` (the library shields.io draws with) and `simple-icons` (the
+logos) are pinned to exact versions in `devDependencies`, and Dependabot leaves
+them alone, because a new version can change the files.
+
+After adding or changing a badge, run `npm run badges` and commit the files;
+`npm run test:scripts` and the unit tests fail while they are missing or out of
+date. A logo that Simple Icons no longer has is drawn without it (the script
+says so).
+
 ## Production build
 
 ```bash
@@ -202,7 +230,7 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `s
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs on every push to `main` and `develop` and on every pull request: `npm ci`, `npm run test:ci`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
+`.github/workflows/ci.yml` runs on every push to `main` and `develop` and on every pull request: `npm ci`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
 
 ## Deploying to Vercel
 
@@ -212,6 +240,16 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `s
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`
+- Caching, set by `headers` rules in `vercel.json` (the build script turns them
+  into routes): the bundles Angular emits with a content hash in the name
+  (`main-*.js`, `chunk-*.js`, `polyfills-*.js`, `styles-*.css`) are cached for a
+  year as `immutable`; fonts, images, and the favicon for a day, then served
+  stale while they refresh in the background; pages, translation catalogs, and
+  the CVs are revalidated on every visit, so an edit shows at once. The build
+  refuses to publish an `immutable` file whose name has no hash, and warns about
+  a script or stylesheet no long-cache rule covers. A `source` in `vercel.json`
+  may hold literal text and `(regex groups)` only; anything else fails the build
+  instead of becoming a route that matches the wrong files.
 - Response headers applied to every path: `Strict-Transport-Security`,
   `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
   `Permissions-Policy`, and `Content-Security-Policy`. See
@@ -246,7 +284,7 @@ green before merging; `npm audit --omit=dev` shows what is currently known.
 
 1. Fork the repository or create a branch from `main`.
 2. Make small, focused changes.
-3. Run `npm run test:ci` and `npm run build:production`.
+3. Run `npm run test:ci`, `npm run test:scripts` and `npm run build:production`.
 4. Open a pull request describing the motivation, the solution, and any visual impact.
 
 ## Image credits

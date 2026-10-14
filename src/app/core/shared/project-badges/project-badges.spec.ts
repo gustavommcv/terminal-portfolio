@@ -1,6 +1,9 @@
+import { existsSync } from 'node:fs';
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectBadge } from '../../../data/projects.data';
+import { ProjectBadge, projectsData } from '../../../data/projects.data';
+import { badgeFileName } from './badge-file';
 import { ProjectBadges } from './project-badges';
 
 describe('ProjectBadges', () => {
@@ -37,9 +40,7 @@ describe('ProjectBadges', () => {
     );
 
     expect(items).toHaveLength(1);
-    expect(img.getAttribute('src')).toBe(
-      'https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white',
-    );
+    expect(img.getAttribute('src')).toBe('images/badges/cloudflare.svg');
     expect(img.getAttribute('alt')).toBe('Cloudflare');
     expect(img.getAttribute('loading')).toBe('lazy');
     expect(img.getAttribute('decoding')).toBe('async');
@@ -82,18 +83,30 @@ describe('ProjectBadges', () => {
     expect(img.getAttribute('alt')).toBe('Deployed on Cloudflare');
   });
 
-  it('escapes dashes, underscores, and spaces per Shields.io static-badge syntax', () => {
-    const badge: ProjectBadge = {
-      label: 'Node.js - Server',
-      slug: 'nodedotjs',
-      color: '339933',
-    };
-    fixture.componentRef.setInput('badges', [badge]);
+  it('serves the badge from the site, never from a third party', () => {
+    fixture.componentRef.setInput('badges', [cloudflareBadge]);
     fixture.detectChanges();
 
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
       '.project-badges__image',
     );
-    expect(img.getAttribute('src')).toContain('Node.js_--_Server-339933');
+    expect(img.getAttribute('src')).not.toMatch(/^(https?:)?\/\//);
+  });
+
+  it('names the file after the label when the badge has no logo slug', () => {
+    expect(badgeFileName({ label: 'Node.js - Server', color: '339933' })).toBe(
+      'node-js-server',
+    );
+    expect(badgeFileName({ label: 'Go', slug: 'go', color: '00ADD8' })).toBe('go');
+  });
+
+  it('has an SVG file for every badge a project shows', () => {
+    const missing = projectsData
+      .flatMap((project) => project.badges ?? [])
+      .map((badge) => `public/images/badges/${badgeFileName(badge)}.svg`)
+      .filter((path) => !existsSync(path));
+
+    // Run `npm run badges` to make them.
+    expect(missing).toEqual([]);
   });
 });

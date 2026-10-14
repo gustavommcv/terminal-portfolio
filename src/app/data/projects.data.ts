@@ -1,10 +1,11 @@
 /**
- * GitHub-README-style tech/platform badge, rendered as a Shields.io
- * "flat-square" static badge (see ProjectBadges). `slug` is the Simple
- * Icons logo slug; `color`/`logoColor` are hex without a leading `#`.
- * `slug` is optional for a tool with no real Simple Icons entry - but
- * stack entries without one are dropped rather than shown as a bare
- * colored label (see projectsData below).
+ * GitHub-README-style tech/platform badge, drawn as a "flat-square" SVG
+ * served from the site (see ProjectBadges). `npm run badges` makes the files
+ * in public/images/badges from these definitions; run it after adding or
+ * changing one. `slug` is the Simple Icons logo slug; `color`/`logoColor`
+ * are hex without a leading `#`. `slug` is optional for a tool with no real
+ * Simple Icons entry - but stack entries without one are dropped rather than
+ * shown as a bare colored label (see projectsData below).
  */
 export interface ProjectBadge {
   label: string;

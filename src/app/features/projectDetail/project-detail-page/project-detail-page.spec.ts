@@ -80,7 +80,7 @@ describe('ProjectDetailPage', () => {
     ).find((img) => (img as HTMLImageElement).alt === 'Cloudflare') as
       | HTMLImageElement
       | undefined;
-    expect(cloudflareImg?.getAttribute('src')).toContain('Cloudflare-F38020');
+    expect(cloudflareImg?.getAttribute('src')).toBe('images/badges/cloudflare.svg');
   });
 
   it('renders a Vercel badge for terminal-portfolio, in addition to its stack badges', () => {

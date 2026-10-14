@@ -2,11 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProjectBadge } from '../../../data/projects.data';
-
-/** Escapes a label for use inside a Shields.io static-badge URL segment. */
-function encodeShieldsSegment(value: string): string {
-  return value.replace(/-/g, '--').replace(/_/g, '__').replace(/ /g, '_');
-}
+import { badgeFileName } from './badge-file';
 
 @Component({
   selector: 'project-badges',
@@ -18,17 +14,9 @@ function encodeShieldsSegment(value: string): string {
 export class ProjectBadges {
   readonly badges = input<ProjectBadge[]>([]);
 
+  /** The badge's SVG, served from the site itself (made by `npm run badges`). */
   badgeSrc(badge: ProjectBadge): string {
-    const label = encodeShieldsSegment(badge.label);
-    const color = badge.color.replace(/^#/, '');
-    const base = `https://img.shields.io/badge/${label}-${color}?style=flat-square`;
-
-    if (!badge.slug) {
-      return base;
-    }
-
-    const logoColor = badge.logoColor ?? 'white';
-    return `${base}&logo=${badge.slug}&logoColor=${logoColor}`;
+    return `images/badges/${badgeFileName(badge)}.svg`;
   }
 
   badgeAlt(badge: ProjectBadge): string {

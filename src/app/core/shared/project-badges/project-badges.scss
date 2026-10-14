@@ -12,7 +12,7 @@
     display: flex;
     min-width: 0;
     max-inline-size: 100%;
-    // Reserves the badge's height before the remote image resolves, so a
+    // Reserves the badge's height before its image loads, so a
     // slow-loading or failed badge doesn't shift surrounding content.
     block-size: 2rem;
   }

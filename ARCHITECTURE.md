@@ -147,7 +147,7 @@ available.
 
 ### Data and services
 
-`projects.data.ts` is the local, typed source of the catalog. There is no remote API and no persistent storage. `ProjectsDataService` exposes three read-only operations:
+`projects.data.ts` is the local, typed source of the catalog. There is no remote API and no persistent storage. The technology badges of a project are drawn from its `badges` into `public/images/badges` by `npm run badges`, and `project-badges` shows those files. `ProjectsDataService` exposes three read-only operations:
 
 - list all projects;
 - find a project by id;
@@ -161,6 +161,14 @@ for fetching and storing catalogs. On the first navigation only, it asks
 `LanguagePreference` (remembered choice in `localStorage`, then the browser's
 language list; browser-only) which language to use when the URL has no
 `?locale=`.
+
+Catalogs reach the browser two ways. The prerendered pages are English and carry
+the English catalog in the HTML as transfer state, so `TranslateService` finds it
+without a request. The Portuguese catalog is fetched; `src/index.html` starts
+that fetch with a `preload` link while the scripts download (an inline script
+that follows the same rule as `LanguageService` and `LanguagePreference`;
+`catalog-preload.spec.ts` keeps them in agreement), so the request does not wait
+for the application to bootstrap.
 
 `SeoService` (`providedIn: 'root'`, started by an app initializer) reads each
 route's `data.seo` and, whenever the route or the catalog state changes, sets the
@@ -272,6 +280,19 @@ has no server running at request time to set headers dynamically — the
 Vercel CDN applies them to the static output directly. It sets
 `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`,
 `Referrer-Policy`, `Permissions-Policy`, and `Content-Security-Policy`.
+
+`img-src` is `'self' data:`: images come from the site itself only. The
+technology badges, which used to be fetched from img.shields.io, are SVG files in
+`public/images/badges` made by `npm run badges` (see the README).
+
+Caching is set by further `headers` rules in the same file. Files whose names
+carry a content hash get `public, max-age=31536000, immutable`; fonts, images and
+the favicon get `public, max-age=86400, stale-while-revalidate=604800`; pages,
+catalogs and CVs keep the host's default, which revalidates. Because the output
+is built with the Build Output API, `scripts/create-build-output.mjs` is what
+applies these rules; `scripts/lib/header-routes.mjs` translates each `source`
+(literal text and regex groups only) and the build fails rather than mark an
+unhashed file `immutable`.
 
 The CSP's `script-src` and `style-src` include `'unsafe-inline'` rather than
 a nonce or hash allowlist. A nonce needs a fresh value generated per

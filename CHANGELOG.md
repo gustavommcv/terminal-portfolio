@@ -55,6 +55,31 @@ All notable changes to this project are documented in this file.
   both languages (no violations), and with a contrast check over every text
   element.
 
+### Performance and privacy
+
+- Long-lived caching, set by `headers` rules in `vercel.json`: the bundles with a
+  content hash in the name (`main-*.js`, `chunk-*.js`, `polyfills-*.js`,
+  `styles-*.css`) are `immutable` for a year; fonts, images, and the favicon are
+  cached for a day and served stale while refreshing; pages, catalogs, and CVs
+  are still revalidated. `scripts/create-build-output.mjs` now translates any such
+  rule (literal text and regex groups; anything else fails loudly) and refuses to
+  publish an `immutable` file without a hash. The generated routes and the
+  `source` patterns were checked with Vercel's own routing schema and converter.
+- The 31 technology badges are local SVG files (`public/images/badges`, made by
+  `npm run badges` with `badge-maker` and `simple-icons`) instead of requests to
+  img.shields.io, so no third party learns who visits a project page. They are
+  pixel-identical to the images shields.io returned (compared for all 31, and on
+  all 19 project pages), and the CSP's `img-src` is now `'self' data:`.
+- The Portuguese catalog is preloaded by a small script in `src/index.html`, using
+  the same rule as the app to choose the language: on a simulated slow 4G
+  connection the Portuguese text appears about 0.5 s sooner (3.2 s to 2.7 s) for
+  a `?locale=pt` link and for a Portuguese browser's first visit. English
+  visitors still make no catalog request, since the prerendered page carries it.
+  A spec runs the script against `LanguagePreference`.
+- Only the month and year of birth are kept (the site shows an age), instead of
+  the full date in the JavaScript every visitor downloads. The age counts from
+  the first day of the birth month. The older commits still contain the date.
+
 ### Portfolio
 
 - Added Mangabound and mangapress, and featured them. Projects were reordered
@@ -74,8 +99,8 @@ All notable changes to this project are documented in this file.
   `afterNextRender` hooks, so the home specs call `TestBed.tick()`; and
   `tsconfig.spec.json` lists the `node` types the specs that read files need.
   The home intro was checked in a real browser and still types and completes.
-- Added GitHub Actions: `ci.yml` (`npm ci`, tests, production build on every push
-  and pull request) and `audit.yml` (weekly `npm audit` of the production
+- Added GitHub Actions: `ci.yml` (`npm ci`, tests, build-script tests, production
+  build on every push and pull request) and `audit.yml` (weekly `npm audit` of the production
   dependencies).
 - Dependabot now groups the Angular packages into one pull request and the other
   minor and patch updates into another, ignores major bumps of `typescript` and
@@ -83,7 +108,7 @@ All notable changes to this project are documented in this file.
 - Documentation: the README's component-style budget (6 kB), the dependency
   section, and the ARCHITECTURE description of the home intro states (five
   states, not four) and of how `vercel.json` and the build output work.
-- Result: 41 spec files, 210 tests.
+- Result: 45 spec files and 273 tests, plus 27 tests of the build scripts.
 
 ## [Unreleased] — 2026-08-03 to 2026-09-11
 

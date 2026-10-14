@@ -9,9 +9,10 @@
 //
 //   1. 404.html          the prerendered /404 route, copied to the top level
 //   2. .vercel/output/static       the site itself
-//   3. .vercel/output/config.json  security headers on every response, each page
-//                                  served at its clean address, then real files,
-//                                  and a 404 status + 404.html for the rest
+//   3. .vercel/output/config.json  the headers of vercel.json (security headers on
+//                                  every response, long caching for hashed files),
+//                                  each page served at its clean address, then real
+//                                  files, and a 404 status + 404.html for the rest
 import {
   copyFileSync,
   cpSync,
@@ -23,6 +24,8 @@ import {
   writeFileSync,
 } from 'node:fs';
 import { join, posix } from 'node:path';
+
+import { escapeRegExp, headerRoutes as toHeaderRoutes } from './lib/header-routes.mjs';
 
 // Keep in sync with `outputDirectory` in vercel.json.
 const distDirectory = join('dist', 'portfolio', 'browser');
@@ -44,21 +47,41 @@ copyFileSync(prerendered404, join(distDirectory, '404.html'));
 
 // --- 2. headers: vercel.json stays the single place that defines them ----------
 const vercelConfig = JSON.parse(readFileSync('vercel.json', 'utf8'));
-const headerRoutes = (vercelConfig.headers ?? []).map((rule) => {
-  if (rule.source !== '/(.*)') {
-    fail(
-      `vercel.json header source "${rule.source}" is not supported here; only "/(.*)" is. Extend this script before adding path-specific header rules.`,
-    );
-  }
-  return {
-    src: rule.source,
-    headers: Object.fromEntries(rule.headers.map(({ key, value }) => [key, value])),
-    continue: true,
-  };
-});
+let headerRoutes;
+try {
+  headerRoutes = toHeaderRoutes(vercelConfig.headers);
+} catch (error) {
+  fail(error.message);
+}
 
 if (headerRoutes.length === 0) {
   fail('vercel.json defines no headers; refusing to deploy without security headers.');
+}
+
+// A long-cache rule is only safe on a file whose name changes when its content
+// does. The bundles Angular emits carry a content hash (main-T3ZX3BYX.js); refuse
+// to publish an `immutable` file without one, since visitors would keep it for a year.
+const isImmutable = (route) => /immutable/.test(route.headers['Cache-Control'] ?? '');
+const hasHash = (name) => /-[A-Za-z0-9_-]{8}\.[a-z]+$/.test(name);
+
+for (const entry of readdirSync(distDirectory, { withFileTypes: true })) {
+  if (!entry.isFile()) {
+    continue;
+  }
+
+  const immutableRules = headerRoutes.filter(
+    (route) => isImmutable(route) && new RegExp(route.src).test(`/${entry.name}`),
+  );
+
+  if (immutableRules.length > 0 && !hasHash(entry.name)) {
+    fail(`${entry.name} would be cached as immutable, but its name has no content hash.`);
+  }
+
+  if (immutableRules.length === 0 && /\.(js|css)$/.test(entry.name)) {
+    console.warn(
+      `create-build-output: ${entry.name} is a script or stylesheet that no long-cache rule covers; add its name pattern to vercel.json to have it cached.`,
+    );
+  }
 }
 
 // --- 3. pages: serve <dir>/index.html at /<dir>, without a redirect -------------
@@ -75,10 +98,6 @@ function pageDirectories(directory, prefix = '') {
     const own = existsSync(join(directory, entry.name, 'index.html')) ? [path] : [];
     return [...own, ...pageDirectories(join(directory, entry.name), path)];
   });
-}
-
-function escapeRegExp(text) {
-  return text.replace(/[.*+?^${}()|[\]\\]/g, (character) => `\\${character}`);
 }
 
 const pageRoutes = pageDirectories(distDirectory).map((page) => ({

@@ -34,6 +34,10 @@ jobs:
       - name: Test
         run: npm run test:ci
 
+      # The build scripts (headers and caching rules turned into routes).
+      - name: Test the build scripts
+        run: npm run test:scripts
+
       # Prerenders every route and writes 404.html and .vercel/output, so this
       # also fails when a page is missing from app.routes.server.ts.
       - name: Build
