@@ -20,4 +20,11 @@ describe('Footer', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('gives the heart a role, since a name on a role-less span is ignored', () => {
+    const heart: HTMLElement = fixture.nativeElement.querySelector('.footer__heart');
+
+    expect(heart.getAttribute('role')).toBe('img');
+    expect(heart.getAttribute('aria-label')).toBe('love');
+  });
 });

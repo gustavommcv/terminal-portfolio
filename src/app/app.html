@@ -1,9 +1,13 @@
 <div class="app-container">
+  <a class="skip-link" href="#main" (click)="skipToContent($event)">
+    {{ "a11y.skip-to-content" | translate }}
+  </a>
+
   <div class="header-container">
     <app-header />
   </div>
 
-  <main class="main">
+  <main #main id="main" class="main" tabindex="-1">
     <router-outlet />
   </main>
 </div>

@@ -38,7 +38,12 @@ describe('TerminalLine', () => {
     const element: HTMLElement = fixture.nativeElement.querySelector('.terminal-line');
 
     expect(element.getAttribute('aria-live')).toBe('off');
-    expect(element.getAttribute('aria-label')).toContain('whoami');
+    // A name on a role-less div is ignored by assistive technology, so the
+    // complete command is real (visually hidden) text instead.
+    expect(element.hasAttribute('aria-label')).toBe(false);
+    expect(element.querySelector('.visually-hidden')?.textContent).toContain(
+      'whoami',
+    );
     expect(element.querySelector('.command-container')?.getAttribute('aria-hidden')).toBe(
       'true',
     );

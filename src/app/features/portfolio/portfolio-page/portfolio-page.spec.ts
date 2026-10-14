@@ -36,6 +36,15 @@ describe('PortfolioPage', () => {
     );
   });
 
+  it('has the page heading as its h1, with the project titles directly below it', () => {
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(Array.from(element.querySelectorAll('h1')).map((h) => h.textContent))
+      .toEqual(['Portfolio']);
+    expect(element.querySelectorAll('h3')).toHaveLength(0);
+    expect(element.querySelectorAll('h2')).toHaveLength(projectsData.length);
+  });
+
   it('renders one card per project, each linking to its own detail route', () => {
     const links = Array.from(
       fixture.nativeElement.querySelectorAll('.project-card'),

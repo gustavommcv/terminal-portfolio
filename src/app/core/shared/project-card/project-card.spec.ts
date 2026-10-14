@@ -49,6 +49,20 @@ describe('ProjectCard', () => {
     expect(image.getAttribute('src')).toBe('images/test-project-cover.webp');
   });
 
+  it('titles the card one level below the section it sits in', () => {
+    const levelOf = (card: ComponentFixture<ProjectCard>) =>
+      card.nativeElement.querySelector('.project-card__title').tagName;
+
+    expect(levelOf(fixture)).toBe('H3');
+
+    const underPageHeading = TestBed.createComponent(ProjectCard);
+    underPageHeading.componentRef.setInput('project', project);
+    underPageHeading.componentRef.setInput('headingLevel', 2);
+    underPageHeading.detectChanges();
+
+    expect(levelOf(underPageHeading)).toBe('H2');
+  });
+
   it('reserves image space and defers below-the-fold work', () => {
     const image: HTMLImageElement = fixture.nativeElement.querySelector('img');
 

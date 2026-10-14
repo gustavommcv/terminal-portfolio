@@ -57,6 +57,18 @@ describe('DownloadSection', () => {
     expect(document.body.contains(link)).toBe(false);
   });
 
+  it('names each download button after its format, not just "Download"', () => {
+    const labels = Array.from(
+      fixture.nativeElement.querySelectorAll('.download-section__button'),
+    ).map((button) => (button as HTMLElement).getAttribute('aria-label'));
+
+    expect(labels).toEqual([
+      'Download CV as DOCX',
+      'Download CV as ODT',
+      'Download CV as PDF',
+    ]);
+  });
+
   function stubContainerWidths(scrollWidth: number, clientWidth: number): void {
     const container: HTMLElement = fixture.nativeElement.querySelector(
       '.download-section__container',

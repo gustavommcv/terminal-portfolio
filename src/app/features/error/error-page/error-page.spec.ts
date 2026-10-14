@@ -30,6 +30,16 @@ describe('ErrorPage', () => {
     expect(text).toContain('bash: /missing: command not found');
   });
 
+  it('has an h1 for the page and an h2 for the message below it', async () => {
+    await renderAt('/missing');
+    const element: HTMLElement = fixture.nativeElement;
+
+    expect(element.querySelector('h1')?.textContent).toBe('Error');
+    expect(element.querySelector('h2')?.textContent?.trim()).toBe(
+      '404 - Command not found',
+    );
+  });
+
   it('leaves the query string and fragment out of the missing path', async () => {
     await renderAt('/missing?locale=pt#top');
 

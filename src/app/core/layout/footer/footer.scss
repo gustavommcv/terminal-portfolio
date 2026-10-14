@@ -41,7 +41,10 @@
 
   &__link {
     color: $color-accent-primary;
-    text-decoration: none;
+    // The link colour is too close to the surrounding text to tell them apart
+    // by colour alone, so the underline is what marks it as a link.
+    text-decoration: underline;
+    text-underline-offset: 0.3rem;
 
     &:hover {
       color: $color-accent-secondary;

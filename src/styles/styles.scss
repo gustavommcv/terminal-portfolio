@@ -20,8 +20,13 @@
 }
 
 html {
-  font-size: 10px;
+  // 62.5% of the default 16px keeps 1rem = 10px, but still follows the font
+  // size the visitor chose in their browser (a fixed 10px would ignore it).
+  font-size: 62.5%;
   scrollbar-gutter: stable;
+  // The header is sticky (about 6rem tall), so anything scrolled into view by
+  // focus or the skip link must stop below it instead of hiding behind it.
+  scroll-padding-top: 8rem;
 
   font-family: $font-family-default;
   font-weight: $font-weight-normal;
@@ -34,4 +39,14 @@ html {
 
 body {
   background-color: $color-background-dark;
+}
+
+// Text for assistive technology only: out of sight, still read aloud.
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

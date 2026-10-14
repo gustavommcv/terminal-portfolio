@@ -16,6 +16,9 @@ import { LanguageService } from '../../../services/language.service';
 export class ProjectCard {
   @Input({ required: true }) project!: Project;
 
+  /** Level of the card's title: 3 under a section's h2, 2 directly under the page's h1. */
+  @Input() headingLevel: 2 | 3 = 3;
+
   constructor(readonly language: LanguageService) {}
 
   get image(): string {

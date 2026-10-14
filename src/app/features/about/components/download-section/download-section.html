@@ -18,8 +18,15 @@
 
     <div class="download-section__container" #scrollContainer>
       <div class="download-section__element">
-        <h4 class="download-section__title">CV DOCX</h4>
-        <button class="download-section__button" (click)="downloadCV('docx')">
+        <h3 class="download-section__title">CV DOCX</h3>
+        <button
+          class="download-section__button"
+          [attr.aria-label]="
+            'about-page.download-section.button-label'
+              | translate: { format: 'DOCX' }
+          "
+          (click)="downloadCV('docx')"
+        >
           <span class="download-section__button-text">{{
               "about-page.download-section.button" | translate
             }}</span>
@@ -27,8 +34,15 @@
       </div>
 
       <div class="download-section__element">
-        <h4 class="download-section__title">CV ODT</h4>
-        <button class="download-section__button" (click)="downloadCV('odt')">
+        <h3 class="download-section__title">CV ODT</h3>
+        <button
+          class="download-section__button"
+          [attr.aria-label]="
+            'about-page.download-section.button-label'
+              | translate: { format: 'ODT' }
+          "
+          (click)="downloadCV('odt')"
+        >
           <span class="download-section__button-text">{{
               "about-page.download-section.button" | translate
             }}</span>
@@ -36,8 +50,15 @@
       </div>
 
       <div class="download-section__element">
-        <h4 class="download-section__title">CV PDF</h4>
-        <button class="download-section__button" (click)="downloadCV('pdf')">
+        <h3 class="download-section__title">CV PDF</h3>
+        <button
+          class="download-section__button"
+          [attr.aria-label]="
+            'about-page.download-section.button-label'
+              | translate: { format: 'PDF' }
+          "
+          (click)="downloadCV('pdf')"
+        >
           <span class="download-section__button-text">{{
               "about-page.download-section.button" | translate
             }}</span>

@@ -149,6 +149,27 @@ The canonical host is `SITE_URL` in `src/app/data/site.config.ts`. `public/sitem
 is maintained by hand: **adding a project means adding its `/portfolio/<id>`
 entry**, and a test fails until you do.
 
+## Accessibility
+
+- **Headings.** Each page has one `h1`: the first `app-terminal-section` of the
+  page sets `isFirstTitle`. Section titles are `h2`; whatever sits under them
+  (project cards, degrees, CV formats) is `h3`, and `project-card` takes a
+  `headingLevel` so it can sit directly under an `h1` on `/portfolio`. The
+  boxed `app-title` inside a section mimics the title of a rendered markdown
+  file, so it is a paragraph, not a heading.
+- **Skip link.** The first focusable element jumps to `<main id="main">`. It is
+  handled in script because a bare `#main` would resolve against `<base href="/">`
+  and navigate to the home page. `html` has `scroll-padding-top` so focus and the
+  skip link never leave anything behind the sticky header.
+- **Sizes.** `html` is `62.5%`, so `1rem` is 10px at the browser's default size
+  but follows the visitor's own font-size setting. Size text in `rem`, not `px`.
+- **Names.** A name (`aria-label`) only works on an element with a role, so
+  text meant for assistive technology alone is real text in `.visually-hidden`
+  (see the terminal command line). Links inside running text need more than a
+  colour change to stand out, hence the underline on the footer link.
+- **Colour.** Text must reach 4.5:1 (3:1 for large text) on its background; the
+  "command not found" red was lightened for that.
+
 ## Production build
 
 ```bash

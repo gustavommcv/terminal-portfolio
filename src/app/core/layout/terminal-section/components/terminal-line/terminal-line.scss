@@ -1,7 +1,8 @@
 @use "abstracts/variables" as *;
 
 $color-accepted-command-dark: #15ff00;
-$color-refused-command-dark: #cc0403;
+// Lighter than the classic terminal red so it reaches 4.5:1 on the dark card.
+$color-refused-command-dark: #ee5555;
 
 .terminal-line {
   display: flex;

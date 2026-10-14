@@ -1,9 +1,16 @@
 <div
   class="terminal-line"
   aria-live="off"
-  [attr.aria-label]="accessibleLabel()"
   [style.--terminal-cursor-blink-interval]="cursorBlinkIntervalMs() + 'ms'"
 >
+  <!--
+    The typed text is only partly there while it animates, so assistive
+    technology gets the complete command as plain text instead.
+  -->
+  @if (accessibleLabel(); as label) {
+    <span class="visually-hidden">{{ label }}</span>
+  }
+
   <span class="prompt-container" [attr.aria-hidden]="accessibleLabel() ? 'true' : null">
     @if (!short()) {
       <span class="user-host">[{{ username }}{{ hostname }} </span>

@@ -4,12 +4,13 @@
     [customTitle]="'projects-page.title' | translate"
     customCommand="glow portfolio.md"
     [shortTerminalLine]="true"
+    [isFirstTitle]="true"
   >
     <app-title [title]="'projects-page.title' | translate" />
 
     <div class="projects-container">
       @for (project of projectsData; track project.id) {
-        <project-card [project]="project"></project-card>
+        <project-card [project]="project" [headingLevel]="2"></project-card>
       }
     </div>
   </app-terminal-section>

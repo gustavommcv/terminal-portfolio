@@ -1,5 +1,29 @@
 @use "abstracts/variables" as *;
 
+// Off-screen until a keyboard user tabs to it, then pinned above the header.
+.skip-link {
+  position: fixed;
+  top: $spacing-small;
+  left: $spacing-small;
+  z-index: $z-index-skip-link;
+  padding: $spacing-small $spacing-medium;
+  border: 2px solid $color-accent-primary;
+  border-radius: $border-radius-small;
+  background-color: $color-section-background-dark;
+  color: $color-title-dark;
+  font-size: $font-size-default;
+  transform: translateY(-200%);
+
+  &:focus {
+    transform: none;
+  }
+}
+
+// The skip link's target: focused by script, so it needs no visible ring.
+.main:focus {
+  outline: none;
+}
+
 .header-container {
   padding: 0 8rem;
   position: sticky;

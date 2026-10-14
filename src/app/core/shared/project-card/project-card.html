@@ -13,9 +13,16 @@
     decoding="async"
   />
   <div class="project-card__container">
-    <h3 class="project-card__title">
-      {{ "projects-page.projects." + project.id + ".title" | translate }}
-    </h3>
+    <!-- One level below the heading of the section the card sits in. -->
+    @if (headingLevel === 2) {
+      <h2 class="project-card__title">
+        {{ "projects-page.projects." + project.id + ".title" | translate }}
+      </h2>
+    } @else {
+      <h3 class="project-card__title">
+        {{ "projects-page.projects." + project.id + ".title" | translate }}
+      </h3>
+    }
     <p class="project-card__description">
       {{
         "projects-page.projects." + project.id + ".shortDescription"

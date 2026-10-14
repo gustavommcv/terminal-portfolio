@@ -87,7 +87,8 @@
       "warning": "*current language: {\"locale\": \"en\"}*",
       "warning2": "*scroll sideways for more formats*",
       "heading": "Download CV",
-      "button": "Download ↓"
+      "button": "Download ↓",
+      "button-label": "Download CV as {{format}}"
     }
   },
   "projects-page": {
@@ -249,5 +250,8 @@
   "footer": {
     "theme-before": "This site was styled with the",
     "theme-after": "theme"
+  },
+  "a11y": {
+    "skip-to-content": "Skip to main content"
   }
 }

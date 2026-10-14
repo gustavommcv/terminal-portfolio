@@ -87,7 +87,8 @@
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
       "warning2": "*role para o lado para ver os outros formatos*",
       "heading": "Baixar currículo",
-      "button": "Baixar ↓"
+      "button": "Baixar ↓",
+      "button-label": "Baixar currículo em {{format}}"
     }
   },
   "projects-page": {
@@ -249,5 +250,8 @@
   "footer": {
     "theme-before": "Este site usa o tema",
     "theme-after": "como paleta de cores"
+  },
+  "a11y": {
+    "skip-to-content": "Pular para o conteúdo principal"
   }
 }
