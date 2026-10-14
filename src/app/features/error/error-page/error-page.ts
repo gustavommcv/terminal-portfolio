@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
   styleUrl: './error-page.scss',
 })
 export class ErrorPage {
+  /** The path that was not found; the query string and fragment are not part of a "command". */
   currentPath = '';
 
   constructor(private router: Router) {
-    this.currentPath = this.router.url;
+    this.currentPath = this.router.url.split(/[?#]/)[0];
   }
 }

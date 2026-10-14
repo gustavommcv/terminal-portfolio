@@ -1,5 +1,8 @@
 @if (badges().length) {
-  <ul class="project-badges" aria-label="Technologies and hosting">
+  <ul
+    class="project-badges"
+    [attr.aria-label]="'projects-page.badges.label' | translate"
+  >
     @for (badge of badges(); track badge.slug) {
       <li class="project-badges__item">
         <img

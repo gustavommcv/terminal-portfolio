@@ -28,7 +28,6 @@ import { PresentationSection } from '../presentation-section/presentation-sectio
 export class HomeIntro {
   readonly commandState = input.required<HomeIntroCommandState>();
   readonly layoutReservation = input.required<HomeIntroLayoutReservation>();
-  readonly title = input('Who am I');
 
   readonly displayedCommand = signal('');
   readonly config = inject(HOME_INTRO_CONFIG);

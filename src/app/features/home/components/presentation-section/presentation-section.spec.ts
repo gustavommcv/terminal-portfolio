@@ -34,7 +34,7 @@ describe('PresentationSection', () => {
       'Desenvolvedor de Software',
     );
     expect(fixture.nativeElement.textContent).toContain(
-      'aplicações web modernas',
+      'Gosto de construir coisas que realmente funcionam',
     );
     expect(fixture.nativeElement.textContent).not.toContain(
       'home-page.presentation-section',

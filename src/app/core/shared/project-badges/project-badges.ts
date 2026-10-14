@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProjectBadge } from '../../../data/projects.data';
 
@@ -9,7 +10,7 @@ function encodeShieldsSegment(value: string): string {
 
 @Component({
   selector: 'project-badges',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './project-badges.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-badges.scss',

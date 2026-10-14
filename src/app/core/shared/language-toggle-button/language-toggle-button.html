@@ -2,6 +2,7 @@
   type="button"
   class="language-toggle"
   (click)="toggleLanguage()"
+  [attr.lang]="language.currentLocale() === 'en' ? 'pt-BR' : 'en'"
   [attr.aria-label]="
     language.currentLocale() === 'en'
       ? 'Mudar idioma para português'

@@ -4,7 +4,8 @@
       "command": "whoami",
       "role": "Software Developer",
       "about": "Full-stack developer by training, currently studying Electrical Engineering with a focus on embedded systems, math, physics, and CAD modeling. I like building things that actually work and solve real problems — in software, firmware, or hardware.",
-      "contact": "Contact"
+      "contact": "Contact",
+      "title": "Who am I"
     },
     "services-section": {
       "title": "Services",
@@ -24,7 +25,7 @@
     },
     "featured-projects-section": {
       "title": "Featured Projects",
-      "warning": "*swipe right for more*"
+      "warning": "*scroll sideways for more*"
     },
     "contact-section": {
       "title": "Contact",
@@ -40,7 +41,8 @@
       "p2": "That curiosity spread to pretty much everything and pulled me back toward math and physics — that shift is what led me to Electrical Engineering, where I put programming and low-level systems together with the exact sciences.",
       "p3": "On top of that, my interest in terminal tools and the KISS principle changed how I build: simple, practical solutions to real problems, mixing engineering and computing — in software or hardware.",
       "pronouns": "He/Him",
-      "country": "Brazil"
+      "country": "Brazil",
+      "age": "{{age}} years old"
     },
     "education-section": {
       "title": "Education",
@@ -81,9 +83,11 @@
       ]
     },
     "download-section": {
-      "title": "Curriculum",
+      "title": "Résumé",
       "warning": "*current language: {\"locale\": \"en\"}*",
-      "warning2": "*swipe right for more formats*"
+      "warning2": "*scroll sideways for more formats*",
+      "heading": "Download CV",
+      "button": "Download ↓"
     }
   },
   "projects-page": {
@@ -153,7 +157,7 @@
         "description": "A REST API first built following an Apollo Server/GraphQL course, then refactored into Clean Architecture as an exercise in separating concerns: domain, application, and infrastructure layers. TypeScript, Express, and MariaDB, with bcrypt and JWT for auth and Jest tests written test-first."
       },
       "portfolio": {
-        "title": "Portfolio",
+        "title": "First Portfolio",
         "shortDescription": "My first personal portfolio, built with Solid.js.",
         "description": "My first personal portfolio, and my first project with Solid.js after coming from React — built to learn Solid's fine-grained reactivity model firsthand instead of just reading about it. TypeScript throughout, bundled with Vite, containerized with Docker."
       },
@@ -197,10 +201,20 @@
         "shortDescription": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL.",
         "description": "My own Arch Linux setup, split across three branches: a full Hyprland desktop, a notebook profile tuned for touchpad gestures and power management, and a terminal-only WSL2 setup. An install.sh pulls packages via yay and symlinks everything into place."
       }
+    },
+    "links": {
+      "repository": "Repository",
+      "demo": "Live Demo",
+      "docs": "Documentation"
+    },
+    "badges": {
+      "label": "Technologies and hosting"
     }
   },
   "error-page": {
-    "title": "Error"
+    "title": "Error",
+    "heading": "404 - Command not found",
+    "message": "bash: {{path}}: command not found"
   },
   "seo": {
     "home": {
@@ -222,5 +236,18 @@
       "title": "Page not found | Gustavo Monnerat",
       "description": "The page you were looking for does not exist."
     }
+  },
+  "header": {
+    "home-link": "gus::monnerat — home",
+    "menu": "Menu",
+    "menu-close": "Close menu",
+    "menu-dialog": "Mobile navigation",
+    "menu-title": "NAVIGATION",
+    "nav-primary": "Primary",
+    "nav-mobile": "Mobile"
+  },
+  "footer": {
+    "theme-before": "This site was styled with the",
+    "theme-after": "theme"
   }
 }

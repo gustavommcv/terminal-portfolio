@@ -4,7 +4,8 @@
       "command": "whoami",
       "role": "Desenvolvedor de Software",
       "about": "Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.",
-      "contact": "Contato"
+      "contact": "Contato",
+      "title": "Quem sou eu"
     },
     "services-section": {
       "title": "Serviços",
@@ -24,7 +25,7 @@
     },
     "featured-projects-section": {
       "title": "Projetos em Destaque",
-      "warning": "*desliza pra ver mais*"
+      "warning": "*role para o lado para ver mais*"
     },
     "contact-section": {
       "title": "Contato",
@@ -40,14 +41,15 @@
       "p2": "Essa curiosidade se estendeu para praticamente tudo e direcionou meus estudos para a matemática e a física, o que me fez escolher um curso mais alinhado com meus novos objetivos, sendo ele a Engenharia Elétrica, onde uno programação e sistemas de baixo nível às exatas.",
       "p3": "Somado a isso, meu interesse por ferramentas de terminal e o princípio KISS mudou a forma como eu construo: soluções simples e práticas para problemas reais, unindo engenharia e computação — em software ou hardware.",
       "pronouns": "Ele/Dele",
-      "country": "Brasil"
+      "country": "Brasil",
+      "age": "{{age}} anos"
     },
     "education-section": {
-      "title": "Escolaridade",
+      "title": "Formação acadêmica",
       "degrees": [
         {
           "title": "Engenharia Elétrica",
-          "type": "Graduação Bacharel",
+          "type": "Bacharelado",
           "data": "MAR/26 - MAR/31"
         },
         {
@@ -57,7 +59,7 @@
         },
         {
           "title": "Análise e Desenvolvimento de Sistemas",
-          "type": "Graduação Tecnólogo",
+          "type": "Tecnólogo",
           "data": "MAI/22 - SET/24"
         }
       ]
@@ -83,7 +85,9 @@
     "download-section": {
       "title": "Currículo",
       "warning": "*idioma atual: {\"locale\": \"pt\"}*",
-      "warning2": "*desliza pra ver os outros formatos*"
+      "warning2": "*role para o lado para ver os outros formatos*",
+      "heading": "Baixar currículo",
+      "button": "Baixar ↓"
     }
   },
   "projects-page": {
@@ -128,7 +132,7 @@
         "description": "Um sistema de votação em tempo real construído para as avaliações de competência da Signo Tech: criar enquetes, votar e ver o resultado atualizar ao vivo via WebSockets. As enquetes têm status e votar é bloqueado depois que a enquete fecha ou para quem não está autenticado. Frontend em Angular, com uma API separada."
       },
       "chmod-calculator": {
-        "title": "Chmod Calculator",
+        "title": "Calculadora de Chmod",
         "shortDescription": "Calculadora de chmod simples, feita só com JS, HTML e CSS.",
         "description": "Uma ferramenta pequena para traduzir entre os formatos simbólico (rwxr-xr--) e numérico (754) de permissões chmod — feita com JavaScript, HTML e CSS puros, sem framework, como um exercício focado em manipulação de DOM sem nenhuma ferramenta de build no caminho."
       },
@@ -153,7 +157,7 @@
         "description": "Uma API REST construída originalmente seguindo um curso de Apollo Server/GraphQL e depois refatorada para Clean Architecture como exercício de separação de responsabilidades: camadas de domínio, aplicação e infraestrutura. TypeScript, Express e MariaDB, com bcrypt e JWT para autenticação e testes em Jest escritos test-first."
       },
       "portfolio": {
-        "title": "Portfólio",
+        "title": "Primeiro Portfólio",
         "shortDescription": "Meu primeiro portfólio pessoal, construído com Solid.js.",
         "description": "Meu primeiro portfólio pessoal, e meu primeiro projeto com Solid.js depois de vir do React — construído para aprender o modelo de reatividade granular do Solid na prática, não só na teoria. TypeScript do início ao fim, empacotado com Vite, containerizado com Docker."
       },
@@ -197,10 +201,20 @@
         "shortDescription": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL.",
         "description": "Minha própria configuração de Arch Linux, dividida em três branches: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Um install.sh instala pacotes via yay e cria os symlinks necessários."
       }
+    },
+    "links": {
+      "repository": "Repositório",
+      "demo": "Demo ao vivo",
+      "docs": "Documentação"
+    },
+    "badges": {
+      "label": "Tecnologias e hospedagem"
     }
   },
   "error-page": {
-    "title": "Erro"
+    "title": "Erro",
+    "heading": "404 - Comando não encontrado",
+    "message": "bash: {{path}}: comando não encontrado"
   },
   "seo": {
     "home": {
@@ -222,5 +236,18 @@
       "title": "Página não encontrada | Gustavo Monnerat",
       "description": "A página que você procurava não existe."
     }
+  },
+  "header": {
+    "home-link": "gus::monnerat — início",
+    "menu": "Menu",
+    "menu-close": "Fechar menu",
+    "menu-dialog": "Navegação móvel",
+    "menu-title": "NAVEGAÇÃO",
+    "nav-primary": "Principal",
+    "nav-mobile": "Mobile"
+  },
+  "footer": {
+    "theme-before": "Este site usa o tema",
+    "theme-after": "como paleta de cores"
   }
 }

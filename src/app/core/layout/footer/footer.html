@@ -1,13 +1,14 @@
 <footer class="footer">
   <div class="footer__content">
-    <p class="footer__copyright">
+    <!-- Kept in English on purpose, in every language. -->
+    <p class="footer__copyright" lang="en">
       &copy; <span class="footer__year">{{ currentYear }}</span> Made with
       <span class="footer__heart" aria-label="love"> ♥ </span>
       by <span class="footer__author">Gustavo Monnerat</span>
     </p>
 
     <p class="footer__theme-credit">
-      This site was styled with the
+      {{ "footer.theme-before" | translate }}
       <a
         href="https://github.com/EdenEast/nightfox.nvim"
         class="footer__link"
@@ -16,7 +17,7 @@
       >
         NightFox
       </a>
-      theme
+      {{ "footer.theme-after" | translate }}
     </p>
   </div>
 </footer>

@@ -9,7 +9,7 @@ import { TerminalLine } from './components/terminal-line/terminal-line';
   styleUrl: './terminal-section.scss',
 })
 export class TerminalSection {
-  customTitle = input('Who am I');
+  customTitle = input.required<string>();
   isFirstTitle = input(false);
 
   shortTerminalLine = input(false);

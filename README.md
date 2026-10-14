@@ -122,7 +122,11 @@ The site supports English and Brazilian Portuguese through ngx-translate.
 active catalog as `loading`, `ready`, or `failed`. The `locale` query string
 uses English as the default; `pt` and legacy/shared `pt_BR` values select
 Portuguese. Translation catalogs live in `public/i18n/en.json` and
-`public/i18n/pt.json` and must be kept structurally in sync.
+`public/i18n/pt.json` and must be kept structurally in sync; a spec fails when
+they define different keys or `{{placeholders}}`. Every visible text and
+accessible name goes through the catalogs, with two deliberate exceptions that
+stay in English in both languages: the `Hello, World!` line and the footer's
+`Made with ♥ by` credit (the footer marks it with `lang="en"`).
 
 On the very first page load without a `?locale=` parameter, the language is the
 visitor's remembered choice (`localStorage` key `locale`) or, failing that, the

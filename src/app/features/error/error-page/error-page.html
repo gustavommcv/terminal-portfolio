@@ -6,10 +6,12 @@
     [errorCommand]="true"
   >
     <div class="not-found">
-      <h2 class="not-found__title">404 - Command not Found</h2>
+      <h2 class="not-found__title">
+        {{ "error-page.heading" | translate }}
+      </h2>
 
       <p class="not-found__output">
-        bash: {{ currentPath }}: command not found
+        {{ "error-page.message" | translate: { path: currentPath } }}
       </p>
     </div>
   </app-terminal-section>

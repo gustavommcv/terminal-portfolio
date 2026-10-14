@@ -4,7 +4,7 @@
       [href]="language.localizedUrl('/')"
       (click)="navigateWithLocale('/', $event)"
       class="logo"
-      aria-label="gus::monnerat — home"
+      [attr.aria-label]="'header.home-link' | translate"
     >
       <span class="logo--left">gus</span>
       <span class="logo--middle">::</span>
@@ -16,7 +16,7 @@
       type="button"
       class="hamburger-button"
       (click)="toggleMenu()"
-      aria-label="Menu"
+      [attr.aria-label]="'header.menu' | translate"
       aria-controls="mobile-menu"
       [attr.aria-expanded]="isMenuOpen()"
     >
@@ -34,18 +34,20 @@
         class="neo-sidebar"
         role="dialog"
         aria-modal="true"
-        aria-label="Mobile navigation"
+        [attr.aria-label]="'header.menu-dialog' | translate"
         (click)="$event.stopPropagation()"
         (keydown)="onPanelKeydown($event)"
       >
         <div class="neo-sidebar__source-bar">
           <neo-tree-icon icon="tree" class="neo-sidebar__source-icon" />
-          <span class="neo-sidebar__source-label">NAVIGATION</span>
+          <span class="neo-sidebar__source-label">{{
+            "header.menu-title" | translate
+          }}</span>
           <button
             type="button"
             class="neo-sidebar__close"
             (click)="closeMenu()"
-            aria-label="Close menu"
+            [attr.aria-label]="'header.menu-close' | translate"
           >
             <neo-tree-icon icon="close" />
           </button>
@@ -61,7 +63,11 @@
           </span>
         </div>
 
-        <nav #navList class="neo-sidebar__nav" aria-label="Mobile">
+        <nav
+          #navList
+          class="neo-sidebar__nav"
+          [attr.aria-label]="'header.nav-mobile' | translate"
+        >
           <ul class="neo-sidebar__tree">
             @for (route of ['/', '/about', '/portfolio']; track route) {
               <li class="neo-sidebar__row">
@@ -93,7 +99,10 @@
     </div>
   }
 
-  <nav class="header__nav desktop-nav" aria-label="Primary">
+  <nav
+    class="header__nav desktop-nav"
+    [attr.aria-label]="'header.nav-primary' | translate"
+  >
     @for (route of ['/', '/about', '/portfolio']; track route) {
       <a
         class="header__link"

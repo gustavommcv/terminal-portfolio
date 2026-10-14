@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
 import { NeoTreeIcon } from '../../shared/neo-tree-icon/neo-tree-icon';
@@ -26,7 +27,7 @@ const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LanguageToggleButton, NeoTreeIcon],
+  imports: [LanguageToggleButton, NeoTreeIcon, TranslatePipe],
   templateUrl: './header.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './header.scss',

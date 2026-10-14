@@ -7,6 +7,7 @@ export interface HomeIntroPresentationContent {
 }
 
 export interface HomeIntroLayoutReservation {
+  readonly title: string;
   readonly command: string;
   readonly presentation: HomeIntroPresentationContent;
 }
@@ -14,26 +15,29 @@ export interface HomeIntroLayoutReservation {
 /**
  * Build-time copies of the completed intro content provide a safe footprint
  * before the asynchronous translation catalog resolves. Keep these values in
- * sync with public/i18n/{en,pt}.json; focused tests guard that contract.
+ * sync with public/i18n/{en,pt}.json; home-intro-layout-reservations.spec.ts
+ * fails when they drift.
  */
 export const HOME_INTRO_LAYOUT_RESERVATIONS: Readonly<
   Record<SupportedLanguage, HomeIntroLayoutReservation>
 > = {
   en: {
+    title: 'Who am I',
     command: 'whoami',
     presentation: {
       role: 'Software Developer',
       about:
-        'Full Stack Developer specialized in building modern and scalable web applications. Focused on quality delivery and clean code.',
+        'Full-stack developer by training, currently studying Electrical Engineering with a focus on embedded systems, math, physics, and CAD modeling. I like building things that actually work and solve real problems — in software, firmware, or hardware.',
       contact: 'Contact',
     },
   },
   pt: {
+    title: 'Quem sou eu',
     command: 'whoami',
     presentation: {
       role: 'Desenvolvedor de Software',
       about:
-        'Desenvolvedor Full Stack especializado em criar aplicações web modernas e escaláveis. Foco em entregas de qualidade e código limpo.',
+        'Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.',
       contact: 'Contato',
     },
   },
