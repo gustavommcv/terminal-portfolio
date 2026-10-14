@@ -6,8 +6,8 @@
   "buildCommand": "npm run build",
   "git": {
     "deploymentEnabled": {
-      "main": true,
-      "develop": true
+      "**": false,
+      "main": true
     }
   },
   "headers": [

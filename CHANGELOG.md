@@ -105,6 +105,11 @@ All notable changes to this project are documented in this file.
 - Dependabot now groups the Angular packages into one pull request and the other
   minor and patch updates into another, ignores major bumps of `typescript` and
   `@types/node`, and also watches GitHub Actions.
+- Only `main` exists now (the stale Dependabot branches and `develop` were removed). Vercel's
+  `git.deploymentEnabled` is `{ "**": false, "main": true }`: the earlier setting listed
+  `main` and `develop` as `true`, which changed nothing, because a branch that is not
+  listed deploys by default, so Dependabot branches kept getting deployments. CI runs on
+  pushes to `main` and on pull requests.
 - Documentation: the README's component-style budget (6 kB), the dependency
   section, and the ARCHITECTURE description of the home intro states (five
   states, not four) and of how `vercel.json` and the build output work.

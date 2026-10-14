@@ -230,13 +230,14 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `s
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs on every push to `main` and `develop` and on every pull request: `npm ci`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
+`.github/workflows/ci.yml` runs on every push to `main` and on every pull request: `npm ci`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
 
 ## Deploying to Vercel
 
 `vercel.json` defines:
 
 - Framework preset: **Other**. That alone is not enough, though: Vercel's builder still detects `@angular/cli` in `package.json` and applies the Angular preset's catch-all rewrite to `index.html`, which answers every unknown address with status 200 (neither the project setting nor `"framework": null` in `vercel.json` prevents it). So the build ends with `scripts/create-build-output.mjs`, which writes a Build Output API v3 directory, `.vercel/output` (git-ignored). When that exists the builder uses it as is and skips the framework's routes; its `config.json` holds the only routing table: the security headers (read from `vercel.json`), then real files, then `404.html` with a real 404 status. This relies on **every page being prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is.
+- Branches: only `main` is deployed automatically. `git.deploymentEnabled` is `{ "**": false, "main": true }`, because a branch that is not listed deploys by default, and the patterns are minimatch (`**` also matches the slashes in names like `dependabot/...`). A branch matching several rules deploys when any of them is `true`.
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`

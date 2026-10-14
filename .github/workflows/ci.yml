@@ -4,7 +4,7 @@ name: CI
 # so a broken change is caught on the pull request and not on the deployment.
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
 
 permissions:
