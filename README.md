@@ -50,8 +50,8 @@ By default, the application is available at `http://localhost:4200`.
 | `npm start` | Starts the local server in development mode. |
 | `npm run dev` | Starts the local server accepting connections on `0.0.0.0`. |
 | `npm run preview` | Starts the production configuration without development prebundling or HMR. |
-| `npm run build` | Generates the default build, configured as production, then creates `404.html` from the prerendered not-found page. |
-| `npm run build:production` | Explicitly generates the production build (and `404.html`). |
+| `npm run build` | Generates the production build, then writes `404.html` and the `.vercel/output` routing (see [Deploying to Vercel](#deploying-to-vercel)). |
+| `npm run build:production` | Explicitly generates the production build, with the same extra steps. |
 | `npm run watch` | Rebuilds in development mode on every change. |
 | `npm test` | Runs Vitest in interactive/watch mode. |
 | `npm run test:ci` | Runs the full test suite once and exits. |
@@ -176,7 +176,7 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. Sh
 
 `vercel.json` defines:
 
-- Framework preset: **Other**, set in the Vercel project (Settings → Build and Deployment → Framework Settings). `vercel.json` also says `"framework": null`, but on its own that did not take effect: the project's Angular preset kept adding its catch-all rewrite to `index.html`, which answers every unknown address with status 200. Without it, the host serves `404.html` (created by `scripts/create-404.mjs` after `ng build`) with a real 404 status. This only works because **every page is prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is. Changing a project setting only applies to deployments created afterwards from git; **Redeploy** on an old deployment keeps its old settings.
+- Framework preset: **Other**. That alone is not enough, though: Vercel's builder still detects `@angular/cli` in `package.json` and applies the Angular preset's catch-all rewrite to `index.html`, which answers every unknown address with status 200 (neither the project setting nor `"framework": null` in `vercel.json` prevents it). So the build ends with `scripts/create-build-output.mjs`, which writes a Build Output API v3 directory, `.vercel/output` (git-ignored). When that exists the builder uses it as is and skips the framework's routes; its `config.json` holds the only routing table: the security headers (read from `vercel.json`), then real files, then `404.html` with a real 404 status. This relies on **every page being prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is.
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`

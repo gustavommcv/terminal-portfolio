@@ -31,7 +31,7 @@ export const serverRoutes: ServerRoute[] = [
   },
 
   // The not-found page. The build copies its output to `404.html` (see
-  // scripts/create-404.mjs), which the host serves with a 404 status for any
+  // scripts/create-build-output.mjs), which the host serves with a 404 status for any
   // address that is neither a page nor an asset.
   {
     path: '404',
