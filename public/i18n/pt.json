@@ -97,7 +97,7 @@
       "terminal-portfolio": {
         "title": "Terminal Portfolio",
         "shortDescription": "Meu portfólio pessoal, construído em Angular com estilo de interface de terminal.",
-        "description": "Este próprio portfólio — um app Angular 22 estilizado como terminal, com animações de digitação, conteúdo bilíngue (EN/PT) via ngx-translate e renderização no servidor para um primeiro carregamento rápido. Construído aos poucos: OnPush em todos os componentes, uma sequência de introdução baseada em signals, e um sistema de tokens de design controlando espaçamento, cor e breakpoints em vez de valores soltos."
+        "description": "Este próprio portfólio — um app Angular 22 estilizado como terminal, com animações de digitação, conteúdo bilíngue (EN/PT) e renderização no servidor. Construído com OnPush em todos os componentes, uma sequência de introdução baseada em signals e um sistema de tokens de design para espaçamento, cor e breakpoints."
       },
       "maquetaria": {
         "title": "Veronese Maquetes",
@@ -107,17 +107,17 @@
       "minimal-neovim": {
         "title": "Minimal Neovim",
         "shortDescription": "Configuração de Neovim moderna e modular, otimizada para produtividade e estética. Construída em Lua.",
-        "description": "Uma configuração pessoal de Neovim construída para ser lida e entendida, não só instalada — priorizando as APIs nativas do Neovim em vez de plugins sempre que isso já resolve. Usa lazy.nvim para gerenciar plugins, Treesitter e LSP nativo com Mason para suporte a linguagens, Telescope para busca fuzzy e Neo-tree para navegação de arquivos, com suporte a Lua, JS/TS, Go, Python e outras."
+        "description": "Uma configuração pessoal de Neovim feita para ser lida, não só instalada — priorizando as APIs nativas em vez de plugins sempre que isso basta. Treesitter e LSP nativo com Mason cuidam das linguagens (Lua, JS/TS, Go, Python e outras), com Telescope para busca fuzzy e Neo-tree para navegar pelos arquivos."
       },
       "gomodoro": {
         "title": "Gomodoro",
         "shortDescription": "Cronômetro Pomodoro ultrarrápido para o terminal, construído em Go.",
-        "description": "Um cronômetro Pomodoro de terminal em Go: quatro sessões de trabalho com pausas curtas entre elas e uma pausa longa após a quarta, depois encerra — com notificações e alertas sonoros a cada transição, e pausar/retomar/pular enquanto roda. A configuração passa por um interpretador Lua isolado, sem acesso a arquivos, rede ou processos, e os tons de alerta são gerados em memória em vez de vir como arquivos de áudio, então o binário fica sem dependências externas em Windows, Linux e macOS."
+        "description": "Um cronômetro Pomodoro de terminal em Go: quatro sessões de trabalho com pausas curtas e uma longa após a quarta, com notificações, alertas sonoros e pausar/retomar/pular. Configurado por um interpretador Lua isolado, com tons de alerta gerados em memória, então o binário não tem dependências externas."
       },
       "voting-system": {
         "title": "Sistema de Votação",
         "shortDescription": "Sistema de votação em tempo real para avaliação de competências, construído para a Signo Tech.",
-        "description": "Um sistema de votação em tempo real construído para a Signo Tech rodar avaliações de competência: criar enquetes, votar e ver o resultado atualizar ao vivo via WebSockets conforme os votos chegam. As enquetes têm status (não iniciada / em andamento / finalizada), votar é bloqueado depois que uma enquete fecha ou para quem não está autenticado, e o frontend em Angular conversa com uma API separada."
+        "description": "Um sistema de votação em tempo real construído para as avaliações de competência da Signo Tech: criar enquetes, votar e ver o resultado atualizar ao vivo via WebSockets. As enquetes têm status e votar é bloqueado depois que a enquete fecha ou para quem não está autenticado. Frontend em Angular, com uma API separada."
       },
       "chmod-calculator": {
         "title": "Chmod Calculator",
@@ -127,7 +127,7 @@
       "xp-bootcamp": {
         "title": "Desafio do bootcamp - XP",
         "shortDescription": "API RESTful construída para o desafio do bootcamp de pós-graduação em arquitetura de software.",
-        "description": "Uma API RESTful construída para o desafio do bootcamp de pós-graduação em arquitetura de software, cobrindo autenticação, usuários, produtos e pedidos com CRUD completo. Estruturada em torno de MVC, uma camada de repositório para acesso a dados e uma camada de serviço para as regras de negócio, com InversifyJS para injeção de dependência e DTOs para manter os modelos internos desacoplados do formato exposto pela API. Roda em Express e MariaDB, containerizada com Docker Compose."
+        "description": "Uma API RESTful para o desafio de um bootcamp de pós-graduação em arquitetura de software, cobrindo autenticação, usuários, produtos e pedidos com CRUD completo. Em camadas, com MVC, repositórios e serviços, InversifyJS para injeção de dependência e DTOs na fronteira. Express, MariaDB e Docker Compose."
       },
       "itau-challenge": {
         "title": "Itaú Unibanco - Desafio",
@@ -137,12 +137,12 @@
       "books-app": {
         "title": "BooksApp",
         "shortDescription": "App de catálogo de livros com avaliações, resenhas e recomendações baseadas no que você já leu.",
-        "description": "O frontend de um app de catálogo de livros: navegação, avaliações, resenhas e recomendações baseadas no que o usuário já leu, além de login/cadastro via JWT e gerenciamento de perfil. Construído com React e React Router, Context API para estado (optei por não usar Redux, para manter simples), SCSS modular para estilos, e Axios conversando com uma API separada."
+        "description": "O frontend de um app de catálogo de livros: navegação, avaliações, resenhas e recomendações baseadas no que o usuário já leu, além de login/cadastro via JWT e perfil. Construído com React e React Router, Context API em vez de Redux para manter simples, SCSS modular e Axios conversando com uma API separada."
       },
       "airlock-rest": {
         "title": "Airlock REST",
         "shortDescription": "API REST refatorada com Clean Architecture, autenticação JWT e cobertura de testes com Jest.",
-        "description": "Uma API REST construída originalmente seguindo um curso de Apollo Server/GraphQL, depois refatorada para Clean Architecture como exercício deliberado de separação de responsabilidades: uma camada de domínio para entidades e regras de negócio, uma camada de aplicação para DTOs e serviços, e uma camada de infraestrutura para banco de dados, controllers e middlewares. Construída com TypeScript, Express e MariaDB, com bcrypt e JWT para autenticação e Jest para cobertura de testes, desenvolvida test-first."
+        "description": "Uma API REST construída originalmente seguindo um curso de Apollo Server/GraphQL e depois refatorada para Clean Architecture como exercício de separação de responsabilidades: camadas de domínio, aplicação e infraestrutura. TypeScript, Express e MariaDB, com bcrypt e JWT para autenticação e testes em Jest escritos test-first."
       },
       "portfolio": {
         "title": "Portfólio",
@@ -162,32 +162,32 @@
       "json-visual-editor": {
         "title": "JSON Visual Editor",
         "shortDescription": "Editor visual de JSON no navegador — importe, edite, compare e exporte arquivos JSON sem editar a sintaxe bruta.",
-        "description": "Um editor de JSON no navegador construído em torno de uma ideia: editar dados estruturados interagindo visualmente com eles — formulários para objetos, tabelas ou cards para arrays — em vez de editar texto bruto na mão. Inclui criação, reordenação e remoção de propriedades/itens com confirmação, busca global por chaves/valores/caminhos, badges que reconhecem o tipo de conteúdo (datas, URLs, cores, e-mails, UUIDs...), undo/redo com 50 passos, comparação estrutural com o arquivo original, e auto-save local no IndexedDB para recuperar a sessão. Construído com Vue 3 (script setup, sem biblioteca de estado ou framework de CSS) e TypeScript em modo estrito, tudo rodando no cliente — os arquivos nunca saem do navegador."
+        "description": "Um editor de JSON no navegador para editar dados estruturados visualmente — formulários para objetos, tabelas ou cards para arrays — em vez de texto bruto. Inclui busca global, undo/redo com 50 passos, comparação estrutural com o arquivo original e auto-save local. Vue 3 e TypeScript em modo estrito, tudo no cliente: os arquivos nunca saem do navegador."
       },
       "mangabind": {
         "title": "Mangabind",
         "shortDescription": "Agrupa downloads de mangá feitos capítulo por capítulo em um .cbz por volume, pronto para um leitor ou conversor.",
-        "description": "Uma ferramenta de linha de comando que agrupa capítulos de mangá em volumes. Aponte para uma pasta de capítulos baixados um a um (ex.: via HakuNeko) — pastas de imagens soltas e arquivos .cbz podem ser misturados, cada um reiniciando a numeração de páginas e muitas vezes nomeado pela convenção de um grupo de scan diferente — e ela gera um .cbz por volume, ou um único arquivo para a série inteira. A leitura dos nomes das pastas de capítulo funciona como uma cadeia de estratégias plugáveis em vez de uma única regex fixa, então nomenclatura inconsistente dentro de um mesmo mangá ainda é resolvida; uma simulação (dry run) mostra o agrupamento antes de gravar e aponta nomes não reconhecidos, lacunas e capítulos conflitantes. As páginas mantêm a ordem que o Kindle Comic Converter daria, os volumes são gravados por inteiro ou não são gravados — uma execução interrompida nunca deixa um arquivo pela metade — e um relatório JSON versionado permite que outras ferramentas o controlem. Construído em Go, com binários de checksum verificado para Windows, macOS e Linux — é a etapa de agrupamento por trás do mangapress e do Mangabound."
+        "description": "Uma ferramenta de linha de comando em Go que agrupa capítulos de mangá baixados um a um — pastas soltas e arquivos .cbz com nomes inconsistentes — em um .cbz por volume, ou em um único arquivo para a série. Estratégias de leitura plugáveis resolvem os nomes, e um dry run mostra o agrupamento antes. A etapa de agrupamento por trás do mangapress e do Mangabound."
       },
       "mangabound": {
         "title": "Mangabound",
         "shortDescription": "App de desktop para organizar capítulos de mangá em volumes e convertê-los em livros para o seu e-reader.",
-        "description": "Um app de desktop que coloca uma interface gráfica sobre todo o caminho do mangá até o e-reader: arraste pastas de capítulos, uma biblioteca ou arquivos CBZ, revise e edite o plano de capítulos por volume, e converta para CBZ, EPUB ou PDF para Kindle, Kobo, reMarkable ou tamanhos de página personalizados — em volumes separados ou em um único livro. O agrupamento roda no Mangabind e a conversão no mangapress, ambos embutidos no app, então tudo é processado localmente; buscas online de volumes e autores (MangaDex) são opcionais e usam só títulos e metadados, nunca as suas páginas. Os livros prontos podem ser salvos ou compartilhados direto com o KOReader pela rede local. Construído com Electron, React, TypeScript e Tailwind CSS, com guia do usuário bilíngue (EN/PT-BR) e pacotes para Windows, macOS e Linux — atualmente em alfa."
+        "description": "Um app de desktop para todo o caminho do mangá até o e-reader: arraste capítulos, revise o plano de volumes, converta para CBZ, EPUB ou PDF para Kindle, Kobo, reMarkable ou tamanhos personalizados, e depois salve ou compartilhe com o KOReader pela rede local. Roda o Mangabind e o mangapress localmente. Electron e React, em alfa."
       },
       "mangapress": {
         "title": "Mangapress",
         "shortDescription": "Ferramenta de linha de comando em Rust que converte mangá em livros EPUB, CBZ ou PDF no tamanho do seu e-reader.",
-        "description": "Uma ferramenta de linha de comando independente, escrita em Rust, que converte mangás e quadrinhos em livros EPUB, CBZ ou PDF para e-readers: corta margens, ajusta o tamanho das páginas para a tela de destino, ajusta o contraste e trata páginas duplas, com perfis de dispositivo para Kindle, Kobo e reMarkable ou dimensões totalmente personalizadas. O processamento de imagem segue o Kindle Comic Converter 12.0.0 como referência e é comparado com ele em cenários selecionados por ferramentas de paridade, mas continua sendo uma implementação independente, com uma fronteira de licenciamento deliberada. Aceita um CBZ, uma pasta de imagens ou a saída do Mangabind, emite eventos JSON Lines legíveis por máquina para que apps como o Mangabound possam controlá-la, e é instalada a partir de pacotes de release com checksum verificado para Windows, Linux e macOS."
+        "description": "Uma ferramenta de linha de comando em Rust que converte mangá em livros EPUB, CBZ ou PDF para e-readers: corta margens, ajusta o tamanho das páginas para a tela, ajusta o contraste e trata páginas duplas, com perfis para Kindle, Kobo e reMarkable. Segue o processamento de imagem do Kindle Comic Converter, como implementação independente."
       },
       "rv-wheel": {
         "title": "RVWheel",
         "shortDescription": "Suporte open-source a volante de corrida para um jogo via UE4SS, construído em C++ com DirectInput e force feedback.",
-        "description": "RV There Yet? não tem suporte nativo a volantes de corrida, então isso adiciona esse suporte por fora, via UE4SS, sem mexer no executável do jogo. Enumera e reconhece dispositivos DirectInput plugados a quente, normaliza a entrada de direção/pedais/botões/POV, e usa perfis de dispositivo em JSON versionados, casados por VID/PID, com um fluxo de calibração guiado a 60 Hz para volantes desconhecidos e force feedback opcional com limites de segurança. Escrito em C++20, construído com CMake e vcpkg, com mais de 231 testes unitários em Catch2."
+        "description": "RV There Yet? não tem suporte nativo a volantes de corrida, então isso adiciona esse suporte por fora, via UE4SS, sem mexer no executável do jogo. Reconhece dispositivos DirectInput plugados a quente, usa perfis JSON casados por VID/PID, calibração guiada e force feedback opcional com limites de segurança. C++20 com CMake, vcpkg e mais de 231 testes em Catch2."
       },
       "dotfiles": {
         "title": "Dotfiles",
         "shortDescription": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL.",
-        "description": "Minha própria configuração de Arch Linux, dividida em três branches para três contextos: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Cobre Hyprland, Waybar, Rofi, Foot, tmux e Zsh, com um install.sh que instala pacotes via yay e cria os symlinks necessários."
+        "description": "Minha própria configuração de Arch Linux, dividida em três branches: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Um install.sh instala pacotes via yay e cria os symlinks necessários."
       }
     }
   },

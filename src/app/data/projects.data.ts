@@ -130,25 +130,31 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'terminal-portfolio',
-    image: 'images/projects/terminalportfolio/terminal-portfolio.webp',
+    id: 'mangabound',
+    image: 'images/projects/mangabound/images/mangabound-thumbnail.webp',
     links: {
-      github: 'https://github.com/gustavommcv/terminal-portfolio',
+      github: 'https://github.com/gustavommcv/mangabound',
+      docs: 'https://gustavommcv.github.io/mangabound/',
     },
-    stack: ['Angular', 'TypeScript', 'SCSS'],
+    stack: ['Electron', 'React', 'TypeScript', 'Tailwind CSS'],
     badges: [
-      angular,
-      typescript,
-      scss,
       {
-        label: 'Vercel',
-        slug: 'vercel',
-        color: '000000',
-        category: 'hosting',
+        label: 'Electron',
+        slug: 'electron',
+        color: '47848F',
+        category: 'framework',
+      },
+      react,
+      typescript,
+      {
+        label: 'Tailwind CSS',
+        slug: 'tailwindcss',
+        color: '06B6D4',
+        category: 'tool',
       },
     ],
-    command: 'glow terminal-portfolio.md',
     featured: true,
+    command: 'mangabound',
   },
 
   {
@@ -186,34 +192,6 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'mangabound',
-    image: 'images/projects/mangabound/images/mangabound-thumbnail.webp',
-    links: {
-      github: 'https://github.com/gustavommcv/mangabound',
-      docs: 'https://gustavommcv.github.io/mangabound/',
-    },
-    stack: ['Electron', 'React', 'TypeScript', 'Tailwind CSS'],
-    badges: [
-      {
-        label: 'Electron',
-        slug: 'electron',
-        color: '47848F',
-        category: 'framework',
-      },
-      react,
-      typescript,
-      {
-        label: 'Tailwind CSS',
-        slug: 'tailwindcss',
-        color: '06B6D4',
-        category: 'tool',
-      },
-    ],
-    featured: true,
-    command: 'mangabound',
-  },
-
-  {
     id: 'mangapress',
     image: 'images/projects/mangapress/images/mangapress-thumbnail.webp',
     links: {
@@ -225,6 +203,28 @@ export const projectsData: Project[] = [
     ],
     featured: true,
     command: 'mangapress',
+  },
+
+  {
+    id: 'terminal-portfolio',
+    image: 'images/projects/terminalportfolio/terminal-portfolio.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/terminal-portfolio',
+    },
+    stack: ['Angular', 'TypeScript', 'SCSS'],
+    badges: [
+      angular,
+      typescript,
+      scss,
+      {
+        label: 'Vercel',
+        slug: 'vercel',
+        color: '000000',
+        category: 'hosting',
+      },
+    ],
+    command: 'glow terminal-portfolio.md',
+    featured: true,
   },
 
   {
