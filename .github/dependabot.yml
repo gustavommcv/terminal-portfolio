@@ -4,4 +4,29 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    groups:
+      # The Angular packages only work together at the same version, so they
+      # move in one pull request instead of one per package.
+      angular:
+        patterns:
+          - "@angular/*"
+      # Everything else that is a minor or patch update is also one pull request.
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Angular 22 supports TypeScript 6.0.x only; a major bump has to wait for it.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # The types follow the Node line in package.json "engines" (24).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"

@@ -185,7 +185,7 @@ dist/portfolio/browser
 Configured budgets are:
 
 - Initial bundle: warning at 500 kB, error at 1 MB.
-- Component styles: warning at 4 kB, error at 8 kB.
+- Component styles: warning at 6 kB, error at 8 kB.
 
 ## Testing
 
@@ -195,7 +195,14 @@ To run the full suite once:
 npm run test:ci
 ```
 
-Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. Shared Router and internationalization providers are configured in `src/test-setup.ts`.
+Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `src/test-setup.ts` provides the Router and loads the real English catalog, so specs assert the text visitors read, not translation keys. Two details worth knowing when writing specs:
+
+- `fixture.detectChanges()` does not run `afterNextRender` hooks (since Angular 22.2); call `TestBed.tick()`, which also runs effects. Angular's own scheduler leaves a pair of timers pending after an input or signal change, and a tick clears them, so call it before counting timers with fake timers.
+- Specs that read files (`node:fs`) rely on `"node"` being listed in `types` in `tsconfig.spec.json`.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and `develop` and on every pull request: `npm ci`, `npm run test:ci`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
 
 ## Deploying to Vercel
 
@@ -228,9 +235,12 @@ There are currently no required environment variables. The files in `src/environ
 
 ## Dependency updates
 
-Dependabot (`.github/dependabot.yml`) checks the npm dependencies weekly and
-opens a pull request for each update; `npm audit --omit=dev` reports 0
-vulnerabilities as of this writing.
+Dependabot (`.github/dependabot.yml`) checks the npm dependencies and the
+GitHub Actions weekly. The Angular packages come in one pull request, since they
+only work together at the same version, and the other minor and patch updates in
+a second one. Major updates of `typescript` (Angular 22 supports 6.0.x only) and
+`@types/node` (it follows the Node line in `engines`) are ignored. CI has to be
+green before merging; `npm audit --omit=dev` shows what is currently known.
 
 ## Contributing
 

@@ -2,6 +2,107 @@
 
 All notable changes to this project are documented in this file.
 
+## [Unreleased] — 2026-10-14
+
+### SEO, routing, and deployment
+
+- Added `SeoService`: each route declares its kind in `data.seo`, and the title,
+  description, canonical URL, `hreflang` alternates, and Open Graph/Twitter tags
+  follow the route and the language, in the browser and while prerendering. The
+  canonical host is the bare domain (`https://gusmonnerat.dev`, see `SITE_URL`).
+- Every project page (`/portfolio/<id>`) is prerendered, with its own title,
+  summary, and card image; `public/sitemap.xml` and `robots.txt` list them with
+  English, Brazilian Portuguese, and `x-default` alternates, and tests keep the
+  sitemap in step with the project catalog.
+- Unknown addresses, assets, and project ids now answer with a real HTTP 404 and
+  the translated not-found page, marked `noindex`. Vercel's builder adds the
+  Angular preset's catch-all rewrite even under the "Other" preset, so the build
+  ends with `scripts/create-build-output.mjs`, which writes a Build Output API
+  directory with an explicit routing table (security headers, real files, then
+  `404.html`). Pages are served at their clean address without a redirect.
+- The language of a first visit follows the browser's language list; a choice
+  made with the toggle is remembered, and an explicit `?locale=` always wins.
+
+### Internationalization
+
+- Visible text and accessible names that were fixed in English now come from the
+  catalogs: header menu and navigation, the footer's theme credit, the CV
+  download heading and buttons, project links, the 404 message, badges, and the
+  age. "Hello, World!" and the footer's "Made with ♥ by" stay in English on
+  purpose.
+- Wording fixes in both languages (e.g. "Résumé", "Formação acadêmica", the
+  scroll hints) and brand spellings (Go, JavaScript, LinkedIn).
+- The 404 shows the missing path without its query string.
+- Specs now fail when the English and Portuguese catalogs differ in keys or
+  `{{placeholders}}`, and when the home intro's build-time layout copies drift
+  from the catalogs.
+
+### Accessibility
+
+- Every page has one `h1` (`/portfolio` and the 404 had none); the boxed title
+  inside a section is a paragraph instead of a second, repeated heading; project
+  cards take a `headingLevel`.
+- Added a skip link to the main content, and `scroll-padding-top` so focus and
+  the skip link never end up behind the sticky header.
+- The terminal command line exposes the full command as visually hidden text
+  instead of an `aria-label` on an element with no role, which assistive
+  technology ignored.
+- `html` uses `font-size: 62.5%` instead of `10px`, so the visitor's own font size
+  setting applies.
+- The footer link is underlined, the heart has `role="img"`, the "command not
+  found" red reaches 4.5:1, and each CV download button names its format.
+- Checked with axe-core on the home, about, portfolio, project, and 404 pages in
+  both languages (no violations), and with a contrast check over every text
+  element.
+
+### Portfolio
+
+- Added Mangabound and mangapress, and featured them. Projects were reordered
+  by relevance and their descriptions shortened.
+- Project media is split into `cover` and `gallery`: a card shows the cover (or
+  the first gallery image), and the project page has a thumbnail gallery with a
+  full-screen viewer. Mangabound has a Documentation link.
+- The portfolio links in the CVs point to `/portfolio`, in the CV's own language.
+
+### Dependencies, CI, and documentation
+
+- Angular 22.1.0 → 22.2.2 (all `@angular/*` packages), plus `express` 5.3,
+  `zone.js` 0.16.3, `jsdom` 30.1, `vitest` 4.1.11, and the matching type
+  packages. `npm audit` went from 22 vulnerabilities (3 critical) to 0.
+  `typescript` 7, `vitest` 5, and `@types/node` 26 are held back on purpose.
+- Test changes the update required: `fixture.detectChanges()` no longer runs
+  `afterNextRender` hooks, so the home specs call `TestBed.tick()`; and
+  `tsconfig.spec.json` lists the `node` types the specs that read files need.
+  The home intro was checked in a real browser and still types and completes.
+- Added GitHub Actions: `ci.yml` (`npm ci`, tests, production build on every push
+  and pull request) and `audit.yml` (weekly `npm audit` of the production
+  dependencies).
+- Dependabot now groups the Angular packages into one pull request and the other
+  minor and patch updates into another, ignores major bumps of `typescript` and
+  `@types/node`, and also watches GitHub Actions.
+- Documentation: the README's component-style budget (6 kB), the dependency
+  section, and the ARCHITECTURE description of the home intro states (five
+  states, not four) and of how `vercel.json` and the build output work.
+- Result: 41 spec files, 210 tests.
+
+## [Unreleased] — 2026-08-03 to 2026-09-11
+
+### Interface and content
+
+- Migrated every component to `ChangeDetectionStrategy.OnPush`.
+- Tokenized the repeated colors, breakpoints, transition durations, and z-index
+  layers in the SCSS and removed the unused light theme.
+- Added the neo-tree-inspired mobile menu, and fixed the active menu item not
+  following route changes that did not come from the menu itself.
+- Project stack tags are Shields.io badges (the CSP allows `img.shields.io`);
+  descriptions are split into short and full text; the swipe hint only shows
+  when a horizontal container actually overflows.
+- Added the dotfiles, RVWheel, JSON Visual Editor, and Mangabind projects, and
+  rewrote the visible copy in a more personal voice.
+- Enabled Vercel Web Analytics and Speed Insights.
+- Limited Vercel deployments to `main` and `develop` (`git.deploymentEnabled` in
+  `vercel.json`), so Dependabot branches no longer send failed-deployment emails.
+
 ## [Unreleased] — 2026-08-02
 
 ### Privacy, security, and performance

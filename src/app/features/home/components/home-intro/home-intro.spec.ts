@@ -59,6 +59,14 @@ describe('HomeIntro', () => {
 
   afterEach(() => vi.useRealTimers());
 
+  // Angular schedules its own tick (a pair of timers) whenever an input or signal
+  // changes outside change detection. Running that tick clears them, so a
+  // non-zero count can only be a timer the intro left behind.
+  function expectNoPendingTimers(): void {
+    TestBed.tick();
+    expect(vi.getTimerCount()).toBe(0);
+  }
+
   function ready(command: string): HomeIntroCommandState {
     return { status: 'ready', language: 'en', command };
   }
@@ -73,6 +81,10 @@ describe('HomeIntro', () => {
       HOME_INTRO_LAYOUT_RESERVATIONS.en,
     );
     fixture.detectChanges();
+    // fixture.detectChanges() no longer runs afterNextRender hooks (Angular
+    // 22.2); the intro claims its run there, so tick the application like the
+    // browser does after each render.
+    TestBed.tick();
     fixture.detectChanges();
     return fixture;
   }
@@ -111,7 +123,7 @@ describe('HomeIntro', () => {
     expect(
       reservation.querySelector('.terminal-cursor--static'),
     ).not.toBeNull();
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('keeps the same reserved rows and terminal node through typing and completion', () => {
@@ -203,7 +215,7 @@ describe('HomeIntro', () => {
     expect(displayedCommand(fixture)).toBe('whoami');
     vi.advanceTimersByTime(7);
     expect(displayedCommand(fixture)).toBe('quem-sou-eu');
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('completes safely without exposing a key when loading fails', () => {
@@ -218,7 +230,7 @@ describe('HomeIntro', () => {
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(displayedCommand(fixture)).toBe('');
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('cancels pending callbacks and consumes the sequence on destroy', () => {
@@ -239,7 +251,7 @@ describe('HomeIntro', () => {
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(displayedCommand(second)).toBe('abc');
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('mounts immediately and waits without animation for reduced motion', () => {
@@ -253,7 +265,7 @@ describe('HomeIntro', () => {
     fixture.detectChanges();
 
     expect(displayedCommand(fixture)).toBe('whoami');
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('stops an active sequence if reduced motion is enabled', () => {
@@ -265,7 +277,7 @@ describe('HomeIntro', () => {
 
     expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
     expect(displayedCommand(fixture)).toBe('whoami');
-    expect(vi.getTimerCount()).toBe(0);
+    expectNoPendingTimers();
   });
 
   it('types Unicode code points without truncation', () => {

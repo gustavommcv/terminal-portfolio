@@ -80,6 +80,10 @@ describe('HomePage intro lifecycle', () => {
   function createHome(): ComponentFixture<HomePage> {
     const fixture = TestBed.createComponent(HomePage);
     fixture.detectChanges();
+    // fixture.detectChanges() no longer runs afterNextRender hooks (Angular
+    // 22.2); the intro claims its run there, so tick the application like the
+    // browser does after each render.
+    TestBed.tick();
     fixture.detectChanges();
     return fixture;
   }

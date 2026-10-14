@@ -88,20 +88,25 @@ translation loading are not duplicated in the shell.
 
 ### Home intro lifecycle
 
-`HomeIntroService` is a root-provided, in-memory state machine with four states:
+`HomeIntroService` is a root-provided, in-memory state machine with five states:
 
 ```text
-idle ── browser post-hydration claim ──► waiting
-  └── reduced motion ──────────────────► completed
+unclassified ── first recognized URL is "/" ──────────► eligible
+     └── first recognized URL is anything else ─────► completed
+eligible ── browser post-hydration claim ──► waiting
+  └── reduced motion ──────────────────────► completed
 waiting ── active catalog + command ready ──► typing
-waiting ── catalog unavailable / route destruction ──► completed
+waiting ── catalog unavailable / reduced motion / route destruction ──► completed
 typing ── final character + final pause ──────────────► completed
 typing ── route destruction / reduced motion ────────► completed
 ```
 
+Only the very first navigation can be `eligible`, so the intro plays once per
+page load and never when the visit starts on another page.
+
 `HomePage` owns the structural rendering boundary. `HomeIntro` and its terminal
-shell remain mounted across the transition. While the service is `idle`,
-`waiting`, or `typing`, every secondary `@if` block is absent. Presentation content, services,
+shell remain mounted across the transition. While the service is `unclassified`,
+`eligible`, `waiting`, or `typing`, every secondary `@if` block is absent. Presentation content, services,
 stack, projects, contact, and footer are created only in `completed` and are
 inserted immediately with their final styles, without a secondary animation.
 Consequently, secondary hooks, image loads, observers, and other side effects
@@ -238,6 +243,12 @@ delayed loads, both languages, stale completion, failures, navigation
 interruption, reduced motion, Unicode, and one-run behavior. The production
 build additionally verifies SSR/SSG compilation and prerendering.
 
+`src/test-setup.ts` loads the real English catalog, so specs check what visitors
+read. Specs that depend on `afterNextRender` must call `TestBed.tick()`:
+since Angular 22.2 `fixture.detectChanges()` no longer runs those hooks. The
+GitHub Actions workflow `ci.yml` runs the suite and the production build on
+every push and pull request (see the README).
+
 ## Build and delivery
 
 ```text
@@ -252,7 +263,7 @@ Angular 22 build + prerender
         Vercel Edge CDN
 ```
 
-`vercel.json` selects the Angular preset, runs `npm ci` and `npm run build`, and publishes only `dist/portfolio/browser`. The project does not require any environment variables in its current state.
+`vercel.json` runs `npm ci` and `npm run build` and publishes only `dist/portfolio/browser`; the build also writes the `.vercel/output` routing described under "Routes and rendering" above, which is what makes unknown paths return 404. The project does not require any environment variables in its current state.
 
 ## Security headers
 

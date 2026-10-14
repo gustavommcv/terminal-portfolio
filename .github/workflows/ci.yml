@@ -1,0 +1,40 @@
+name: CI
+
+# The same steps Vercel runs to deploy (npm ci, npm run build), plus the tests,
+# so a broken change is caught on the pull request and not on the deployment.
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch or pull request makes the older run pointless.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          # package.json "engines" asks for Node 24; Vercel runs the same line.
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm run test:ci
+
+      # Prerenders every route and writes 404.html and .vercel/output, so this
+      # also fails when a page is missing from app.routes.server.ts.
+      - name: Build
+        run: npm run build
