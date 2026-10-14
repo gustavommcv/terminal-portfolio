@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 import { LanguageService } from '../../../services/language.service';
+import { isPlainLeftClick } from '../click.utils';
 
 @Component({
   selector: 'app-button',
@@ -32,13 +33,7 @@ export class AppButton {
   }
 
   handleClick(event: MouseEvent): void {
-    if (
-      event.button !== 0 ||
-      event.ctrlKey ||
-      event.metaKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
+    if (!isPlainLeftClick(event)) {
       return;
     }
 

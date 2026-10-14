@@ -1,5 +1,8 @@
 import type { NeoTreeIconName } from '../../shared/neo-tree-icon/neo-tree-icon';
 
+/** The pages in the main navigation, in order, shown by both the desktop bar and the mobile menu. */
+export const NAV_ROUTES = ['/', '/about', '/portfolio'] as const;
+
 /** Derives the visible nav label from a route path, e.g. '/about' -> 'about'. */
 export function routeLabel(route: string): string {
   return route === '/' ? 'home' : route.slice(1);

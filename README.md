@@ -72,7 +72,7 @@ terminal-portfolio/
 │   ├── app/
 │   │   ├── core/
 │   │   │   ├── layout/         # Header, footer, and the terminal visual composition
-│   │   │   └── shared/         # Buttons, titles, language toggle, and project cards
+│   │   │   └── shared/         # Buttons, titles, language toggle, project cards, and their helpers
 │   │   ├── data/               # Typed project catalog
 │   │   ├── features/
 │   │   │   ├── home/           # Home page and its sections

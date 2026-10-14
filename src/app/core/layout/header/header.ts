@@ -17,10 +17,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
+import { isPlainLeftClick } from '../../shared/click.utils';
 import { NeoTreeIcon } from '../../shared/neo-tree-icon/neo-tree-icon';
 import { LanguageService } from '../../../services/language.service';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
-import { routeIcon, routeLabel } from './header.utils';
+import { NAV_ROUTES, routeIcon, routeLabel } from './header.utils';
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
 
@@ -42,6 +43,7 @@ export class Header implements OnDestroy {
   private readonly navList = viewChild<ElementRef<HTMLElement>>('navList');
 
   readonly isMenuOpen = signal(false);
+  protected readonly navRoutes = NAV_ROUTES;
   protected readonly routeLabel = routeLabel;
   protected readonly routeIcon = routeIcon;
 
@@ -69,13 +71,7 @@ export class Header implements OnDestroy {
     event: MouseEvent,
     closeMenu = false,
   ): void {
-    if (
-      event.button !== 0 ||
-      event.ctrlKey ||
-      event.metaKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
+    if (!isPlainLeftClick(event)) {
       return;
     }
 

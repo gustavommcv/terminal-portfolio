@@ -69,7 +69,7 @@
           [attr.aria-label]="'header.nav-mobile' | translate"
         >
           <ul class="neo-sidebar__tree">
-            @for (route of ['/', '/about', '/portfolio']; track route) {
+            @for (route of navRoutes; track route) {
               <li class="neo-sidebar__row">
                 <a
                   class="neo-sidebar__link"
@@ -103,7 +103,7 @@
     class="header__nav desktop-nav"
     [attr.aria-label]="'header.nav-primary' | translate"
   >
-    @for (route of ['/', '/about', '/portfolio']; track route) {
+    @for (route of navRoutes; track route) {
       <a
         class="header__link"
         [class.header__link--active]="isActive(route)"

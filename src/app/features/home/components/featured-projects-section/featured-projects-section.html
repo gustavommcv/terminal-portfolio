@@ -13,7 +13,7 @@
       </div>
     }
 
-    <div class="featured-projects-section__container" #scrollContainer>
+    <div class="featured-projects-section__container" appOverflowWatch>
       @for (project of projectsData; track project.id) {
         <project-card [project]="project"></project-card>
       }

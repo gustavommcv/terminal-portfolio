@@ -143,7 +143,7 @@ available.
 ### Core and shared
 
 - `core/layout`: structural components, including the header, footer, and the visual composition that simulates a terminal.
-- `core/shared`: reusable UI elements, such as the button, title, language toggle, and project card.
+- `core/shared`: reusable UI elements, such as the button, title, language toggle, and project card, and two helpers they share: `isPlainLeftClick` (`click.utils.ts`), which every in-app link uses to leave Ctrl/Cmd/Shift/Alt and middle clicks to the browser, and the `OverflowWatch` directive, which tells whether a row scrolls sideways so the "scroll sideways" hint shows only then. The main navigation's pages are the `NAV_ROUTES` constant in `core/layout/header/header.utils.ts`; a test checks each one is a real, prerendered route.
 
 ### Data and services
 

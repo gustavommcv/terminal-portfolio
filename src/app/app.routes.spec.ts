@@ -1,6 +1,7 @@
 import { RenderMode } from '@angular/ssr';
 
 import { routes } from './app.routes';
+import { NAV_ROUTES } from './core/layout/header/header.utils';
 import { serverRoutes } from './app.routes.server';
 
 // The host has no SPA fallback: a path that is not a prerendered file or an
@@ -25,6 +26,15 @@ describe('routes and prerendering', () => {
   it('has no server route for a path the app does not define', () => {
     for (const path of serverMode.keys()) {
       expect(clientPaths, `server route "${path}"`).toContain(path);
+    }
+  });
+
+  it('only links the main navigation to pages that exist and are prerendered', () => {
+    for (const route of NAV_ROUTES) {
+      const path = route.slice(1);
+
+      expect(clientPaths, `nav link ${route}`).toContain(path);
+      expect(serverMode.get(path), `nav link ${route}`).toBe(RenderMode.Prerender);
     }
   });
 

@@ -4,6 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { projectCardImage } from '../../../data/project-media';
 import { Project } from '../../../data/projects.data';
 import { LanguageService } from '../../../services/language.service';
+import { isPlainLeftClick } from '../click.utils';
 
 @Component({
   selector: 'project-card',
@@ -26,13 +27,7 @@ export class ProjectCard {
   }
 
   navigateToDetail(event: MouseEvent): void {
-    if (
-      event.button !== 0 ||
-      event.ctrlKey ||
-      event.metaKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
+    if (!isPlainLeftClick(event)) {
       return;
     }
 

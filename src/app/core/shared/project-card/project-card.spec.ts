@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
 import { Project } from '../../../data/projects.data';
+import { LanguageService } from '../../../services/language.service';
 import { ProjectCard } from './project-card';
 
 describe('ProjectCard', () => {
@@ -28,6 +30,41 @@ describe('ProjectCard', () => {
     expect(link.getAttribute('href')).toBe('/portfolio/test-project');
     expect(link.hasAttribute('role')).toBe(false);
     expect(link.hasAttribute('tabindex')).toBe(false);
+  });
+
+  describe('clicking the card', () => {
+    function click(init: MouseEventInit = {}) {
+      const navigate = vi
+        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
+        .mockResolvedValue(true);
+      const event = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        ...init,
+      });
+      fixture.nativeElement.querySelector('.project-card').dispatchEvent(event);
+      return { event, navigate };
+    }
+
+    it('navigates in the app on a plain left click', () => {
+      const { event, navigate } = click();
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(navigate).toHaveBeenCalledWith('/portfolio/test-project');
+    });
+
+    it.each([
+      ['Ctrl', { ctrlKey: true }],
+      ['Cmd', { metaKey: true }],
+      ['Shift', { shiftKey: true }],
+      ['Alt', { altKey: true }],
+      ['the middle button', { button: 1 }],
+    ])('leaves the browser to handle a click with %s', (_name, init) => {
+      const { event, navigate } = click(init);
+
+      expect(event.defaultPrevented).toBe(false);
+      expect(navigate).not.toHaveBeenCalled();
+    });
   });
 
   it('shows the first gallery image when the project has no cover', () => {

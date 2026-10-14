@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
+import { LanguageService } from '../../../services/language.service';
 import { Header } from './header';
+import { NAV_ROUTES } from './header.utils';
 
 describe('Header', () => {
   let component: Header;
@@ -60,6 +62,83 @@ describe('Header', () => {
       '/portfolio',
     ]);
     expect(desktopLinks[0].getAttribute('aria-current')).toBe('page');
+  });
+
+  describe('clicking a navigation link', () => {
+    function click(link: HTMLElement, init: MouseEventInit = {}): MouseEvent {
+      const event = new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        ...init,
+      });
+      link.dispatchEvent(event);
+      return event;
+    }
+
+    function spyOnNavigation() {
+      return vi
+        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
+        .mockResolvedValue(true);
+    }
+
+    it('navigates in the app on a plain left click, and closes the menu', async () => {
+      const navigate = spyOnNavigation();
+      const overlay = await openMenu();
+
+      const event = click(links(overlay)[1]);
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(navigate).toHaveBeenCalledWith('/about');
+      expect(component.isMenuOpen()).toBe(false);
+    });
+
+    it('navigates from the desktop links without a menu to close', () => {
+      const navigate = spyOnNavigation();
+      const desktopLink = fixture.nativeElement.querySelectorAll(
+        '.desktop-nav .header__link',
+      )[2] as HTMLAnchorElement;
+
+      const event = click(desktopLink);
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(navigate).toHaveBeenCalledWith('/portfolio');
+    });
+
+    it.each([
+      ['Ctrl', { ctrlKey: true }],
+      ['Cmd', { metaKey: true }],
+      ['Shift', { shiftKey: true }],
+      ['Alt', { altKey: true }],
+      ['the middle button', { button: 1 }],
+    ])('leaves the browser to handle a click with %s', async (_name, init) => {
+      const navigate = spyOnNavigation();
+      const overlay = await openMenu();
+      const desktopLink = fixture.nativeElement.querySelector(
+        '.desktop-nav .header__link',
+      ) as HTMLAnchorElement;
+
+      const menuEvent = click(links(overlay)[1], init);
+      const desktopEvent = click(desktopLink, init);
+
+      expect(menuEvent.defaultPrevented).toBe(false);
+      expect(desktopEvent.defaultPrevented).toBe(false);
+      expect(navigate).not.toHaveBeenCalled();
+      // the page is not left, so the menu stays open too
+      expect(component.isMenuOpen()).toBe(true);
+    });
+  });
+
+  it('offers the same pages in the desktop bar and in the mobile menu', async () => {
+    const hrefs = (nodes: NodeListOf<Element>) =>
+      Array.from(nodes).map((link) => link.getAttribute('href'));
+    const overlay = await openMenu();
+
+    expect(
+      hrefs(fixture.nativeElement.querySelectorAll('.desktop-nav .header__link')),
+    ).toEqual([...NAV_ROUTES]);
+    expect(hrefs(overlay.querySelectorAll('.neo-sidebar__link'))).toEqual([
+      ...NAV_ROUTES,
+    ]);
   });
 
   it('does not render the overlay or sidebar while closed', () => {
