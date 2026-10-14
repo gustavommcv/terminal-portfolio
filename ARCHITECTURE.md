@@ -178,7 +178,7 @@ image) are in `src/app/data/site.config.ts`.
 
 The build uses `outputMode: "static"`. The prerendering step generates HTML for the static routes and for each project (`getPrerenderParams` reads the catalog), and a CSR shell for the client-rendered fallback. `portfolio/:id` has a `canMatch` guard (`projectExistsGuard`), so an id that is not in the catalog falls through to `**` and shows the not-found page.
 
-Unknown addresses get a real 404 status: `vercel.json` sets `"framework": null` (the Angular preset would rewrite every miss to `index.html` with a 200), the `404` route is prerendered, and `scripts/create-404.mjs` copies `404/index.html` to `404.html` after the build, which Vercel serves for any address that is not a file. The page hydrates at the requested URL, shows that path, and `SeoService` marks it `noindex`. The consequence: there is no SPA fallback, so every real page must be prerendered (`app.routes.spec.ts` enforces this).
+Unknown addresses get a real 404 status: the Vercel project's Framework Preset is **Other** (the Angular preset would rewrite every miss to `index.html` with a 200), the `404` route is prerendered, and `scripts/create-404.mjs` copies `404/index.html` to `404.html` after the build, which Vercel serves for any address that is not a file. The page hydrates at the requested URL, shows that path, and `SeoService` marks it `noindex`. The consequence: there is no SPA fallback, so every real page must be prerendered (`app.routes.spec.ts` enforces this).
 
 ## Project data flow
 

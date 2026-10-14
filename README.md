@@ -176,7 +176,7 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. Sh
 
 `vercel.json` defines:
 
-- Framework preset: none (`"framework": null`). Vercel's Angular preset adds a catch-all rewrite to `index.html`, which would answer every unknown address with status 200. Without it, the host serves `404.html` (created by `scripts/create-404.mjs` after `ng build`) with a real 404 status. This only works because **every page is prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is.
+- Framework preset: **Other**, set in the Vercel project (Settings → Build and Deployment → Framework Settings). `vercel.json` also says `"framework": null`, but on its own that did not take effect: the project's Angular preset kept adding its catch-all rewrite to `index.html`, which answers every unknown address with status 200. Without it, the host serves `404.html` (created by `scripts/create-404.mjs` after `ng build`) with a real 404 status. This only works because **every page is prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is. Changing a project setting only applies to deployments created afterwards from git; **Redeploy** on an old deployment keeps its old settings.
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`
