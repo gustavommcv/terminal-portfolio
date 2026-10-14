@@ -201,5 +201,26 @@
   },
   "error-page": {
     "title": "Erro"
+  },
+  "seo": {
+    "home": {
+      "title": "Gustavo Monnerat | Desenvolvedor de Software",
+      "description": "Desenvolvedor full stack que constrói aplicações web de ponta a ponta, da interface à API. Este portfólio em formato de terminal reúne meus projetos, minha formação e como falar comigo."
+    },
+    "about": {
+      "title": "Sobre | Gustavo Monnerat",
+      "description": "Trajetória, formação, interesses e currículo de Gustavo Monnerat, desenvolvedor full stack de Curitiba, Brasil."
+    },
+    "portfolio": {
+      "title": "Portfólio | Gustavo Monnerat",
+      "description": "Projetos selecionados de Gustavo Monnerat: aplicações web, ferramentas de linha de comando e software desktop feitos com Angular, Go, Rust e mais."
+    },
+    "project": {
+      "title": "{{title}} | Gustavo Monnerat"
+    },
+    "not-found": {
+      "title": "Página não encontrada | Gustavo Monnerat",
+      "description": "A página que você procurava não existe."
+    }
   }
 }

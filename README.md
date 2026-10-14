@@ -2,7 +2,7 @@
 
 Gustavo Monnerat's personal portfolio, built with Angular and styled as a terminal interface. The site presents professional experience, services, technologies, selected projects, personal information, and a résumé available in Portuguese and English.
 
-Live at [gusmonnerat.dev](https://gusmonnerat.dev).
+Live at [gusmonnerat.dev](https://gusmonnerat.dev) (`www.gusmonnerat.dev` redirects to it, so the bare domain is the canonical host).
 
 ## Technology stack
 
@@ -50,8 +50,8 @@ By default, the application is available at `http://localhost:4200`.
 | `npm start` | Starts the local server in development mode. |
 | `npm run dev` | Starts the local server accepting connections on `0.0.0.0`. |
 | `npm run preview` | Starts the production configuration without development prebundling or HMR. |
-| `npm run build` | Generates the default build, configured as production. |
-| `npm run build:production` | Explicitly generates the production build. |
+| `npm run build` | Generates the default build, configured as production, then creates `404.html` from the prerendered not-found page. |
+| `npm run build:production` | Explicitly generates the production build (and `404.html`). |
 | `npm run watch` | Rebuilds in development mode on every change. |
 | `npm test` | Runs Vitest in interactive/watch mode. |
 | `npm run test:ci` | Runs the full test suite once and exits. |
@@ -103,7 +103,7 @@ The application uses standalone components exclusively. The root component rende
 
 Project data lives in a local, typed catalog and is exposed through `ProjectsDataService`. Language state is coordinated by `LanguageService`, the `locale` query string, and `TranslateService`. The JSON catalogs are loaded from `public/i18n`.
 
-The `/`, `/about`, and `/portfolio` routes are prerendered at build time. The dynamic `/portfolio/:id` route and the fallback route use client-side rendering. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full diagram and detailed flows.
+The `/`, `/about`, and `/portfolio` routes, and one `/portfolio/:id` page per project, are prerendered at build time (the project ids come from the catalog). The fallback route uses client-side rendering; an unknown project id falls through to it, so it shows the not-found page. See [ARCHITECTURE.md](ARCHITECTURE.md) for the full diagram and detailed flows.
 
 The home page's first-visit terminal sequence uses application-scoped in-memory
 state and a structural rendering boundary: secondary home components do not
@@ -123,6 +123,27 @@ active catalog as `loading`, `ready`, or `failed`. The `locale` query string
 uses English as the default; `pt` and legacy/shared `pt_BR` values select
 Portuguese. Translation catalogs live in `public/i18n/en.json` and
 `public/i18n/pt.json` and must be kept structurally in sync.
+
+On the very first page load without a `?locale=` parameter, the language is the
+visitor's remembered choice (`localStorage` key `locale`) or, failing that, the
+first supported language in the browser's language list; a Portuguese browser is
+redirected to `?locale=pt`. An explicit `?locale=` always wins and is remembered,
+and so is the language toggle's choice. Prerendered pages are always English
+(there is no navigator on the server), and crawlers keep seeing English.
+
+## SEO and metadata
+
+`SeoService` keeps the title, description, canonical URL, `hreflang`
+alternates, and Open Graph/Twitter tags in step with the current route and
+language, in the browser and during prerendering, so each static page ships
+with its own tags. Each route declares its kind in `data.seo` (`app.routes.ts`);
+the texts live under `seo` in the translation catalogs, and a project page uses
+the project's own title, summary, and card image. Unknown pages are marked
+`noindex` and have no canonical URL.
+
+The canonical host is `SITE_URL` in `src/app/data/site.config.ts`. `public/sitemap.xml`
+is maintained by hand: **adding a project means adding its `/portfolio/<id>`
+entry**, and a test fails until you do.
 
 ## Production build
 
@@ -155,7 +176,7 @@ Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. Sh
 
 `vercel.json` defines:
 
-- Framework preset: `angular`
+- Framework preset: none (`"framework": null`). Vercel's Angular preset adds a catch-all rewrite to `index.html`, which would answer every unknown address with status 200. Without it, the host serves `404.html` (created by `scripts/create-404.mjs` after `ng build`) with a real 404 status. This only works because **every page is prerendered**: a new route must also be added to `app.routes.server.ts`, and a test fails until it is.
 - Install command: `npm ci`
 - Build command: `npm run build`
 - Output directory: `dist/portfolio/browser`

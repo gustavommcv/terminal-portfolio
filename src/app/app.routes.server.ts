@@ -1,4 +1,7 @@
+import { inject } from '@angular/core';
 import { RenderMode, ServerRoute } from '@angular/ssr';
+
+import { ProjectsDataService } from './services/projects-data.service';
 
 export const serverRoutes: ServerRoute[] = [
   {
@@ -16,9 +19,23 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
   },
 
+  // One static page per project, so each has its own HTML, title, and
+  // social-card tags for crawlers and link previews.
   {
     path: 'portfolio/:id',
-    renderMode: RenderMode.Client,
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () =>
+      inject(ProjectsDataService)
+        .getAllProjects()
+        .map((project) => ({ id: project.id })),
+  },
+
+  // The not-found page. The build copies its output to `404.html` (see
+  // scripts/create-404.mjs), which the host serves with a 404 status for any
+  // address that is neither a page nor an asset.
+  {
+    path: '404',
+    renderMode: RenderMode.Prerender,
   },
 
   {

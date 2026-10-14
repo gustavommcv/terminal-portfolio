@@ -65,7 +65,7 @@ flowchart TD
 ### Bootstrap and configuration
 
 - `src/main.ts`: bootstraps `App` in the browser.
-- `src/app/app.config.ts`: registers Router, scroll restoration, preloading, hydration, HttpClient, and ngx-translate.
+- `src/app/app.config.ts`: registers Router, scroll restoration, preloading, hydration, HttpClient, ngx-translate, and the `SeoService` initializer.
 - `src/main.server.ts`: adapts the bootstrap process to the rendering context.
 - `src/app/app.config.server.ts`: merges the browser providers with `provideServerRendering`.
 - `src/server.ts`: creates the Angular engine on top of Express, used by the rendering infrastructure.
@@ -152,7 +152,18 @@ available.
 `TranslateService.use()` subscription, preserves the locale across navigation,
 updates `<html lang>`, and publishes a signal-based catalog state. A stale load
 cannot overwrite a newer URL language. `TranslateService` remains responsible
-for fetching and storing catalogs.
+for fetching and storing catalogs. On the first navigation only, it asks
+`LanguagePreference` (remembered choice in `localStorage`, then the browser's
+language list; browser-only) which language to use when the URL has no
+`?locale=`.
+
+`SeoService` (`providedIn: 'root'`, started by an app initializer) reads each
+route's `data.seo` and, whenever the route or the catalog state changes, sets the
+title, description, canonical URL, `hreflang` alternates, and social tags. It
+runs during prerendering, so the static HTML is already complete. Pages that
+cannot be indexed (unknown routes, unknown project ids) get `noindex` and no
+canonical URL. Site-wide constants (the canonical host, the default social
+image) are in `src/app/data/site.config.ts`.
 
 ## Routes and rendering
 
@@ -161,10 +172,13 @@ for fetching and storing catalogs.
 | `/` | `HomePage` | Lazy | Prerendered |
 | `/about` | `AboutPage` | Lazy | Prerendered |
 | `/portfolio` | `PortfolioPage` | Lazy | Prerendered |
-| `/portfolio/:id` | `ProjectDetailPage` | Lazy | Client |
+| `/portfolio/:id` | `ProjectDetailPage` | Lazy | Prerendered (one page per catalog project) |
+| `404` | `ErrorPage` | Lazy | Prerendered (becomes `404.html`) |
 | `**` | `ErrorPage` | Lazy | Client |
 
-The build uses `outputMode: "static"`. The prerendering step generates HTML for the three static routes and a CSR shell for the client-rendered routes.
+The build uses `outputMode: "static"`. The prerendering step generates HTML for the static routes and for each project (`getPrerenderParams` reads the catalog), and a CSR shell for the client-rendered fallback. `portfolio/:id` has a `canMatch` guard (`projectExistsGuard`), so an id that is not in the catalog falls through to `**` and shows the not-found page.
+
+Unknown addresses get a real 404 status: `vercel.json` sets `"framework": null` (the Angular preset would rewrite every miss to `index.html` with a 200), the `404` route is prerendered, and `scripts/create-404.mjs` copies `404/index.html` to `404.html` after the build, which Vercel serves for any address that is not a file. The page hydrates at the requested URL, shows that path, and `SeoService` marks it `noindex`. The consequence: there is no SPA fallback, so every real page must be prerendered (`app.routes.spec.ts` enforces this).
 
 ## Project data flow
 
@@ -194,7 +208,7 @@ Components receive typed `Project` objects. Titles and descriptions are not stor
 6. Locale-aware links preserve standard browser behavior and the language
    button updates the URL.
 
-English is the initial and fallback language. The loader is configured with `failOnError: true`; a missing catalog is treated as an error instead of silently resulting in empty translations.
+English is the fallback language and the default for the server, for crawlers, and for visitors whose browser does not prefer Portuguese. The loader is configured with `failOnError: true`; a missing catalog is treated as an error instead of silently resulting in empty translations.
 
 ## Styles
 

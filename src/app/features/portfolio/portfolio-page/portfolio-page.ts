@@ -4,7 +4,6 @@ import { Project } from '../../../data/projects.data';
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectCard } from '../../../core/shared/project-card/project-card';
 import { ProjectsDataService } from '../../../services/projects-data.service';
-import { Meta, Title } from '@angular/platform-browser';
 import { AppTitle } from '../../../core/shared/app-title/app-title';
 
 @Component({
@@ -19,17 +18,7 @@ export class PortfolioPage {
 
   constructor(
     private projectsService: ProjectsDataService,
-    private title: Title,
-    private meta: Meta,
   ) {
     this.projectsData = this.projectsService.getAllProjects();
-  }
-
-  ngOnInit(): void {
-    this.title.setTitle('Portfolio - Gustavo Monnerat');
-    this.meta.updateTag({
-      name: 'description',
-      content: 'Explore selected projects by Gustavo Monnerat.',
-    });
   }
 }

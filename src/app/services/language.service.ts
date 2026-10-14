@@ -6,6 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import type { InterpolatableTranslationObject } from '@ngx-translate/core';
 import { distinctUntilChanged, filter, map, take } from 'rxjs';
 
+import { LanguagePreference } from './language-preference.service';
+
 export type SupportedLanguage = 'en' | 'pt';
 
 export type LanguageCatalogState =
@@ -23,11 +25,13 @@ export class LanguageService {
   private readonly translate = inject(TranslateService);
   private readonly document = inject(DOCUMENT);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly preference = inject(LanguagePreference);
 
   private readonly internalCatalogState = signal<LanguageCatalogState>({
     status: 'loading',
     language: 'en',
   });
+  private awaitingFirstNavigation = true;
   private currentPath = '/';
   private requestedLanguage: SupportedLanguage | undefined;
   private activeLoad?: { unsubscribe(): void };
@@ -45,7 +49,7 @@ export class LanguageService {
         distinctUntilChanged(),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((url) => this.synchronizeFromUrl(url));
+      .subscribe((url) => this.onNavigationEnd(url));
 
     this.translate.onTranslationRefresh
       .pipe(takeUntilDestroyed(this.destroyRef))
@@ -57,6 +61,7 @@ export class LanguageService {
 
   toggleLanguage(): Promise<boolean> {
     const language = this.currentLocale() === 'en' ? 'pt' : 'en';
+    this.preference.remember(language);
     return this.router.navigate([this.currentPath], {
       queryParams: this.queryParamsFor(language),
     });
@@ -78,6 +83,44 @@ export class LanguageService {
 
   isActive(route: string): boolean {
     return this.currentPath === route;
+  }
+
+  private onNavigationEnd(url: string): void {
+    if (this.awaitingFirstNavigation) {
+      this.awaitingFirstNavigation = false;
+      if (this.applyInitialPreference(url)) {
+        return;
+      }
+    }
+
+    this.synchronizeFromUrl(url);
+  }
+
+  /**
+   * Decides the language of the very first page load only; later navigations
+   * keep following the URL. An explicit `?locale=` always wins (it is what a
+   * shared link or the CV carries) and is remembered, so a reload after
+   * in-app navigation - which drops the English parameter - stays in the same
+   * language. Without one, the visitor's remembered choice, then the browser's
+   * language list, decides. Returns true when it redirected: the redirected
+   * navigation then loads the right catalog, instead of fetching English first.
+   */
+  private applyInitialPreference(url: string): boolean {
+    const tree = this.router.parseUrl(url);
+    const requested = tree.queryParams['locale'];
+
+    if (requested !== undefined) {
+      this.preference.remember(this.normalizeLocale(requested));
+      return false;
+    }
+
+    if (this.preference.preferred() !== 'pt') {
+      return false;
+    }
+
+    tree.queryParams = { ...tree.queryParams, locale: 'pt' };
+    void this.router.navigateByUrl(tree, { replaceUrl: true });
+    return true;
   }
 
   private synchronizeFromUrl(url: string): void {

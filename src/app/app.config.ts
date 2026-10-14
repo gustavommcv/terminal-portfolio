@@ -1,5 +1,7 @@
 import {
   ApplicationConfig,
+  inject,
+  provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
@@ -11,6 +13,7 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
+import { SeoService } from './services/seo.service';
 import {
   provideClientHydration,
   withEventReplay,
@@ -33,6 +36,12 @@ export const appConfig: ApplicationConfig = {
     ),
 
     provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
+
+    // Starts keeping title, canonical URL and social tags in step with the
+    // route and language, in the browser and while prerendering.
+    provideAppInitializer(() => {
+      inject(SeoService);
+    }),
 
     provideHttpClient(withFetch()),
 

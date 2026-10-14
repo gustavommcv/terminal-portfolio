@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "angular",
+  "framework": null,
   "outputDirectory": "dist/portfolio/browser",
   "installCommand": "npm ci",
   "buildCommand": "npm run build",

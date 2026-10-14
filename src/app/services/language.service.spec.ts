@@ -62,7 +62,8 @@ describe('LanguageService', () => {
   } {
     TestBed.configureTestingModule({
       providers: [
-        provideRouter([]),
+        // A component-less catch-all, so tests can navigate to any path.
+        provideRouter([{ path: '**', children: [] }]),
         ControlledTranslateService,
         {
           provide: TranslateService,
@@ -139,6 +140,89 @@ describe('LanguageService', () => {
     expect(language.catalogState()).toMatchObject({
       status: 'ready',
       language: 'pt',
+    });
+  });
+
+  describe('initial language', () => {
+    function browserLanguages(languages: readonly string[]): void {
+      vi.spyOn(window.navigator, 'languages', 'get').mockReturnValue(languages);
+    }
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    // The language redirect is a second navigation started from the first
+    // one's NavigationEnd, so it is still in flight when navigateByUrl resolves.
+    const redirectsSettled = () =>
+      new Promise((resolve) => setTimeout(resolve));
+
+    it('sends a Portuguese browser to the Portuguese site on its first visit, keeping the path', async () => {
+      browserLanguages(['pt-BR', 'en']);
+      const { language, router, translate } = setup();
+
+      await router.navigateByUrl('/portfolio');
+      await redirectsSettled();
+
+      expect(router.url).toBe('/portfolio?locale=pt');
+      expect(translate.calls).toEqual(['en', 'pt']);
+      expect(language.catalogState()).toEqual({
+        status: 'loading',
+        language: 'pt',
+      });
+    });
+
+    it('leaves an English browser on the English site', async () => {
+      browserLanguages(['en-US']);
+      const { router, translate } = setup();
+
+      await router.navigateByUrl('/portfolio');
+
+      expect(router.url).toBe('/portfolio');
+      expect(translate.calls).toEqual(['en']);
+    });
+
+    it('lets an explicit ?locale=en win over a Portuguese browser, and remembers it', async () => {
+      browserLanguages(['pt-BR']);
+      const { router, translate } = setup();
+
+      await router.navigateByUrl('/portfolio?locale=en');
+
+      expect(router.url).toBe('/portfolio?locale=en');
+      expect(translate.calls).toEqual(['en']);
+      expect(localStorage.getItem('locale')).toBe('en');
+    });
+
+    it('stays English on later visits and reloads once English was chosen, even without the parameter', async () => {
+      browserLanguages(['pt-BR']);
+      localStorage.setItem('locale', 'en');
+      const { router, translate } = setup();
+
+      await router.navigateByUrl('/about');
+
+      expect(router.url).toBe('/about');
+      expect(translate.calls).toEqual(['en']);
+    });
+
+    it('only decides on the first page load, not on later navigations', async () => {
+      browserLanguages(['pt-BR']);
+      const { router } = setup();
+
+      await router.navigateByUrl('/about?locale=en');
+      localStorage.clear();
+      await router.navigateByUrl('/portfolio');
+
+      expect(router.url).toBe('/portfolio');
+    });
+
+    it('remembers the language picked with the toggle', async () => {
+      browserLanguages(['en-US']);
+      const { language, router } = setup();
+      await router.navigateByUrl('/');
+
+      await language.toggleLanguage();
+
+      expect(localStorage.getItem('locale')).toBe('pt');
     });
   });
 
