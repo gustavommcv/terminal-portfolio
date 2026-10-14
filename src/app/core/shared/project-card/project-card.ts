@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { projectCardImage } from '../../../data/project-media';
 import { Project } from '../../../data/projects.data';
 import { LanguageService } from '../../../services/language.service';
 
@@ -16,6 +17,10 @@ export class ProjectCard {
   @Input({ required: true }) project!: Project;
 
   constructor(readonly language: LanguageService) {}
+
+  get image(): string {
+    return projectCardImage(this.project);
+  }
 
   navigateToDetail(event: MouseEvent): void {
     if (

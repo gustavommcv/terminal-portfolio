@@ -17,8 +17,16 @@ export interface ProjectBadge {
 
 export interface Project {
   id: string;
-  image: string;
-  gif?: string;
+  /**
+   * Representative image for cards (grid, home carousel). Optional: without
+   * it, cards fall back to the first gallery image. See project-media.ts.
+   */
+  cover?: string;
+  /**
+   * Ordered images of the project; never empty. The detail page shows the
+   * first one for now, and is where a full gallery view will plug in.
+   */
+  gallery: [string, ...string[]];
   links: {
     github?: string;
     demo?: string;
@@ -103,7 +111,14 @@ const nodejs: ProjectBadge = {
 export const projectsData: Project[] = [
   {
     id: 'maquetaria',
-    image: 'images/projects/maquetaria/images/maquetaria2-thumbnail.webp',
+    gallery: [
+      'images/projects/maquetaria/images/maquetaria-home.webp',
+      'images/projects/maquetaria/images/maquetaria-services.webp',
+      'images/projects/maquetaria/images/maquetaria-portfolio.webp',
+      'images/projects/maquetaria/images/maquetaria-service-detail.webp',
+      'images/projects/maquetaria/images/maquetaria-pricing-examples.webp',
+      'images/projects/maquetaria/images/maquetaria-pricing-sizes.webp',
+    ],
     links: {
       demo: 'https://veronesemaquetes.com.br',
     },
@@ -131,7 +146,8 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangabound',
-    image: 'images/projects/mangabound/images/mangabound-thumbnail.webp',
+    cover: 'images/projects/mangabound/images/mangabound-cover.webp',
+    gallery: ['images/projects/mangabound/images/mangabound-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangabound',
       docs: 'https://gustavommcv.github.io/mangabound/',
@@ -159,7 +175,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'voting-system',
-    image: 'images/projects/signotech/images/signo-tech-thumbnail.webp',
+    gallery: ['images/projects/signotech/images/signo-tech-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
     },
@@ -175,8 +191,9 @@ export const projectsData: Project[] = [
 
   {
     id: 'json-visual-editor',
-    image:
+    gallery: [
       'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
+    ],
     links: {
       github: 'https://github.com/gustavommcv/JSON-Visual-Editor',
       demo: 'https://gustavommcv.github.io/JSON-Visual-Editor/',
@@ -193,7 +210,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangapress',
-    image: 'images/projects/mangapress/images/mangapress-thumbnail.webp',
+    gallery: ['images/projects/mangapress/images/mangapress-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangapress',
     },
@@ -207,7 +224,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'terminal-portfolio',
-    image: 'images/projects/terminalportfolio/terminal-portfolio.webp',
+    gallery: ['images/projects/terminalportfolio/terminal-portfolio.webp'],
     links: {
       github: 'https://github.com/gustavommcv/terminal-portfolio',
     },
@@ -229,7 +246,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangabind',
-    image: 'images/projects/mangabind/images/mangabind-thumbnail.webp',
+    gallery: ['images/projects/mangabind/images/mangabind-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangabind',
     },
@@ -240,7 +257,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'rv-wheel',
-    image: 'images/projects/rvwheel/images/rvwheel-thumbnail.webp',
+    gallery: ['images/projects/rvwheel/images/rvwheel-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/RVWheel',
     },
@@ -254,8 +271,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'gomodoro',
-    image: 'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
-    gif: 'images/projects/gomodoro/gifs/gomodoro.gif',
+    gallery: ['images/projects/gomodoro/images/gomodoro-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
     },
@@ -266,7 +282,9 @@ export const projectsData: Project[] = [
 
   {
     id: 'minimal-neovim',
-    image: 'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
+    gallery: [
+      'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
+    ],
     links: {
       github: 'https://github.com/gustavommcv/minimal-neovim',
     },
@@ -280,7 +298,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'dotfiles',
-    image: 'images/projects/dotfiles/images/dotfiles-thumbnail.webp',
+    gallery: ['images/projects/dotfiles/images/dotfiles-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/dotfiles',
     },
@@ -293,7 +311,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'itau-challenge',
-    image: 'images/projects/itau/images/itau-thumbnail.webp',
+    gallery: ['images/projects/itau/images/itau-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
     },
@@ -312,7 +330,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'xp-bootcamp',
-    image: 'images/projects/xpe1/images/xpe1-thumbnail.webp',
+    gallery: ['images/projects/xpe1/images/xpe1-thumbnail.webp'],
     links: {
       github:
         'https://github.com/gustavommcv/Desafio-Bootcamp-Arquitetura-de-Software',
@@ -329,7 +347,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'airlock-rest',
-    image: 'images/projects/airlock/images/airlock-rest-thumbnail.webp',
+    gallery: ['images/projects/airlock/images/airlock-rest-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/AirlockRest',
     },
@@ -345,7 +363,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'todo-list',
-    image: 'images/projects/todo/images/todo-thumbnail.webp',
+    gallery: ['images/projects/todo/images/todo-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/to-do-app-main',
     },
@@ -360,7 +378,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'books-app',
-    image: 'images/projects/booksapp/images/books-app-thumbnail.webp',
+    gallery: ['images/projects/booksapp/images/books-app-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
     },
@@ -371,7 +389,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'chmod-calculator',
-    image: 'images/projects/chmod/images/chmod-calculator-thumbnail.webp',
+    gallery: ['images/projects/chmod/images/chmod-calculator-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/chmod_calculator',
       demo: 'https://gustavommcv.github.io/chmod_calculator/',
@@ -393,7 +411,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'tic-tac-toe',
-    image: 'images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp',
+    gallery: ['images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
     },
@@ -406,8 +424,9 @@ export const projectsData: Project[] = [
 
   {
     id: 'portfolio',
-    image:
+    gallery: [
       'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
+    ],
     links: {
       github: 'https://github.com/gustavommcv/portfolio',
       demo: 'https://gustavommcv.github.io/portfolio/#/',

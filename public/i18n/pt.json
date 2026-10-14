@@ -93,6 +93,14 @@
       "all": "Todos",
       "featured": "Destaques"
     },
+    "gallery": {
+      "label": "Imagens do projeto",
+      "show": "Mostrar imagem {{number}} de {{total}}",
+      "expand": "Ver imagem em tela cheia",
+      "close": "Fechar",
+      "previous": "Imagem anterior",
+      "next": "Próxima imagem"
+    },
     "projects": {
       "terminal-portfolio": {
         "title": "Terminal Portfolio",

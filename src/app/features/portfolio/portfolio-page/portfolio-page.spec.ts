@@ -22,6 +22,20 @@ describe('PortfolioPage', () => {
     expect(component).toBeTruthy();
   });
 
+  it('uses a project cover for its card image, and the first gallery image otherwise', () => {
+    const srcOf = (id: string) =>
+      fixture.nativeElement
+        .querySelector(`.project-card[href="/portfolio/${id}"] img`)
+        .getAttribute('src');
+
+    expect(srcOf('mangabound')).toBe(
+      'images/projects/mangabound/images/mangabound-cover.webp',
+    );
+    expect(srcOf('maquetaria')).toBe(
+      'images/projects/maquetaria/images/maquetaria-home.webp',
+    );
+  });
+
   it('renders one card per project, each linking to its own detail route', () => {
     const links = Array.from(
       fixture.nativeElement.querySelectorAll('.project-card'),

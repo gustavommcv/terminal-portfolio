@@ -6,7 +6,7 @@ import { ProjectCard } from './project-card';
 describe('ProjectCard', () => {
   const project: Project = {
     id: 'test-project',
-    image: 'images/test-project.webp',
+    gallery: ['images/test-project.webp', 'images/test-project-2.webp'],
     links: {},
     stack: [],
   };
@@ -28,6 +28,25 @@ describe('ProjectCard', () => {
     expect(link.getAttribute('href')).toBe('/portfolio/test-project');
     expect(link.hasAttribute('role')).toBe(false);
     expect(link.hasAttribute('tabindex')).toBe(false);
+  });
+
+  it('shows the first gallery image when the project has no cover', () => {
+    const image: HTMLImageElement = fixture.nativeElement.querySelector('img');
+
+    expect(image.getAttribute('src')).toBe('images/test-project.webp');
+  });
+
+  it('shows the cover instead of the gallery when the project has one', () => {
+    const withCover = TestBed.createComponent(ProjectCard);
+    withCover.componentRef.setInput('project', {
+      ...project,
+      cover: 'images/test-project-cover.webp',
+    });
+    withCover.detectChanges();
+
+    const image: HTMLImageElement =
+      withCover.nativeElement.querySelector('img');
+    expect(image.getAttribute('src')).toBe('images/test-project-cover.webp');
   });
 
   it('reserves image space and defers below-the-fold work', () => {

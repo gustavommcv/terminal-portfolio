@@ -74,6 +74,35 @@ describe('projectsData badges', () => {
     });
   });
 
+  it('gives every project at least one gallery image, with none repeated', () => {
+    projectsData.forEach((project) => {
+      expect(project.gallery.length).toBeGreaterThan(0);
+      expect(new Set(project.gallery).size).toBe(project.gallery.length);
+    });
+  });
+
+  it('only declares a cover when it differs from the first gallery image', () => {
+    projectsData.forEach((project) => {
+      if (project.cover !== undefined) {
+        expect(project.cover).not.toBe(project.gallery[0]);
+      }
+    });
+  });
+
+  it('gives Maquetaria a multi-image gallery that opens on the home page capture', () => {
+    const gallery = findProject('maquetaria').gallery;
+
+    expect(gallery.length).toBeGreaterThan(1);
+    expect(gallery[0]).toContain('maquetaria-home');
+  });
+
+  it('gives Mangabound a card cover separate from its screenshot gallery', () => {
+    const mangabound = findProject('mangabound');
+
+    expect(mangabound.cover).toContain('mangabound-cover');
+    expect(mangabound.gallery[0]).toContain('mangabound-thumbnail');
+  });
+
   it('keeps every project id unique', () => {
     const ids = projectsData.map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);
