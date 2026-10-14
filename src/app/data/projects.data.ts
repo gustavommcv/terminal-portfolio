@@ -22,6 +22,7 @@ export interface Project {
   links: {
     github?: string;
     demo?: string;
+    docs?: string;
   };
   stack: string[];
   badges?: ProjectBadge[];
@@ -185,14 +186,55 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'mangabound',
+    image: 'images/projects/mangabound/images/mangabound-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/mangabound',
+      docs: 'https://gustavommcv.github.io/mangabound/',
+    },
+    stack: ['Electron', 'React', 'TypeScript', 'Tailwind CSS'],
+    badges: [
+      {
+        label: 'Electron',
+        slug: 'electron',
+        color: '47848F',
+        category: 'framework',
+      },
+      react,
+      typescript,
+      {
+        label: 'Tailwind CSS',
+        slug: 'tailwindcss',
+        color: '06B6D4',
+        category: 'tool',
+      },
+    ],
+    featured: true,
+    command: 'mangabound',
+  },
+
+  {
+    id: 'mangapress',
+    image: 'images/projects/mangapress/images/mangapress-thumbnail.webp',
+    links: {
+      github: 'https://github.com/gustavommcv/mangapress',
+    },
+    stack: ['Rust'],
+    badges: [
+      { label: 'Rust', slug: 'rust', color: '000000', category: 'language' },
+    ],
+    featured: true,
+    command: 'mangapress',
+  },
+
+  {
     id: 'mangabind',
-    image: 'images/projects/mangabind/images/mangabind-thumbnail.svg',
+    image: 'images/projects/mangabind/images/mangabind-thumbnail.webp',
     links: {
       github: 'https://github.com/gustavommcv/mangabind',
     },
     stack: ['Go'],
     badges: [go],
-    featured: true,
     command: 'mangabind',
   },
 

@@ -54,6 +54,16 @@
                 Live Demo
               </a>
             }
+            @if (project.links.docs) {
+              <a
+                [href]="project.links.docs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="project-detail-page__link"
+              >
+                Documentation
+              </a>
+            }
           </div>
         </div>
       </div>

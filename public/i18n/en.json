@@ -166,8 +166,18 @@
       },
       "mangabind": {
         "title": "Mangabind",
-        "shortDescription": "Reorganizes chapter-by-chapter manga downloads into one .cbz per volume, ready for a reader or converter.",
-        "description": "A CLI tool that takes a folder of manga chapters downloaded one-by-one (e.g. from HakuNeko) — a mix of loose image folders and .cbz files, each restarting page numbering and often using a different naming convention — and reorganizes them into a clean .cbz per volume, ready to hand off to Kindle Comic Converter or any reader. Chapter-folder parsing runs as a chain of pluggable strategies rather than one fixed regex, so it copes with inconsistent naming within a single manga. Built in Go, distributed as prebuilt binaries for macOS, Linux, and Windows."
+        "shortDescription": "Groups chapter-by-chapter manga downloads into one .cbz per volume, ready for a reader or converter.",
+        "description": "A command-line tool that groups manga chapters into volumes. Point it at a folder of chapters downloaded one by one (e.g. from HakuNeko) — loose image folders and .cbz files can be mixed, each restarting page numbering and often named by a different scan group's convention — and it writes one .cbz per volume, or a single archive for the whole series. Chapter-folder parsing runs as a chain of pluggable strategies rather than one fixed regex, so inconsistent naming within a single manga still resolves; a dry run previews the grouping and flags unrecognized names, gaps, and conflicting chapters. Pages keep the order Kindle Comic Converter would give them, volumes are written whole-or-not-at-all so an interrupted run never leaves a half-written file, and a versioned JSON report lets other tools drive it. Built in Go, with checksum-verified binaries for Windows, macOS, and Linux — the grouping step behind mangapress and Mangabound."
+      },
+      "mangabound": {
+        "title": "Mangabound",
+        "shortDescription": "Desktop app for organizing manga chapters into volumes and converting them into books for your e-reader.",
+        "description": "A desktop app that puts a graphical interface over the whole manga-to-e-reader pipeline: drop in chapter folders, a library, or CBZ files, review and edit the chapter-to-volume plan, then convert to CBZ, EPUB, or PDF for Kindle, Kobo, reMarkable, or custom page sizes — as separate volumes or one combined book. Grouping runs on Mangabind and conversion on mangapress, both bundled with the app, so everything is processed locally; online volume and author lookups (MangaDex) are optional and only use titles and metadata, never your pages. Finished books can be saved or shared straight to KOReader over the local network. Built with Electron, React, TypeScript, and Tailwind CSS, with a bilingual (EN/PT-BR) user guide and packages for Windows, macOS, and Linux — currently in alpha."
+      },
+      "mangapress": {
+        "title": "Mangapress",
+        "shortDescription": "Rust command-line tool that converts manga into EPUB, CBZ, or PDF books sized for your e-reader.",
+        "description": "A standalone Rust command-line tool that converts manga and comics into EPUB, CBZ, or PDF books for e-readers: it crops margins, sizes pages for the target screen, adjusts contrast, and handles double-page spreads, with device profiles for Kindle, Kobo, and reMarkable or fully custom dimensions. Image processing follows Kindle Comic Converter 12.0.0 as its reference and is checked against it on selected scenarios with parity-comparison tools, while staying an independent implementation with a deliberate licensing boundary. Takes a CBZ, an image folder, or Mangabind's output, emits machine-readable JSON Lines events so apps like Mangabound can drive it, and installs from checksum-verified release packages for Windows, Linux, and macOS."
       },
       "rv-wheel": {
         "title": "RVWheel",

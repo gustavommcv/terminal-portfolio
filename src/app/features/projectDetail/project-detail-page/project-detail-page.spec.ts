@@ -135,6 +135,23 @@ describe('ProjectDetailPage', () => {
     ).not.toBeNull();
   });
 
+  it('renders a Documentation action, labelled as such rather than as a demo, when a project has a docs link', () => {
+    const fixture = createFixtureForProject('mangabound');
+    const links = Array.from(
+      fixture.nativeElement.querySelectorAll('.project-detail-page__link'),
+    ) as HTMLAnchorElement[];
+
+    expect(links.map((a) => a.textContent?.trim())).toEqual([
+      'Repository',
+      'Documentation',
+    ]);
+    expect(links[1].getAttribute('href')).toBe(
+      'https://gustavommcv.github.io/mangabound/',
+    );
+    expect(links[1].getAttribute('rel')).toBe('noopener noreferrer');
+    expect(links[1].getAttribute('target')).toBe('_blank');
+  });
+
   it('gives the project media its correct source and alt text for a static image', () => {
     const fixture = createFixtureForProject('maquetaria');
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
