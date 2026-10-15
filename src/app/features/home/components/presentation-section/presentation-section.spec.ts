@@ -23,6 +23,29 @@ describe('PresentationSection', () => {
     expect(presentation.getAttribute('style')).toBeNull();
   });
 
+  it('links his LinkedIn and GitHub profiles, opening them safely in a new tab', () => {
+    const links = Array.from(
+      fixture.nativeElement.querySelectorAll('.social-links a'),
+    ) as HTMLAnchorElement[];
+
+    expect(
+      links.map((link) => [link.textContent?.trim(), link.getAttribute('href')]),
+    ).toEqual([
+      ['LinkedIn', 'https://www.linkedin.com/in/gustavommcv/'],
+      ['GitHub', 'https://github.com/gustavommcv'],
+    ]);
+    for (const link of links) {
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    }
+  });
+
+  it('has a button that scrolls to the contact section', () => {
+    const button = fixture.nativeElement.querySelector('app-button a') as HTMLAnchorElement;
+
+    expect(button.getAttribute('href')).toBe('#contact-section');
+  });
+
   it('renders explicit sizing content without consulting translation keys', () => {
     fixture.componentRef.setInput(
       'content',

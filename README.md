@@ -56,7 +56,8 @@ By default, the application is available at `http://localhost:4200`.
 | `npm run lint` | Checks the code against the Angular style guide and best practices (`eslint.config.js`). |
 | `npm test` | Runs Vitest in interactive/watch mode. |
 | `npm run test:ci` | Runs the full test suite once and exits. |
-| `npm run test:scripts` | Tests the build scripts (header and caching rules) and checks that the badge files are up to date. |
+| `npm run test:coverage` | Runs the suite once with coverage, writes the report to `coverage/`, and fails if coverage drops below the floor in `angular.json`. |
+| `npm run test:scripts` | Tests the build scripts (headers, caching, the build output, the badges), fails below their own coverage floor, and checks that the badge files are up to date. |
 | `npm run badges` | Draws the project badges into `public/images/badges` (see [Project badges](#project-badges)). |
 | `npm run ng -- <command>` | Runs a local Angular CLI command. |
 
@@ -259,14 +260,24 @@ To run the full suite once:
 npm run test:ci
 ```
 
-Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `src/test-setup.ts` provides the Router and loads the real English catalog, so specs assert the text visitors read, not translation keys. Two details worth knowing when writing specs:
+Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `src/test-setup.ts` provides the Router and loads the real English catalog, so specs assert the text visitors read, not translation keys. A component that shows catalog content is tested against `catalogEntry('the.key')` (`src/testing/english-catalog.ts`) rather than a copy of the text, so the spec follows the catalog.
+
+**Coverage.** `npm run test:coverage` measures every file under `src/app`, so a file no test imports counts as 0% instead of being invisible. The specs themselves and the provider and bootstrap lists (`app.config*.ts`, `app.routes.server.ts`: wiring with no logic of its own, checked by the build and in a browser) are left out. The floor in `angular.json` (97% of statements, lines and functions, 88% of branches) is a little under what the suite reaches, and CI enforces it. Open `coverage/portfolio/index.html` to see, line by line, what is not run. The line that is left is defensive: null checks that cannot happen, such as a missing `viewChild`.
+
+A line being run says little by itself, so these specs are written to fail when behaviour changes, not only when something throws. Besides the specs next to each file, a few check the data and the wiring the compiler cannot:
+
+- `data/projects.data.spec.ts`: every image a project names exists, every link is https, every project has its texts in both languages, and no catalog has text for a project that does not exist.
+- `translation-keys.spec.ts`: every key written in a template exists in both catalogs (a mistyped key would show on the page as the key itself), and so does each kind of page the SEO service describes.
+- `i18n-catalogs.spec.ts` (the two catalogs have the same keys and placeholders), `app.routes.spec.ts` (every page is prerendered, each route loads the page it names, and the project id reaches the project page), `site.config.spec.ts` (the sitemap).
+
+Two details worth knowing when writing specs:
 
 - Tests run without zone.js, like the app. `fixture.detectChanges()` does not run `afterNextRender` hooks (since Angular 22.2); call `TestBed.tick()`, which also runs effects. Angular's own scheduler leaves a pair of timers pending after an input or signal change, and a tick clears them, so call it before counting timers with fake timers.
 - Specs that read files (`node:fs`) rely on `"node"` being listed in `types` in `tsconfig.spec.json`.
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs on every push to `main` and on every pull request: `npm ci`, `npm run lint`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
+`.github/workflows/ci.yml` runs on every push to `main` and on every pull request: `npm ci`, `npm run lint`, `npm run test:coverage`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
 
 ## Deploying to Vercel
 
@@ -321,7 +332,7 @@ green before merging; `npm audit --omit=dev` shows what is currently known.
 
 1. Fork the repository or create a branch from `main`.
 2. Make small, focused changes.
-3. Run `npm run lint`, `npm run test:ci`, `npm run test:scripts` and `npm run build:production`.
+3. Run `npm run lint`, `npm run test:coverage`, `npm run test:scripts` and `npm run build:production`.
 4. Open a pull request describing the motivation, the solution, and any visual impact.
 
 ## Image credits

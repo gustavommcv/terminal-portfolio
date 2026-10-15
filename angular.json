@@ -96,6 +96,30 @@
             "setupFiles": [
               "src/test-setup.ts"
             ]
+          },
+          "configurations": {
+            "coverage": {
+              "coverage": true,
+              "coverageInclude": [
+                "src/app/**/*.ts"
+              ],
+              "coverageExclude": [
+                "src/app/**/*.spec.ts",
+                "src/app/app.config*.ts",
+                "src/app/app.routes.server.ts"
+              ],
+              "coverageReporters": [
+                "text-summary",
+                "html",
+                "json-summary"
+              ],
+              "coverageThresholds": {
+                "statements": 97,
+                "branches": 88,
+                "functions": 97,
+                "lines": 97
+              }
+            }
           }
         },
         "lint": {

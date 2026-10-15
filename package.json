@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
-    "test:scripts": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"scripts/**/*.test.mjs\"",
+    "test:coverage": "ng test --watch=false --configuration coverage",
+    "test:scripts": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test --experimental-test-coverage --test-coverage-lines=97 --test-coverage-branches=90 --test-coverage-functions=90 \"scripts/**/*.test.mjs\"",
     "badges": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-badges.mjs",
     "dev": "ng serve --host 0.0.0.0",
     "lint": "ng lint"
@@ -51,6 +52,7 @@
     "@angular/compiler-cli": "^22.2.3",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "^4.1.11",
     "angular-eslint": "22.6.0",
     "badge-maker": "6.0.0",
     "eslint": "^10.12.0",

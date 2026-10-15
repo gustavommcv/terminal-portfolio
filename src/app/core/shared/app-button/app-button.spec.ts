@@ -89,4 +89,40 @@ describe('AppButton', () => {
     expect(target.scrollIntoView).toHaveBeenCalledWith({ behavior: 'instant' });
     target.remove();
   });
+
+  it('points at "#" and does nothing when it has neither a route nor a scroll target', () => {
+    fixture.detectChanges();
+    const link: HTMLAnchorElement = fixture.nativeElement.querySelector('a');
+
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+    link.dispatchEvent(click);
+
+    expect(link.getAttribute('href')).toBe('#');
+    expect(click.defaultPrevented).toBe(false);
+  });
+
+  it('links to an in-page anchor when it has a scroll target', () => {
+    fixture.componentRef.setInput('scrollTo', 'contact-section');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('a').getAttribute('href')).toBe(
+      '#contact-section',
+    );
+  });
+
+  it('scrolls smoothly unless reduced motion is requested', () => {
+    const target = document.createElement('div');
+    target.id = 'smooth-target';
+    target.scrollIntoView = vi.fn();
+    document.body.appendChild(target);
+    window.matchMedia = vi.fn().mockReturnValue({ matches: false });
+
+    fixture.componentRef.setInput('scrollTo', 'smooth-target');
+    fixture.detectChanges();
+    fixture.nativeElement.querySelector('a').click();
+
+    expect(target.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
+    target.remove();
+  });
+
 });

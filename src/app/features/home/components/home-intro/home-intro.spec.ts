@@ -285,4 +285,40 @@ describe('HomeIntro', () => {
     vi.advanceTimersByTime(10 + 5 * 3);
     expect(displayedCommand(fixture)).toBe('ação');
   });
+
+  it('completes at once if reduced motion is turned on before the catalog has arrived', () => {
+    const media = mockMatchMedia(false);
+    const fixture = createIntro({ status: 'waiting' });
+    expect(TestBed.inject(HomeIntroService).state()).toBe('waiting');
+
+    media.dispatch(true);
+
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+    expect(displayedCommand(fixture)).toBe('');
+    expectNoPendingTimers();
+  });
+
+  it('carries on typing if reduced motion is turned back off', () => {
+    const media = mockMatchMedia(false);
+    const fixture = createIntro(ready('abc'));
+    vi.advanceTimersByTime(10); // the first letter is out
+
+    media.dispatch(false);
+
+    expect(TestBed.inject(HomeIntroService).state()).toBe('typing');
+    vi.advanceTimersByTime(5 + 5 + 7); // the rest, and the final pause
+    expect(displayedCommand(fixture)).toBe('abc');
+    expect(TestBed.inject(HomeIntroService).state()).toBe('completed');
+  });
+
+
+  it('types the command normally where the browser has no matchMedia', () => {
+    window.matchMedia = undefined as unknown as typeof window.matchMedia;
+    const fixture = createIntro(ready('abc'));
+
+    expect(TestBed.inject(HomeIntroService).state()).toBe('typing');
+    vi.advanceTimersByTime(10 + 5 + 5);
+    expect(displayedCommand(fixture)).toBe('abc');
+  });
+
 });

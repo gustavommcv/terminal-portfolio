@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ErrorHandler } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -95,12 +95,14 @@ describe('OverflowWatch', () => {
 
   it('measures nothing, and does not fail, where ResizeObserver does not exist', async () => {
     vi.stubGlobal('ResizeObserver', undefined);
+    const reported = vi.spyOn(TestBed.inject(ErrorHandler), 'handleError');
     const bare = TestBed.createComponent(Host);
 
     bare.detectChanges();
     await bare.whenStable();
 
     expect(bare.nativeElement.querySelector('.state').textContent.trim()).toBe('false');
+    expect(reported).not.toHaveBeenCalled();
   });
 
   it('stops observing when the host is destroyed', () => {

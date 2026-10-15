@@ -165,4 +165,64 @@ describe('HomeIntroService', () => {
       window.matchMedia = originalMatchMedia;
     }
   });
+
+  describe('calls that do not fit the state the intro is in', () => {
+    it('ignores a typing completion when nothing is being typed', () => {
+      const { service } = configure('/');
+
+      service.finishTyping('whoami'); // still eligible
+      expect(service.state()).toBe('eligible');
+      expect(service.completedCommand()).toBeNull();
+
+      service.claim(false);
+      service.finishTyping('whoami'); // waiting, typing has not started
+      expect(service.state()).toBe('waiting');
+      expect(service.completedByTyping()).toBe(false);
+    });
+
+    it('only completes without typing from eligible or waiting, keeping the command it is given', () => {
+      const { service } = configure('/');
+
+      service.completeWithoutTyping('first');
+      expect(service.state()).toBe('completed');
+      expect(service.completedCommand()).toBe('first');
+
+      service.completeWithoutTyping('second'); // already completed
+      expect(service.completedCommand()).toBe('first');
+    });
+
+    it('does not let a run that is typing be skipped past by completeWithoutTyping', () => {
+      const { service } = configure('/');
+      service.claim(false);
+      service.startTyping();
+
+      service.completeWithoutTyping('whoami');
+
+      expect(service.state()).toBe('typing');
+    });
+
+    it('leaves an intro that nobody claimed, and one already completed, alone when interrupted', () => {
+      const { service } = configure('/');
+
+      service.interrupt('whoami'); // eligible: no home view is running it
+      expect(service.state()).toBe('eligible');
+      expect(service.completedCommand()).toBeNull();
+
+      service.claim(true); // completes at once for reduced motion
+      service.interrupt('other');
+      expect(service.completedCommand()).toBeNull();
+    });
+
+    it('remembers a completed command only once the intro is completed', () => {
+      const { service } = configure('/');
+
+      service.rememberCompletedCommand('early');
+      expect(service.completedCommand()).toBeNull();
+
+      service.claim(true);
+      service.rememberCompletedCommand('late');
+      expect(service.completedCommand()).toBe('late');
+    });
+  });
+
 });

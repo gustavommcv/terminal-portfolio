@@ -223,4 +223,49 @@ describe('SeoService', () => {
       document.head.querySelectorAll('link[rel="alternate"][hreflang]'),
     ).toHaveLength(3);
   });
+
+  it('leaves a text empty when the catalog does not have it, never a key or "undefined"', async () => {
+    catalogState.set({
+      status: 'ready',
+      language: 'en',
+      translations: { seo: { home: { title: 'Only a title' } } },
+    });
+
+    await router.navigateByUrl('/');
+    appRef.tick();
+
+    expect(document.title).toBe('Only a title');
+    expect(
+      document.head.querySelector('meta[name="description"]')?.getAttribute('content') ?? '',
+    ).toBe('');
+  });
+
+  it('fills no placeholder with "undefined" when what it should hold is missing', async () => {
+    catalogState.set({
+      status: 'ready',
+      language: 'en',
+      translations: { seo: { project: { title: '{{title}} | Site' } } },
+    });
+
+    await router.navigateByUrl('/portfolio/mangabound');
+    appRef.tick();
+
+    expect(document.title).not.toContain('{{');
+    expect(document.title).not.toContain('undefined');
+  });
+
+
+  it('gives an empty text, not an exception, when an entry on the way to a text is null', async () => {
+    catalogState.set({
+      status: 'ready',
+      language: 'en',
+      translations: { seo: { home: null } } as never,
+    });
+
+    await router.navigateByUrl('/');
+
+    expect(() => appRef.tick()).not.toThrow();
+    expect(document.title).toBe('');
+  });
+
 });

@@ -374,4 +374,54 @@ describe('ProjectDetailPage', () => {
     );
     expect(img.getAttribute('src')).not.toContain('cover');
   });
+
+  describe('browsing the gallery with the arrow keys', () => {
+    const press = (fixture: ComponentFixture<ProjectDetailPage>, key: string): void => {
+      fixture.nativeElement
+        .querySelector('dialog')
+        .dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+    };
+    const galleryOf = (id: string) => projectsData.find((project) => project.id === id)!.gallery;
+
+    it('goes back with the left arrow, from the first image round to the last', () => {
+      const fixture = createFixtureForProject('maquetaria');
+      const count = galleryOf('maquetaria').length;
+
+      press(fixture, 'ArrowLeft');
+      expect(fixture.componentInstance.selectedIndex()).toBe(count - 1);
+
+      press(fixture, 'ArrowLeft');
+      expect(fixture.componentInstance.selectedIndex()).toBe(count - 2);
+    });
+
+    it('goes forward with the right arrow, from the last image round to the first', () => {
+      const fixture = createFixtureForProject('maquetaria');
+      fixture.componentInstance.selectedIndex.set(galleryOf('maquetaria').length - 1);
+
+      press(fixture, 'ArrowRight');
+
+      expect(fixture.componentInstance.selectedIndex()).toBe(0);
+    });
+
+    it('leaves the image alone for any other key', () => {
+      const fixture = createFixtureForProject('maquetaria');
+
+      for (const key of ['Enter', 'a', 'ArrowUp', 'Tab']) {
+        press(fixture, key);
+      }
+
+      expect(fixture.componentInstance.selectedIndex()).toBe(0);
+    });
+
+    it('does nothing for a project with a single image, since there is nowhere to go', () => {
+      const single = projectsData.find((project) => project.gallery.length === 1)!;
+      const fixture = createFixtureForProject(single.id);
+
+      press(fixture, 'ArrowRight');
+      press(fixture, 'ArrowLeft');
+
+      expect(fixture.componentInstance.selectedIndex()).toBe(0);
+    });
+  });
+
 });

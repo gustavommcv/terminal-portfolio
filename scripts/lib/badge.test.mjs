@@ -30,6 +30,13 @@ describe('renderBadge', () => {
     assert.ok(!svg.includes('<image'));
   });
 
+  it('draws a badge with no logo when it has no slug at all', () => {
+    const svg = renderBadge({ label: 'Plain', color: '123456' });
+
+    assert.ok(svg.includes('Plain'));
+    assert.ok(!svg.includes('<image'));
+  });
+
   it('uses the logo colour it is given', () => {
     const white = renderBadge({ ...angular, logoColor: 'white' });
     const black = renderBadge({ ...angular, logoColor: 'black' });

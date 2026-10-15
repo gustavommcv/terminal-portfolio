@@ -236,4 +236,76 @@ describe('LanguageService', () => {
       language: 'en',
     });
   });
+
+  describe('navigateWithLocale', () => {
+    it('keeps the address clean while in English', async () => {
+      const { language, router, translate } = setup();
+      translate.resolve('en', {});
+
+      await language.navigateWithLocale('/about');
+
+      expect(router.url).toBe('/about');
+    });
+
+    it('carries ?locale=pt along while in Portuguese', async () => {
+      const { language, router, translate } = setup();
+      await router.navigateByUrl('/portfolio?locale=pt');
+      translate.resolve('pt', {});
+
+      await language.navigateWithLocale('/about');
+
+      expect(router.url).toBe('/about?locale=pt');
+    });
+  });
+
+  it('switches from Portuguese back to English on the same page, and remembers it', async () => {
+    const { language, router, translate } = setup();
+    await router.navigateByUrl('/about?locale=pt');
+    translate.resolve('pt', {});
+
+    await language.toggleLanguage();
+
+    expect(router.url).toBe('/about');
+    expect(language.currentLocale()).toBe('en');
+    expect(localStorage.getItem('locale')).toBe('en');
+  });
+
+  describe('when the translation service refreshes a catalog', () => {
+    it('shows the refreshed texts of the language in use', () => {
+      const { language, translate } = setup();
+      translate.resolve('en', { greeting: 'old' });
+      translate.resolve('en', { greeting: 'new' });
+
+      translate.onTranslationRefresh.next();
+
+      expect(language.catalogState()).toEqual({
+        status: 'ready',
+        language: 'en',
+        translations: { greeting: 'new' },
+      });
+    });
+
+    it('ignores a refresh of a language other than the one on show', () => {
+      const { language, translate } = setup();
+      translate.resolve('en', { greeting: 'hello' });
+      translate.resolve('pt', { greeting: 'olá' }); // the translation service moved on; the page has not
+
+      translate.onTranslationRefresh.next();
+
+      expect(language.catalogState()).toEqual({
+        status: 'ready',
+        language: 'en',
+        translations: { greeting: 'hello' },
+      });
+    });
+
+    it('does nothing while the catalog is still loading', () => {
+      const { language, translate } = setup();
+
+      translate.onTranslationRefresh.next();
+
+      expect(language.catalogState()).toEqual({ status: 'loading', language: 'en' });
+    });
+  });
+
 });

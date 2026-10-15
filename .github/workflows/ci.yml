@@ -35,8 +35,9 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # The suite, and the coverage it reaches (the floor is in angular.json).
       - name: Test
-        run: npm run test:ci
+        run: npm run test:coverage
 
       # The build scripts (headers and caching rules turned into routes).
       - name: Test the build scripts

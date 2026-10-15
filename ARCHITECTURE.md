@@ -260,16 +260,31 @@ previously preceded the stylesheet fetch are gone. See
 ## Testing
 
 The `@angular/build:unit-test` builder runs Vitest on top of jsdom. Every
-component has a spec file. Intro tests use controlled catalog states and cover
-delayed loads, both languages, stale completion, failures, navigation
-interruption, reduced motion, Unicode, and one-run behavior. The production
-build additionally verifies SSR/SSG compilation and prerendering.
+component has a spec file, and a component that shows catalog content is checked
+against the catalog itself, so a rendering regression (a list that stops
+rendering, a link with the wrong address) fails a test. Intro tests use
+controlled catalog states and cover delayed loads, both languages, stale
+completion, failures, navigation interruption, reduced motion, Unicode, and
+one-run behavior. The production build additionally verifies SSR/SSG
+compilation and prerendering.
+
+Three layers sit beside the component specs. Data and wiring checks catch what no
+compiler does: that every project image exists and every project has both
+languages' texts (`projects.data.spec.ts`), that every translation key written in
+a template exists in both catalogs (`translation-keys.spec.ts`), and that each
+route loads the page it names and receives its parameters (`app.routes.spec.ts`).
+The build scripts, which decide the headers, the caching, and the 404 in
+production, are plain Node and have their own tests (`npm run test:scripts`,
+with the `node:test` runner and a coverage floor). And coverage is measured over
+the whole of `src/app` with a floor that CI enforces (`npm run test:coverage`; see
+the README for what is left out and why).
 
 `src/test-setup.ts` loads the real English catalog, so specs check what visitors
 read. Tests run zoneless, like the application. Specs that depend on `afterNextRender` must call `TestBed.tick()`:
 since Angular 22.2 `fixture.detectChanges()` no longer runs those hooks. The
-GitHub Actions workflow `ci.yml` runs the suite and the production build on
-every push and pull request (see the README).
+GitHub Actions workflow `ci.yml` runs the linter, the suite with its coverage
+floor, the script tests, and the production build on every push and pull request
+(see the README).
 
 ## Build and delivery
 

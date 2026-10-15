@@ -1,5 +1,3 @@
-import { readFileSync } from 'node:fs';
-
 import { provideRouter } from '@angular/router';
 import { TestBed } from '@angular/core/testing';
 import {
@@ -11,15 +9,13 @@ import {
 import { Observable, of } from 'rxjs';
 import { beforeEach } from 'vitest';
 
+import { englishCatalog } from './testing/english-catalog';
+
 // Specs see the real English texts, so they assert what users read instead of
 // raw translation keys. Other languages stay empty unless a spec adds them.
-const english: TranslationObject = JSON.parse(
-  readFileSync('public/i18n/en.json', 'utf8'),
-);
-
 class EnglishCatalogLoader implements TranslateLoader {
   getTranslation(language: string): Observable<TranslationObject> {
-    return of(language === 'en' ? english : {});
+    return of(language === 'en' ? englishCatalog : {});
   }
 }
 

@@ -1,30 +1,58 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
 
+import { catalogEntry } from '../../../../testing/english-catalog';
 import { Footer } from './footer';
 
 describe('Footer', () => {
-  let component: Footer;
   let fixture: ComponentFixture<Footer>;
+  let root: HTMLElement;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [Footer]
-    })
-    .compileComponents();
-
+  function render(today = new Date(2031, 5, 1)): void {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(today);
+    TestBed.configureTestingModule({ imports: [Footer] });
     fixture = TestBed.createComponent(Footer);
-    component = fixture.componentInstance;
     fixture.detectChanges();
+    root = fixture.nativeElement;
+  }
+
+  afterEach(() => vi.useRealTimers());
+
+  it('credits the author in English, whatever the language of the page', () => {
+    render();
+    const credit = root.querySelector('.footer__copyright') as HTMLElement;
+
+    expect(credit.getAttribute('lang')).toBe('en');
+    expect(credit.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      '© 2031 Made with ♥ by Gustavo Monnerat',
+    );
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('shows the current year, not the year it was built', () => {
+    render(new Date(2040, 0, 1));
+
+    expect(root.querySelector('.footer__year')?.textContent).toBe('2040');
   });
 
   it('gives the heart a role, since a name on a role-less span is ignored', () => {
-    const heart: HTMLElement = fixture.nativeElement.querySelector('.footer__heart');
+    render();
+    const heart = root.querySelector('.footer__heart') as HTMLElement;
 
     expect(heart.getAttribute('role')).toBe('img');
     expect(heart.getAttribute('aria-label')).toBe('love');
+  });
+
+  it('credits the colour theme in the language of the page, linking its source safely', () => {
+    render();
+    const credit = root.querySelector('.footer__theme-credit') as HTMLElement;
+    const link = credit.querySelector('a') as HTMLAnchorElement;
+
+    expect(credit.textContent?.replace(/\s+/g, ' ').trim()).toBe(
+      `${catalogEntry('footer.theme-before')} NightFox ${catalogEntry('footer.theme-after')}`,
+    );
+    expect(link.getAttribute('href')).toBe('https://github.com/EdenEast/nightfox.nvim');
+    expect(link.getAttribute('target')).toBe('_blank');
+    expect(link.getAttribute('rel')).toBe('noopener noreferrer');
   });
 });

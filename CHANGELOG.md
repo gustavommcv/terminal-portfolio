@@ -125,6 +125,51 @@ All notable changes to this project are documented in this file.
 - A `ResizeObserver` that does not exist (a test DOM) no longer makes
   `OverflowWatch` fail.
 
+### Tests and coverage
+
+- Measured coverage for the first time (`npm run test:coverage`, with every file of
+  `src/app` counted so an untested file cannot hide). It read 94.3% of statements,
+  82.8% of branches, 90.1% of functions, and 94.4% of lines, but that overstated
+  the protection: nine presentational components had a single `should create` test
+  that renders them and asserts nothing about what they show.
+- Replaced those with tests of the content: the lists and titles come from the
+  catalog (`src/testing/english-catalog.ts`), the mailto/tel/profile links and
+  their `rel`s are checked, the age is worked out from a fixed date, the footer
+  year follows the clock, the toggle is checked in both languages, and the About
+  page is checked section by section.
+- Covered what the report showed was never run: the language service (leaving
+  Portuguese, a catalog refreshed while on screen), the preference when
+  prerendering on the server, the intro's reduced-motion changes and its lifecycle
+  state machine, a catalog with no command, the lightbox's left arrow and the
+  single-image case, the menu's keys, the button without a route, `formatEmail`
+  (which had no test), and an SEO text missing from the catalog.
+- New checks for failures nothing else catches: every project image exists and
+  every project has texts in both languages (`projects.data.spec.ts`); every
+  translation key written in a template exists in both catalogs
+  (`translation-keys.spec.ts`); each route loads the page it names and the project
+  id reaches the project page, run for real with the router.
+- Checked that the tests notice when behaviour changes, not just that they run the
+  code: a mutation test (an operator flipped, a condition forced, a call removed,
+  one run of the suite per change) over 73 valid mutants in 18 files. With the
+  earlier tests 63 were caught (86%); with the new ones 70 (96%), the same mutants.
+  The three that remain change nothing a visitor or a test could observe. It also
+  showed loose assertions, now tightened: a missing `ResizeObserver` was only
+  logged, never asserted; the focus wrap did not check `preventDefault`; the intro
+  was never run without `matchMedia`.
+- Now 365 tests (280 before) and 45 for the build scripts (27 before). Coverage is
+  98.98% of lines, 99.06% of statements, 93.1% of branches, 100% of functions
+  (provider and bootstrap lists excluded: wiring, checked by the build). The floor
+  is in `angular.json` (97% / 97% / 88% / 97%) and CI runs it; adding a file no test
+  imports fails it, which was verified.
+- `create-build-output.mjs`, which decides the headers, the caching, and the 404 in
+  production, had no tests of its own. Its work moved to
+  `scripts/lib/build-output.mjs` (the script only says where), with tests on
+  fixture folders (a missing 404 page, an immutable file without a hash, nested
+  pages, a stale output). The generated `config.json` was compared before and
+  after: identical byte for byte. The script tests now report coverage and fail
+  below 97% of lines.
+- Removed `HomeIntroService.introVisible`, which nothing read.
+
 ### Portfolio
 
 - Added Mangabound and mangapress, and featured them. Projects were reordered

@@ -36,7 +36,6 @@ export class HomeIntroService {
   readonly state = this.internalState.asReadonly();
   readonly completedCommand = this.internalCompletedCommand.asReadonly();
   readonly completedByTyping = this.internalCompletedByTyping.asReadonly();
-  readonly introVisible = computed(() => this.internalState() !== 'completed');
   readonly contentVisible = computed(() => this.internalState() === 'completed');
 
   constructor() {

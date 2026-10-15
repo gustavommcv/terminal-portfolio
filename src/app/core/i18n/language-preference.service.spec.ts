@@ -1,3 +1,4 @@
+import { PLATFORM_ID } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
@@ -77,4 +78,33 @@ describe('LanguagePreference', () => {
     expect(preference.stored()).toBeNull();
     expect(preference.preferred()).toBe('pt');
   });
+
+  describe('while prerendering on the server', () => {
+    // There is no navigator and no storage there, so every page is English.
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+      });
+    });
+
+    it('knows nothing remembered, even if the browser global has something', () => {
+      localStorage.setItem('locale', 'pt');
+
+      expect(setup().stored()).toBeNull();
+    });
+
+    it('does not write the choice anywhere', () => {
+      setup().remember('pt');
+
+      expect(localStorage.getItem('locale')).toBeNull();
+    });
+
+    it('prefers English, whatever the browser global lists', () => {
+      browserLanguages(['pt-BR']);
+
+      expect(setup().detect()).toBe('en');
+      expect(setup().preferred()).toBe('en');
+    });
+  });
+
 });

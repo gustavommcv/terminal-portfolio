@@ -33,3 +33,9 @@ describe('NAV_ROUTES', () => {
     expect(new Set(icons).size).toBe(NAV_ROUTES.length);
   });
 });
+
+describe('routeIcon for a page that is not in the navigation', () => {
+  it('falls back to the generic page icon instead of failing', () => {
+    expect(routeIcon('/not-in-the-menu')).toBe('about');
+  });
+});

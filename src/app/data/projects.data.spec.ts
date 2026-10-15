@@ -1,4 +1,7 @@
-import { projectsData } from './projects.data';
+import { existsSync, readFileSync } from 'node:fs';
+
+import { Project, projectsData } from './projects.data';
+import { ProjectsDataService } from './projects-data.service';
 
 function findProject(id: string) {
   const project = projectsData.find((p) => p.id === id);
@@ -112,5 +115,106 @@ describe('projectsData badges', () => {
     projectsData.forEach((project) => {
       expect(Array.isArray(project.stack)).toBe(true);
     });
+  });
+});
+
+// The portfolio is data. A typo in an image path, a project with no Portuguese
+// text, a link that is not a link: none of them fails to compile, they only show
+// up on the live site. These checks catch them before that.
+describe('the project catalog', () => {
+  const catalogs = {
+    en: JSON.parse(readFileSync('public/i18n/en.json', 'utf8')),
+    pt: JSON.parse(readFileSync('public/i18n/pt.json', 'utf8')),
+  } as Record<'en' | 'pt', { 'projects-page': { projects: Record<string, Record<string, string>> } }>;
+
+  const images = (project: Project): string[] => [
+    ...(project.cover ? [project.cover] : []),
+    ...project.gallery,
+  ];
+
+  it('is not empty', () => {
+    expect(projectsData.length).toBeGreaterThan(0);
+  });
+
+  it('gives every project its own id, written to be used in an address', () => {
+    const ids = projectsData.map((project) => project.id);
+
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const id of ids) {
+      expect(id, id).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+    }
+  });
+
+  it('only names image files that exist', () => {
+    const missing = projectsData
+      .flatMap((project) => images(project).map((image) => [project.id, image]))
+      .filter(([, image]) => !existsSync(`public/${image}`))
+      .map(([id, image]) => `${id}: ${image}`);
+
+    expect(missing).toEqual([]);
+  });
+
+  it('only links to real web addresses', () => {
+    for (const project of projectsData) {
+      for (const [kind, url] of Object.entries(project.links)) {
+        expect(() => new URL(url as string), `${project.id} ${kind}`).not.toThrow();
+        expect(new URL(url as string).protocol, `${project.id} ${kind}`).toBe('https:');
+      }
+    }
+  });
+
+  it('has a title, a card summary and a description, in English and in Portuguese', () => {
+    for (const language of ['en', 'pt'] as const) {
+      const texts = catalogs[language]['projects-page'].projects;
+
+      for (const project of projectsData) {
+        for (const field of ['title', 'shortDescription', 'description']) {
+          const text = texts[project.id]?.[field];
+          expect(typeof text === 'string' && text.trim().length > 0, `${language}: ${project.id}.${field}`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('has no text in either catalog for a project that does not exist', () => {
+    const known = new Set(projectsData.map((project) => project.id));
+
+    for (const language of ['en', 'pt'] as const) {
+      const ids = Object.keys(catalogs[language]['projects-page'].projects);
+
+      expect(ids.filter((id) => !known.has(id)), language).toEqual([]);
+    }
+  });
+
+  it('features some projects, but not all of them', () => {
+    const featured = projectsData.filter((project) => project.featured);
+
+    expect(featured.length).toBeGreaterThan(0);
+    expect(featured.length).toBeLessThan(projectsData.length);
+  });
+});
+
+describe('ProjectsDataService', () => {
+  const service = new ProjectsDataService();
+
+  it('finds a project by its id, and nothing for an id that is not one', () => {
+    expect(service.getProjectById('maquetaria')?.id).toBe('maquetaria');
+    expect(service.getProjectById('no-such-project')).toBeUndefined();
+    expect(service.getProjectById('')).toBeUndefined();
+  });
+
+  it('returns every project, in the order of the catalog', () => {
+    expect(service.getAllProjects().map((project) => project.id)).toEqual(
+      projectsData.map((project) => project.id),
+    );
+  });
+
+  it('returns only the featured ones, in the same order', () => {
+    const featured = service.getFeaturedProjects();
+
+    expect(featured.every((project) => project.featured === true)).toBe(true);
+    expect(featured.map((project) => project.id)).toEqual(
+      projectsData.filter((project) => project.featured).map((project) => project.id),
+    );
   });
 });

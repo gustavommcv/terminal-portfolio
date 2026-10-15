@@ -119,4 +119,26 @@ describe('HomeIntroCommandService', () => {
       reason,
     });
   });
+
+  it.each([
+    ['the home page entry is missing', { other: 'x' }],
+    ['the presentation entry is missing', { 'home-page': {} }],
+    ['the presentation entry is not an object', { 'home-page': { 'presentation-section': 'text' } }],
+    ['the presentation entry is a list', { 'home-page': { 'presentation-section': ['whoami'] } }],
+    ['the command is empty', { 'home-page': { 'presentation-section': { command: '' } } }],
+    ['the command is not text', { 'home-page': { 'presentation-section': { command: 42 } } }],
+  ])('treats a catalog where %s as having no command', (_why, translations) => {
+    const { command } = setup({
+      status: 'ready',
+      language: 'en',
+      translations: translations as never,
+    });
+
+    expect(command.state()).toEqual({
+      status: 'unavailable',
+      language: 'en',
+      reason: 'missing-command',
+    });
+  });
+
 });

@@ -349,6 +349,21 @@ describe('Header', () => {
     expect(document.body.style.overflow).toBe('');
   });
 
+  it('does not interfere with Tab, or any other key, while focus is away from the ends of the panel', async () => {
+    const overlay = await openMenu();
+    const middle = focusableInPanel(overlay)[1];
+    middle.focus();
+
+    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    const letter = new KeyboardEvent('keydown', { key: 'a', bubbles: true, cancelable: true });
+    middle.dispatchEvent(tab);
+    middle.dispatchEvent(letter);
+
+    expect(tab.defaultPrevented).toBe(false);
+    expect(letter.defaultPrevented).toBe(false);
+    expect(document.activeElement).toBe(middle);
+  });
+
   it('wraps focus from the last focusable panel element back to the first via Tab', async () => {
     const overlay = await openMenu();
     const focusable = focusableInPanel(overlay);
@@ -356,11 +371,11 @@ describe('Header', () => {
     const last = focusable[focusable.length - 1];
 
     last.focus();
-    last.dispatchEvent(
-      new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true }),
-    );
+    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+    last.dispatchEvent(tab);
 
     expect(document.activeElement).toBe(first);
+    expect(tab.defaultPrevented).toBe(true); // or the browser would move focus on from there
   });
 
   it('wraps focus from the first focusable panel element back to the last via Shift+Tab', async () => {
@@ -370,16 +385,16 @@ describe('Header', () => {
     const last = focusable[focusable.length - 1];
 
     first.focus();
-    first.dispatchEvent(
-      new KeyboardEvent('keydown', {
-        key: 'Tab',
-        shiftKey: true,
-        bubbles: true,
-        cancelable: true,
-      }),
-    );
+    const shiftTab = new KeyboardEvent('keydown', {
+      key: 'Tab',
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    });
+    first.dispatchEvent(shiftTab);
 
     expect(document.activeElement).toBe(last);
+    expect(shiftTab.defaultPrevented).toBe(true);
   });
 
   it('handles rapid repeated activation with one authoritative state', () => {

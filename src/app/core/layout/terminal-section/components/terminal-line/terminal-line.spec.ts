@@ -50,6 +50,18 @@ describe('TerminalLine', () => {
     expect(element.querySelector('.terminal-cursor')).not.toBeNull();
   });
 
+  it('names the short prompt as it looks: path, dollar sign, then the whole command', () => {
+    const fixture = createTerminalLine({
+      short: true,
+      command: 'glow',
+      accessibleCommand: 'glow stack.md',
+    });
+
+    expect(fixture.nativeElement.querySelector('.visually-hidden').textContent.trim()).toBe(
+      '~ $ glow stack.md',
+    );
+  });
+
   it('keeps the prompt together while allowing the command container to wrap', () => {
     const fixture = createTerminalLine({ command: 'a-very-long-command' });
 
