@@ -55,4 +55,16 @@ describe('Footer', () => {
     expect(link.getAttribute('target')).toBe('_blank');
     expect(link.getAttribute('rel')).toBe('noopener noreferrer');
   });
+
+  it('keeps the spaces around the link outside it, so they are not underlined with it', () => {
+    render();
+    const link = root.querySelector('.footer__theme-credit a') as HTMLAnchorElement;
+
+    // The link is its name and nothing else (whitespace is collapsed to a space
+    // that would be drawn, underlined, inside the link)...
+    expect(link.textContent).toBe('NightFox');
+    // ...and the sentence still has a space before it and after it.
+    expect(link.previousSibling?.textContent).toMatch(/\s$/);
+    expect(link.nextSibling?.textContent).toMatch(/^\s/);
+  });
 });

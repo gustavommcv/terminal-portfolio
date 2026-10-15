@@ -188,6 +188,13 @@ All notable changes to this project are documented in this file.
   21 widths on 5 kinds of page: 15 of 105 combinations were aligned before, 105 of
   105 are now; the header's height, the menu, and horizontal overflow are unchanged
   at 17 widths. `layout-gutter.spec.ts` guards the source.
+- The footer's link to the NightFox theme was underlined past the word: its name
+  sat on a line of its own inside the link, and the whitespace around it is
+  collapsed to a space that is drawn, underlined, on each side. The name now
+  touches the tags of the link, and a spec requires the link to be its name and
+  nothing else, with the spaces of the sentence outside it. A scan of the 140
+  links of the six main pages, in both languages, found no other link with a
+  space inside.
 
 ### Components with one responsibility
 
