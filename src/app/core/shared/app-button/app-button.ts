@@ -3,6 +3,7 @@ import { Component, inject, input } from '@angular/core';
 
 import { LocalizedLink } from '../../i18n/localized-link';
 import { isPlainLeftClick } from '../plain-left-click';
+import { prefersReducedMotion } from '../reduced-motion';
 
 /**
  * A button-like link: to another page of the site (`route`), which stays in the
@@ -30,14 +31,7 @@ export class AppButton {
 
     event.preventDefault();
     this.document.getElementById(target)?.scrollIntoView({
-      behavior: this.prefersReducedMotion() ? 'instant' : 'smooth',
+      behavior: prefersReducedMotion() ? 'instant' : 'smooth',
     });
-  }
-
-  private prefersReducedMotion(): boolean {
-    return (
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    );
   }
 }

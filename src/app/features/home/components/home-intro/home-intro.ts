@@ -11,6 +11,7 @@ import {
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { TerminalLine } from '../../../../core/layout/terminal-section/components/terminal-line/terminal-line';
+import { reducedMotionQuery } from '../../../../core/shared/reduced-motion';
 import { HOME_INTRO_CONFIG } from '../../home-intro.config';
 import type { HomeIntroLayoutReservation } from '../../home-intro-layout-reservations';
 import type { HomeIntroCommandState } from '../../services/home-intro-command.service';
@@ -103,10 +104,7 @@ export class HomeIntro {
   }
 
   private claimInBrowser(): void {
-    this.motionQuery =
-      typeof window.matchMedia === 'function'
-        ? window.matchMedia('(prefers-reduced-motion: reduce)')
-        : undefined;
+    this.motionQuery = reducedMotionQuery();
 
     this.motionQuery?.addEventListener('change', this.onMotionChange);
     this.lifecycle.claim(this.motionQuery?.matches ?? false);
