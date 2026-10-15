@@ -2,10 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 
-import { LanguageService } from '../../i18n/language.service';
+import { catalogEntry } from '../../../../testing/english-catalog';
 import { Header } from './header';
 import { NAV_ROUTES } from './nav-routes';
 
+// The panel itself (its rows, its focus trap, its scroll lock) is the mobile
+// menu's, and is checked in its own spec. Here: what the header does around it.
 describe('Header', () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
@@ -31,124 +33,44 @@ describe('Header', () => {
     return fixture.nativeElement.querySelector('.hamburger-button');
   }
 
-  function closeButton(overlay: HTMLElement): HTMLButtonElement {
-    return overlay.querySelector('.neo-sidebar__close') as HTMLButtonElement;
-  }
+  const overlay = (): HTMLElement | null => fixture.nativeElement.querySelector('.menu-overlay');
+  const menuLinks = (): HTMLAnchorElement[] =>
+    Array.from(fixture.nativeElement.querySelectorAll('.neo-sidebar__link'));
+  const desktopLinks = (): HTMLAnchorElement[] =>
+    Array.from(fixture.nativeElement.querySelectorAll('.desktop-nav .header__link'));
 
-  function links(overlay: HTMLElement): HTMLAnchorElement[] {
-    return Array.from(overlay.querySelectorAll('.neo-sidebar__link'));
-  }
-
-  function focusableInPanel(overlay: HTMLElement): HTMLElement[] {
-    const panel = overlay.querySelector('.neo-sidebar') as HTMLElement;
-    return Array.from(
-      panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
-    );
-  }
-
-  async function openMenu(): Promise<HTMLElement> {
+  async function openMenu(): Promise<void> {
     const button = menuButton();
     button.focus();
     button.click();
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
-    return fixture.nativeElement.querySelector('.menu-overlay');
+  }
+
+  function click(link: HTMLElement, init: MouseEventInit = {}): MouseEvent {
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true, ...init });
+    link.dispatchEvent(event);
+    return event;
   }
 
   it('renders semantic, locale-aware desktop links with current-page metadata', () => {
-    const desktopLinks = Array.from(
-      fixture.nativeElement.querySelectorAll('.desktop-nav .header__link'),
-    ) as HTMLAnchorElement[];
-
-    expect(desktopLinks.map((link) => link.getAttribute('href'))).toEqual([
-      '/',
-      '/about',
-      '/portfolio',
-    ]);
-    expect(desktopLinks[0].getAttribute('aria-current')).toBe('page');
+    expect(desktopLinks().map((link) => link.getAttribute('href'))).toEqual(['/', '/about', '/portfolio']);
+    expect(desktopLinks()[0].getAttribute('aria-current')).toBe('page');
   });
 
-  describe('clicking a navigation link', () => {
-    function click(link: HTMLElement, init: MouseEventInit = {}): MouseEvent {
-      const event = new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        ...init,
-      });
-      link.dispatchEvent(event);
-      return event;
-    }
-
-    function spyOnNavigation() {
-      return vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
-    }
-
-    it('navigates in the app on a plain left click, and closes the menu', async () => {
-      const navigate = spyOnNavigation();
-      const overlay = await openMenu();
-
-      const event = click(links(overlay)[1]);
-
-      expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith(['/about'], { queryParams: {} });
-      expect(component.isMenuOpen()).toBe(false);
-    });
-
-    it('navigates from the desktop links without a menu to close', () => {
-      const navigate = spyOnNavigation();
-      const desktopLink = fixture.nativeElement.querySelectorAll(
-        '.desktop-nav .header__link',
-      )[2] as HTMLAnchorElement;
-
-      const event = click(desktopLink);
-
-      expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith(['/portfolio'], { queryParams: {} });
-    });
-
-    it.each([
-      ['Ctrl', { ctrlKey: true }],
-      ['Cmd', { metaKey: true }],
-      ['Shift', { shiftKey: true }],
-      ['Alt', { altKey: true }],
-      ['the middle button', { button: 1 }],
-    ])('leaves the browser to handle a click with %s', async (_name, init) => {
-      const navigate = spyOnNavigation();
-      const overlay = await openMenu();
-      const desktopLink = fixture.nativeElement.querySelector(
-        '.desktop-nav .header__link',
-      ) as HTMLAnchorElement;
-
-      const menuEvent = click(links(overlay)[1], init);
-      const desktopEvent = click(desktopLink, init);
-
-      expect(menuEvent.defaultPrevented).toBe(false);
-      expect(desktopEvent.defaultPrevented).toBe(false);
-      expect(navigate).not.toHaveBeenCalled();
-      // the page is not left, so the menu stays open too
-      expect(component.isMenuOpen()).toBe(true);
-    });
-  });
-
-  it('offers the same pages in the desktop bar and in the mobile menu', async () => {
-    const hrefs = (nodes: NodeListOf<Element>) =>
-      Array.from(nodes).map((link) => link.getAttribute('href'));
-    const overlay = await openMenu();
-
-    expect(
-      hrefs(fixture.nativeElement.querySelectorAll('.desktop-nav .header__link')),
-    ).toEqual([...NAV_ROUTES]);
-    expect(hrefs(overlay.querySelectorAll('.neo-sidebar__link'))).toEqual([
-      ...NAV_ROUTES,
-    ]);
+  it('names the logo link and the hamburger button', () => {
+    expect(fixture.nativeElement.querySelector('.logo').getAttribute('aria-label')).toBe(
+      catalogEntry('header.home-link'),
+    );
+    expect(menuButton().getAttribute('aria-label')).toBe(catalogEntry('header.menu'));
   });
 
   it('follows the current page with its active link, whichever way the route changes', async () => {
     const activeLabels = () =>
-      Array.from(
-        fixture.nativeElement.querySelectorAll('.desktop-nav .header__link--active'),
-      ).map((link) => (link as HTMLElement).textContent?.trim());
+      Array.from(fixture.nativeElement.querySelectorAll('.desktop-nav .header__link--active')).map((link) =>
+        (link as HTMLElement).textContent?.trim(),
+      );
     const router = TestBed.inject(Router);
 
     // Not through a click on the header: a reload, or the browser's back button.
@@ -167,250 +89,153 @@ describe('Header', () => {
     expect(activeLabels()).toEqual(['home']);
   });
 
-  it('does not render the overlay or sidebar while closed', () => {
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(fixture.nativeElement.querySelector('.neo-sidebar')).toBeNull();
-  });
+  describe('the hamburger button', () => {
+    it('points at the menu and says it is closed', () => {
+      expect(menuButton().getAttribute('aria-controls')).toBe('mobile-menu');
+      expect(menuButton().getAttribute('aria-expanded')).toBe('false');
+      expect(component.isMenuOpen()).toBe(false);
+      expect(overlay()).toBeNull();
+    });
 
-  it('renders exactly one backdrop and one sidebar immediately on open', async () => {
-    const overlay = await openMenu();
+    it('opens the menu, and says so', async () => {
+      await openMenu();
 
-    expect(component.isMenuOpen()).toBe(true);
-    expect(
-      fixture.nativeElement.querySelectorAll('.menu-overlay'),
-    ).toHaveLength(1);
-    expect(overlay.querySelectorAll('.neo-sidebar')).toHaveLength(1);
-  });
+      expect(component.isMenuOpen()).toBe(true);
+      expect(menuButton().getAttribute('aria-expanded')).toBe('true');
+      expect(overlay()).not.toBeNull();
+      expect(fixture.nativeElement.querySelector('#mobile-menu')).not.toBeNull();
+      expect(document.body.style.overflow).toBe('hidden');
+    });
 
-  it('mounts the backdrop and sidebar synchronously, with no timer gating appearance', () => {
-    vi.useFakeTimers();
-    try {
-      const button = menuButton();
-      button.click();
+    it('closes the menu when pressed again, and keeps focus', async () => {
+      await openMenu();
+
+      menuButton().click();
       fixture.detectChanges();
 
-      // No vi.advanceTimersByTime()/runAllTimers() call: if any setTimeout
-      // gated the overlay's appearance, it would not exist yet here.
-      expect(fixture.nativeElement.querySelector('.menu-overlay')).not.toBeNull();
-      expect(fixture.nativeElement.querySelector('.neo-sidebar')).not.toBeNull();
-      expect(
-        fixture.nativeElement.querySelectorAll('.neo-sidebar__link'),
-      ).toHaveLength(3);
-    } finally {
-      vi.useRealTimers();
+      expect(component.isMenuOpen()).toBe(false);
+      expect(menuButton().getAttribute('aria-expanded')).toBe('false');
+      expect(overlay()).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+      expect(document.activeElement).toBe(menuButton());
+    });
+
+    it('handles rapid repeated activation with one authoritative state', () => {
+      menuButton().focus();
+
+      menuButton().click();
+      menuButton().click();
+      menuButton().click();
+      fixture.detectChanges();
+
+      expect(component.isMenuOpen()).toBe(true);
+      expect(fixture.nativeElement.querySelectorAll('.menu-overlay')).toHaveLength(1);
+    });
+  });
+
+  describe('when the menu asks to be closed', () => {
+    it('closes it, and hands focus back to the hamburger button, by its close button', async () => {
+      await openMenu();
+      fixture.nativeElement.querySelector('.neo-sidebar__close').click();
+      fixture.detectChanges();
+
+      expect(component.isMenuOpen()).toBe(false);
+      expect(overlay()).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+      expect(document.activeElement).toBe(menuButton());
+    });
+
+    it('closes it, and hands focus back to the button, by a click on the backdrop', async () => {
+      await openMenu();
+      overlay()!.click();
+      fixture.detectChanges();
+
+      expect(overlay()).toBeNull();
+      expect(document.activeElement).toBe(menuButton());
+    });
+
+    it('closes it, and hands focus back to the button, with Escape', async () => {
+      await openMenu();
+      menuLinks()[0].focus();
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(overlay()).toBeNull();
+      expect(menuButton().getAttribute('aria-expanded')).toBe('false');
+      expect(document.activeElement).toBe(menuButton());
+    });
+
+    it('does not move focus to the hamburger button when Escape is pressed with the menu closed', () => {
+      menuButton().focus();
+      menuButton().blur();
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(document.activeElement).not.toBe(menuButton());
+    });
+  });
+
+  describe('clicking a navigation link', () => {
+    function spyOnNavigation() {
+      return vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     }
-  });
 
-  it('renders route rows as semantic list/navigation markup with one icon each', async () => {
-    const overlay = await openMenu();
-    const nav = overlay.querySelector('nav.neo-sidebar__nav');
-    const rows = overlay.querySelectorAll('.neo-sidebar__tree > li.neo-sidebar__row');
+    it('in the menu navigates in the app, and closes the menu without delaying the navigation', async () => {
+      const navigate = spyOnNavigation();
+      await openMenu();
 
-    expect(nav).not.toBeNull();
-    expect(nav?.querySelector('ul.neo-sidebar__tree')).not.toBeNull();
-    expect(rows).toHaveLength(3);
+      const event = click(menuLinks()[1]);
+      fixture.detectChanges();
 
-    rows.forEach((row) => {
-      const link = row.querySelector('a.neo-sidebar__link');
-      expect(link).not.toBeNull();
-      expect(row.querySelectorAll('svg')).toHaveLength(1);
+      expect(event.defaultPrevented).toBe(true);
+      expect(navigate).toHaveBeenCalledWith(['/about'], { queryParams: {} });
+      expect(component.isMenuOpen()).toBe(false);
+      expect(overlay()).toBeNull();
+      expect(document.body.style.overflow).toBe('');
+    });
+
+    it('in the desktop bar navigates in the app, with no menu to close', () => {
+      const navigate = spyOnNavigation();
+
+      const event = click(desktopLinks()[2]);
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(navigate).toHaveBeenCalledWith(['/portfolio'], { queryParams: {} });
+    });
+
+    it.each([
+      ['Ctrl', { ctrlKey: true }],
+      ['Cmd', { metaKey: true }],
+      ['Shift', { shiftKey: true }],
+      ['Alt', { altKey: true }],
+      ['the middle button', { button: 1 }],
+    ])('leaves the browser to handle a click with %s, and the menu stays open', async (_name, init) => {
+      const navigate = spyOnNavigation();
+      await openMenu();
+
+      const menuEvent = click(menuLinks()[1], init);
+      const desktopEvent = click(desktopLinks()[0], init);
+
+      expect(menuEvent.defaultPrevented).toBe(false);
+      expect(desktopEvent.defaultPrevented).toBe(false);
+      expect(navigate).not.toHaveBeenCalled();
+      // the page is not left, so the menu stays open too
+      expect(component.isMenuOpen()).toBe(true);
     });
   });
 
-  it('gives every menu icon aria-hidden and no accessible name of its own', async () => {
-    const overlay = await openMenu();
-    const icons = Array.from(overlay.querySelectorAll('svg'));
-
-    expect(icons.length).toBeGreaterThan(0);
-    icons.forEach((icon) => {
-      expect(icon.getAttribute('aria-hidden')).toBe('true');
-      expect(icon.hasAttribute('aria-label')).toBe(false);
-      expect(icon.hasAttribute('title')).toBe(false);
-    });
-  });
-
-  it('marks the current route with aria-current and the active row class', async () => {
-    const overlay = await openMenu();
-    const homeLink = links(overlay)[0];
-
-    expect(homeLink.getAttribute('aria-current')).toBe('page');
-    expect(homeLink.classList.contains('neo-sidebar__link--active')).toBe(
-      true,
-    );
-    links(overlay)
-      .slice(1)
-      .forEach((link) => {
-        expect(link.hasAttribute('aria-current')).toBe(false);
-        expect(link.classList.contains('neo-sidebar__link--active')).toBe(
-          false,
-        );
-      });
-  });
-
-  it('renders correct route labels regardless of the active locale', async () => {
-    const overlay = await openMenu();
-    expect(links(overlay).map((link) => link.textContent?.trim())).toEqual([
-      'home',
-      'about',
-      'portfolio',
-    ]);
-
-    // Route labels are derived from the path, not the translation catalog,
-    // so they stay identical under the Portuguese locale too - this is
-    // existing, intentional behavior this redesign preserves as-is.
-    vi.spyOn(TestBed.inject(LanguageService), 'toggleLanguage').mockResolvedValue(true);
-    expect(links(overlay).map((link) => link.textContent?.trim())).toEqual([
-      'home',
-      'about',
-      'portfolio',
-    ]);
-  });
-
-  it('keeps hrefs locale-aware', async () => {
-    const overlay = await openMenu();
-    expect(links(overlay).map((link) => link.getAttribute('href'))).toEqual([
-      '/',
-      '/about',
-      '/portfolio',
-    ]);
-  });
-
-  it('moves focus to the active route link on open, falling back to the first link', async () => {
-    const overlay = await openMenu();
-    const rowLinks = links(overlay);
-    const activeLink = rowLinks.find((link) =>
-      link.classList.contains('neo-sidebar__link--active'),
-    );
-
-    expect(document.activeElement).toBe(activeLink ?? rowLinks[0]);
-  });
-
-  it('closes immediately, removes the backdrop, and restores trigger focus', async () => {
-    const button = menuButton();
+  it('offers the same pages in the desktop bar and in the mobile menu', async () => {
     await openMenu();
 
-    button.click();
-    fixture.detectChanges();
-
-    expect(component.isMenuOpen()).toBe(false);
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(button.getAttribute('aria-expanded')).toBe('false');
-    expect(document.body.style.overflow).toBe('');
-    expect(document.activeElement).toBe(button);
-  });
-
-  it('closes immediately through the static close button inside the panel', async () => {
-    const overlay = await openMenu();
-    closeButton(overlay).click();
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(document.body.style.overflow).toBe('');
-    expect(document.activeElement).toBe(menuButton());
-  });
-
-  it('closes immediately through backdrop interaction', async () => {
-    const overlay = await openMenu();
-    overlay.click();
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(document.body.style.overflow).toBe('');
-  });
-
-  it('closes immediately with Escape', async () => {
-    const overlay = await openMenu();
-    const firstLink = links(overlay)[0];
-    firstLink.focus();
-    expect(document.activeElement).toBe(firstLink);
-
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-    fixture.detectChanges();
-
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(menuButton().getAttribute('aria-expanded')).toBe('false');
-    expect(document.activeElement).toBe(menuButton());
-  });
-
-  it('closes after selecting a route without delaying navigation', async () => {
-    const navigateSpy = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
-    const overlay = await openMenu();
-    const aboutLink = links(overlay)[1];
-
-    aboutLink.click();
-    fixture.detectChanges();
-
-    expect(navigateSpy).toHaveBeenCalledWith(['/about'], { queryParams: {} });
-    expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
-    expect(document.body.style.overflow).toBe('');
-  });
-
-  it('does not interfere with Tab, or any other key, while focus is away from the ends of the panel', async () => {
-    const overlay = await openMenu();
-    const middle = focusableInPanel(overlay)[1];
-    middle.focus();
-
-    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
-    const letter = new KeyboardEvent('keydown', { key: 'a', bubbles: true, cancelable: true });
-    middle.dispatchEvent(tab);
-    middle.dispatchEvent(letter);
-
-    expect(tab.defaultPrevented).toBe(false);
-    expect(letter.defaultPrevented).toBe(false);
-    expect(document.activeElement).toBe(middle);
-  });
-
-  it('wraps focus from the last focusable panel element back to the first via Tab', async () => {
-    const overlay = await openMenu();
-    const focusable = focusableInPanel(overlay);
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    last.focus();
-    const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
-    last.dispatchEvent(tab);
-
-    expect(document.activeElement).toBe(first);
-    expect(tab.defaultPrevented).toBe(true); // or the browser would move focus on from there
-  });
-
-  it('wraps focus from the first focusable panel element back to the last via Shift+Tab', async () => {
-    const overlay = await openMenu();
-    const focusable = focusableInPanel(overlay);
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-
-    first.focus();
-    const shiftTab = new KeyboardEvent('keydown', {
-      key: 'Tab',
-      shiftKey: true,
-      bubbles: true,
-      cancelable: true,
-    });
-    first.dispatchEvent(shiftTab);
-
-    expect(document.activeElement).toBe(last);
-    expect(shiftTab.defaultPrevented).toBe(true);
-  });
-
-  it('handles rapid repeated activation with one authoritative state', () => {
-    const button = menuButton();
-    button.focus();
-
-    button.click();
-    button.click();
-    button.click();
-    fixture.detectChanges();
-
-    expect(component.isMenuOpen()).toBe(true);
-    expect(fixture.nativeElement.querySelectorAll('.menu-overlay')).toHaveLength(
-      1,
-    );
+    expect(desktopLinks().map((link) => link.getAttribute('href'))).toEqual([...NAV_ROUTES]);
+    expect(menuLinks().map((link) => link.getAttribute('href'))).toEqual([...NAV_ROUTES]);
   });
 
   it('does not recreate or alter desktop navigation when the mobile menu toggles', async () => {
     const desktopNav = fixture.nativeElement.querySelector('.desktop-nav');
-    const desktopLinks = desktopNav.querySelectorAll('.header__link');
+    const links = desktopNav.querySelectorAll('.header__link');
 
     await openMenu();
     component.closeMenu();
@@ -418,48 +243,14 @@ describe('Header', () => {
 
     expect(fixture.nativeElement.querySelector('.desktop-nav')).toBe(desktopNav);
     expect(desktopNav.querySelectorAll('.header__link')).toHaveLength(3);
-    expect(desktopNav.querySelectorAll('.header__link')[0]).toBe(desktopLinks[0]);
+    expect(desktopNav.querySelectorAll('.header__link')[0]).toBe(links[0]);
   });
 
-  it('always restores body scrolling if the header is destroyed while open', async () => {
+  it('always restores body scrolling if the header is destroyed while the menu is open', async () => {
     await openMenu();
 
     fixture.destroy();
 
     expect(document.body.style.overflow).toBe('');
-  });
-
-  it('gives the trigger and close button accessible names', async () => {
-    const overlay = await openMenu();
-
-    expect(menuButton().getAttribute('aria-label')).toBe('Menu');
-    expect(closeButton(overlay).getAttribute('aria-label')).toBe('Close menu');
-  });
-
-  it('contains no menu motion rules, intermediate classes, or reveal styling', async () => {
-    const headerStyles = Array.from(document.head.querySelectorAll('style'))
-      .map((style) => style.textContent ?? '')
-      .find(
-        (styles) =>
-          styles.includes('.menu-overlay') && styles.includes('.neo-sidebar'),
-      );
-    const overlay = await openMenu();
-    const menuClassNames = [
-      overlay.className,
-      overlay.querySelector('.neo-sidebar')?.className ?? '',
-      ...Array.from(overlay.querySelectorAll('*')).map(
-        (el) => el.className,
-      ),
-    ]
-      .filter((value) => typeof value === 'string')
-      .join(' ');
-
-    expect(headerStyles).toBeDefined();
-    expect(headerStyles).not.toMatch(
-      /transition|animation|@keyframes|transform|opacity|visibility/i,
-    );
-    expect(menuClassNames).not.toMatch(
-      /opening|closing|animating|transitioning|reveal|fade|slide/i,
-    );
   });
 });

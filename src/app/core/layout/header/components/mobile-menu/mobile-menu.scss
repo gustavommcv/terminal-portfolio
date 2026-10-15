@@ -1,0 +1,207 @@
+@use "abstracts/variables" as *;
+
+// The panel and its backdrop are placed by the viewport (position: fixed), so
+// this component takes no space in the header that holds it.
+:host {
+  display: contents;
+}
+
+// The menu is for narrow screens: from this width the header shows its own links.
+@media screen and (min-width: 769px) {
+  .menu-overlay {
+    display: none;
+  }
+}
+
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: $z-index-mobile-nav-overlay;
+}
+
+// Neo-tree-inspired sidebar. Fixed left panel, opaque NightFox background,
+// dense left-aligned rows instead of a centered link stack.
+.neo-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(84vw, 34rem);
+  height: 100dvh;
+  background-color: $color-section-background-dark;
+  border-right: 1px solid $color-tree-sidebar-border;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: $z-index-mobile-nav-panel;
+
+  padding-left: env(safe-area-inset-left, 0);
+
+  &__source-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding: calc(env(safe-area-inset-top, 0) + 1.2rem) 1.2rem 1.2rem;
+    border-bottom: 1px solid $color-tree-sidebar-border;
+  }
+
+  &__source-icon {
+    color: $color-accent-secondary;
+  }
+
+  &__source-label {
+    font-size: $font-size-xsmall;
+    font-weight: $font-weight-bold;
+    letter-spacing: 0.1em;
+    color: $color-text-dark;
+    margin-right: auto;
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    color: $color-text-dark;
+
+    &:hover {
+      color: $color-title-dark;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0.2rem;
+    }
+  }
+
+  &__root {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-shrink: 0;
+    padding: 1.2rem;
+    color: $color-text-dark;
+  }
+
+  &__root-icon {
+    color: $color-accent-primary;
+  }
+
+  &__root-label {
+    font-size: $font-size-small;
+    font-weight: $font-weight-bold;
+    overflow-wrap: anywhere;
+  }
+
+  &__root-path {
+    color: $color-text-dark;
+  }
+
+  &__root-name {
+    &--left {
+      color: $color-accent-primary;
+    }
+
+    &--middle {
+      color: $color-text-dark;
+    }
+
+    &--right {
+      color: $color-accent-secondary;
+    }
+  }
+
+  &__nav {
+    flex-shrink: 0;
+  }
+
+  &__tree {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0.8rem;
+  }
+
+  &__row {
+    &:last-child .neo-sidebar__guide::before {
+      bottom: 50%;
+    }
+
+    &:last-child .neo-sidebar__guide::after {
+      content: "";
+      position: absolute;
+      left: 0.7rem;
+      top: 50%;
+      width: 0.7rem;
+      height: 1px;
+      background-color: $color-tree-guide-muted;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.9rem 1.2rem 0.9rem 0;
+    color: $color-text-dark;
+    text-decoration: none;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background-color: $color-tree-row-hover;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: -2px;
+    }
+
+    &--active {
+      background-color: $color-tree-row-active;
+      border-left-color: $color-accent-primary;
+      color: $color-accent-primary;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &__guide {
+    position: relative;
+    width: 1.8rem;
+    align-self: stretch;
+    flex-shrink: 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0.7rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-color: $color-tree-guide-muted;
+    }
+  }
+
+  &__link-icon {
+    color: inherit;
+  }
+
+  &__link-label {
+    font-size: $font-size-small;
+  }
+
+  &__status {
+    margin-top: auto;
+    flex-shrink: 0;
+    padding: 1.2rem calc(1.2rem + env(safe-area-inset-left, 0))
+      calc(env(safe-area-inset-bottom, 0) + 1.2rem);
+    border-top: 1px solid $color-tree-sidebar-border;
+  }
+}

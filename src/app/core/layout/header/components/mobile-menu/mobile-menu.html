@@ -1,0 +1,73 @@
+@if (open()) {
+  <!-- A click target for the mouse only; the keyboard closes the menu with Escape or its close button. -->
+  <div class="menu-overlay" role="presentation" (click)="closed.emit()">
+    <div
+      #panel
+      id="mobile-menu"
+      class="neo-sidebar"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'header.menu-dialog' | translate"
+      (click)="$event.stopPropagation()"
+      (keydown)="onPanelKeydown($event)"
+    >
+      <div class="neo-sidebar__source-bar">
+        <app-neo-tree-icon icon="tree" class="neo-sidebar__source-icon" />
+        <span class="neo-sidebar__source-label">{{
+          "header.menu-title" | translate
+        }}</span>
+        <button
+          type="button"
+          class="neo-sidebar__close"
+          (click)="closed.emit()"
+          [attr.aria-label]="'header.menu-close' | translate"
+        >
+          <app-neo-tree-icon icon="close" />
+        </button>
+      </div>
+
+      <div class="neo-sidebar__root">
+        <app-neo-tree-icon icon="folder-open" class="neo-sidebar__root-icon" />
+        <span class="neo-sidebar__root-label">
+          <span class="neo-sidebar__root-path">~/</span
+          ><span class="neo-sidebar__root-name--left">gus</span
+          ><span class="neo-sidebar__root-name--middle">::</span
+          ><span class="neo-sidebar__root-name--right">monnerat</span>
+        </span>
+      </div>
+
+      <nav
+        #navList
+        class="neo-sidebar__nav"
+        [attr.aria-label]="'header.nav-mobile' | translate"
+      >
+        <ul class="neo-sidebar__tree">
+          @for (route of navRoutes; track route) {
+            <li class="neo-sidebar__row">
+              <a
+                class="neo-sidebar__link"
+                [class.neo-sidebar__link--active]="isActive(route)"
+                [attr.aria-current]="isActive(route) ? 'page' : null"
+                [appLocalizedLink]="route"
+                (navigated)="closed.emit()"
+              >
+                <span class="neo-sidebar__guide" aria-hidden="true"></span>
+                <app-neo-tree-icon
+                  [icon]="routeIcon(route)"
+                  class="neo-sidebar__link-icon"
+                />
+                <span class="neo-sidebar__link-label">{{
+                  routeLabel(route)
+                }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <div class="neo-sidebar__status">
+        <app-language-toggle-button />
+      </div>
+    </div>
+  </div>
+}
