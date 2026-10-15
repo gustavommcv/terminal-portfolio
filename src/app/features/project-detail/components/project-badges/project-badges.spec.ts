@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectBadge, projectsData } from '../../../data/projects.data';
+import { ProjectBadge, projectsData } from '../../../../data/projects.data';
 import { badgeFileName } from './badge-file';
 import { ProjectBadges } from './project-badges';
 

@@ -44,7 +44,7 @@ describe('the side gutter of the header and the pages', () => {
     'src/app/features/home/home-page/home-page.scss',
     'src/app/features/about/about-page/about-page.scss',
     'src/app/features/portfolio/portfolio-page/portfolio-page.scss',
-    'src/app/features/projectDetail/project-detail-page/project-detail-page.scss',
+    'src/app/features/project-detail/project-detail-page/project-detail-page.scss',
     'src/app/features/error/error-page/error-page.scss',
   ])('is what %s uses', (file) => {
     expect(read(file)).toContain('@include page-shell');

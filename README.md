@@ -78,13 +78,13 @@ terminal-portfolio/
 │   │   │   ├── i18n/           # Language state, and the visitor's language preference
 │   │   │   ├── layout/         # Header, footer, and the terminal visual composition
 │   │   │   ├── seo/            # Title, description, canonical URL, and social tags per page
-│   │   │   └── shared/         # Buttons, titles, language toggle, project cards, and their helpers
+│   │   │   └── shared/         # What several parts share: buttons, titles, the carousel, project cards
 │   │   ├── data/               # Typed project catalog and the service that reads it
 │   │   ├── features/
 │   │   │   ├── home/           # Home page and its sections
 │   │   │   ├── about/          # About page and its sections
 │   │   │   ├── portfolio/      # Project listing
-│   │   │   ├── projectDetail/  # Project detail page
+│   │   │   ├── project-detail/ # Project detail page, its gallery and badges
 │   │   │   └── error/          # Fallback for unknown routes
 │   │   ├── app.config*.ts      # Browser and rendering providers
 │   │   └── app.routes*.ts      # Client routes and rendering modes

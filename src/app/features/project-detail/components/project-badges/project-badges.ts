@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { ProjectBadge } from '../../../data/projects.data';
+import { ProjectBadge } from '../../../../data/projects.data';
 import { badgeFileName } from './badge-file';
 
 @Component({

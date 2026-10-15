@@ -1,4 +1,4 @@
-import type { NeoTreeIconName } from '../../shared/neo-tree-icon/neo-tree-icon';
+import type { NeoTreeIconName } from './components/neo-tree-icon/neo-tree-icon';
 
 /** The pages in the main navigation, in order, shown by both the desktop bar and the mobile menu. */
 export const NAV_ROUTES = ['/', '/about', '/portfolio'] as const;

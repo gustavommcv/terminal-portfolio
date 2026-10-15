@@ -3,7 +3,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LanguageService } from '../../i18n/language.service';
 import { LocalizedLink } from '../../i18n/localized-link';
-import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
+import { LanguageToggleButton } from './components/language-toggle-button/language-toggle-button';
 import { MobileMenu } from './components/mobile-menu/mobile-menu';
 import { NAV_ROUTES, routeLabel } from './nav-routes';
 

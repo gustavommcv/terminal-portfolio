@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 
-import { LanguageService } from '../../i18n/language.service';
+import { LanguageService } from '../../../../i18n/language.service';
 import { LanguageToggleButton } from './language-toggle-button';
 
 describe('LanguageToggleButton', () => {

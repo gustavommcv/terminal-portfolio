@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { projectExistsGuard } from './features/projectDetail/project-exists.guard';
+import { projectExistsGuard } from './features/project-detail/project-exists.guard';
 import type { SeoPage } from './core/seo/seo.service';
 
 // `data.seo` tells SeoService which kind of page a route is; it then builds
@@ -37,7 +37,7 @@ export const routes: Routes = [
     canMatch: [projectExistsGuard],
     loadComponent: () =>
       import(
-        './features/projectDetail/project-detail-page/project-detail-page'
+        './features/project-detail/project-detail-page/project-detail-page'
       ).then((m) => m.ProjectDetailPage),
   },
   // Prerendered as `404/index.html`; the build copies it to `404.html`, which

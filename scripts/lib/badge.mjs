@@ -11,7 +11,7 @@ import { join } from 'node:path';
 
 import { makeBadge } from 'badge-maker';
 
-import { badgeFileName } from '../../src/app/core/shared/project-badges/badge-file.ts';
+import { badgeFileName } from '../../src/app/features/project-detail/components/project-badges/badge-file.ts';
 
 /** Where the Simple Icons SVGs are (installed by `npm ci`). */
 export const iconsDirectory = join('node_modules', 'simple-icons', 'icons');

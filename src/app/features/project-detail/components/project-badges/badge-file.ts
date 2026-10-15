@@ -1,4 +1,4 @@
-import type { ProjectBadge } from '../../../data/projects.data';
+import type { ProjectBadge } from '../../../../data/projects.data';
 
 /**
  * Name, without extension, of a badge's SVG in `public/images/badges`.

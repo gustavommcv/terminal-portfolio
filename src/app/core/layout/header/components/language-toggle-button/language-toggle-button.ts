@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { LanguageService } from '../../i18n/language.service';
+import { LanguageService } from '../../../../i18n/language.service';
 
 @Component({
   selector: 'app-language-toggle-button',

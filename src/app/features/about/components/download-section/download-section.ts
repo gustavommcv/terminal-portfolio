@@ -3,7 +3,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
-import { OverflowWatch } from '../../../../core/shared/overflow-watch/overflow-watch';
+import { OverflowWatch } from './overflow-watch/overflow-watch';
 import { LanguageService } from '../../../../core/i18n/language.service';
 
 /** The formats the CV is offered in, as the extensions of the files in `public/cv`. */

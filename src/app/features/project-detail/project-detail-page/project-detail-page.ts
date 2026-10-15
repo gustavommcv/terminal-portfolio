@@ -2,7 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
-import { ProjectBadges } from '../../../core/shared/project-badges/project-badges';
+import { ProjectBadges } from '../components/project-badges/project-badges';
 import { ProjectsDataService } from '../../../data/projects-data.service';
 import { ProjectGallery } from '../components/project-gallery/project-gallery';
 

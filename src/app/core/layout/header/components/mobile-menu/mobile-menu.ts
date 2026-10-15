@@ -14,8 +14,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { LanguageService } from '../../../../i18n/language.service';
 import { LocalizedLink } from '../../../../i18n/localized-link';
-import { LanguageToggleButton } from '../../../../shared/language-toggle-button/language-toggle-button';
-import { NeoTreeIcon } from '../../../../shared/neo-tree-icon/neo-tree-icon';
+import { LanguageToggleButton } from '../language-toggle-button/language-toggle-button';
+import { NeoTreeIcon } from '../neo-tree-icon/neo-tree-icon';
 import { NAV_ROUTES, routeIcon, routeLabel } from '../../nav-routes';
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';

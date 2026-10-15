@@ -10,7 +10,7 @@ import { AboutPage } from './features/about/about-page/about-page';
 import { ErrorPage } from './features/error/error-page/error-page';
 import { HomePage } from './features/home/home-page/home-page';
 import { PortfolioPage } from './features/portfolio/portfolio-page/portfolio-page';
-import { ProjectDetailPage } from './features/projectDetail/project-detail-page/project-detail-page';
+import { ProjectDetailPage } from './features/project-detail/project-detail-page/project-detail-page';
 
 // The host has no SPA fallback: a path that is not a prerendered file or an
 // asset gets `404.html`. So every real page must be prerendered, or it would
