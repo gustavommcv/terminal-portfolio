@@ -242,6 +242,7 @@ English is the fallback language and the default for the server, for crawlers, a
 Each component has encapsulated SCSS. Shared styles live in `src/styles`:
 
 - `abstracts/_variables.scss`: tokens and variables;
+- `abstracts/_mixins.scss`: `page-gutter`, the one fluid side gutter (`clamp(0.5rem, 4vw, 8rem)`) that every page takes through `page-shell` and the sticky header takes directly, so the header is always exactly as wide as the sections below it (`layout-gutter.spec.ts` checks the source, since jsdom does not compute layout);
 - `abstracts/_fonts.scss`: the self-hosted JetBrains Mono `@font-face` declarations;
 - `styles.scss`: global stylesheet registered in `angular.json`.
 

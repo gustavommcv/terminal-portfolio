@@ -170,6 +170,17 @@ All notable changes to this project are documented in this file.
   below 97% of lines.
 - Removed `HomeIntroService.introVisible`, which nothing read.
 
+### Layout
+
+- The header was not as wide as the sections below it at most screen widths: the
+  pages use a fluid side gutter (`clamp(0.5rem, 4vw, 8rem)`) while the header
+  used fixed steps (`8rem`, `1rem`, `0.5rem`), so it sat 35px inside them at
+  1120px and stuck out by 8 to 20px on phones, lining up only from about 1920px.
+  Both now take the gutter from one mixin (`page-gutter`). Measured in a browser at
+  21 widths on 5 kinds of page: 15 of 105 combinations were aligned before, 105 of
+  105 are now; the header's height, the menu, and horizontal overflow are unchanged
+  at 17 widths. `layout-gutter.spec.ts` guards the source.
+
 ### Portfolio
 
 - Added Mangabound and mangapress, and featured them. Projects were reordered

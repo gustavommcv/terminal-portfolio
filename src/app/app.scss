@@ -1,4 +1,5 @@
 @use "abstracts/variables" as *;
+@use "abstracts/mixins" as *;
 
 // Off-screen until a keyboard user tabs to it, then pinned above the header.
 .skip-link {
@@ -24,17 +25,11 @@
   outline: none;
 }
 
+// Same gutter as the pages below it (see page-gutter), or the header would be
+// narrower or wider than the sections it sits above.
 .header-container {
-  padding: 0 8rem;
+  @include page-gutter;
   position: sticky;
   top: 0;
   z-index: $z-index-sticky-header;
-
-  @media screen and (max-width: #{$breakpoint-tablet}) {
-    padding: 0 1rem;
-  }
-
-  @media screen and (max-width: #{$breakpoint-mobile}) {
-    padding: 0 0.5rem;
-  }
 }

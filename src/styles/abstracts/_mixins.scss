@@ -1,11 +1,19 @@
 @use "variables" as *;
 
-// Fluid page-shell gutter shared by every top-level page (home, about,
-// portfolio, project-detail, error). Replaces the identical
-// padding + two-breakpoint media-query block that used to be copied into
-// each page's stylesheet, with a single interpolation from mobile to
-// desktop instead of three discrete jumps.
-@mixin page-shell {
+// The horizontal gutter of the page, fluid from mobile to desktop. Every
+// top-level page takes it through `page-shell`, and the sticky header takes it
+// directly, so the header is always exactly as wide as the sections below it.
+// Never write a gutter for either of them by hand: a fixed value (or a stepped
+// one) matches the fluid one at a single width only.
+@mixin page-gutter {
   padding-inline: clamp(0.5rem, 4vw, 8rem);
+}
+
+// Fluid page-shell shared by every top-level page (home, about, portfolio,
+// project-detail, error). Replaces the identical padding + two-breakpoint
+// media-query block that used to be copied into each page's stylesheet, with a
+// single interpolation from mobile to desktop instead of three discrete jumps.
+@mixin page-shell {
+  @include page-gutter;
   padding-block-start: clamp(0.5rem, 3vw, 2rem);
 }
