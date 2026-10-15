@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## [Unreleased] — 2026-10-14
+## [Unreleased] — 2026-10-14 to 2026-10-15
 
 ### SEO, routing, and deployment
 
@@ -197,6 +197,12 @@ All notable changes to this project are documented in this file.
   the first gallery image), and the project page has a thumbnail gallery with a
   full-screen viewer. Mangabound has a Documentation link.
 - The portfolio links in the CVs point to `/portfolio`, in the CV's own language.
+- Mangabound's gallery went from 1 image to 6, following the app's workflow:
+  queue, chapter mapping, book details, conversion options, finished books with
+  their warnings, and sharing to an e-reader. They are the app's own screens with
+  the sample data of its tutorial (no manga pages), taken from the captures that
+  Mangabound's guide generates, at 1600×900 like Maquetaria's, 25 to 45 KB each.
+  A spec pins the order.
 
 ### Dependencies, CI, and documentation
 

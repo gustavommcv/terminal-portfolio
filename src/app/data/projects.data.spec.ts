@@ -106,6 +106,21 @@ describe('projectsData badges', () => {
     expect(mangabound.gallery[0]).toContain('mangabound-thumbnail');
   });
 
+  it('shows Mangabound through the steps of its workflow, starting with the queue', () => {
+    const gallery = findProject('mangabound').gallery.map((image) =>
+      image.replace(/^.*mangabound-|\.webp$/g, ''),
+    );
+
+    expect(gallery).toEqual([
+      'thumbnail',
+      'chapter-mapping',
+      'book-details',
+      'conversion-options',
+      'book-warnings',
+      'sharing',
+    ]);
+  });
+
   it('keeps every project id unique', () => {
     const ids = projectsData.map((p) => p.id);
     expect(new Set(ids).size).toBe(ids.length);

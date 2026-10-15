@@ -148,7 +148,16 @@ export const projectsData: Project[] = [
   {
     id: 'mangabound',
     cover: 'images/projects/mangabound/images/mangabound-cover.webp',
-    gallery: ['images/projects/mangabound/images/mangabound-thumbnail.webp'],
+    // In the order of the app's workflow: queue, chapter mapping, book details,
+    // conversion options, finished books, sharing.
+    gallery: [
+      'images/projects/mangabound/images/mangabound-thumbnail.webp',
+      'images/projects/mangabound/images/mangabound-chapter-mapping.webp',
+      'images/projects/mangabound/images/mangabound-book-details.webp',
+      'images/projects/mangabound/images/mangabound-conversion-options.webp',
+      'images/projects/mangabound/images/mangabound-book-warnings.webp',
+      'images/projects/mangabound/images/mangabound-sharing.webp',
+    ],
     links: {
       github: 'https://github.com/gustavommcv/mangabound',
       docs: 'https://gustavommcv.github.io/mangabound/',
