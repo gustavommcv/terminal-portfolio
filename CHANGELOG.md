@@ -197,6 +197,9 @@ All notable changes to this project are documented in this file.
   the first gallery image), and the project page has a thumbnail gallery with a
   full-screen viewer. Mangabound has a Documentation link.
 - The portfolio links in the CVs point to `/portfolio`, in the CV's own language.
+- The Terminal Portfolio (this site) is no longer featured on the home page,
+  which now shows five projects; it stays in the portfolio, with its own page.
+  A spec keeps it out of the featured ones.
 - Mangabound's gallery went from 1 image to 6, following the app's workflow:
   queue, chapter mapping, book details, conversion options, finished books with
   their warnings, and sharing to an e-reader. They are the app's own screens with

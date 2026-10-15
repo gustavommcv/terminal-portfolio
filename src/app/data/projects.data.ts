@@ -251,7 +251,6 @@ export const projectsData: Project[] = [
       },
     ],
     command: 'glow terminal-portfolio.md',
-    featured: true,
   },
 
   {

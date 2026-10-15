@@ -207,6 +207,10 @@ describe('the project catalog', () => {
     expect(featured.length).toBeGreaterThan(0);
     expect(featured.length).toBeLessThan(projectsData.length);
   });
+
+  it('does not feature the portfolio itself', () => {
+    expect(findProject('terminal-portfolio').featured).toBeFalsy();
+  });
 });
 
 describe('ProjectsDataService', () => {
