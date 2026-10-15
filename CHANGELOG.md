@@ -217,9 +217,23 @@ Escape, backdrop, links, language toggle, 768px and 769px) behave the same.
   names explicitly.
 - `InterestsSection` and `LanguagesSection` were the same component with other
   texts; they are now `ListSection`.
-- 396 tests before, 440 now; coverage 99.27% of statements and 94.5% of branches.
-  The mobile menu and the localized link were mutation-checked (ten changes, all
-  caught).
+- What only one part of the site uses no longer sits in `core/shared`: the
+  header's language toggle and the icons of the menu's tree live in
+  `header/components`, the project page's badges in
+  `project-detail/components`, and the `OverflowWatch` directive with the CV
+  download section that is its only user. `core/shared` keeps what several parts
+  share (the button, the title, the project card, the carousel). The folder
+  `features/projectDetail` is now `features/project-detail`, like the others.
+  Files were moved with `git mv`, so their history follows them. The built
+  JavaScript is identical to the build before once the ids that Angular derives
+  from file paths and the hashed chunk names are set aside, and the hydration
+  of the 25 prerendered routes is the same (the server's DOM is reused on 23;
+  the home pages, which reused 4 of 9 nodes before, still do).
+- The two places that asked the browser whether the visitor wants less motion (the
+  button's scroll and the home intro) now use one helper, `reduced-motion.ts`.
+- 396 tests before, 444 now; coverage 99.27% of statements and 94.5% of branches.
+  The mobile menu, the localized link and the reduced-motion helper were
+  mutation-checked (fifteen changes, all caught).
 
 ### Portfolio
 
