@@ -49,11 +49,19 @@
     border: $border-default;
   }
 
+  // A download link that looks like the button it replaced. The font is the one
+  // the browser gave that button (Arial), not the site's: say so, so a link does
+  // not quietly change it.
   &__button {
+    display: block;
     border: none;
     border-radius: $border-radius-default;
 
+    font-family: Arial, sans-serif;
     font-size: $font-size-default;
+    line-height: normal;
+    text-align: center;
+    text-decoration: none;
 
     cursor: pointer;
 

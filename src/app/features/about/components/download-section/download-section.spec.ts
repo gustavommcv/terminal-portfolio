@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, vi } from 'vitest';
@@ -9,8 +11,10 @@ describe('DownloadSection', () => {
   let component: DownloadSection;
   let fixture: ComponentFixture<DownloadSection>;
   let capturedCallback: ResizeObserverCallback | undefined;
+  let locale: ReturnType<typeof signal<'en' | 'pt'>>;
 
   beforeEach(async () => {
+    locale = signal<'en' | 'pt'>('pt');
     capturedCallback = undefined;
 
     class MockResizeObserver {
@@ -28,7 +32,7 @@ describe('DownloadSection', () => {
       providers: [
         {
           provide: LanguageService,
-          useValue: { currentLocale: signal<'en' | 'pt'>('pt') },
+          useValue: { currentLocale: locale },
         },
       ],
     });
@@ -43,21 +47,40 @@ describe('DownloadSection', () => {
     vi.unstubAllGlobals();
   });
 
-  it('builds a download from the current signal locale', () => {
-    const clickSpy = vi
-      .spyOn(HTMLAnchorElement.prototype, 'click')
-      .mockImplementation(() => undefined);
+  const links = (): HTMLAnchorElement[] =>
+    Array.from(fixture.nativeElement.querySelectorAll('.download-section__button'));
 
-    component.downloadCV('pdf');
-
-    expect(clickSpy).toHaveBeenCalledOnce();
-    const link = clickSpy.mock.instances[0] as HTMLAnchorElement;
-    expect(link.download).toBe('cv-pt.pdf');
-    expect(link.getAttribute('href')).toBe('cv/cv-pt.pdf');
-    expect(document.body.contains(link)).toBe(false);
+  it('offers the CV in each format as a download link, in the language of the page', () => {
+    expect(links().map((link) => [link.getAttribute('href'), link.getAttribute('download')])).toEqual([
+      ['cv/cv-pt.docx', 'cv-pt.docx'],
+      ['cv/cv-pt.odt', 'cv-pt.odt'],
+      ['cv/cv-pt.pdf', 'cv-pt.pdf'],
+    ]);
   });
 
-  it('names each download button after its format, not just "Download"', () => {
+  it('points the links at the other language when the page changes language', () => {
+    locale.set('en');
+    fixture.detectChanges();
+
+    expect(links().map((link) => link.getAttribute('href'))).toEqual([
+      'cv/cv-en.docx',
+      'cv/cv-en.odt',
+      'cv/cv-en.pdf',
+    ]);
+  });
+
+  it('only links to files that exist', () => {
+    for (const language of ['en', 'pt'] as const) {
+      locale.set(language);
+      fixture.detectChanges();
+
+      for (const link of links()) {
+        expect(existsSync(`public/${link.getAttribute('href')}`), `${language}: ${link.getAttribute('href')}`).toBe(true);
+      }
+    }
+  });
+
+  it('names each download link after its format, not just "Download"', () => {
     const labels = Array.from(
       fixture.nativeElement.querySelectorAll('.download-section__button'),
     ).map((button) => (button as HTMLElement).getAttribute('aria-label'));

@@ -1,16 +1,13 @@
-import { DOCUMENT } from '@angular/common';
-import {
-  Component,
-  computed,
-  inject,
-  viewChild,
-} from '@angular/core';
+import { Component, computed, inject, viewChild } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
 import { OverflowWatch } from '../../../../core/shared/overflow-watch/overflow-watch';
 import { LanguageService } from '../../../../core/i18n/language.service';
+
+/** The formats the CV is offered in, as the extensions of the files in `public/cv`. */
+const CV_FORMATS = ['docx', 'odt', 'pdf'] as const;
 
 @Component({
   selector: 'app-download-section',
@@ -20,21 +17,17 @@ import { LanguageService } from '../../../../core/i18n/language.service';
 })
 export class DownloadSection {
   private readonly language = inject(LanguageService);
-  private readonly document = inject(DOCUMENT);
   private readonly overflow = viewChild(OverflowWatch);
 
   /** Whether the formats row scrolls sideways, which is when the hint is shown. */
   readonly hasOverflow = computed(() => this.overflow()?.overflowing() ?? false);
 
-  downloadCV(format: 'docx' | 'odt' | 'pdf'): void {
-    const language = this.language.currentLocale();
-    const fileName = `cv-${language}.${format}`;
-    const link = this.document.createElement('a');
+  /** The CV in each format, in the language of the page: what each download link points to. */
+  protected readonly files = computed(() =>
+    CV_FORMATS.map((format) => {
+      const fileName = `cv-${this.language.currentLocale()}.${format}`;
 
-    link.href = `cv/${fileName}`;
-    link.download = fileName;
-    this.document.body.appendChild(link);
-    link.click();
-    link.remove();
-  }
+      return { label: format.toUpperCase(), fileName, href: `cv/${fileName}` };
+    }),
+  );
 }

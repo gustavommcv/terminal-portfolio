@@ -17,56 +17,24 @@
     }
 
     <div class="download-section__container" appOverflowWatch>
-      <div class="download-section__element">
-        <h3 class="download-section__title">CV DOCX</h3>
-        <button
-          type="button"
-          class="download-section__button"
-          [attr.aria-label]="
-            'about-page.download-section.button-label'
-              | translate: { format: 'DOCX' }
-          "
-          (click)="downloadCV('docx')"
-        >
-          <span class="download-section__button-text">{{
+      @for (file of files(); track file.label) {
+        <div class="download-section__element">
+          <h3 class="download-section__title">CV {{ file.label }}</h3>
+          <a
+            class="download-section__button"
+            [href]="file.href"
+            [download]="file.fileName"
+            [attr.aria-label]="
+              'about-page.download-section.button-label'
+                | translate: { format: file.label }
+            "
+          >
+            <span class="download-section__button-text">{{
               "about-page.download-section.button" | translate
             }}</span>
-        </button>
-      </div>
-
-      <div class="download-section__element">
-        <h3 class="download-section__title">CV ODT</h3>
-        <button
-          type="button"
-          class="download-section__button"
-          [attr.aria-label]="
-            'about-page.download-section.button-label'
-              | translate: { format: 'ODT' }
-          "
-          (click)="downloadCV('odt')"
-        >
-          <span class="download-section__button-text">{{
-              "about-page.download-section.button" | translate
-            }}</span>
-        </button>
-      </div>
-
-      <div class="download-section__element">
-        <h3 class="download-section__title">CV PDF</h3>
-        <button
-          type="button"
-          class="download-section__button"
-          [attr.aria-label]="
-            'about-page.download-section.button-label'
-              | translate: { format: 'PDF' }
-          "
-          (click)="downloadCV('pdf')"
-        >
-          <span class="download-section__button-text">{{
-              "about-page.download-section.button" | translate
-            }}</span>
-        </button>
-      </div>
+          </a>
+        </div>
+      }
     </div>
   </app-terminal-section>
 </div>
