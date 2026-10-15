@@ -1,15 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  viewChild,
-} from '@angular/core';
+import { Component, ElementRef, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { Header } from './core/layout/header/header';
-import { HomeIntroService } from './features/home/services/home-intro.service';
-import { LanguageService } from './core/i18n/language.service';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +11,6 @@ import { LanguageService } from './core/i18n/language.service';
   styleUrl: './app.scss',
 })
 export class App {
-  // Initial-route eligibility is application state, so it must begin observing
-  // the router before the first routed component is activated.
-  private readonly homeIntro = inject(HomeIntroService);
-
-  // The root owns language initialization; every component consumes the same
-  // URL-derived state through LanguageService.
-  private readonly language = inject(LanguageService);
-
   private readonly main = viewChild.required<ElementRef<HTMLElement>>('main');
 
   /**

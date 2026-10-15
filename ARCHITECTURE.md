@@ -75,9 +75,11 @@ flowchart TD
 
 ### Application shell
 
-`App` is the global shell. It keeps `Header` visible, delegates page content to
-`RouterOutlet`, and eagerly creates `LanguageService`. Locale ownership and
-translation loading are not duplicated in the shell.
+`App` is the global shell. It keeps `Header` visible and delegates page content to
+`RouterOutlet`. The state that has to follow the router from the first
+navigation, `LanguageService` and `HomeIntroService`, is created by an app
+initializer in `app.config.ts`, ahead of `App` and of that navigation, not by
+`App`. Locale ownership and translation loading are not duplicated in the shell.
 
 ### Features
 

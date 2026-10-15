@@ -13,7 +13,9 @@ import {
 } from '@angular/router';
 
 import { routes } from './app.routes';
+import { LanguageService } from './core/i18n/language.service';
 import { SeoService } from './core/seo/seo.service';
+import { HomeIntroService } from './features/home/services/home-intro.service';
 import {
   provideClientHydration,
   withEventReplay,
@@ -41,6 +43,19 @@ export const appConfig: ApplicationConfig = {
     // route and language, in the browser and while prerendering.
     provideAppInitializer(() => {
       inject(SeoService);
+    }),
+
+    // State that follows the router has to be watching before the first
+    // navigation, so these are created here, ahead of the root component and of
+    // that navigation, instead of waiting for something to ask for them:
+    // - the language follows the address (and, on the first navigation, the
+    //   visitor's remembered language decides it), and every component reads it
+    //   through LanguageService;
+    // - whether the visit began on the home page, which is the only one that
+    //   gets the typed intro, is known from that first navigation alone.
+    provideAppInitializer(() => {
+      inject(LanguageService);
+      inject(HomeIntroService);
     }),
 
     provideHttpClient(withFetch()),

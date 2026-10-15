@@ -238,9 +238,18 @@ Escape, backdrop, links, language toggle, 768px and 769px) behave the same.
   the home pages, which reused 4 of 9 nodes before, still do).
 - The two places that asked the browser whether the visitor wants less motion (the
   button's scroll and the home intro) now use one helper, `reduced-motion.ts`.
-- 396 tests before, 444 now; coverage 99.27% of statements and 94.5% of branches.
-  The mobile menu, the localized link and the reduced-motion helper were
-  mutation-checked (fifteen changes, all caught).
+- `App` injected `HomeIntroService` and `LanguageService` only to create them,
+  and `LanguageService` was already created by `SeoService` anyway. An app
+  initializer in `app.config.ts` now creates both, ahead of the root component and
+  of the first navigation, where the state that follows the router has to start;
+  a spec of the configuration checks it. Compared with the build before in a
+  browser, ten start-up scenarios behave the same (the browser's language, the
+  remembered language, an explicit `?locale=`, deep links, and the intro typing
+  only when the visit began on the home page), and the 25 prerendered pages are
+  identical once the template numbering of the hydration data is set aside.
+- 396 tests before, 446 now; coverage 99.27% of statements and 94.53% of branches.
+  The mobile menu, the localized link, the reduced-motion helper and the new
+  initializer were mutation-checked (sixteen changes, all caught).
 
 ### Portfolio
 
