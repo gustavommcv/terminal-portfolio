@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from '../../services/language.service';
+import type { SupportedLanguage } from '../../core/i18n/language.service';
 
 export interface HomeIntroPresentationContent {
   readonly role: string;

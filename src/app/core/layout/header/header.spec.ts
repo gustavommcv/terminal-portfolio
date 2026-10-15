@@ -1,16 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
 import { vi } from 'vitest';
 
-import { LanguageService } from '../../../services/language.service';
+import { LanguageService } from '../../i18n/language.service';
 import { Header } from './header';
-import { NAV_ROUTES } from './header.utils';
+import { NAV_ROUTES } from './nav-routes';
 
 describe('Header', () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [Header] });
+    TestBed.configureTestingModule({
+      imports: [Header],
+      // Any address matches, so the spec can navigate.
+      providers: [provideRouter([{ path: '**', children: [] }])],
+    });
     fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -141,6 +146,29 @@ describe('Header', () => {
     ]);
   });
 
+  it('follows the current page with its active link, whichever way the route changes', async () => {
+    const activeLabels = () =>
+      Array.from(
+        fixture.nativeElement.querySelectorAll('.desktop-nav .header__link--active'),
+      ).map((link) => (link as HTMLElement).textContent?.trim());
+    const router = TestBed.inject(Router);
+
+    // Not through a click on the header: a reload, or the browser's back button.
+    // The header is OnPush with nothing marking it by hand, so it can only be
+    // refreshed here because the route it reads is a signal.
+    await router.navigateByUrl('/about');
+    fixture.detectChanges();
+    expect(activeLabels()).toEqual(['about']);
+
+    await router.navigateByUrl('/portfolio?locale=pt');
+    fixture.detectChanges();
+    expect(activeLabels()).toEqual(['portfolio']);
+
+    await router.navigateByUrl('/');
+    fixture.detectChanges();
+    expect(activeLabels()).toEqual(['home']);
+  });
+
   it('does not render the overlay or sidebar while closed', () => {
     expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
     expect(fixture.nativeElement.querySelector('.neo-sidebar')).toBeNull();
@@ -232,7 +260,7 @@ describe('Header', () => {
     // Route labels are derived from the path, not the translation catalog,
     // so they stay identical under the Portuguese locale too - this is
     // existing, intentional behavior this redesign preserves as-is.
-    component.language.toggleLanguage = vi.fn().mockResolvedValue(true);
+    vi.spyOn(TestBed.inject(LanguageService), 'toggleLanguage').mockResolvedValue(true);
     expect(links(overlay).map((link) => link.textContent?.trim())).toEqual([
       'home',
       'about',
@@ -308,7 +336,7 @@ describe('Header', () => {
 
   it('closes after selecting a route without delaying navigation', async () => {
     const navigateSpy = vi
-      .spyOn(component.language, 'navigateWithLocale')
+      .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
       .mockResolvedValue(true);
     const overlay = await openMenu();
     const aboutLink = links(overlay)[1];

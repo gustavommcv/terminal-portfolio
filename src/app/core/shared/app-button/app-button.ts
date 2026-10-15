@@ -1,51 +1,44 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Input,
-} from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 
-import { LanguageService } from '../../../services/language.service';
-import { isPlainLeftClick } from '../click.utils';
+import { LanguageService } from '../../i18n/language.service';
+import { isPlainLeftClick } from '../plain-left-click';
 
 @Component({
   selector: 'app-button',
-  standalone: true,
   imports: [],
   templateUrl: './app-button.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-button.scss',
 })
 export class AppButton {
-  @Input() route = '';
-  @Input() scrollTo = '';
+  readonly route = input('');
+  readonly scrollTo = input('');
 
   private readonly language = inject(LanguageService);
   private readonly document = inject(DOCUMENT);
 
-  get href(): string {
-    if (this.scrollTo) {
-      return `#${this.scrollTo}`;
+  protected readonly href = computed(() => {
+    if (this.scrollTo()) {
+      return `#${this.scrollTo()}`;
     }
 
-    return this.route ? this.language.localizedUrl(this.route) : '#';
-  }
+    return this.route() ? this.language.localizedUrl(this.route()) : '#';
+  });
 
-  handleClick(event: MouseEvent): void {
+  protected follow(event: MouseEvent): void {
     if (!isPlainLeftClick(event)) {
       return;
     }
 
-    if (this.scrollTo) {
+    if (this.scrollTo()) {
       event.preventDefault();
-      const element = this.document.getElementById(this.scrollTo);
+      const element = this.document.getElementById(this.scrollTo());
       element?.scrollIntoView({
         behavior: this.prefersReducedMotion() ? 'instant' : 'smooth',
       });
-    } else if (this.route) {
+    } else if (this.route()) {
       event.preventDefault();
-      void this.language.navigateWithLocale(this.route);
+      void this.language.navigateWithLocale(this.route());
     }
   }
 

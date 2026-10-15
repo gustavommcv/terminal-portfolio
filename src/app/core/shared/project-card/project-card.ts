@@ -1,37 +1,39 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, computed, inject, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { projectCardImage } from '../../../data/project-media';
 import { Project } from '../../../data/projects.data';
-import { LanguageService } from '../../../services/language.service';
-import { isPlainLeftClick } from '../click.utils';
+import { LanguageService } from '../../i18n/language.service';
+import { isPlainLeftClick } from '../plain-left-click';
 
 @Component({
-  selector: 'project-card',
-  standalone: true,
-  imports: [TranslatePipe],
+  selector: 'app-project-card',
+  imports: [NgOptimizedImage, TranslatePipe],
   templateUrl: './project-card.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-card.scss',
 })
 export class ProjectCard {
-  @Input({ required: true }) project!: Project;
+  readonly project = input.required<Project>();
 
   /** Level of the card's title: 3 under a section's h2, 2 directly under the page's h1. */
-  @Input() headingLevel: 2 | 3 = 3;
+  readonly headingLevel = input<2 | 3>(3);
 
-  constructor(readonly language: LanguageService) {}
+  /**
+   * Loads the image right away, at high priority, instead of lazily: for the cards
+   * that are in view when the page opens, where waiting would delay the largest paint.
+   */
+  readonly priority = input(false);
 
-  get image(): string {
-    return projectCardImage(this.project);
-  }
+  protected readonly language = inject(LanguageService);
+  protected readonly image = computed(() => projectCardImage(this.project()));
 
-  navigateToDetail(event: MouseEvent): void {
+  protected openProject(event: MouseEvent): void {
     if (!isPlainLeftClick(event)) {
       return;
     }
 
     event.preventDefault();
-    void this.language.navigateWithLocale(`/portfolio/${this.project.id}`);
+    void this.language.navigateWithLocale(`/portfolio/${this.project().id}`);
   }
 }

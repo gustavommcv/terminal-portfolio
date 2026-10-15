@@ -45,6 +45,21 @@ describe('PortfolioPage', () => {
     expect(element.querySelectorAll('h2')).toHaveLength(projectsData.length);
   });
 
+  it('loads the first row of card images at once and leaves the rest lazy', () => {
+    const images = Array.from(
+      fixture.nativeElement.querySelectorAll('.project-card img'),
+    ) as HTMLImageElement[];
+
+    expect(images.slice(0, 3).map((img) => img.getAttribute('loading'))).toEqual([
+      'eager',
+      'eager',
+      'eager',
+    ]);
+    expect(images.slice(3).every((img) => img.getAttribute('loading') === 'lazy')).toBe(true);
+    expect(images[0].getAttribute('fetchpriority')).toBe('high');
+    expect(images[3].getAttribute('fetchpriority')).not.toBe('high');
+  });
+
   it('renders one card per project, each linking to its own detail route', () => {
     const links = Array.from(
       fixture.nativeElement.querySelectorAll('.project-card'),

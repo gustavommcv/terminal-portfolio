@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { projectExistsGuard } from './features/projectDetail/project-exists.guard';
-import type { SeoPage } from './services/seo.service';
+import type { SeoPage } from './core/seo/seo.service';
 
 // `data.seo` tells SeoService which kind of page a route is; it then builds
 // the title, description, canonical URL, and social tags for it.

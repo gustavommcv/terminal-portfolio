@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Params, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,7 +19,7 @@ export type LanguageCatalogState =
     }
   | { readonly status: 'failed'; readonly language: SupportedLanguage };
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LanguageService {
   private readonly router = inject(Router);
   private readonly translate = inject(TranslateService);
@@ -32,7 +32,7 @@ export class LanguageService {
     language: 'en',
   });
   private awaitingFirstNavigation = true;
-  private currentPath = '/';
+  private readonly currentPath = signal('/');
   private requestedLanguage: SupportedLanguage | undefined;
   private activeLoad?: { unsubscribe(): void };
 
@@ -62,7 +62,7 @@ export class LanguageService {
   toggleLanguage(): Promise<boolean> {
     const language = this.currentLocale() === 'en' ? 'pt' : 'en';
     this.preference.remember(language);
-    return this.router.navigate([this.currentPath], {
+    return this.router.navigate([this.currentPath()], {
       queryParams: this.queryParamsFor(language),
     });
   }
@@ -82,7 +82,7 @@ export class LanguageService {
   }
 
   isActive(route: string): boolean {
-    return this.currentPath === route;
+    return this.currentPath() === route;
   }
 
   private onNavigationEnd(url: string): void {
@@ -125,11 +125,13 @@ export class LanguageService {
 
   private synchronizeFromUrl(url: string): void {
     const tree = this.router.parseUrl(url);
-    this.currentPath = tree.root.children['primary']
-      ? `/${tree.root.children['primary'].segments
-          .map((segment) => segment.path)
-          .join('/')}`
-      : '/';
+    this.currentPath.set(
+      tree.root.children['primary']
+        ? `/${tree.root.children['primary'].segments
+            .map((segment) => segment.path)
+            .join('/')}`
+        : '/',
+    );
 
     const language = this.normalizeLocale(tree.queryParams['locale']);
     if (language === this.requestedLanguage) {

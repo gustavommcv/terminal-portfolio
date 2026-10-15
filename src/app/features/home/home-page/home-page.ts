@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -16,7 +15,7 @@ import { HomeIntroCommandService } from '../services/home-intro-command.service'
 import { HomeIntroService } from '../services/home-intro.service';
 
 @Component({
-  selector: 'home-page',
+  selector: 'app-home-page',
   imports: [
     PresentationSection,
     ServicesSection,
@@ -27,7 +26,6 @@ import { HomeIntroService } from '../services/home-intro.service';
     HomeIntro,
   ],
   templateUrl: './home-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './home-page.scss',
 })
 export class HomePage implements OnDestroy {

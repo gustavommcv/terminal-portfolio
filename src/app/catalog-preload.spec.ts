@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { TestBed } from '@angular/core/testing';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { LanguagePreference } from './services/language-preference.service';
+import { LanguagePreference } from './core/i18n/language-preference.service';
 
 // src/index.html asks for the Portuguese catalog while the scripts download. It
 // has to pick the language the way the app does, or it would fetch a catalog

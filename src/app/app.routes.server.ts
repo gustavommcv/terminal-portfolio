@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
-import { ProjectsDataService } from './services/projects-data.service';
+import { ProjectsDataService } from './data/projects-data.service';
 
 export const serverRoutes: ServerRoute[] = [
   {

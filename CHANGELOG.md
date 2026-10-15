@@ -80,6 +80,51 @@ All notable changes to this project are documented in this file.
   the full date in the JavaScript every visitor downloads. The age counts from
   the first day of the birth month. The older commits still contain the date.
 
+### Angular 22 conventions
+
+- Updated to Angular 22.2.3 and checked the code against the current Angular style
+  guide and best practices, applying what did not conform: no redundant
+  `standalone: true` or `changeDetection: OnPush` (both are the defaults in
+  Angular 22; a probe confirmed an unspecified component is `OnPush`), `input()`
+  instead of `@Input`, `host` instead of `@HostListener`, `inject()` instead of
+  constructor parameters, `@Service()` for the singleton services, and the `app-`
+  prefix on every component selector (19 had none).
+- Zoneless: removed `provideZoneChangeDetection`, the zone.js polyfills, and the
+  `zone.js` dependency. The initial JavaScript went from 407.9 kB to 380.0 kB
+  (128.5 kB to 119.8 kB compressed). `LanguageService`'s current path became a
+  signal, so the header's active link no longer needs a manual refresh, and the
+  `ProjectDetailPage` receives its `:id` as an input through
+  `withComponentInputBinding()`, so it follows the route.
+- Verified against the build from before these changes. Once zone.js was gone, the
+  25 prerendered pages were identical apart from file hashes and Angular's internal
+  ids; the only HTML changes since are intended (the image attributes and
+  preloads, the buttons' `type`, the menu backdrop's role). Hydration reuses the
+  server-rendered nodes on every route (the lower sections of the home page are
+  created by the browser by design, as before), 33 scripted interactions behave
+  identically (menu and Escape, the active link through back and forward,
+  language switch, gallery and lightbox, the home intro, scroll hints, skip
+  link), page heights are unchanged in 20 views, and axe still reports no
+  violations.
+- Images use `NgOptimizedImage`. The first row of cards on `/portfolio` and the main
+  image of a project page load at once with high priority and are preloaded in
+  the prerendered page; the rest stay lazy. On a simulated slow 4G connection the
+  largest paint of `/portfolio` went from 1324 ms to 656 ms (desktop) and from
+  2160 ms to 1892 ms (mobile).
+- Added ESLint with `angular-eslint` (`npm run lint`, also a CI step), with the
+  rules that encode these practices and type-aware checking (an uncalled signal is
+  an error). It found what the manual review had missed: signal inputs without
+  `readonly`, three buttons without a `type`, and an image without `ngSrc`.
+- Removed what was dead: `src/server.ts` and its Express dependencies (nothing
+  is served by it; the output is static), `@angular/forms` (never imported), the
+  Node types and the two suppressed compiler diagnostics left by the Angular 22
+  migration; the app's `tsconfig` now compiles from the two entry points instead
+  of every file under `src`.
+- Names and folders follow the style guide: `click.utils`, `age.utils`, and
+  `header.utils` became `plain-left-click`, `age-from`, and `nav-routes`, and the
+  type-based `services/` folder was split into `core/i18n`, `core/seo`, and `data`.
+- A `ResizeObserver` that does not exist (a test DOM) no longer makes
+  `OverflowWatch` fail.
+
 ### Portfolio
 
 - Added Mangabound and mangapress, and featured them. Projects were reordered

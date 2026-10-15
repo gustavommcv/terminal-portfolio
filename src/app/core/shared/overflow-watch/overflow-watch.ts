@@ -31,6 +31,12 @@ export class OverflowWatch {
     const destroyRef = inject(DestroyRef);
 
     afterNextRender(() => {
+      // Every current browser has it; where it is missing (a test DOM) nothing is
+      // measured and the hint simply never shows.
+      if (typeof ResizeObserver === 'undefined') {
+        return;
+      }
+
       const observer = new ResizeObserver(() =>
         this.overflowing.set(element.scrollWidth > element.clientWidth),
       );

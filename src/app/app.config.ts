@@ -3,17 +3,17 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
 } from '@angular/core';
 import {
   PreloadAllModules,
   provideRouter,
+  withComponentInputBinding,
   withInMemoryScrolling,
   withPreloading,
 } from '@angular/router';
 
 import { routes } from './app.routes';
-import { SeoService } from './services/seo.service';
+import { SeoService } from './core/seo/seo.service';
 import {
   provideClientHydration,
   withEventReplay,
@@ -27,10 +27,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
 
-    provideZoneChangeDetection({ eventCoalescing: true }),
-
     provideRouter(
       routes,
+      // The :id of /portfolio/:id reaches ProjectDetailPage as an input.
+      withComponentInputBinding(),
       withPreloading(PreloadAllModules),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
     ),

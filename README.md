@@ -6,7 +6,7 @@ Live at [gusmonnerat.dev](https://gusmonnerat.dev) (`www.gusmonnerat.dev` redire
 
 ## Technology stack
 
-- Angular 22 with standalone components and route-level lazy loading
+- Angular 22 with standalone components, signals, zoneless change detection, and route-level lazy loading
 - TypeScript 6 in strict mode
 - SCSS with shared global styles and variables
 - Angular Router
@@ -14,7 +14,7 @@ Live at [gusmonnerat.dev](https://gusmonnerat.dev) (`www.gusmonnerat.dev` redire
 - ngx-translate 18 for signal-based internationalization
 - RxJS for reactive state and navigation events
 - Vitest and jsdom for unit testing
-- Express as the Angular engine infrastructure during rendering/build
+- ESLint with `angular-eslint`: the Angular style guide and best practices, as rules
 - Vercel for static build and hosting
 
 ## Prerequisites
@@ -53,6 +53,7 @@ By default, the application is available at `http://localhost:4200`.
 | `npm run build` | Generates the production build, then writes `404.html` and the `.vercel/output` routing (see [Deploying to Vercel](#deploying-to-vercel)). |
 | `npm run build:production` | Explicitly generates the production build, with the same extra steps. |
 | `npm run watch` | Rebuilds in development mode on every change. |
+| `npm run lint` | Checks the code against the Angular style guide and best practices (`eslint.config.js`). |
 | `npm test` | Runs Vitest in interactive/watch mode. |
 | `npm run test:ci` | Runs the full test suite once and exits. |
 | `npm run test:scripts` | Tests the build scripts (header and caching rules) and checks that the badge files are up to date. |
@@ -73,25 +74,26 @@ terminal-portfolio/
 ├── src/
 │   ├── app/
 │   │   ├── core/
+│   │   │   ├── i18n/           # Language state, and the visitor's language preference
 │   │   │   ├── layout/         # Header, footer, and the terminal visual composition
+│   │   │   ├── seo/            # Title, description, canonical URL, and social tags per page
 │   │   │   └── shared/         # Buttons, titles, language toggle, project cards, and their helpers
-│   │   ├── data/               # Typed project catalog
+│   │   ├── data/               # Typed project catalog and the service that reads it
 │   │   ├── features/
 │   │   │   ├── home/           # Home page and its sections
 │   │   │   ├── about/          # About page and its sections
 │   │   │   ├── portfolio/      # Project listing
 │   │   │   ├── projectDetail/  # Project detail page
 │   │   │   └── error/          # Fallback for unknown routes
-│   │   ├── services/           # Language/navigation and project access
 │   │   ├── app.config*.ts      # Browser and rendering providers
 │   │   └── app.routes*.ts      # Client routes and rendering modes
 │   ├── environments/           # Per-environment configuration
 │   ├── styles/                 # Global SCSS and variables
 │   ├── main.ts                 # Browser bootstrap
 │   ├── main.server.ts          # Bootstrap used for rendering
-│   ├── server.ts               # Angular/Express engine for the build process
 │   └── test-setup.ts           # Global providers for Vitest tests
 ├── angular.json                # Builders, assets, budgets, and configuration
+├── eslint.config.js            # Lint rules (Angular style guide and best practices)
 ├── tsconfig*.json               # Application and test TypeScript configuration
 ├── vercel.json                 # Build and static output on Vercel
 ├── ARCHITECTURE.md             # Architecture and internal flows
@@ -116,6 +118,40 @@ directly from the resolved catalog, so a transient translation key can never be
 captured as visitor-facing text. Terminal timing is centralized in
 `src/app/features/home/home-intro.config.ts`; the lifecycle resets on a real
 reload and is never persisted in browser storage.
+
+## Angular conventions
+
+The code follows the Angular 22 style guide and best practices; `npm run lint`
+enforces them, and CI runs it.
+
+- **Defaults are not repeated.** Components are standalone and `OnPush`, which
+  Angular 22 does by default, so neither `standalone: true` nor
+  `changeDetection` is written.
+- **Signals for state and the signal APIs for the rest:** `input()`,
+  `viewChild()`, `computed()`, `linkedSignal()`; no `@Input`/`@Output`
+  decorators. Members are `readonly` when Angular fills them in, and
+  `protected` when only the template uses them.
+- **Dependencies come from `inject()`**, not constructor parameters, and the
+  singleton services use `@Service()`.
+- **Host bindings and listeners go in the `host` object**, not in
+  `@HostListener`/`@HostBinding`.
+- **Zoneless.** There is no zone.js. Angular re-renders a component when a signal
+  it reads changes, when an event it listens to fires, or when an input changes,
+  so anything a template shows has to live in a signal (the current path in
+  `LanguageService` is one: the header's active link follows it). Do not set a
+  field that a template reads and expect the screen to follow.
+- **Route parameters arrive as inputs.** `withComponentInputBinding()` hands the
+  `:id` of `/portfolio/:id` to `ProjectDetailPage`, so it reacts to the route
+  instead of reading it once.
+- **Selectors start with `app-`.** Files are named after what they contain
+  (`plain-left-click.ts`, `nav-routes.ts`), not `utils.ts`, and the folders are
+  themes (`core/i18n`, `core/seo`), not types (`services/`).
+- **Images are `NgOptimizedImage`** (`ngSrc`, with width and height). The cards in
+  the first row of `/portfolio` and the main image of a project page are
+  `priority`: they load at once, at high priority, and the prerendered page
+  preloads them. The rest are lazy. The lint rule `prefer-ngsrc` is switched off in
+  two places, each with its reason: the badges (SVGs sized by height alone) and the
+  lightbox image (no fixed size).
 
 ## Internationalization
 
@@ -225,12 +261,12 @@ npm run test:ci
 
 Tests use the official `@angular/build:unit-test` builder, Vitest, and jsdom. `src/test-setup.ts` provides the Router and loads the real English catalog, so specs assert the text visitors read, not translation keys. Two details worth knowing when writing specs:
 
-- `fixture.detectChanges()` does not run `afterNextRender` hooks (since Angular 22.2); call `TestBed.tick()`, which also runs effects. Angular's own scheduler leaves a pair of timers pending after an input or signal change, and a tick clears them, so call it before counting timers with fake timers.
+- Tests run without zone.js, like the app. `fixture.detectChanges()` does not run `afterNextRender` hooks (since Angular 22.2); call `TestBed.tick()`, which also runs effects. Angular's own scheduler leaves a pair of timers pending after an input or signal change, and a tick clears them, so call it before counting timers with fake timers.
 - Specs that read files (`node:fs`) rely on `"node"` being listed in `types` in `tsconfig.spec.json`.
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs on every push to `main` and on every pull request: `npm ci`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
+`.github/workflows/ci.yml` runs on every push to `main` and on every pull request: `npm ci`, `npm run lint`, `npm run test:ci`, `npm run test:scripts`, then `npm run build` (the command Vercel runs, which also prerenders every route). `.github/workflows/audit.yml` runs `npm audit --omit=dev --audit-level=high` every Monday and on demand. Neither deploys anything; Vercel does that from Git.
 
 ## Deploying to Vercel
 
@@ -285,7 +321,7 @@ green before merging; `npm audit --omit=dev` shows what is currently known.
 
 1. Fork the repository or create a branch from `main`.
 2. Make small, focused changes.
-3. Run `npm run test:ci`, `npm run test:scripts` and `npm run build:production`.
+3. Run `npm run lint`, `npm run test:ci`, `npm run test:scripts` and `npm run build:production`.
 4. Open a pull request describing the motivation, the solution, and any visual impact.
 
 ## Image credits

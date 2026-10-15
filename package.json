@@ -12,7 +12,8 @@
     "test:ci": "ng test --watch=false",
     "test:scripts": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test \"scripts/**/*.test.mjs\"",
     "badges": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/generate-badges.mjs",
-    "dev": "ng serve --host 0.0.0.0"
+    "dev": "ng serve --host 0.0.0.0",
+    "lint": "ng lint"
   },
   "engines": {
     "node": ">=24.15.0 <25",
@@ -30,33 +31,33 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/common": "^22.2.2",
-    "@angular/compiler": "^22.2.2",
-    "@angular/core": "^22.2.2",
-    "@angular/forms": "^22.2.2",
-    "@angular/platform-browser": "^22.2.2",
-    "@angular/platform-server": "^22.2.2",
-    "@angular/router": "^22.2.2",
+    "@angular/common": "^22.2.3",
+    "@angular/compiler": "^22.2.3",
+    "@angular/core": "^22.2.3",
+    "@angular/platform-browser": "^22.2.3",
+    "@angular/platform-server": "^22.2.3",
+    "@angular/router": "^22.2.3",
     "@angular/ssr": "^22.2.2",
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "express": "^5.3.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.8.1",
-    "zone.js": "^0.16.3"
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
     "@angular/build": "^22.2.2",
     "@angular/cli": "^22.2.2",
-    "@angular/compiler-cli": "^22.2.2",
-    "@types/express": "^5.0.6",
+    "@angular/compiler-cli": "^22.2.3",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.19.2",
+    "angular-eslint": "22.6.0",
     "badge-maker": "6.0.0",
+    "eslint": "^10.12.0",
     "jsdom": "^30.1.2",
     "simple-icons": "16.35.0",
     "typescript": "~6.0.3",
+    "typescript-eslint": "8.71.0",
     "vitest": "^4.1.11"
   }
 }

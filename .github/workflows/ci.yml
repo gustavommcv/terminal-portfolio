@@ -31,6 +31,10 @@ jobs:
       - name: Install
         run: npm ci
 
+      # The Angular style guide and best practices, as rules (eslint.config.js).
+      - name: Lint
+        run: npm run lint
+
       - name: Test
         run: npm run test:ci
 

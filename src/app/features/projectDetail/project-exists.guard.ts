@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import type { CanMatchFn } from '@angular/router';
 
-import { ProjectsDataService } from '../../services/projects-data.service';
+import { ProjectsDataService } from '../../data/projects-data.service';
 
 /**
  * Lets `portfolio/:id` match only ids that exist, so an unknown one falls

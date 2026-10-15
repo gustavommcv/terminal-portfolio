@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { vi } from 'vitest';
 
 import { Project } from '../../../data/projects.data';
-import { LanguageService } from '../../../services/language.service';
+import { LanguageService } from '../../i18n/language.service';
 import { ProjectCard } from './project-card';
 
 describe('ProjectCard', () => {
@@ -98,6 +98,22 @@ describe('ProjectCard', () => {
     underPageHeading.detectChanges();
 
     expect(levelOf(underPageHeading)).toBe('H2');
+  });
+
+  it('loads the image at once, at high priority, only when told it is above the fold', () => {
+    const image = (card: ComponentFixture<ProjectCard>): HTMLImageElement =>
+      card.nativeElement.querySelector('img');
+
+    expect(image(fixture).getAttribute('loading')).toBe('lazy');
+    expect(image(fixture).getAttribute('fetchpriority')).not.toBe('high');
+
+    const aboveTheFold = TestBed.createComponent(ProjectCard);
+    aboveTheFold.componentRef.setInput('project', project);
+    aboveTheFold.componentRef.setInput('priority', true);
+    aboveTheFold.detectChanges();
+
+    expect(image(aboveTheFold).getAttribute('loading')).toBe('eager');
+    expect(image(aboveTheFold).getAttribute('fetchpriority')).toBe('high');
   });
 
   it('reserves image space and defers below-the-fold work', () => {

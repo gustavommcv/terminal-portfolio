@@ -1,10 +1,10 @@
-import { computed, inject, Injectable } from '@angular/core';
+import { computed, inject, Service } from '@angular/core';
 import type { InterpolatableTranslationObject } from '@ngx-translate/core';
 
 import {
   LanguageService,
   SupportedLanguage,
-} from '../../../services/language.service';
+} from '../../../core/i18n/language.service';
 import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 
 export type HomeIntroCommandState =
@@ -20,7 +20,7 @@ export type HomeIntroCommandState =
       readonly reason: 'catalog-load-failed' | 'missing-command';
     };
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class HomeIntroCommandService {
   private readonly language = inject(LanguageService);
 

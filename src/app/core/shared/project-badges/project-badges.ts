@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { ProjectBadge } from '../../../data/projects.data';
 import { badgeFileName } from './badge-file';
 
 @Component({
-  selector: 'project-badges',
+  selector: 'app-project-badges',
   imports: [TranslatePipe],
   templateUrl: './project-badges.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-badges.scss',
 })
 export class ProjectBadges {

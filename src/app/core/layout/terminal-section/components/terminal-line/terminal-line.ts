@@ -1,20 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-terminal-line',
   imports: [],
   templateUrl: './terminal-line.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './terminal-line.scss',
 })
 export class TerminalLine {
-  short = input(false);
-  command = input('whoami');
-  accessibleCommand = input<string | undefined>(undefined);
-  showCursor = input(false);
-  animateCursor = input(true);
-  cursorBlinkIntervalMs = input(500);
-  error = input(false);
+  readonly short = input(false);
+  readonly command = input('whoami');
+  readonly accessibleCommand = input<string | undefined>(undefined);
+  readonly showCursor = input(false);
+  readonly animateCursor = input(true);
+  readonly cursorBlinkIntervalMs = input(500);
+  readonly error = input(false);
 
   username = 'guga@';
   hostname = 'arch';

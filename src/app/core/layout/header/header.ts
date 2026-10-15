@@ -1,40 +1,33 @@
 import { DOCUMENT } from '@angular/common';
 import {
   afterNextRender,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
-  HostListener,
   inject,
   Injector,
   OnDestroy,
   signal,
   viewChild,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { filter } from 'rxjs';
 
-import { isPlainLeftClick } from '../../shared/click.utils';
+import { isPlainLeftClick } from '../../shared/plain-left-click';
 import { NeoTreeIcon } from '../../shared/neo-tree-icon/neo-tree-icon';
-import { LanguageService } from '../../../services/language.service';
+import { LanguageService } from '../../i18n/language.service';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
-import { NAV_ROUTES, routeIcon, routeLabel } from './header.utils';
+import { NAV_ROUTES, routeIcon, routeLabel } from './nav-routes';
 
 const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [LanguageToggleButton, NeoTreeIcon, TranslatePipe],
   templateUrl: './header.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './header.scss',
+  host: { '(document:keydown.escape)': 'closeMenu()' },
 })
 export class Header implements OnDestroy {
-  readonly language = inject(LanguageService);
+  protected readonly language = inject(LanguageService);
   private readonly document = inject(DOCUMENT);
   private readonly injector = inject(Injector);
   private readonly menuTrigger =
@@ -47,26 +40,11 @@ export class Header implements OnDestroy {
   protected readonly routeLabel = routeLabel;
   protected readonly routeIcon = routeIcon;
 
-  constructor() {
-    // isActive() reads LanguageService.currentPath, a plain (non-signal)
-    // property. Under OnPush, Angular only re-checks this view on its own
-    // template events/inputs/signals, so a route change resolved outside a
-    // click on this component (e.g. a direct reload settling its initial
-    // navigation) never re-renders the active nav item without this.
-    const changeDetectorRef = inject(ChangeDetectorRef);
-    inject(Router)
-      .events.pipe(
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-        takeUntilDestroyed(),
-      )
-      .subscribe(() => changeDetectorRef.markForCheck());
-  }
-
-  isActive(route: string): boolean {
+  protected isActive(route: string): boolean {
     return this.language.isActive(route);
   }
 
-  navigateWithLocale(
+  protected navigateWithLocale(
     route: string,
     event: MouseEvent,
     closeMenu = false,
@@ -82,17 +60,12 @@ export class Header implements OnDestroy {
     }
   }
 
-  toggleMenu(): void {
+  protected toggleMenu(): void {
     this.setMenuOpen(!this.isMenuOpen());
   }
 
   closeMenu(): void {
     this.setMenuOpen(false);
-  }
-
-  @HostListener('document:keydown.escape')
-  closeMenuFromKeyboard(): void {
-    this.closeMenu();
   }
 
   /**
@@ -101,7 +74,7 @@ export class Header implements OnDestroy {
    * last, so keyboard focus never lands on content hidden behind the
    * fixed-position backdrop.
    */
-  onPanelKeydown(event: KeyboardEvent): void {
+  protected onPanelKeydown(event: KeyboardEvent): void {
     if (event.key !== 'Tab') {
       return;
     }

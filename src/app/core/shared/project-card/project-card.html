@@ -1,31 +1,31 @@
 <a
   class="project-card"
-  [href]="language.localizedUrl('/portfolio/' + project.id)"
-  (click)="navigateToDetail($event)"
+  [href]="language.localizedUrl('/portfolio/' + project().id)"
+  (click)="openProject($event)"
 >
   <img
-    [src]="image"
-    [alt]="'projects-page.projects.' + project.id + '.title' | translate"
+    [ngSrc]="image()"
+    [priority]="priority()"
+    [alt]="'projects-page.projects.' + project().id + '.title' | translate"
     class="project-card__image"
     width="640"
     height="360"
-    loading="lazy"
     decoding="async"
   />
   <div class="project-card__container">
     <!-- One level below the heading of the section the card sits in. -->
-    @if (headingLevel === 2) {
+    @if (headingLevel() === 2) {
       <h2 class="project-card__title">
-        {{ "projects-page.projects." + project.id + ".title" | translate }}
+        {{ "projects-page.projects." + project().id + ".title" | translate }}
       </h2>
     } @else {
       <h3 class="project-card__title">
-        {{ "projects-page.projects." + project.id + ".title" | translate }}
+        {{ "projects-page.projects." + project().id + ".title" | translate }}
       </h3>
     }
     <p class="project-card__description">
       {{
-        "projects-page.projects." + project.id + ".shortDescription"
+        "projects-page.projects." + project().id + ".shortDescription"
           | translate
       }}
     </p>

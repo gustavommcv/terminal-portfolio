@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { projectsData } from '../data/projects.data';
+import { Service } from '@angular/core';
+import { projectsData } from './projects.data';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ProjectsDataService {
   getProjectById(id: string) {
     return projectsData.find((project) => project.id === id);

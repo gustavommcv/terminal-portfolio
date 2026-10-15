@@ -66,9 +66,8 @@ flowchart TD
 
 - `src/main.ts`: bootstraps `App` in the browser.
 - `src/app/app.config.ts`: registers Router, scroll restoration, preloading, hydration, HttpClient, ngx-translate, and the `SeoService` initializer.
-- `src/main.server.ts`: adapts the bootstrap process to the rendering context.
+- `src/main.server.ts`: adapts the bootstrap process to the rendering context. The app is zoneless, so it adds no change-detection provider.
 - `src/app/app.config.server.ts`: merges the browser providers with `provideServerRendering`.
-- `src/server.ts`: creates the Angular engine on top of Express, used by the rendering infrastructure.
 
 ### Application shell
 
@@ -143,7 +142,22 @@ available.
 ### Core and shared
 
 - `core/layout`: structural components, including the header, footer, and the visual composition that simulates a terminal.
-- `core/shared`: reusable UI elements, such as the button, title, language toggle, and project card, and two helpers they share: `isPlainLeftClick` (`click.utils.ts`), which every in-app link uses to leave Ctrl/Cmd/Shift/Alt and middle clicks to the browser, and the `OverflowWatch` directive, which tells whether a row scrolls sideways so the "scroll sideways" hint shows only then. The main navigation's pages are the `NAV_ROUTES` constant in `core/layout/header/header.utils.ts`; a test checks each one is a real, prerendered route.
+- `core/i18n`: `LanguageService` (the language of the URL, the catalog state, and the current path as a signal) and `LanguagePreference` (the remembered or browser language).
+- `core/seo`: `SeoService`.
+- `core/shared`: reusable UI elements, such as the button, title, language toggle, and project card, and two helpers they share: `isPlainLeftClick` (`plain-left-click.ts`), which every in-app link uses to leave Ctrl/Cmd/Shift/Alt and middle clicks to the browser, and the `OverflowWatch` directive, which tells whether a row scrolls sideways so the "scroll sideways" hint shows only then. The main navigation's pages are the `NAV_ROUTES` constant in `core/layout/header/nav-routes.ts`; a test checks each one is a real, prerendered route.
+
+### Change detection
+
+The application is zoneless: zone.js is neither a dependency nor a polyfill, in
+the build or in the tests. Angular checks a component again when a signal read in
+its template changes, when one of its template or host listeners fires, when an
+input is set, or when something calls `markForCheck`. That is why everything a
+template shows is held in signals, and why the header's active link follows
+`LanguageService`'s path signal without any manual refresh. Prerendering needs
+no zone either: Angular tracks the router and `HttpClient` requests itself, so
+the catalog fetch is awaited before the page is serialized. The hydration check
+used when this was introduced marks the server-rendered nodes and confirms the
+browser keeps the same nodes.
 
 ### Data and services
 
@@ -252,7 +266,7 @@ interruption, reduced motion, Unicode, and one-run behavior. The production
 build additionally verifies SSR/SSG compilation and prerendering.
 
 `src/test-setup.ts` loads the real English catalog, so specs check what visitors
-read. Specs that depend on `afterNextRender` must call `TestBed.tick()`:
+read. Tests run zoneless, like the application. Specs that depend on `afterNextRender` must call `TestBed.tick()`:
 since Angular 22.2 `fixture.detectChanges()` no longer runs those hooks. The
 GitHub Actions workflow `ci.yml` runs the suite and the production build on
 every push and pull request (see the README).

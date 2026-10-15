@@ -5,6 +5,7 @@
   >
     @for (badge of badges(); track badge.slug) {
       <li class="project-badges__item">
+        <!-- eslint-disable @angular-eslint/template/prefer-ngsrc -- an SVG sized by its height alone; NgOptimizedImage needs both dimensions -->
         <img
           [src]="badgeSrc(badge)"
           [alt]="badgeAlt(badge)"
@@ -13,6 +14,7 @@
           loading="lazy"
           decoding="async"
         />
+        <!-- eslint-enable @angular-eslint/template/prefer-ngsrc -->
       </li>
     }
   </ul>

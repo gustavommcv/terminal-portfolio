@@ -27,7 +27,8 @@
   </div>
 
   @if (isMenuOpen()) {
-    <div class="menu-overlay" (click)="closeMenu()">
+    <!-- A click target for the mouse only; the keyboard closes the menu with Escape or its close button. -->
+    <div class="menu-overlay" role="presentation" (click)="closeMenu()">
       <div
         #panel
         id="mobile-menu"
@@ -39,7 +40,7 @@
         (keydown)="onPanelKeydown($event)"
       >
         <div class="neo-sidebar__source-bar">
-          <neo-tree-icon icon="tree" class="neo-sidebar__source-icon" />
+          <app-neo-tree-icon icon="tree" class="neo-sidebar__source-icon" />
           <span class="neo-sidebar__source-label">{{
             "header.menu-title" | translate
           }}</span>
@@ -49,12 +50,12 @@
             (click)="closeMenu()"
             [attr.aria-label]="'header.menu-close' | translate"
           >
-            <neo-tree-icon icon="close" />
+            <app-neo-tree-icon icon="close" />
           </button>
         </div>
 
         <div class="neo-sidebar__root">
-          <neo-tree-icon icon="folder-open" class="neo-sidebar__root-icon" />
+          <app-neo-tree-icon icon="folder-open" class="neo-sidebar__root-icon" />
           <span class="neo-sidebar__root-label">
             <span class="neo-sidebar__root-path">~/</span
             ><span class="neo-sidebar__root-name--left">gus</span
@@ -79,7 +80,7 @@
                   (click)="navigateWithLocale(route, $event, true)"
                 >
                   <span class="neo-sidebar__guide" aria-hidden="true"></span>
-                  <neo-tree-icon
+                  <app-neo-tree-icon
                     [icon]="routeIcon(route)"
                     class="neo-sidebar__link-icon"
                   />
@@ -93,7 +94,7 @@
         </nav>
 
         <div class="neo-sidebar__status">
-          <language-toggle-button />
+          <app-language-toggle-button />
         </div>
       </div>
     </div>
@@ -114,7 +115,7 @@
     }
 
     <div class="desktop-language-toggle">
-      <language-toggle-button />
+      <app-language-toggle-button />
     </div>
   </nav>
 </header>

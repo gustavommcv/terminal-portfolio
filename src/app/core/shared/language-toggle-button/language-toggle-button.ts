@@ -1,18 +1,17 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { LanguageService } from '../../../services/language.service';
+import { LanguageService } from '../../i18n/language.service';
 
 @Component({
-  selector: 'language-toggle-button',
+  selector: 'app-language-toggle-button',
   imports: [],
   templateUrl: './language-toggle-button.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './language-toggle-button.scss',
 })
 export class LanguageToggleButton {
-  constructor(readonly language: LanguageService) {}
+  protected readonly language = inject(LanguageService);
 
-  toggleLanguage(): void {
+  protected toggleLanguage(): void {
     void this.language.toggleLanguage();
   }
 }

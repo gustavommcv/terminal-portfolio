@@ -1,4 +1,4 @@
-import { isPlainLeftClick } from './click.utils';
+import { isPlainLeftClick } from './plain-left-click';
 
 const click = (init: MouseEventInit = {}) => new MouseEvent('click', init);
 

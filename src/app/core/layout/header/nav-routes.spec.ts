@@ -1,4 +1,4 @@
-import { NAV_ROUTES, routeIcon, routeLabel } from './header.utils';
+import { NAV_ROUTES, routeIcon, routeLabel } from './nav-routes';
 
 describe('routeLabel', () => {
   it('labels the root route as home', () => {

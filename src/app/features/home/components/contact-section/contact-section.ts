@@ -1,14 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
 
 @Component({
-  selector: 'contact-section',
+  selector: 'app-contact-section',
   imports: [TerminalSection, TranslatePipe, AppTitle],
   templateUrl: './contact-section.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './contact-section.scss',
 })
 export class ContactSection {

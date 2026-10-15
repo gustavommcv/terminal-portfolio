@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   LanguageCatalogState,
   LanguageService,
-} from '../../../services/language.service';
+} from '../../../core/i18n/language.service';
 import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
 import { HomeIntroCommandService } from './home-intro-command.service';
 

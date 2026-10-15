@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 export type NeoTreeIconName =
   | 'tree'
@@ -9,10 +9,9 @@ export type NeoTreeIconName =
   | 'close';
 
 @Component({
-  selector: 'neo-tree-icon',
+  selector: 'app-neo-tree-icon',
   imports: [],
   templateUrl: './neo-tree-icon.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './neo-tree-icon.scss',
 })
 export class NeoTreeIcon {

@@ -1,21 +1,20 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TerminalLine } from './components/terminal-line/terminal-line';
 
 @Component({
   selector: 'app-terminal-section',
   imports: [TerminalLine],
   templateUrl: './terminal-section.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './terminal-section.scss',
 })
 export class TerminalSection {
-  customTitle = input.required<string>();
-  isFirstTitle = input(false);
+  readonly customTitle = input.required<string>();
+  readonly isFirstTitle = input(false);
 
-  shortTerminalLine = input(false);
-  customCommand = input('whoami');
-  accessibleCommand = input<string | undefined>(undefined);
-  showCursor = input(false);
-  cursorBlinkIntervalMs = input(500);
-  errorCommand = input(false);
+  readonly shortTerminalLine = input(false);
+  readonly customCommand = input('whoami');
+  readonly accessibleCommand = input<string | undefined>(undefined);
+  readonly showCursor = input(false);
+  readonly cursorBlinkIntervalMs = input(500);
+  readonly errorCommand = input(false);
 }

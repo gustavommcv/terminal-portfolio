@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { AboutSection } from '../components/about-section/about-section';
 import { EducationSection } from '../components/education-section/education-section';
 import { InterestsSection } from '../components/interests-section/interests-section';
@@ -6,7 +6,7 @@ import { LanguagesSection } from '../components/languages-section/languages-sect
 import { DownloadSection } from '../components/download-section/download-section';
 
 @Component({
-  selector: 'about-page',
+  selector: 'app-about-page',
   imports: [
     AboutSection,
     EducationSection,
@@ -15,7 +15,6 @@ import { DownloadSection } from '../components/download-section/download-section
     DownloadSection,
   ],
   templateUrl: './about-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './about-page.scss',
 })
 export class AboutPage {}

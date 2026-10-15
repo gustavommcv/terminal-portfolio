@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Service, PLATFORM_ID } from '@angular/core';
 
 import type { SupportedLanguage } from './language.service';
 
@@ -10,7 +10,7 @@ const STORAGE_KEY = 'locale';
  * here is browser-only: on the server there is no navigator or storage, so
  * prerendered pages are always English.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LanguagePreference {
   private readonly document = inject(DOCUMENT);
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));

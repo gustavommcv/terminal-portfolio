@@ -2,7 +2,7 @@ import {
   computed,
   DestroyRef,
   inject,
-  Injectable,
+  Service,
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -25,7 +25,7 @@ export type HomeIntroState =
  * Application-scoped, in-memory state machine for the home intro lifecycle.
  * It survives router navigation and resets with a new Angular application.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class HomeIntroService {
   private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);

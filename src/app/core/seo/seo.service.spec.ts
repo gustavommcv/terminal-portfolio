@@ -3,8 +3,8 @@ import { ApplicationRef, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 
-import { SITE_URL } from '../data/site.config';
-import { LanguageCatalogState, LanguageService } from './language.service';
+import { SITE_URL } from '../../data/site.config';
+import { LanguageCatalogState, LanguageService } from '../i18n/language.service';
 import { SeoService } from './seo.service';
 
 const catalogs = {

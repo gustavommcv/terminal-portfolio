@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   inject,
@@ -11,13 +10,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { TerminalSection } from '../../../../core/layout/terminal-section/terminal-section';
 import { AppTitle } from '../../../../core/shared/app-title/app-title';
 import { OverflowWatch } from '../../../../core/shared/overflow-watch/overflow-watch';
-import { LanguageService } from '../../../../services/language.service';
+import { LanguageService } from '../../../../core/i18n/language.service';
 
 @Component({
-  selector: 'download-section',
+  selector: 'app-download-section',
   imports: [TerminalSection, TranslatePipe, AppTitle, OverflowWatch],
   templateUrl: './download-section.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './download-section.scss',
 })
 export class DownloadSection {

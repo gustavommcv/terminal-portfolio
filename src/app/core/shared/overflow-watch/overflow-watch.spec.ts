@@ -93,6 +93,16 @@ describe('OverflowWatch', () => {
     expect(reported()).toBe('false');
   });
 
+  it('measures nothing, and does not fail, where ResizeObserver does not exist', async () => {
+    vi.stubGlobal('ResizeObserver', undefined);
+    const bare = TestBed.createComponent(Host);
+
+    bare.detectChanges();
+    await bare.whenStable();
+
+    expect(bare.nativeElement.querySelector('.state').textContent.trim()).toBe('false');
+  });
+
   it('stops observing when the host is destroyed', () => {
     expect(observers[0].disconnected).toBe(false);
 

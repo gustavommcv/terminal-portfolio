@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   inject,
@@ -10,14 +9,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { Header } from './core/layout/header/header';
 import { HomeIntroService } from './features/home/services/home-intro.service';
-import { LanguageService } from './services/language.service';
+import { LanguageService } from './core/i18n/language.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet, Header, TranslatePipe],
   templateUrl: './app.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.scss',
 })
 export class App {

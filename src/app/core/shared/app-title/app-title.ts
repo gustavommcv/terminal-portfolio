@@ -1,12 +1,11 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-title',
   imports: [],
   templateUrl: './app-title.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app-title.scss',
 })
 export class AppTitle {
-  title = input('title');
+  readonly title = input('title');
 }

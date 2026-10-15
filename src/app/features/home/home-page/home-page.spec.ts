@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { vi } from 'vitest';
 
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
-import { ProjectsDataService } from '../../../services/projects-data.service';
+import { ProjectsDataService } from '../../../data/projects-data.service';
 import { InitialNavigationRouterStub } from '../../../../testing/initial-navigation-router.stub';
 import { HOME_INTRO_CONFIG, HomeIntroConfig } from '../home-intro.config';
 import { HOME_INTRO_LAYOUT_RESERVATIONS } from '../home-intro-layout-reservations';
@@ -105,7 +105,7 @@ describe('HomePage intro lifecycle', () => {
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).toBeNull();
     expect(
       fixture.nativeElement.querySelector(
-        '.terminal-section__visible-content presentation-section',
+        '.terminal-section__visible-content app-presentation-section',
       ),
     ).toBeNull();
     const reservation: HTMLElement = fixture.nativeElement.querySelector(
@@ -113,10 +113,10 @@ describe('HomePage intro lifecycle', () => {
     );
     expect(reservation.getAttribute('aria-hidden')).toBe('true');
     expect(reservation.hasAttribute('inert')).toBe(true);
-    expect(fixture.nativeElement.querySelector('services-section')).toBeNull();
-    expect(fixture.nativeElement.querySelector('tech-stack-section')).toBeNull();
-    expect(fixture.nativeElement.querySelector('featured-projects-section')).toBeNull();
-    expect(fixture.nativeElement.querySelector('contact-section')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-services-section')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-tech-stack-section')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-featured-projects-section')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-contact-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('app-footer')).toBeNull();
     expect(projectsConstructorEffect).not.toHaveBeenCalled();
   });
@@ -170,7 +170,7 @@ describe('HomePage intro lifecycle', () => {
     expect(fixture.nativeElement.querySelector('[data-testid="home-content"]')).not.toBeNull();
     expect(
       fixture.nativeElement.querySelector(
-        '.terminal-section__visible-content presentation-section',
+        '.terminal-section__visible-content app-presentation-section',
       ),
     ).not.toBeNull();
     expect(terminalElementAfter).toBe(terminalElementBefore);

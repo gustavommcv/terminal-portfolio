@@ -1,15 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { DestroyRef, effect, inject, Injectable, signal } from '@angular/core';
+import { DestroyRef, effect, inject, Service, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import type { InterpolatableTranslationObject } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
-import { projectCardImage } from '../data/project-media';
-import { DEFAULT_SOCIAL_IMAGE, SITE_URL } from '../data/site.config';
-import { LanguageService, SupportedLanguage } from './language.service';
-import { ProjectsDataService } from './projects-data.service';
+import { projectCardImage } from '../../data/project-media';
+import { DEFAULT_SOCIAL_IMAGE, SITE_URL } from '../../data/site.config';
+import { LanguageService, SupportedLanguage } from '../i18n/language.service';
+import { ProjectsDataService } from '../../data/projects-data.service';
 
 /** Which kind of page a route is, declared in its `data.seo`. */
 export type SeoPage = 'home' | 'about' | 'portfolio' | 'project' | 'not-found';
@@ -44,7 +44,7 @@ const HREFLANG: Record<SupportedLanguage, string> = {
  * language. It runs during prerendering too, so each static page ships with
  * its own tags, and it re-applies them when the language is switched.
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SeoService {
   private readonly router = inject(Router);
   private readonly language = inject(LanguageService);
@@ -241,7 +241,7 @@ export class SeoService {
       return;
     }
 
-    const alternates: Array<[string, string]> = [
+    const alternates: [string, string][] = [
       [HREFLANG.en, this.urlFor(path, 'en')],
       [HREFLANG.pt, this.urlFor(path, 'pt')],
       ['x-default', this.urlFor(path, 'en')],

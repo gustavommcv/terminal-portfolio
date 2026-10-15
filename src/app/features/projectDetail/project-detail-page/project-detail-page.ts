@@ -1,71 +1,77 @@
-
+import { NgOptimizedImage } from '@angular/common';
 import {
   Component,
+  computed,
   ElementRef,
   inject,
-  ChangeDetectionStrategy,
-  computed,
-  signal,
+  input,
+  linkedSignal,
   viewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProjectsDataService } from '../../../services/projects-data.service';
 import { TranslatePipe } from '@ngx-translate/core';
+
 import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 import { ProjectBadges } from '../../../core/shared/project-badges/project-badges';
+import { ProjectsDataService } from '../../../data/projects-data.service';
 
 @Component({
-  selector: 'project-detail-page',
-  standalone: true,
-  imports: [TranslatePipe, TerminalSection, ProjectBadges],
+  selector: 'app-project-detail-page',
+  imports: [NgOptimizedImage, TranslatePipe, TerminalSection, ProjectBadges],
   templateUrl: './project-detail-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './project-detail-page.scss',
 })
 export class ProjectDetailPage {
-  private route = inject(ActivatedRoute);
-  private projectsService = inject(ProjectsDataService);
+  private readonly projectsService = inject(ProjectsDataService);
 
-  project = this.projectsService.getProjectById(
-    this.route.snapshot.paramMap.get('id') || '',
+  /** The `:id` of the route, bound to this input by the router (withComponentInputBinding). */
+  readonly id = input.required<string>();
+
+  protected readonly project = computed(() =>
+    this.projectsService.getProjectById(this.id()),
+  );
+  protected readonly gallery = computed<readonly string[]>(
+    () => this.project()?.gallery ?? [],
   );
 
-  readonly gallery: readonly string[] = this.project?.gallery ?? [];
-  readonly selectedIndex = signal(0);
-  readonly image = computed(() => this.gallery[this.selectedIndex()]);
+  /** The image shown; goes back to the first one when the project changes. */
+  readonly selectedIndex = linkedSignal<string, number>({
+    source: this.id,
+    computation: () => 0,
+  });
+  protected readonly image = computed(() => this.gallery()[this.selectedIndex()]);
 
-  readonly lightbox =
+  private readonly lightbox =
     viewChild<ElementRef<HTMLDialogElement>>('lightbox');
 
-  select(index: number): void {
+  protected select(index: number): void {
     this.selectedIndex.set(index);
   }
 
-  previous(): void {
+  protected previous(): void {
     this.step(-1);
   }
 
-  next(): void {
+  protected next(): void {
     this.step(1);
   }
 
-  openLightbox(): void {
+  protected openLightbox(): void {
     this.lightbox()?.nativeElement.showModal();
   }
 
-  closeLightbox(): void {
+  protected closeLightbox(): void {
     this.lightbox()?.nativeElement.close();
   }
 
-  onLightboxClick(event: MouseEvent): void {
+  protected onLightboxClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     if (!target.closest('img, button')) {
       this.closeLightbox();
     }
   }
 
-  onLightboxKeydown(event: KeyboardEvent): void {
-    if (this.gallery.length < 2) {
+  protected onLightboxKeydown(event: KeyboardEvent): void {
+    if (this.gallery().length < 2) {
       return;
     }
     if (event.key === 'ArrowLeft') {
@@ -76,7 +82,7 @@ export class ProjectDetailPage {
   }
 
   private step(direction: 1 | -1): void {
-    const count = this.gallery.length;
+    const count = this.gallery().length;
     this.selectedIndex.update((i) => (i + direction + count) % count);
   }
 }

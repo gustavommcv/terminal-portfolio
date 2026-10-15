@@ -1,4 +1,4 @@
-import { ageFrom } from './age.utils';
+import { ageFrom } from './age-from';
 
 describe('ageFrom', () => {
   const may2004 = { year: 2004, month: 5 };

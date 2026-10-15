@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
 
 import { projectsData } from '../../../data/projects.data';
 import { ProjectDetailPage } from './project-detail-page';
@@ -7,23 +6,11 @@ import { ProjectDetailPage } from './project-detail-page';
 function createFixtureForProject(
   id: string,
 ): ComponentFixture<ProjectDetailPage> {
-  TestBed.configureTestingModule({
-    imports: [ProjectDetailPage],
-    providers: [
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          snapshot: {
-            paramMap: {
-              get: (key: string) => (key === 'id' ? id : null),
-            },
-          },
-        },
-      },
-    ],
-  });
+  TestBed.configureTestingModule({ imports: [ProjectDetailPage] });
 
   const fixture = TestBed.createComponent(ProjectDetailPage);
+  // The router binds the route's :id to this input (withComponentInputBinding).
+  fixture.componentRef.setInput('id', id);
   fixture.detectChanges();
   return fixture;
 }
@@ -37,6 +24,43 @@ function badgeAlts(fixture: ComponentFixture<ProjectDetailPage>): string[] {
 describe('ProjectDetailPage', () => {
   afterEach(() => {
     TestBed.resetTestingModule();
+  });
+
+  it('follows the id input: another project replaces the content and starts at its first image', () => {
+    const fixture = createFixtureForProject('maquetaria');
+    const page = fixture.componentInstance;
+    const root: HTMLElement = fixture.nativeElement;
+    const heading = () => root.querySelector('h1')?.textContent?.trim();
+
+    expect(heading()).toBe('maquetaria');
+    page.selectedIndex.set(1);
+    expect(page.selectedIndex()).toBe(1);
+
+    fixture.componentRef.setInput('id', 'mangabound');
+    fixture.detectChanges();
+
+    expect(heading()).toBe('mangabound');
+    expect(page.selectedIndex()).toBe(0);
+    expect(root.querySelector('h2')?.textContent?.trim()).toBe('Mangabound');
+  });
+
+  it('renders nothing for an id with no project, instead of failing', () => {
+    const fixture = createFixtureForProject('no-such-project');
+
+    expect(fixture.nativeElement.querySelector('.project-detail-page')).toBeNull();
+  });
+
+  it('loads the main image at high priority and keeps the thumbnails lazy', () => {
+    const root: HTMLElement = createFixtureForProject('maquetaria').nativeElement;
+    const main = root.querySelector('.project-detail-page__thumbnail') as HTMLImageElement;
+    const thumbs = Array.from(
+      root.querySelectorAll('.project-detail-page__thumb img'),
+    ) as HTMLImageElement[];
+
+    expect(main.getAttribute('fetchpriority')).toBe('high');
+    expect(main.getAttribute('loading')).toBe('eager');
+    expect(thumbs.length).toBeGreaterThan(1);
+    expect(thumbs.every((img) => img.getAttribute('loading') === 'lazy')).toBe(true);
   });
 
   it('creates for a known project id', () => {
@@ -64,7 +88,7 @@ describe('ProjectDetailPage', () => {
     expect(
       infoChildren[1].classList.contains('project-detail-page__description'),
     ).toBe(true);
-    expect(infoChildren[2].tagName.toLowerCase()).toBe('project-badges');
+    expect(infoChildren[2].tagName.toLowerCase()).toBe('app-project-badges');
     expect(infoChildren[3].classList.contains('project-detail-page__links')).toBe(
       true,
     );
@@ -284,11 +308,8 @@ describe('ProjectDetailPage', () => {
       expect(lightboxImage(fixture)?.getAttribute('src')).toBe(
         projectsData.find((p) => p.id === 'maquetaria')!.gallery[count - 1],
       );
-      expect(
-        fixture.nativeElement
-          .querySelectorAll('.project-detail-page__thumb')
-          [count - 1].getAttribute('aria-pressed'),
-      ).toBe('true');
+      const thumbs = fixture.nativeElement.querySelectorAll('.project-detail-page__thumb');
+      expect(thumbs[count - 1].getAttribute('aria-pressed')).toBe('true');
     });
 
     it('steps through the gallery with the arrow keys', () => {

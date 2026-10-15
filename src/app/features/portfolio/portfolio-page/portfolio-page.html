@@ -9,8 +9,12 @@
     <app-title [title]="'projects-page.title' | translate" />
 
     <div class="projects-container">
-      @for (project of projectsData; track project.id) {
-        <project-card [project]="project" [headingLevel]="2"></project-card>
+      @for (project of projectsData; track project.id; let index = $index) {
+        <app-project-card
+          [project]="project"
+          [headingLevel]="2"
+          [priority]="index < aboveTheFold"
+        ></app-project-card>
       }
     </div>
   </app-terminal-section>

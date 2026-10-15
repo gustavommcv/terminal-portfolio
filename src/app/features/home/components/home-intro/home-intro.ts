@@ -1,6 +1,5 @@
 import {
   afterNextRender,
-  ChangeDetectionStrategy,
   Component,
   computed,
   DestroyRef,
@@ -19,11 +18,10 @@ import { HomeIntroService } from '../../services/home-intro.service';
 import { PresentationSection } from '../presentation-section/presentation-section';
 
 @Component({
-  selector: 'home-intro',
+  selector: 'app-home-intro',
   imports: [TerminalSection, TerminalLine, PresentationSection],
   templateUrl: './home-intro.html',
   styleUrl: './home-intro.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeIntro {
   readonly commandState = input.required<HomeIntroCommandState>();

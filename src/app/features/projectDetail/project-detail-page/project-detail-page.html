@@ -1,4 +1,4 @@
-@if (project) {
+@if (project(); as project) {
   <div class="project-detail-page">
     <app-terminal-section
       [customTitle]="project.id"
@@ -16,13 +16,13 @@
               (click)="openLightbox()"
             >
               <img
-                [src]="image()"
+                [ngSrc]="image()"
+                priority
                 [alt]="'projects-page.projects.' + project.id + '.title' | translate"
                 class="project-detail-page__thumbnail"
                 width="640"
                 height="360"
                 decoding="async"
-                fetchpriority="high"
               />
               <svg
                 class="project-detail-page__expand-icon"
@@ -42,13 +42,13 @@
             </button>
           </div>
 
-          @if (gallery.length > 1) {
+          @if (gallery().length > 1) {
             <div
               class="project-detail-page__thumbs"
               role="group"
               [attr.aria-label]="'projects-page.gallery.label' | translate"
             >
-              @for (src of gallery; track src; let i = $index) {
+              @for (src of gallery(); track src; let i = $index) {
                 <button
                   type="button"
                   class="project-detail-page__thumb"
@@ -58,24 +58,23 @@
                   [attr.aria-pressed]="i === selectedIndex()"
                   [attr.aria-label]="
                     'projects-page.gallery.show'
-                      | translate: { number: i + 1, total: gallery.length }
+                      | translate: { number: i + 1, total: gallery().length }
                   "
                   (click)="select(i)"
                 >
                   <img
-                    [src]="src"
+                    [ngSrc]="src"
                     alt=""
                     width="160"
                     height="90"
-                    loading="lazy"
                     decoding="async"
-                    fetchpriority="low"
                   />
                 </button>
               }
             </div>
           }
 
+          <!-- eslint-disable-next-line @angular-eslint/template/interactive-supports-focus -- clicking the backdrop is a mouse convenience; the keyboard has the native Escape and the close button -->
           <dialog
             #lightbox
             class="project-detail-page__lightbox"
@@ -86,6 +85,7 @@
             (keydown)="onLightboxKeydown($event)"
           >
             <div class="project-detail-page__lightbox-stage">
+              <!-- eslint-disable @angular-eslint/template/prefer-ngsrc -- it fills the dialog at whatever size the screen allows, so it has no fixed width and height -->
               <img
                 [src]="image()"
                 [alt]="
@@ -94,6 +94,7 @@
                 "
                 class="project-detail-page__lightbox-image"
               />
+              <!-- eslint-enable @angular-eslint/template/prefer-ngsrc -->
             </div>
 
             <button
@@ -113,7 +114,7 @@
               </svg>
             </button>
 
-            @if (gallery.length > 1) {
+            @if (gallery().length > 1) {
               <div class="project-detail-page__lightbox-controls">
                 <button
                   type="button"
@@ -135,7 +136,7 @@
                   </svg>
                 </button>
                 <p class="project-detail-page__lightbox-count" aria-live="polite">
-                  {{ selectedIndex() + 1 }} / {{ gallery.length }}
+                  {{ selectedIndex() + 1 }} / {{ gallery().length }}
                 </p>
                 <button
                   type="button"
@@ -171,7 +172,7 @@
             }}
           </p>
 
-          <project-badges [badges]="project.badges ?? []" />
+          <app-project-badges [badges]="project.badges ?? []" />
 
           <div class="project-detail-page__links">
             @if (project.links.github) {

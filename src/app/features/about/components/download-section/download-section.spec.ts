@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, vi } from 'vitest';
 
-import { LanguageService } from '../../../../services/language.service';
+import { LanguageService } from '../../../../core/i18n/language.service';
 import { DownloadSection } from './download-section';
 
 describe('DownloadSection', () => {

@@ -1,7 +1,7 @@
 import { RenderMode } from '@angular/ssr';
 
 import { routes } from './app.routes';
-import { NAV_ROUTES } from './core/layout/header/header.utils';
+import { NAV_ROUTES } from './core/layout/header/nav-routes';
 import { serverRoutes } from './app.routes.server';
 
 // The host has no SPA fallback: a path that is not a prerendered file or an

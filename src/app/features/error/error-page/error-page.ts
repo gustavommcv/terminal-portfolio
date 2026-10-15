@@ -1,20 +1,18 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
-import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+
+import { TerminalSection } from '../../../core/layout/terminal-section/terminal-section';
 
 @Component({
   selector: 'app-error-page',
   imports: [TerminalSection, TranslatePipe],
   templateUrl: './error-page.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './error-page.scss',
 })
 export class ErrorPage {
-  /** The path that was not found; the query string and fragment are not part of a "command". */
-  currentPath = '';
+  private readonly router = inject(Router);
 
-  constructor(private router: Router) {
-    this.currentPath = this.router.url.split(/[?#]/)[0];
-  }
+  /** The path that was not found; the query string and fragment are not part of a "command". */
+  readonly currentPath = this.router.url.split(/[?#]/)[0];
 }
