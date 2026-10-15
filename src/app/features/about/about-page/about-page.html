@@ -3,9 +3,18 @@
 
   <app-education-section />
 
-  <app-interests-section />
+  <app-list-section
+    class="about-page__interests"
+    [heading]="'about-page.interests-section.title' | translate"
+    [items]="'about-page.interests-section.interests' | translate"
+    command="glow interests.md"
+  />
 
-  <app-languages-section />
+  <app-list-section
+    [heading]="'about-page.languages-section.title' | translate"
+    [items]="'about-page.languages-section.languages' | translate"
+    command="glow languages.md"
+  />
 
   <app-download-section />
 </div>

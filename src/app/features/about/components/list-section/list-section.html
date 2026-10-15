@@ -1,0 +1,13 @@
+<app-terminal-section
+  [customTitle]="heading()"
+  [customCommand]="command()"
+  [shortTerminalLine]="true"
+>
+  <app-title [title]="heading()" />
+
+  <ul class="list-section__items">
+    @for (item of items(); track $index) {
+      <li>{{ item }}</li>
+    }
+  </ul>
+</app-terminal-section>

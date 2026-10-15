@@ -3,4 +3,9 @@
 
 .about-page {
   @include page-shell;
+
+  // Closer to the list that follows it than the other sections are to theirs.
+  &__interests {
+    margin-bottom: $spacing-big;
+  }
 }

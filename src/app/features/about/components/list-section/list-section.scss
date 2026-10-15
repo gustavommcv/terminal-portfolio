@@ -1,10 +1,13 @@
 @use "abstracts/variables" as *;
 
-.languages-section {
+// The page that places the section can change the space below it, like the
+// other sections of the page.
+:host {
+  display: block;
   margin-bottom: $spacing-xbig;
 }
 
-.languages-container {
+.list-section__items {
   font-size: $font-size-default;
 
   margin-left: 5rem;
