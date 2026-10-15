@@ -208,6 +208,16 @@ All notable changes to this project are documented in this file.
   pages), taken from the captures that Mangabound's guide generates, at 1600×900
   like Maquetaria's, 25 to 45 KB each. A spec pins the order, and another one
   that a cover a project declares is always among its gallery images.
+- The images of the command-line projects (mangapress, mangabind, gomodoro) showed
+  a small terminal window floating in the frame, with a margin all around it, so
+  a card showed more empty frame than terminal. They are now the terminal edge to
+  edge, with the largest text the frame allows (24 to 30px before, 29 to 40px
+  now), made from the same real output as before. The Dotfiles image, a picture
+  of a penguin, is now a terminal in the same style showing the repository for
+  real: its branches (`main`, `notebook`, `wsl`), its folders, and the Lua files
+  of the Hyprland configuration. The four files have new names (`*-terminal.webp`)
+  because images are cached for a day plus a week of revalidation, so a visitor
+  would otherwise keep seeing the old ones.
 - The featured projects of the home page are now a carousel (the new `Carousel`
   component of `core/shared`) instead of a loose row with a scrollbar. It rests
   on one slide at a time (CSS `scroll-snap`, so swiping, the trackpad and keyboard

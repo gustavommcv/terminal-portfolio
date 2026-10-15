@@ -221,7 +221,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangapress',
-    gallery: ['images/projects/mangapress/images/mangapress-thumbnail.webp'],
+    gallery: ['images/projects/mangapress/images/mangapress-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangapress',
     },
@@ -256,7 +256,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangabind',
-    gallery: ['images/projects/mangabind/images/mangabind-thumbnail.webp'],
+    gallery: ['images/projects/mangabind/images/mangabind-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangabind',
     },
@@ -281,7 +281,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'gomodoro',
-    gallery: ['images/projects/gomodoro/images/gomodoro-thumbnail.webp'],
+    gallery: ['images/projects/gomodoro/images/gomodoro-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
     },
@@ -308,7 +308,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'dotfiles',
-    gallery: ['images/projects/dotfiles/images/dotfiles-thumbnail.webp'],
+    gallery: ['images/projects/dotfiles/images/dotfiles-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/dotfiles',
     },

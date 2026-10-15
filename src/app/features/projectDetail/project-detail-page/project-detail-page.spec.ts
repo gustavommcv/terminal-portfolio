@@ -359,7 +359,7 @@ describe('ProjectDetailPage', () => {
     );
 
     expect(img.getAttribute('src')).toBe(
-      'images/projects/gomodoro/images/gomodoro-thumbnail.webp',
+      'images/projects/gomodoro/images/gomodoro-terminal.webp',
     );
   });
 
