@@ -1,77 +1,50 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
+import { catalogEntry } from '../../../../../testing/english-catalog';
+import { projectsData } from '../../../../data/projects.data';
 import { FeaturedProjectsSection } from './featured-projects-section';
 
 describe('FeaturedProjectsSection', () => {
-  let component: FeaturedProjectsSection;
   let fixture: ComponentFixture<FeaturedProjectsSection>;
-  let capturedCallback: ResizeObserverCallback | undefined;
+
+  const root = (): HTMLElement => fixture.nativeElement;
+  const featuredIds = projectsData.filter((project) => project.featured).map((project) => project.id);
 
   beforeEach(async () => {
-    capturedCallback = undefined;
-
-    class MockResizeObserver {
-      constructor(callback: ResizeObserverCallback) {
-        capturedCallback = callback;
-      }
-      observe(): void {}
-      unobserve(): void {}
-      disconnect(): void {}
-    }
-    vi.stubGlobal('ResizeObserver', MockResizeObserver);
-
     await TestBed.configureTestingModule({
       imports: [FeaturedProjectsSection],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FeaturedProjectsSection);
-    component = fixture.componentInstance;
     fixture.detectChanges();
     await fixture.whenStable();
   });
 
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  function stubContainerWidths(scrollWidth: number, clientWidth: number): void {
-    const container: HTMLElement = fixture.nativeElement.querySelector(
-      '.featured-projects-section__container',
+  it('shows its title', () => {
+    expect(root().querySelector('h2')?.textContent).toContain(
+      catalogEntry('home-page.featured-projects-section.title'),
     );
-    Object.defineProperty(container, 'scrollWidth', {
-      value: scrollWidth,
-      configurable: true,
-    });
-    Object.defineProperty(container, 'clientWidth', {
-      value: clientWidth,
-      configurable: true,
-    });
-  }
-
-  it('shows the swipe hint once the container overflows', () => {
-    stubContainerWidths(1200, 800);
-    capturedCallback?.([], {} as ResizeObserver);
-    fixture.detectChanges();
-
-    expect(component.hasOverflow()).toBe(true);
-    expect(
-      fixture.nativeElement.querySelector('.featured-projects-section__warning'),
-    ).not.toBeNull();
   });
 
-  it('hides the swipe hint when everything fits', () => {
-    stubContainerWidths(800, 800);
-    capturedCallback?.([], {} as ResizeObserver);
-    fixture.detectChanges();
+  it('puts the featured projects, and only them, in a carousel named after the section', () => {
+    const carousel = root().querySelector('app-carousel .carousel');
 
-    expect(component.hasOverflow()).toBe(false);
+    expect(carousel?.getAttribute('aria-label')).toBe(
+      catalogEntry('home-page.featured-projects-section.title'),
+    );
+
+    const slides = Array.from(root().querySelectorAll('.carousel__slide'));
+    expect(slides).toHaveLength(featuredIds.length);
     expect(
-      fixture.nativeElement.querySelector('.featured-projects-section__warning'),
-    ).toBeNull();
+      slides.map((slide) =>
+        slide.querySelector('a.project-card')?.getAttribute('href'),
+      ),
+    ).toEqual(featuredIds.map((id) => `/portfolio/${id}`));
+  });
+
+  it('no longer tells the visitor to scroll sideways: the carousel has its own buttons', () => {
+    expect(root().textContent).not.toMatch(/scroll sideways/i);
+    expect(root().querySelector('.featured-projects-section__warning')).toBeNull();
   });
 });

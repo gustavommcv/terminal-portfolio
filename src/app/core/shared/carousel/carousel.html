@@ -1,0 +1,81 @@
+<div
+  class="carousel"
+  role="group"
+  [attr.aria-roledescription]="'carousel.roledescription' | translate"
+  [attr.aria-label]="label()"
+>
+  <div class="carousel__track" #track (scroll)="onScroll()">
+    @for (item of items(); track $index; let index = $index) {
+      <div
+        class="carousel__slide"
+        role="group"
+        [attr.aria-roledescription]="'carousel.slide-roledescription' | translate"
+        [attr.aria-label]="
+          'carousel.slide' | translate: { number: index + 1, total: items().length }
+        "
+      >
+        <ng-container
+          [ngTemplateOutlet]="slide()"
+          [ngTemplateOutletContext]="{ $implicit: item, index }"
+        />
+      </div>
+    }
+  </div>
+
+  @if (stops().length > 1) {
+    <div class="carousel__controls">
+      <button
+        type="button"
+        class="carousel__button"
+        [attr.aria-label]="'carousel.previous' | translate"
+        [attr.aria-disabled]="!canGoBack()"
+        (click)="previous()"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M15 5l-7 7 7 7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+
+      <div class="carousel__dots" role="group" [attr.aria-label]="'carousel.positions' | translate">
+        @for (stop of stops(); track $index; let index = $index) {
+          <button
+            type="button"
+            class="carousel__dot"
+            [class.carousel__dot--active]="index === activeStop()"
+            [attr.aria-current]="index === activeStop() ? 'true' : null"
+            [attr.aria-label]="
+              'carousel.go-to' | translate: { number: index + 1, total: stops().length }
+            "
+            (click)="goTo(index)"
+          ></button>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="carousel__button"
+        [attr.aria-label]="'carousel.next' | translate"
+        [attr.aria-disabled]="!canGoForward()"
+        (click)="next()"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            d="M9 5l7 7-7 7"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  }
+</div>

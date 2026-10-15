@@ -208,6 +208,19 @@ All notable changes to this project are documented in this file.
   pages), taken from the captures that Mangabound's guide generates, at 1600×900
   like Maquetaria's, 25 to 45 KB each. A spec pins the order, and another one
   that a cover a project declares is always among its gallery images.
+- The featured projects of the home page are now a carousel (the new `Carousel`
+  component of `core/shared`) instead of a loose row with a scrollbar. It rests
+  on one slide at a time (CSS `scroll-snap`, so swiping, the trackpad and keyboard
+  focus work as on any page), has previous and next buttons that say when they do
+  nothing, and a dot for each place it can rest, and it follows the WAI-ARIA
+  carousel pattern without rotation (it never moves on its own): a group named
+  after the section, each slide numbered, texts in both languages, no motion for
+  visitors who asked for less. With everything in view it shows no controls. On
+  narrow screens a card no longer runs past the edge of the carousel (it was 13px
+  wider than the space at 390px). The "scroll sideways" hint is gone from this
+  section, with its catalog entries; the About page keeps its own. Checked in a
+  browser at eight widths from 320px to 2560px: snapping, buttons, dots, Tab to
+  an off-screen card, no page overflow, no hydration warnings, no axe violations.
 
 ### Dependencies, CI, and documentation
 

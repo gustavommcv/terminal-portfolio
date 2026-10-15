@@ -2,38 +2,4 @@
 
 .featured-projects-section {
   margin-bottom: $spacing-xbig;
-
-  &__warning {
-    text-align: center;
-    font-size: $font-size-small;
-
-    margin-bottom: $spacing-big;
-
-    color: $color-text-dark;
-
-    @media screen and (max-width: #{$breakpoint-mobile}) {
-      font-size: 1.8rem;
-    }
-  }
-
-  &__container {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: clamp(26rem, 75vw, 32rem);
-    align-items: stretch;
-    gap: 2rem;
-    padding-top: 1rem;
-    padding-bottom: $spacing-medium;
-
-    overflow-x: auto;
-
-    &::-webkit-scrollbar {
-      height: 0.5rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: var(--scrollbar-thumb);
-      border-radius: 1rem;
-    }
-  }
 }

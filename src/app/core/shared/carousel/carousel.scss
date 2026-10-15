@@ -1,0 +1,150 @@
+@use "abstracts/variables" as *;
+
+// Room on each side of the track for what a scroll container would otherwise
+// clip: the focus ring of the first and last card.
+$edge: 0.8rem;
+
+:host {
+  display: block;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-small;
+
+  &__track {
+    display: grid;
+    grid-auto-flow: column;
+    // Never wider than the track itself: on a narrow screen a slide fills it
+    // instead of running past its edge.
+    grid-auto-columns: min(clamp(26rem, 75vw, 32rem), 100%);
+    align-items: stretch;
+    gap: 2rem;
+
+    // The padding is also where a slide rests (scroll-padding), and the negative
+    // margin gives it back, so the first card lines up with the section's content.
+    margin-inline: -$edge;
+    padding: 1rem $edge;
+    scroll-padding-inline: $edge;
+
+    // The browser does the work: it snaps to a slide, and swiping, the trackpad
+    // and keyboard focus all move the track as on any page.
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    // The buttons and dots say where it is; the scrollbar would say it twice.
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
+  }
+
+  // The card is the grid item of this box (its component host is display: contents),
+  // so it stretches to the height of the tallest slide.
+  &__slide {
+    display: grid;
+    min-inline-size: 0;
+    scroll-snap-align: start;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-medium;
+  }
+
+  &__button {
+    display: grid;
+    place-items: center;
+    inline-size: 4.4rem;
+    block-size: 4.4rem;
+    padding: 0;
+    border: 2px solid $color-border;
+    border-radius: 50%;
+    color: $color-title-dark;
+    background-color: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition:
+      background-color $transition-fast,
+      opacity $transition-fast;
+
+    svg {
+      inline-size: 2.2rem;
+      block-size: 2.2rem;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    // At either end the button stays focusable (so focus is not lost when the
+    // last move is made with it) but says it does nothing.
+    &[aria-disabled="true"] {
+      opacity: 0.35;
+      cursor: default;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0.3rem;
+    }
+  }
+
+  &__dots {
+    display: flex;
+    align-items: center;
+  }
+
+  // The button is a comfortable target; the dot is drawn inside it.
+  &__dot {
+    display: grid;
+    place-items: center;
+    inline-size: 2.8rem;
+    block-size: 2.8rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      inline-size: 1.1rem;
+      block-size: 1.1rem;
+      box-sizing: border-box;
+      border: 2px solid $color-border;
+      border-radius: 50%;
+      transition:
+        background-color $transition-fast,
+        border-color $transition-fast;
+    }
+
+    &:hover::before {
+      border-color: $color-title-dark;
+    }
+
+    // The current one is filled; the others are rings, so it is not only a colour.
+    &--active::before {
+      border-color: $color-subtitle-dark;
+      background-color: $color-subtitle-dark;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0.1rem;
+    }
+  }
+}

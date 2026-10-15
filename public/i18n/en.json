@@ -24,8 +24,7 @@
       "title": "My Stack"
     },
     "featured-projects-section": {
-      "title": "Featured Projects",
-      "warning": "*scroll sideways for more*"
+      "title": "Featured Projects"
     },
     "contact-section": {
       "title": "Contact",
@@ -253,5 +252,14 @@
   },
   "a11y": {
     "skip-to-content": "Skip to main content"
+  },
+  "carousel": {
+    "roledescription": "carousel",
+    "slide-roledescription": "slide",
+    "slide": "{{number}} of {{total}}",
+    "previous": "Previous",
+    "next": "Next",
+    "positions": "Choose what to show",
+    "go-to": "Go to {{number}} of {{total}}"
   }
 }

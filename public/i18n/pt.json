@@ -24,8 +24,7 @@
       "title": "Minha Stack"
     },
     "featured-projects-section": {
-      "title": "Projetos em Destaque",
-      "warning": "*role para o lado para ver mais*"
+      "title": "Projetos em Destaque"
     },
     "contact-section": {
       "title": "Contato",
@@ -253,5 +252,14 @@
   },
   "a11y": {
     "skip-to-content": "Pular para o conteúdo principal"
+  },
+  "carousel": {
+    "roledescription": "carrossel",
+    "slide-roledescription": "slide",
+    "slide": "{{number}} de {{total}}",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "positions": "Escolha o que mostrar",
+    "go-to": "Ir para {{number}} de {{total}}"
   }
 }

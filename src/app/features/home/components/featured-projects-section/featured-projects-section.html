@@ -1,4 +1,3 @@
-<!-- SNAP SCROLL -->
 <div class="featured-projects-section">
   <app-terminal-section
     [customTitle]="'home-page.featured-projects-section.title' | translate"
@@ -7,16 +6,13 @@
   >
     <app-title [title]="'home-page.featured-projects-section.title' | translate" />
 
-    @if (hasOverflow()) {
-      <div class="featured-projects-section__warning">
-        {{ "home-page.featured-projects-section.warning" | translate }}
-      </div>
-    }
-
-    <div class="featured-projects-section__container" appOverflowWatch>
-      @for (project of projectsData; track project.id) {
-        <app-project-card [project]="project"></app-project-card>
-      }
-    </div>
+    <app-carousel
+      [items]="projectsData"
+      [label]="'home-page.featured-projects-section.title' | translate"
+    >
+      <ng-template let-project>
+        <app-project-card [project]="project" />
+      </ng-template>
+    </app-carousel>
   </app-terminal-section>
 </div>
