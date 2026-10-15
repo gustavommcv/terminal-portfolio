@@ -189,6 +189,38 @@ All notable changes to this project are documented in this file.
   105 are now; the header's height, the menu, and horizontal overflow are unchanged
   at 17 widths. `layout-gutter.spec.ts` guards the source.
 
+### Components with one responsibility
+
+Reviewed the 35 components, directives and services for ones doing more than one
+thing, and separated the five clearest. Nothing changes for the visitor: all 20
+page states (5 pages, desktop and phone, English and Portuguese) are
+pixel-identical to the build before, the 274 links have the same addresses (plus
+the three CV downloads below), and 44 steps of the mobile menu (focus, Tab,
+Escape, backdrop, links, language toggle, 768px and 769px) behave the same.
+
+- `ProjectDetailPage` was the project's text, its image gallery and a full-screen
+  viewer: 610 lines. The gallery and the viewer are now `ProjectGallery`, which
+  only needs the images and a name; the page is 169 lines.
+- `Header` was the bar with the desktop links and the mobile menu (a panel with
+  its own focus trap, scroll lock and Escape handling): 604 lines. The panel is
+  now `MobileMenu`; the header (243 lines) draws the bar and decides whether the
+  menu is open.
+- The links to another page of the site (an address that keeps `?locale=pt`, and a
+  plain click that stays in the application) were written out in the header twice,
+  in `ProjectCard` and in `AppButton`, and `LanguageService` built them. They are
+  now one directive, `LocalizedLink`; `LanguageService` only says which query
+  parameters carry the language.
+- The CV buttons built a hidden link and clicked it from code, and the markup was
+  copied three times. They are now real links with the `download` attribute,
+  one `@for` (they also work without JavaScript). The look is the same, down to the
+  font: the buttons had the browser's own button font (Arial), which the link now
+  names explicitly.
+- `InterestsSection` and `LanguagesSection` were the same component with other
+  texts; they are now `ListSection`.
+- 396 tests before, 440 now; coverage 99.27% of statements and 94.5% of branches.
+  The mobile menu and the localized link were mutation-checked (ten changes, all
+  caught).
+
 ### Portfolio
 
 - Added Mangabound and mangapress, and featured them. Projects were reordered

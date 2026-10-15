@@ -21,13 +21,18 @@ flowchart TD
     App --> Header["Header"]
     App --> Outlet["RouterOutlet"]
 
+    Header --> MobileMenu["MobileMenu<br/>narrow screens"]
     Header --> LanguageToggle["LanguageToggleButton"]
-    Header --> LanguageService["LanguageService"]
+    MobileMenu --> LanguageToggle
+    Header --> Link["LocalizedLink"]
+    MobileMenu --> Link
+    Link --> LanguageService["LanguageService"]
 
     Outlet --> Home["HomePage"]
     Outlet --> About["AboutPage"]
     Outlet --> Portfolio["PortfolioPage"]
     Outlet --> Detail["ProjectDetailPage"]
+    Detail --> Gallery["ProjectGallery<br/>thumbnails and full-screen viewer"]
     Outlet --> Error["ErrorPage"]
 
     Home --> Presentation["PresentationSection"]
@@ -42,13 +47,12 @@ flowchart TD
 
     About --> AboutSection["AboutSection"]
     About --> Education["EducationSection"]
-    About --> Interests["InterestsSection"]
-    About --> Languages["LanguagesSection"]
+    About --> Lists["ListSection<br/>interests, languages"]
     About --> Download["DownloadSection"]
 
     Portfolio --> ProjectCard["ProjectCard"]
     Featured --> ProjectCard
-    ProjectCard --> LanguageService
+    ProjectCard --> Link
 
     Portfolio --> ProjectsService["ProjectsDataService"]
     Detail --> ProjectsService
@@ -80,9 +84,9 @@ translation loading are not duplicated in the shell.
 | Feature | Responsibility | Main components |
 | --- | --- | --- |
 | `home` | Presentation, services, stack, featured projects, and contact. | `HomePage` and five sections. |
-| `about` | Biography, education, interests, languages, and résumé. | `AboutPage` and five sections. |
+| `about` | Biography, education, interests, languages, and résumé. | `AboutPage` and its sections; `ListSection` is the interests and the languages. |
 | `portfolio` | Full project catalog listing. | `PortfolioPage`, `ProjectCard`. |
-| `projectDetail` | Resolves `:id` and displays a single project. | `ProjectDetailPage`. |
+| `projectDetail` | Resolves `:id` and displays a single project. | `ProjectDetailPage` (the project's text, badges and links) and `ProjectGallery` (its images). |
 | `error` | Shows a visual response for unknown routes. | `ErrorPage`. |
 
 ### Home intro lifecycle
@@ -141,10 +145,10 @@ available.
 
 ### Core and shared
 
-- `core/layout`: structural components, including the header, footer, and the visual composition that simulates a terminal.
-- `core/i18n`: `LanguageService` (the language of the URL, the catalog state, and the current path as a signal) and `LanguagePreference` (the remembered or browser language).
+- `core/layout`: structural components, including the header (the bar and, on narrow screens, its `MobileMenu`: the panel, its focus handling and the scroll lock; the header only decides whether it is open), the footer, and the visual composition that simulates a terminal.
+- `core/i18n`: `LanguageService` (the language of the URL, the catalog state, the query parameters that carry the language, and the current path as a signal), `LocalizedLink` (the one place that makes a link to another page of the site keep the language of the current one and take a plain click within the application, leaving Ctrl/Cmd/Shift/Alt and middle clicks to the browser) and `LanguagePreference` (the remembered or browser language).
 - `core/seo`: `SeoService`.
-- `core/shared`: reusable UI elements, such as the button, title, language toggle, project card, and `Carousel` (a row of slides that rests on one at a time, with previous and next buttons and a dot for each place it can rest; the browser does the scrolling and snapping with CSS `scroll-snap`, the component only measures where the stops are and moves the track to one; it follows the WAI-ARIA carousel pattern, without rotation, and the featured projects of the home page use it), and two helpers they share: `isPlainLeftClick` (`plain-left-click.ts`), which every in-app link uses to leave Ctrl/Cmd/Shift/Alt and middle clicks to the browser, and the `OverflowWatch` directive, which tells whether a row scrolls sideways so the "scroll sideways" hint of the About page's download row shows only then. The main navigation's pages are the `NAV_ROUTES` constant in `core/layout/header/nav-routes.ts`; a test checks each one is a real, prerendered route.
+- `core/shared`: reusable UI elements, such as the button, title, language toggle, project card, and `Carousel` (a row of slides that rests on one at a time, with previous and next buttons and a dot for each place it can rest; the browser does the scrolling and snapping with CSS `scroll-snap`, the component only measures where the stops are and moves the track to one; it follows the WAI-ARIA carousel pattern, without rotation, and the featured projects of the home page use it), and two helpers they share: `isPlainLeftClick` (`plain-left-click.ts`), which `LocalizedLink` and the button's scroll mode use to leave Ctrl/Cmd/Shift/Alt and middle clicks to the browser, and the `OverflowWatch` directive, which tells whether a row scrolls sideways so the "scroll sideways" hint of the About page's download row shows only then. The main navigation's pages are the `NAV_ROUTES` constant in `core/layout/header/nav-routes.ts`; a test checks each one is a real, prerendered route.
 
 ### Change detection
 
