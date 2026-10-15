@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+import { projectCardImage } from './project-media';
 import { Project, projectsData } from './projects.data';
 import { ProjectsDataService } from './projects-data.service';
 
@@ -99,19 +100,28 @@ describe('projectsData badges', () => {
     expect(gallery[0]).toContain('maquetaria-home');
   });
 
-  it('gives Mangabound a card cover separate from its screenshot gallery', () => {
-    const mangabound = findProject('mangabound');
-
-    expect(mangabound.cover).toContain('mangabound-cover');
-    expect(mangabound.gallery[0]).toContain('mangabound-thumbnail');
+  it('keeps the cover of a project among its gallery images', () => {
+    projectsData.forEach((project) => {
+      if (project.cover !== undefined) {
+        expect(project.gallery, project.id).toContain(project.cover);
+      }
+    });
   });
 
-  it('shows Mangabound through the steps of its workflow, starting with the queue', () => {
+  it('opens the gallery of Mangabound on its cover, which is also what its card shows', () => {
+    const mangabound = findProject('mangabound');
+
+    expect(mangabound.gallery[0]).toContain('mangabound-cover');
+    expect(projectCardImage(mangabound)).toBe(mangabound.gallery[0]);
+  });
+
+  it('shows Mangabound through its cover and then the steps of its workflow', () => {
     const gallery = findProject('mangabound').gallery.map((image) =>
       image.replace(/^.*mangabound-|\.webp$/g, ''),
     );
 
     expect(gallery).toEqual([
+      'cover',
       'thumbnail',
       'chapter-mapping',
       'book-details',

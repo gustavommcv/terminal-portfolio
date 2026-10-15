@@ -156,7 +156,7 @@ describe('SeoService', () => {
     expect(document.title).toBe('Mangabound | Site');
     expect(meta('name', 'description')).toBe('Desktop app EN');
     expect(canonical()).toBe(`${SITE_URL}/portfolio/mangabound`);
-    // Mangabound declares a cover, which is what a shared link should show.
+    // The first gallery image of Mangabound is its cover, which is what a shared link should show.
     expect(meta('property', 'og:image')).toBe(
       `${SITE_URL}/images/projects/mangabound/images/mangabound-cover.webp`,
     );

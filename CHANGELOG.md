@@ -200,12 +200,14 @@ All notable changes to this project are documented in this file.
 - The Terminal Portfolio (this site) is no longer featured on the home page,
   which now shows five projects; it stays in the portfolio, with its own page.
   A spec keeps it out of the featured ones.
-- Mangabound's gallery went from 1 image to 6, following the app's workflow:
-  queue, chapter mapping, book details, conversion options, finished books with
-  their warnings, and sharing to an e-reader. They are the app's own screens with
-  the sample data of its tutorial (no manga pages), taken from the captures that
-  Mangabound's guide generates, at 1600×900 like Maquetaria's, 25 to 45 KB each.
-  A spec pins the order.
+- Mangabound's gallery went from 1 image to 7: its cover, which now opens the
+  gallery (and is still what its card and shared links show, as the first image),
+  then the app's workflow: queue, chapter mapping, book details, conversion
+  options, finished books with their warnings, and sharing to an e-reader. The
+  screens are the app's own with the sample data of its tutorial (no manga
+  pages), taken from the captures that Mangabound's guide generates, at 1600×900
+  like Maquetaria's, 25 to 45 KB each. A spec pins the order, and another one
+  that a cover a project declares is always among its gallery images.
 
 ### Dependencies, CI, and documentation
 

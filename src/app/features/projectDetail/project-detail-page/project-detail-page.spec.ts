@@ -363,16 +363,15 @@ describe('ProjectDetailPage', () => {
     );
   });
 
-  it('shows the first gallery image on the detail page even when the project has a separate card cover', () => {
+  it('opens the detail page on the first gallery image, which for Mangabound is its cover', () => {
     const fixture = createFixtureForProject('mangabound');
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
       '.project-detail-page__thumbnail',
     );
 
     expect(img.getAttribute('src')).toBe(
-      'images/projects/mangabound/images/mangabound-thumbnail.webp',
+      'images/projects/mangabound/images/mangabound-cover.webp',
     );
-    expect(img.getAttribute('src')).not.toContain('cover');
   });
 
   describe('browsing the gallery with the arrow keys', () => {

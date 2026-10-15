@@ -147,10 +147,11 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangabound',
-    cover: 'images/projects/mangabound/images/mangabound-cover.webp',
-    // In the order of the app's workflow: queue, chapter mapping, book details,
+    // The cover opens the gallery, so it is also what cards and shared links
+    // show; then the app's workflow: queue, chapter mapping, book details,
     // conversion options, finished books, sharing.
     gallery: [
+      'images/projects/mangabound/images/mangabound-cover.webp',
       'images/projects/mangabound/images/mangabound-thumbnail.webp',
       'images/projects/mangabound/images/mangabound-chapter-mapping.webp',
       'images/projects/mangabound/images/mangabound-book-details.webp',

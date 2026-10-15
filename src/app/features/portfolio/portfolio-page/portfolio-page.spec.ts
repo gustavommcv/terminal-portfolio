@@ -22,7 +22,7 @@ describe('PortfolioPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('uses a project cover for its card image, and the first gallery image otherwise', () => {
+  it('uses the first gallery image of a project for its card image', () => {
     const srcOf = (id: string) =>
       fixture.nativeElement
         .querySelector(`.project-card[href="/portfolio/${id}"] img`)
