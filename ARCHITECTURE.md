@@ -176,6 +176,13 @@ for fetching and storing catalogs. On the first navigation only, it asks
 language list; browser-only) which language to use when the URL has no
 `?locale=`.
 
+Switching the language is a navigation to the same page with another `?locale=`.
+The router scrolls to the top on every new navigation (scroll restoration is
+`enabled` in `app.config.ts`), which is right for another page but not for the
+same page in another language, so `toggleLanguage` navigates with
+`scroll: 'manual'` and the reader stays where they were. `language.service.spec.ts`
+runs this against the router's real scroller.
+
 Catalogs reach the browser two ways. The prerendered pages are English and carry
 the English catalog in the HTML as transfer state, so `TranslateService` finds it
 without a request. The Portuguese catalog is fetched; `src/index.html` starts

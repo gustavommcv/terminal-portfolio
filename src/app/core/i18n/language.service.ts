@@ -62,8 +62,11 @@ export class LanguageService {
   toggleLanguage(): Promise<boolean> {
     const language = this.currentLocale() === 'en' ? 'pt' : 'en';
     this.preference.remember(language);
+    // Same page, other language: the reader stays where they were, instead of
+    // being sent to the top as a navigation to a new page is.
     return this.router.navigate([this.currentPath()], {
       queryParams: this.queryParamsFor(language),
+      scroll: 'manual',
     });
   }
 

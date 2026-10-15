@@ -33,6 +33,14 @@ All notable changes to this project are documented in this file.
 - Wording fixes in both languages (e.g. "Résumé", "Formação acadêmica", the
   scroll hints) and brand spellings (Go, JavaScript, LinkedIn).
 - The 404 shows the missing path without its query string.
+- Switching the language no longer sends the page back to the top: it is a
+  navigation to the same page with another `?locale=`, which the router treated
+  as any new page. The reader now stays at the same spot, on desktop and in the
+  mobile menu, in both directions; navigating to another page still goes to the
+  top and Back still restores the position. Measured in a browser with real
+  clicks: the position went from 300 to 0 in 6 of 6 cases before, and stays at
+  300 (103 on the short page) in 6 of 6 now. `language.service.spec.ts` checks it
+  against the router's real scroller.
 - Specs now fail when the English and Portuguese catalogs differ in keys or
   `{{placeholders}}`, and when the home intro's build-time layout copies drift
   from the catalogs.

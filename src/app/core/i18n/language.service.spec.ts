@@ -1,7 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { signal } from '@angular/core';
+import { DOCUMENT, ViewportScroller } from '@angular/common';
+import { ApplicationRef, Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter, Router, withInMemoryScrolling } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import type { InterpolatableTranslationObject } from '@ngx-translate/core';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -268,6 +268,79 @@ describe('LanguageService', () => {
     expect(router.url).toBe('/about');
     expect(language.currentLocale()).toBe('en');
     expect(localStorage.getItem('locale')).toBe('en');
+  });
+
+  describe('scrolling', () => {
+    // The app scrolls to the top on every new navigation; with the real
+    // in-memory scroller in place, switching language must not do it.
+    @Component({ selector: 'app-scroll-test-root', template: '' })
+    class ScrollTestRoot {}
+
+    /**
+     * The router decides about scrolling a tick after a navigation ends (from a
+     * setTimeout / requestAnimationFrame), so looking right away would see "no
+     * scroll" whether or not one is coming. Wait for those timers to run.
+     */
+    const scrollingSettled = (): Promise<void> =>
+      new Promise((resolve) => setTimeout(resolve, 50));
+
+    async function setupWithScrolling(): Promise<{
+      language: LanguageService;
+      router: Router;
+      scrollToTop: ReturnType<typeof vi.fn>;
+    }> {
+      TestBed.configureTestingModule({
+        providers: [
+          provideRouter(
+            [{ path: '**', children: [] }],
+            withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+          ),
+          ControlledTranslateService,
+          {
+            provide: TranslateService,
+            useExisting: ControlledTranslateService,
+          },
+        ],
+      });
+
+      const scrollToTop = vi
+        .spyOn(TestBed.inject(ViewportScroller), 'scrollToPosition')
+        .mockImplementation(() => undefined);
+      TestBed.inject(ControlledTranslateService).resolve('en', {});
+
+      // The router starts its scroller, and the initial navigation, when the
+      // application is bootstrapped, which TestBed does not do on its own.
+      const document = TestBed.inject(DOCUMENT);
+      const host = document.createElement('app-scroll-test-root');
+      document.body.append(host);
+      TestBed.inject(ApplicationRef).bootstrap(ScrollTestRoot, host);
+
+      const router = TestBed.inject(Router);
+      await router.navigateByUrl('/about');
+      await scrollingSettled();
+      scrollToTop.mockClear();
+
+      return { language: TestBed.inject(LanguageService), router, scrollToTop };
+    }
+
+    it('still goes to the top when navigating to another page', async () => {
+      const { language, scrollToTop } = await setupWithScrolling();
+
+      await language.navigateWithLocale('/portfolio');
+      await scrollingSettled();
+
+      expect(scrollToTop).toHaveBeenCalledWith([0, 0]);
+    });
+
+    it('stays where the reader is when switching language on the same page', async () => {
+      const { language, router, scrollToTop } = await setupWithScrolling();
+
+      await language.toggleLanguage();
+      await scrollingSettled();
+
+      expect(router.url).toBe('/about?locale=pt');
+      expect(scrollToTop).not.toHaveBeenCalled();
+    });
   });
 
   describe('when the translation service refreshes a catalog', () => {
