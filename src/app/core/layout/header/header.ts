@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { isPlainLeftClick } from '../../shared/plain-left-click';
 import { NeoTreeIcon } from '../../shared/neo-tree-icon/neo-tree-icon';
 import { LanguageService } from '../../i18n/language.service';
+import { LocalizedLink } from '../../i18n/localized-link';
 import { LanguageToggleButton } from '../../shared/language-toggle-button/language-toggle-button';
 import { NAV_ROUTES, routeIcon, routeLabel } from './nav-routes';
 
@@ -21,13 +21,13 @@ const FOCUSABLE_SELECTOR = 'a[href], button:not([disabled])';
 
 @Component({
   selector: 'app-header',
-  imports: [LanguageToggleButton, NeoTreeIcon, TranslatePipe],
+  imports: [LanguageToggleButton, LocalizedLink, NeoTreeIcon, TranslatePipe],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   host: { '(document:keydown.escape)': 'closeMenu()' },
 })
 export class Header implements OnDestroy {
-  protected readonly language = inject(LanguageService);
+  private readonly language = inject(LanguageService);
   private readonly document = inject(DOCUMENT);
   private readonly injector = inject(Injector);
   private readonly menuTrigger =
@@ -42,22 +42,6 @@ export class Header implements OnDestroy {
 
   protected isActive(route: string): boolean {
     return this.language.isActive(route);
-  }
-
-  protected navigateWithLocale(
-    route: string,
-    event: MouseEvent,
-    closeMenu = false,
-  ): void {
-    if (!isPlainLeftClick(event)) {
-      return;
-    }
-
-    event.preventDefault();
-    void this.language.navigateWithLocale(route);
-    if (closeMenu) {
-      this.closeMenu();
-    }
   }
 
   protected toggleMenu(): void {

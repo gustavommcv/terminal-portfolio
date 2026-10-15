@@ -1,12 +1,17 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, computed, inject, input } from '@angular/core';
+import { DOCUMENT, NgTemplateOutlet } from '@angular/common';
+import { Component, inject, input } from '@angular/core';
 
-import { LanguageService } from '../../i18n/language.service';
+import { LocalizedLink } from '../../i18n/localized-link';
 import { isPlainLeftClick } from '../plain-left-click';
 
+/**
+ * A button-like link: to another page of the site (`route`), which stays in the
+ * language of the page, or to a place on the same page (`scrollTo`, the id of an
+ * element), which it scrolls to. With neither it points at `#` and does nothing.
+ */
 @Component({
   selector: 'app-button',
-  imports: [],
+  imports: [NgTemplateOutlet, LocalizedLink],
   templateUrl: './app-button.html',
   styleUrl: './app-button.scss',
 })
@@ -14,32 +19,19 @@ export class AppButton {
   readonly route = input('');
   readonly scrollTo = input('');
 
-  private readonly language = inject(LanguageService);
   private readonly document = inject(DOCUMENT);
 
-  protected readonly href = computed(() => {
-    if (this.scrollTo()) {
-      return `#${this.scrollTo()}`;
-    }
+  protected scroll(event: MouseEvent): void {
+    const target = this.scrollTo();
 
-    return this.route() ? this.language.localizedUrl(this.route()) : '#';
-  });
-
-  protected follow(event: MouseEvent): void {
-    if (!isPlainLeftClick(event)) {
+    if (!target || !isPlainLeftClick(event)) {
       return;
     }
 
-    if (this.scrollTo()) {
-      event.preventDefault();
-      const element = this.document.getElementById(this.scrollTo());
-      element?.scrollIntoView({
-        behavior: this.prefersReducedMotion() ? 'instant' : 'smooth',
-      });
-    } else if (this.route()) {
-      event.preventDefault();
-      void this.language.navigateWithLocale(this.route());
-    }
+    event.preventDefault();
+    this.document.getElementById(target)?.scrollIntoView({
+      behavior: this.prefersReducedMotion() ? 'instant' : 'smooth',
+    });
   }
 
   private prefersReducedMotion(): boolean {

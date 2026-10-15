@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { vi } from 'vitest';
 
 import { Project } from '../../../data/projects.data';
-import { LanguageService } from '../../i18n/language.service';
 import { ProjectCard } from './project-card';
 
 describe('ProjectCard', () => {
@@ -34,9 +34,7 @@ describe('ProjectCard', () => {
 
   describe('clicking the card', () => {
     function click(init: MouseEventInit = {}) {
-      const navigate = vi
-        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
-        .mockResolvedValue(true);
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
       const event = new MouseEvent('click', {
         bubbles: true,
         cancelable: true,
@@ -50,7 +48,7 @@ describe('ProjectCard', () => {
       const { event, navigate } = click();
 
       expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith('/portfolio/test-project');
+      expect(navigate).toHaveBeenCalledWith(['/portfolio/test-project'], { queryParams: {} });
     });
 
     it.each([

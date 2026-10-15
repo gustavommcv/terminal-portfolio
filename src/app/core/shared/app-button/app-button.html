@@ -1,4 +1,14 @@
-<a class="app-button" [href]="href()" (click)="follow($event)">
+@if (route() && !scrollTo()) {
+  <a class="app-button" [appLocalizedLink]="route()">
+    <ng-container [ngTemplateOutlet]="content" />
+  </a>
+} @else {
+  <a class="app-button" [attr.href]="'#' + scrollTo()" (click)="scroll($event)">
+    <ng-container [ngTemplateOutlet]="content" />
+  </a>
+}
+
+<ng-template #content>
   <svg
     fill="#25be6a"
     version="1.1"
@@ -20,4 +30,4 @@
     </g>
   </svg>
   <ng-content></ng-content>
-</a>
+</ng-template>

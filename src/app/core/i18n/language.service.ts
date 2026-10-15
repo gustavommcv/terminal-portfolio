@@ -39,6 +39,12 @@ export class LanguageService {
   readonly catalogState = this.internalCatalogState.asReadonly();
   readonly currentLocale = computed(() => this.catalogState().language);
 
+  /**
+   * What a link to another page of the site carries to stay in the language of
+   * this one: nothing in English, which is the language of the plain address.
+   */
+  readonly localeQueryParams = computed(() => this.queryParamsFor(this.currentLocale()));
+
   constructor() {
     this.translate.addLangs(['en', 'pt']);
 
@@ -68,20 +74,6 @@ export class LanguageService {
       queryParams: this.queryParamsFor(language),
       scroll: 'manual',
     });
-  }
-
-  navigateWithLocale(route: string): Promise<boolean> {
-    return this.router.navigate([route], {
-      queryParams: this.queryParamsFor(this.currentLocale()),
-    });
-  }
-
-  localizedUrl(route: string): string {
-    return this.router.serializeUrl(
-      this.router.createUrlTree([route], {
-        queryParams: this.queryParamsFor(this.currentLocale()),
-      }),
-    );
   }
 
   isActive(route: string): boolean {

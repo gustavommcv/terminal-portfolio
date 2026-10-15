@@ -81,9 +81,7 @@ describe('Header', () => {
     }
 
     function spyOnNavigation() {
-      return vi
-        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
-        .mockResolvedValue(true);
+      return vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     }
 
     it('navigates in the app on a plain left click, and closes the menu', async () => {
@@ -93,7 +91,7 @@ describe('Header', () => {
       const event = click(links(overlay)[1]);
 
       expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith('/about');
+      expect(navigate).toHaveBeenCalledWith(['/about'], { queryParams: {} });
       expect(component.isMenuOpen()).toBe(false);
     });
 
@@ -106,7 +104,7 @@ describe('Header', () => {
       const event = click(desktopLink);
 
       expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith('/portfolio');
+      expect(navigate).toHaveBeenCalledWith(['/portfolio'], { queryParams: {} });
     });
 
     it.each([
@@ -335,16 +333,14 @@ describe('Header', () => {
   });
 
   it('closes after selecting a route without delaying navigation', async () => {
-    const navigateSpy = vi
-      .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
-      .mockResolvedValue(true);
+    const navigateSpy = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     const overlay = await openMenu();
     const aboutLink = links(overlay)[1];
 
     aboutLink.click();
     fixture.detectChanges();
 
-    expect(navigateSpy).toHaveBeenCalledWith('/about');
+    expect(navigateSpy).toHaveBeenCalledWith(['/about'], { queryParams: {} });
     expect(fixture.nativeElement.querySelector('.menu-overlay')).toBeNull();
     expect(document.body.style.overflow).toBe('');
   });

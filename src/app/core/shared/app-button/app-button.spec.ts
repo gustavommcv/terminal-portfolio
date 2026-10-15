@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { vi } from 'vitest';
 
-import { LanguageService } from '../../i18n/language.service';
 import { AppButton } from './app-button';
 
 describe('AppButton', () => {
@@ -32,16 +32,14 @@ describe('AppButton', () => {
     }
 
     it('navigates in the app to its route on a plain left click', () => {
-      const navigate = vi
-        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
-        .mockResolvedValue(true);
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
       fixture.componentRef.setInput('route', '/portfolio');
       fixture.detectChanges();
 
       const event = click();
 
       expect(event.defaultPrevented).toBe(true);
-      expect(navigate).toHaveBeenCalledWith('/portfolio');
+      expect(navigate).toHaveBeenCalledWith(['/portfolio'], { queryParams: {} });
     });
 
     it.each([
@@ -51,9 +49,7 @@ describe('AppButton', () => {
       ['Alt', { altKey: true }],
       ['the middle button', { button: 1 }],
     ])('leaves the browser to handle a click with %s', (_name, init) => {
-      const navigate = vi
-        .spyOn(TestBed.inject(LanguageService), 'navigateWithLocale')
-        .mockResolvedValue(true);
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
       const target = document.createElement('div');
       target.id = 'modifier-target';
       target.scrollIntoView = vi.fn();

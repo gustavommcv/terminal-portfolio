@@ -1,8 +1,7 @@
 <header class="header">
   <div class="header__top">
     <a
-      [href]="language.localizedUrl('/')"
-      (click)="navigateWithLocale('/', $event)"
+      [appLocalizedLink]="'/'"
       class="logo"
       [attr.aria-label]="'header.home-link' | translate"
     >
@@ -76,8 +75,8 @@
                   class="neo-sidebar__link"
                   [class.neo-sidebar__link--active]="isActive(route)"
                   [attr.aria-current]="isActive(route) ? 'page' : null"
-                  [href]="language.localizedUrl(route)"
-                  (click)="navigateWithLocale(route, $event, true)"
+                  [appLocalizedLink]="route"
+                  (navigated)="closeMenu()"
                 >
                   <span class="neo-sidebar__guide" aria-hidden="true"></span>
                   <app-neo-tree-icon
@@ -109,8 +108,7 @@
         class="header__link"
         [class.header__link--active]="isActive(route)"
         [attr.aria-current]="isActive(route) ? 'page' : null"
-        [href]="language.localizedUrl(route)"
-        (click)="navigateWithLocale(route, $event)"
+        [appLocalizedLink]="route"
       >{{ routeLabel(route) }}</a>
     }
 

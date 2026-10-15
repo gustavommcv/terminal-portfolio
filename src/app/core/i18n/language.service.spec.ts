@@ -121,7 +121,7 @@ describe('LanguageService', () => {
       translations: catalog,
     });
     expect(language.isActive('/')).toBe(true);
-    expect(language.localizedUrl('/portfolio')).toBe('/portfolio?locale=pt');
+    expect(language.localeQueryParams()).toEqual({ locale: 'pt' });
     expect(document.documentElement.lang).toBe('pt-BR');
   });
 
@@ -237,24 +237,23 @@ describe('LanguageService', () => {
     });
   });
 
-  describe('navigateWithLocale', () => {
-    it('keeps the address clean while in English', async () => {
-      const { language, router, translate } = setup();
+  describe('localeQueryParams', () => {
+    it('carry nothing while in English, so the address stays clean', () => {
+      const { language, translate } = setup();
       translate.resolve('en', {});
 
-      await language.navigateWithLocale('/about');
-
-      expect(router.url).toBe('/about');
+      expect(language.localeQueryParams()).toEqual({});
     });
 
-    it('carries ?locale=pt along while in Portuguese', async () => {
+    it('carry ?locale=pt while in Portuguese, and follow the language', async () => {
       const { language, router, translate } = setup();
       await router.navigateByUrl('/portfolio?locale=pt');
       translate.resolve('pt', {});
+      expect(language.localeQueryParams()).toEqual({ locale: 'pt' });
 
-      await language.navigateWithLocale('/about');
-
-      expect(router.url).toBe('/about?locale=pt');
+      await router.navigateByUrl('/portfolio');
+      translate.resolve('en', {});
+      expect(language.localeQueryParams()).toEqual({});
     });
   });
 
@@ -324,9 +323,9 @@ describe('LanguageService', () => {
     }
 
     it('still goes to the top when navigating to another page', async () => {
-      const { language, scrollToTop } = await setupWithScrolling();
+      const { router, scrollToTop } = await setupWithScrolling();
 
-      await language.navigateWithLocale('/portfolio');
+      await router.navigateByUrl('/portfolio');
       await scrollingSettled();
 
       expect(scrollToTop).toHaveBeenCalledWith([0, 0]);

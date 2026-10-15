@@ -1,8 +1,4 @@
-<a
-  class="project-card"
-  [href]="language.localizedUrl('/portfolio/' + project().id)"
-  (click)="openProject($event)"
->
+<a class="project-card" [appLocalizedLink]="'/portfolio/' + project().id">
   <img
     [ngSrc]="image()"
     [priority]="priority()"
