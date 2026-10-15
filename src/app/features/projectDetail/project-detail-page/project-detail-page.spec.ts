@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { catalogEntry } from '../../../../testing/english-catalog';
 import { projectsData } from '../../../data/projects.data';
 import { ProjectDetailPage } from './project-detail-page';
 
@@ -21,6 +22,9 @@ function badgeAlts(fixture: ComponentFixture<ProjectDetailPage>): string[] {
   ).map((img) => (img as HTMLImageElement).alt);
 }
 
+const galleryOf = (id: string): readonly string[] =>
+  projectsData.find((project) => project.id === id)!.gallery;
+
 describe('ProjectDetailPage', () => {
   afterEach(() => {
     TestBed.resetTestingModule();
@@ -28,19 +32,21 @@ describe('ProjectDetailPage', () => {
 
   it('follows the id input: another project replaces the content and starts at its first image', () => {
     const fixture = createFixtureForProject('maquetaria');
-    const page = fixture.componentInstance;
     const root: HTMLElement = fixture.nativeElement;
     const heading = () => root.querySelector('h1')?.textContent?.trim();
+    const mainImage = () =>
+      root.querySelector('.project-gallery__thumbnail')?.getAttribute('src');
 
     expect(heading()).toBe('maquetaria');
-    page.selectedIndex.set(1);
-    expect(page.selectedIndex()).toBe(1);
+    (root.querySelectorAll('.project-gallery__thumb')[1] as HTMLElement).click();
+    fixture.detectChanges();
+    expect(mainImage()).toBe(galleryOf('maquetaria')[1]);
 
     fixture.componentRef.setInput('id', 'mangabound');
     fixture.detectChanges();
 
     expect(heading()).toBe('mangabound');
-    expect(page.selectedIndex()).toBe(0);
+    expect(mainImage()).toBe(galleryOf('mangabound')[0]);
     expect(root.querySelector('h2')?.textContent?.trim()).toBe('Mangabound');
   });
 
@@ -50,32 +56,29 @@ describe('ProjectDetailPage', () => {
     expect(fixture.nativeElement.querySelector('.project-detail-page')).toBeNull();
   });
 
-  it('loads the main image at high priority and keeps the thumbnails lazy', () => {
-    const root: HTMLElement = createFixtureForProject('maquetaria').nativeElement;
-    const main = root.querySelector('.project-detail-page__thumbnail') as HTMLImageElement;
-    const thumbs = Array.from(
-      root.querySelectorAll('.project-detail-page__thumb img'),
-    ) as HTMLImageElement[];
-
-    expect(main.getAttribute('fetchpriority')).toBe('high');
-    expect(main.getAttribute('loading')).toBe('eager');
-    expect(thumbs.length).toBeGreaterThan(1);
-    expect(thumbs.every((img) => img.getAttribute('loading') === 'lazy')).toBe(true);
-  });
-
   it('creates for a known project id', () => {
     const fixture = createFixtureForProject('maquetaria');
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('keeps the semantic content order: media, then title, description, badges, actions - no separate plain-text stack list', () => {
+  it('gives the gallery the images of the project and its name', () => {
+    const fixture = createFixtureForProject('maquetaria');
+    const root: HTMLElement = fixture.nativeElement;
+    const main = root.querySelector('.project-gallery__thumbnail') as HTMLImageElement;
+
+    expect(root.querySelectorAll('.project-gallery__thumb')).toHaveLength(galleryOf('maquetaria').length);
+    expect(main.getAttribute('src')).toBe(galleryOf('maquetaria')[0]);
+    expect(main.alt).toBe(catalogEntry('projects-page.projects.maquetaria.title'));
+  });
+
+  it('keeps the semantic content order: gallery, then title, description, badges, actions - no separate plain-text stack list', () => {
     const fixture = createFixtureForProject('maquetaria');
     const root = fixture.nativeElement;
     const layout = root.querySelector('.project-detail-page__layout');
-    const media = layout.querySelector('.project-detail-page__media');
+    const gallery = layout.querySelector('app-project-gallery');
     const info = layout.querySelector('.project-detail-page__info');
 
-    expect(layout.children[0]).toBe(media);
+    expect(layout.children[0]).toBe(gallery);
     expect(layout.children[1]).toBe(info);
 
     const infoChildren = Array.from(info.children) as HTMLElement[];
@@ -177,185 +180,18 @@ describe('ProjectDetailPage', () => {
     expect(links[1].getAttribute('target')).toBe('_blank');
   });
 
-  it('gives the project media its correct source and alt text for a static image', () => {
-    const fixture = createFixtureForProject('maquetaria');
-    const img: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-detail-page__thumbnail',
-    );
-
-    expect(img.getAttribute('src')).toBe(
-      'images/projects/maquetaria/images/maquetaria-home.webp',
-    );
-    expect(img.getAttribute('width')).toBe('640');
-    expect(img.getAttribute('height')).toBe('360');
-  });
-
-  it('shows a thumbnail strip for a project with several gallery images, starting on the first', () => {
-    const fixture = createFixtureForProject('maquetaria');
-    const thumbs = Array.from(
-      fixture.nativeElement.querySelectorAll('.project-detail-page__thumb'),
-    ) as HTMLButtonElement[];
-
-    expect(thumbs).toHaveLength(projectsData.find((p) => p.id === 'maquetaria')!.gallery.length);
-    expect(thumbs[0].getAttribute('aria-pressed')).toBe('true');
-    expect(
-      thumbs.slice(1).every((t) => t.getAttribute('aria-pressed') === 'false'),
-    ).toBe(true);
-    expect(thumbs.every((t) => t.getAttribute('type') === 'button')).toBe(true);
-    expect(thumbs.every((t) => t.querySelector('img')?.alt === '')).toBe(true);
-  });
-
-  it('swaps the main image when another thumbnail is chosen', () => {
-    const fixture = createFixtureForProject('maquetaria');
-    const root: HTMLElement = fixture.nativeElement;
-    const main = () =>
-      root.querySelector('.project-detail-page__thumbnail') as HTMLImageElement;
-    const thumbs = () =>
-      Array.from(
-        root.querySelectorAll('.project-detail-page__thumb'),
-      ) as HTMLButtonElement[];
-
-    expect(main().getAttribute('src')).toContain('maquetaria-home');
-
-    thumbs()[1].click();
-    fixture.detectChanges();
-
-    expect(main().getAttribute('src')).toBe(
-      'images/projects/maquetaria/images/maquetaria-services.webp',
-    );
-    expect(thumbs()[0].getAttribute('aria-pressed')).toBe('false');
-    expect(thumbs()[1].getAttribute('aria-pressed')).toBe('true');
-  });
-
-  describe('full screen lightbox', () => {
-    // jsdom does not implement the modal <dialog> API, so give it the
-    // minimal behaviour the component relies on.
-    beforeAll(() => {
-      const proto = HTMLDialogElement.prototype;
-      proto.showModal = function (this: HTMLDialogElement) {
-        this.setAttribute('open', '');
-      };
-      proto.close = function (this: HTMLDialogElement) {
-        if (this.hasAttribute('open')) {
-          this.removeAttribute('open');
-          this.dispatchEvent(new Event('close'));
-        }
-      };
-    });
-
-    const dialog = (f: ComponentFixture<ProjectDetailPage>) =>
-      f.nativeElement.querySelector(
-        '.project-detail-page__lightbox',
-      ) as HTMLDialogElement;
-    const lightboxImage = (f: ComponentFixture<ProjectDetailPage>) =>
-      f.nativeElement.querySelector(
-        '.project-detail-page__lightbox-image',
-      ) as HTMLImageElement | null;
-    const click = (
-      f: ComponentFixture<ProjectDetailPage>,
-      selector: string,
-    ) => {
-      (f.nativeElement.querySelector(selector) as HTMLElement).click();
-      f.detectChanges();
-    };
-
-    it('makes the main image a button that opens the current image in a modal dialog', () => {
-      const fixture = createFixtureForProject('maquetaria');
-
-      expect(dialog(fixture).hasAttribute('open')).toBe(false);
-
-      click(fixture, '.project-detail-page__expand');
-
-      expect(dialog(fixture).hasAttribute('open')).toBe(true);
-      expect(lightboxImage(fixture)?.getAttribute('src')).toBe(
-        'images/projects/maquetaria/images/maquetaria-home.webp',
-      );
-    });
-
-    it('closes from the close button', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      click(fixture, '.project-detail-page__expand');
-
-      click(fixture, '.project-detail-page__lightbox-close');
-
-      expect(dialog(fixture).hasAttribute('open')).toBe(false);
-    });
-
-    it('closes when the empty area around the image is clicked, but not when the image is', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      click(fixture, '.project-detail-page__expand');
-
-      click(fixture, '.project-detail-page__lightbox-image');
-      expect(dialog(fixture).hasAttribute('open')).toBe(true);
-
-      click(fixture, '.project-detail-page__lightbox-stage');
-      expect(dialog(fixture).hasAttribute('open')).toBe(false);
-    });
-
-    it('steps through the gallery with the buttons, wrapping around, in sync with the page', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      const count = projectsData.find((p) => p.id === 'maquetaria')!.gallery
-        .length;
-      click(fixture, '.project-detail-page__expand');
-
-      click(fixture, '.project-detail-page__lightbox-next');
-      expect(lightboxImage(fixture)?.getAttribute('src')).toContain(
-        'maquetaria-services',
-      );
-
-      click(fixture, '.project-detail-page__lightbox-prev');
-      click(fixture, '.project-detail-page__lightbox-prev');
-      expect(lightboxImage(fixture)?.getAttribute('src')).toBe(
-        projectsData.find((p) => p.id === 'maquetaria')!.gallery[count - 1],
-      );
-      const thumbs = fixture.nativeElement.querySelectorAll('.project-detail-page__thumb');
-      expect(thumbs[count - 1].getAttribute('aria-pressed')).toBe('true');
-    });
-
-    it('steps through the gallery with the arrow keys', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      click(fixture, '.project-detail-page__expand');
-
-      dialog(fixture).dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }),
-      );
-      fixture.detectChanges();
-
-      expect(lightboxImage(fixture)?.getAttribute('src')).toContain(
-        'maquetaria-services',
-      );
-    });
-
-    it('offers no previous/next controls for a single-image project', () => {
-      const fixture = createFixtureForProject('gomodoro');
-      click(fixture, '.project-detail-page__expand');
-
-      expect(
-        fixture.nativeElement.querySelector(
-          '.project-detail-page__lightbox-next',
-        ),
-      ).toBeNull();
-      expect(
-        fixture.nativeElement.querySelector(
-          '.project-detail-page__lightbox-prev',
-        ),
-      ).toBeNull();
-      expect(lightboxImage(fixture)).not.toBeNull();
-    });
-  });
-
   it('shows no thumbnail strip for a project with a single image', () => {
     const fixture = createFixtureForProject('gomodoro');
 
     expect(
-      fixture.nativeElement.querySelector('.project-detail-page__thumbs'),
+      fixture.nativeElement.querySelector('.project-gallery__thumbs'),
     ).toBeNull();
   });
 
   it('shows a still image, not an animation, for gomodoro', () => {
     const fixture = createFixtureForProject('gomodoro');
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-detail-page__thumbnail',
+      '.project-gallery__thumbnail',
     );
 
     expect(img.getAttribute('src')).toBe(
@@ -366,61 +202,11 @@ describe('ProjectDetailPage', () => {
   it('opens the detail page on the first gallery image, which for Mangabound is its cover', () => {
     const fixture = createFixtureForProject('mangabound');
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
-      '.project-detail-page__thumbnail',
+      '.project-gallery__thumbnail',
     );
 
     expect(img.getAttribute('src')).toBe(
       'images/projects/mangabound/images/mangabound-cover.webp',
     );
   });
-
-  describe('browsing the gallery with the arrow keys', () => {
-    const press = (fixture: ComponentFixture<ProjectDetailPage>, key: string): void => {
-      fixture.nativeElement
-        .querySelector('dialog')
-        .dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
-    };
-    const galleryOf = (id: string) => projectsData.find((project) => project.id === id)!.gallery;
-
-    it('goes back with the left arrow, from the first image round to the last', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      const count = galleryOf('maquetaria').length;
-
-      press(fixture, 'ArrowLeft');
-      expect(fixture.componentInstance.selectedIndex()).toBe(count - 1);
-
-      press(fixture, 'ArrowLeft');
-      expect(fixture.componentInstance.selectedIndex()).toBe(count - 2);
-    });
-
-    it('goes forward with the right arrow, from the last image round to the first', () => {
-      const fixture = createFixtureForProject('maquetaria');
-      fixture.componentInstance.selectedIndex.set(galleryOf('maquetaria').length - 1);
-
-      press(fixture, 'ArrowRight');
-
-      expect(fixture.componentInstance.selectedIndex()).toBe(0);
-    });
-
-    it('leaves the image alone for any other key', () => {
-      const fixture = createFixtureForProject('maquetaria');
-
-      for (const key of ['Enter', 'a', 'ArrowUp', 'Tab']) {
-        press(fixture, key);
-      }
-
-      expect(fixture.componentInstance.selectedIndex()).toBe(0);
-    });
-
-    it('does nothing for a project with a single image, since there is nowhere to go', () => {
-      const single = projectsData.find((project) => project.gallery.length === 1)!;
-      const fixture = createFixtureForProject(single.id);
-
-      press(fixture, 'ArrowRight');
-      press(fixture, 'ArrowLeft');
-
-      expect(fixture.componentInstance.selectedIndex()).toBe(0);
-    });
-  });
-
 });
