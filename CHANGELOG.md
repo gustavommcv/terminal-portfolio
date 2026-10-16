@@ -209,6 +209,23 @@ All notable changes to this project are documented in this file.
   inside now (the scan of the footer fix had not looked at a space next to an
   icon). A spec requires the words to be in the label after the
   icon, and one reads the style for the underline on the label only.
+- The footer was only on the home page. It is now at the end of every page (about,
+  portfolio, each project, not found): the shell renders it after `<main>`, where
+  the home page used to, and under the same rule as the rest of the home: it is not
+  created until the intro has finished. A visit that starts on another page has no
+  intro, so there it is in the first render, prerendered with the page. Outside
+  `<main>` it is also the page's `contentinfo` landmark, which it was not inside
+  it. On a page shorter than the window (the not-found page) it used to hang under
+  the content with an empty window below it; `.app-container` is now at least as
+  tall as the window and `.main` takes the height left over, so it ends where the
+  window ends. Measured in a browser on 5 pages, in both languages, on a desktop
+  and a phone (20 combinations): everything above the footer is pixel-identical to
+  before, and the home is identical as a whole. The home still shows no footer
+  (nor anything else) while its command types; the footer is the same element as
+  the visitor moves between pages; leaving the home in the middle of the intro puts
+  the footer on the next page; the header still sticks; the language switch keeps
+  the scroll; and the prerendered routes hydrate as before (31 checks). The shell's
+  spec covers the pages, the intro states, the single element and the layout rule.
 
 ### Components with one responsibility
 

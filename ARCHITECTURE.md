@@ -20,6 +20,7 @@ flowchart TD
     AppConfig --> App["App"]
     App --> Header["Header"]
     App --> Outlet["RouterOutlet"]
+    App --> Footer["Footer<br/>every page, after the intro on the home"]
 
     Header --> MobileMenu["MobileMenu<br/>narrow screens"]
     Header --> LanguageToggle["LanguageToggleButton"]
@@ -40,7 +41,6 @@ flowchart TD
     Home --> Tech["TechStackSection"]
     Home --> Featured["FeaturedProjectsSection"]
     Home --> Contact["ContactSection"]
-    Home --> Footer["Footer"]
     Home --> Intro["HomeIntro<br/>first eligible visit only"]
     Intro --> IntroCommand["HomeIntroCommandService"]
     IntroCommand --> LanguageService
@@ -112,11 +112,20 @@ page load and never when the visit starts on another page.
 `HomePage` owns the structural rendering boundary. `HomeIntro` and its terminal
 shell remain mounted across the transition. While the service is `unclassified`,
 `eligible`, `waiting`, or `typing`, every secondary `@if` block is absent. Presentation content, services,
-stack, projects, contact, and footer are created only in `completed` and are
+stack, projects, and contact are created only in `completed` and are
 inserted immediately with their final styles, without a secondary animation.
 Consequently, secondary hooks, image loads, observers, and other side effects
 cannot run during typing, while the terminal component and DOM node keep the
 same identity.
+
+The footer is the shell's, not a page's: `App` renders it after `<main>`, on every
+page, under the same rule (it is created only in `completed`). A visit that starts
+on any other page is `completed` from the first navigation, so the footer is there
+from the first render; on the home it waits for the intro like the rest. It stays
+the same element as the visitor moves between pages. `.app-container` is a column
+at least as tall as the window and `.main` takes the height left over, so on a page
+shorter than the window (the not-found page) the footer is at the bottom of the
+window.
 
 `HomeIntroCommandService` derives a discriminated command state directly from
 the catalog exposed by `LanguageService`: `waiting`, `ready`, or `unavailable`.

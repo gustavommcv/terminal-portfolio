@@ -1,16 +1,24 @@
-import { Component, ElementRef, viewChild } from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { Footer } from './core/layout/footer/footer';
 import { Header } from './core/layout/header/header';
+import { HomeIntroService } from './features/home/services/home-intro.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, TranslatePipe],
+  imports: [RouterOutlet, Header, Footer, TranslatePipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
+  /**
+   * The home page types a command before it shows anything else, and the footer
+   * waits for it like the rest. Every page a visit starts on has no intro, so
+   * there the footer is there from the start.
+   */
+  protected readonly intro = inject(HomeIntroService);
   private readonly main = viewChild.required<ElementRef<HTMLElement>>('main');
 
   /**

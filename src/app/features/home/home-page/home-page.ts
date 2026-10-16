@@ -9,7 +9,6 @@ import { ServicesSection } from '../components/services-section/services-section
 import { TechStackSection } from '../components/tech-stack-section/tech-stack-section';
 import { ContactSection } from '../components/contact-section/contact-section';
 import { FeaturedProjectsSection } from '../components/featured-projects-section/featured-projects-section';
-import { Footer } from '../../../core/layout/footer/footer';
 import { HomeIntro } from '../components/home-intro/home-intro';
 import { HomeIntroCommandService } from '../services/home-intro-command.service';
 import { HomeIntroService } from '../services/home-intro.service';
@@ -22,7 +21,6 @@ import { HomeIntroService } from '../services/home-intro.service';
     TechStackSection,
     ContactSection,
     FeaturedProjectsSection,
-    Footer,
     HomeIntro,
   ],
   templateUrl: './home-page.html',

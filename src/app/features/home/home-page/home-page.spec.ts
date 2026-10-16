@@ -117,7 +117,6 @@ describe('HomePage intro lifecycle', () => {
     expect(fixture.nativeElement.querySelector('app-tech-stack-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('app-featured-projects-section')).toBeNull();
     expect(fixture.nativeElement.querySelector('app-contact-section')).toBeNull();
-    expect(fixture.nativeElement.querySelector('app-footer')).toBeNull();
     expect(projectsConstructorEffect).not.toHaveBeenCalled();
   });
 
@@ -199,17 +198,14 @@ describe('HomePage intro lifecycle', () => {
     const content: HTMLElement = fixture.nativeElement.querySelector(
       '[data-testid="home-content"]',
     );
-    const footer: HTMLElement = fixture.nativeElement.querySelector('app-footer');
 
     expect(content.classList.contains('home-content--intro-reveal')).toBe(true);
     expect(
       fixture.nativeElement.querySelectorAll('.home-content--intro-reveal'),
     ).toHaveLength(1);
 
-    for (const element of [presentation, footer]) {
-      expect(element.className).not.toMatch(/reveal|fade|stagger|transition|animation/i);
-      expect(element.getAttribute('style')).toBeNull();
-    }
+    expect(presentation.className).not.toMatch(/reveal|fade|stagger|transition|animation/i);
+    expect(presentation.getAttribute('style')).toBeNull();
     expect(content.getAttribute('style')).toBeNull();
     expect(terminalElement.className).toBe('terminal-section');
     expect(terminalElement.closest('.home-content--intro-reveal')).toBeNull();

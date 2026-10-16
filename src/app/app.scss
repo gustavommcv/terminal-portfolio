@@ -20,6 +20,19 @@
   }
 }
 
+// On a page shorter than the window (the not-found page) the footer goes down to
+// the bottom of the window, instead of hanging under the content with nothing
+// below it. A taller page is as tall as its content, as before.
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.main {
+  flex: 1;
+}
+
 // The skip link's target: focused by script, so it needs no visible ring.
 .main:focus {
   outline: none;
