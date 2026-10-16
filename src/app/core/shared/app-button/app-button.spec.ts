@@ -1,8 +1,22 @@
+import { readFileSync } from 'node:fs';
+
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { vi } from 'vitest';
 
 import { AppButton } from './app-button';
+
+// Written the way the pages write it: the words on a line of their own.
+@Component({
+  imports: [AppButton],
+  template: `
+    <app-button route="/portfolio">
+      Portfolio
+    </app-button>
+  `,
+})
+class HostWithSpacedWords {}
 
 describe('AppButton', () => {
   let fixture: ComponentFixture<AppButton>;
@@ -121,4 +135,29 @@ describe('AppButton', () => {
     target.remove();
   });
 
+  describe('its words', () => {
+    it('sit in a label after the icon, not loose among its children', () => {
+      const host = TestBed.createComponent(HostWithSpacedWords);
+      host.detectChanges();
+      const link: HTMLAnchorElement = host.nativeElement.querySelector('a');
+      const label = link.querySelector('.app-button__label') as HTMLElement;
+
+      expect(label.textContent?.trim()).toBe('Portfolio');
+      expect(label.previousElementSibling?.tagName.toLowerCase()).toBe('svg');
+      expect(link.lastElementChild).toBe(label);
+    });
+
+    // jsdom does not lay anything out, so this reads the source: the whitespace
+    // of the page's template arrives inside the link, and the label (an
+    // inline-block, which drops the spaces at the ends of its text) is what keeps
+    // a space from being underlined with the words on hover.
+    it('are the only thing underlined on hover, so no space around the icon is', () => {
+      const scss = readFileSync('src/app/core/shared/app-button/app-button.scss', 'utf8').replace(/\r\n/g, '\n');
+
+      expect(scss).toMatch(/&:hover &__label\s*\{\s*[^}]*text-decoration:\s*underline/);
+      expect(scss).toMatch(/&__label\s*\{\s*display:\s*inline-block/);
+      // the link itself is never underlined, at rest or on hover
+      expect(scss).not.toMatch(/&:hover\s*\{[^}]*text-decoration/);
+    });
+  });
 });

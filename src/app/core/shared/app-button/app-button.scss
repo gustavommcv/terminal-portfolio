@@ -17,7 +17,9 @@
   background-color: $color-button-background;
   color: $color-subtitle-dark;
 
-  &:hover {
+  // Only the words are underlined. The text arrives with the whitespace of the
+  // template around it, and a space inside the link would be underlined too.
+  &:hover &__label {
     text-decoration: underline;
   }
 
@@ -30,8 +32,15 @@
     font-size: $font-size-small;
   }
 
+  // An inline-block drops the spaces at the ends of its text, so the gap between
+  // the icon and the words is the icon's margin: the margin of the icon, plus the
+  // width of one space, which is what the stray space used to add.
+  &__label {
+    display: inline-block;
+  }
+
   & svg {
     width: 18px;
-    margin-right: $spacing-xsmall;
+    margin-right: calc(#{$spacing-xsmall} + 1ch);
   }
 }

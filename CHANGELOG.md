@@ -192,9 +192,23 @@ All notable changes to this project are documented in this file.
   sat on a line of its own inside the link, and the whitespace around it is
   collapsed to a space that is drawn, underlined, on each side. The name now
   touches the tags of the link, and a spec requires the link to be its name and
-  nothing else, with the spaces of the sentence outside it. A scan of the 140
-  links of the six main pages, in both languages, found no other link with a
-  space inside.
+  nothing else, with the spaces of the sentence outside it.
+- The buttons ("Contact", "Portfolio") were underlined on hover from the space
+  between the arrow and the word: the text reaches the button with the
+  whitespace of the page's template around it, and the underline was on the
+  whole link. The words now sit in a label (an inline-block, which drops the
+  spaces at the ends of its text) and only the label is underlined; the gap to
+  the arrow is the same width as before, a `1ch`, which is the width of a
+  space in the font, added to the margin. Nothing moves: the home and portfolio
+  pages, in both languages, on a desktop and a phone, are pixel-identical to
+  before at rest, and clicking the words, the arrow or the padding, Ctrl+click,
+  Enter and the focus ring behave as before (36 checks, same results on both
+  builds). A scan that hovers each of the 150 links of the home, about,
+  portfolio, project and not-found pages (and of the home on a phone), in both
+  languages, found these four buttons before and finds no link with a space
+  inside now (the scan of the footer fix had not looked at a space next to an
+  icon). A spec requires the words to be in the label after the
+  icon, and one reads the style for the underline on the label only.
 
 ### Components with one responsibility
 
