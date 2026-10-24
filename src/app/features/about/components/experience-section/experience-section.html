@@ -18,9 +18,9 @@
             }
           </ul>
           @if (entry.project) {
-            <a [appLocalizedLink]="entry.project">
-              {{ 'about-page.experience-section.project-link' | translate }} →
-            </a>
+            <app-button [route]="entry.project">
+              {{ 'about-page.experience-section.project-link' | translate }}
+            </app-button>
           }
         </article>
       }
