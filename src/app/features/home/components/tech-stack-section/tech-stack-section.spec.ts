@@ -22,21 +22,12 @@ describe('TechStackSection', () => {
     );
   });
 
-  it('lists the stack, with break hints that do not change the words', () => {
+  it('lists the stack from the translated catalog', () => {
     const items = Array.from(root.querySelectorAll('.tech-stack-section__item')).map(
       (item) => item.textContent?.replace(/\s+/g, ' ').trim(),
     );
 
-    expect(items).toEqual([
-      'Go',
-      'JavaScript/TypeScript/Angular',
-      'HTML/CSS/Sass',
-      'Linux',
-      'AWS/Cloudflare/Vercel',
-      'Arduino',
-      'Creo Parametric/Bambu Studio',
-      'Claude',
-    ]);
+    expect(items).toEqual(catalogEntry('home-page.tech-stack-section.items'));
   });
 
   it('shows the gopher, sized so the layout does not jump, with a smaller file on narrow screens', () => {

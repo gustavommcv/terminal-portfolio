@@ -69,6 +69,22 @@ export function checkCaching(distDirectory, headerRoutes) {
 export function routingTable(headerRoutes, pages) {
   return [
     ...headerRoutes,
+    // Keep existing project links working, including the selected language.
+    ...[['mangabound', 'manga2ink'], ['mangapress', 'mangaprep']].flatMap(([oldId, id]) =>
+      pages.includes(`portfolio/${id}`) ? [
+        {
+          src: `^/portfolio/${oldId}/?$`,
+          has: [{ type: 'query', key: 'locale', value: '(?<locale>pt|en)' }],
+          headers: { Location: `/portfolio/${id}?locale=$locale` },
+          status: 308,
+        },
+        {
+          src: `^/portfolio/${oldId}/?$`,
+          headers: { Location: `/portfolio/${id}` },
+          status: 308,
+        },
+      ] : [],
+    ),
     // A page's clean address (with or without a trailing slash) serves its index.html.
     ...pages.map((page) => ({
       src: `^/${escapeRegExp(page)}/?$`,

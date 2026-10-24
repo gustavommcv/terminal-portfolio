@@ -27,7 +27,7 @@ export const HOME_INTRO_LAYOUT_RESERVATIONS: Readonly<
     presentation: {
       role: 'Software Developer',
       about:
-        'Full-stack developer by training, currently studying Electrical Engineering with a focus on embedded systems, math, physics, and CAD modeling. I like building things that actually work and solve real problems — in software, firmware, or hardware.',
+        "Software developer with freelance experience delivering web applications to production and maintaining open-source projects. I work with Angular, Go, React, and TypeScript, with an interest in software engineering, automation, testing, and AI-assisted development.",
       contact: 'Contact',
     },
   },
@@ -37,7 +37,7 @@ export const HOME_INTRO_LAYOUT_RESERVATIONS: Readonly<
     presentation: {
       role: 'Desenvolvedor de Software',
       about:
-        'Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.',
+        "Desenvolvedor de software com experiência freelancer na entrega de aplicações web em produção e na manutenção de projetos open source. Trabalho com Angular, Go, React e TypeScript, com interesse em engenharia de software, automação, testes e IA aplicada ao desenvolvimento.",
       contact: 'Contato',
     },
   },

@@ -9,20 +9,9 @@
     />
 
     <ul class="tech-stack-section__list">
-      <li class="tech-stack-section__item">Go</li>
-      <li class="tech-stack-section__item">
-        JavaScript<wbr />/TypeScript<wbr />/Angular
-      </li>
-      <li class="tech-stack-section__item">HTML<wbr />/CSS<wbr />/Sass</li>
-      <li class="tech-stack-section__item">Linux</li>
-      <li class="tech-stack-section__item">
-        AWS<wbr />/Cloudflare<wbr />/Vercel
-      </li>
-      <li class="tech-stack-section__item">Arduino</li>
-      <li class="tech-stack-section__item">
-        Creo Parametric<wbr />/Bambu Studio
-      </li>
-      <li class="tech-stack-section__item">Claude</li>
+      @for (item of 'home-page.tech-stack-section.items' | translate; track $index) {
+        <li class="tech-stack-section__item">{{ item }}</li>
+      }
     </ul>
 
     <picture class="tech-stack-section__image-container">

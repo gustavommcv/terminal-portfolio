@@ -57,11 +57,11 @@ describe('ProjectGallery', () => {
       fixture.detectChanges();
       expect(fixture.componentInstance.selectedIndex()).toBe(2);
 
-      fixture.componentRef.setInput('images', galleryOf('mangabound'));
+      fixture.componentRef.setInput('images', galleryOf('manga2ink'));
       fixture.detectChanges();
 
       expect(fixture.componentInstance.selectedIndex()).toBe(0);
-      expect(main(fixture).getAttribute('src')).toBe(galleryOf('mangabound')[0]);
+      expect(main(fixture).getAttribute('src')).toBe(galleryOf('manga2ink')[0]);
     });
   });
 

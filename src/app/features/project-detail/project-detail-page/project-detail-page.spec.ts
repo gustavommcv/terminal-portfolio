@@ -42,12 +42,12 @@ describe('ProjectDetailPage', () => {
     fixture.detectChanges();
     expect(mainImage()).toBe(galleryOf('maquetaria')[1]);
 
-    fixture.componentRef.setInput('id', 'mangabound');
+    fixture.componentRef.setInput('id', 'manga2ink');
     fixture.detectChanges();
 
-    expect(heading()).toBe('mangabound');
-    expect(mainImage()).toBe(galleryOf('mangabound')[0]);
-    expect(root.querySelector('h2')?.textContent?.trim()).toBe('Mangabound');
+    expect(heading()).toBe('manga2ink');
+    expect(mainImage()).toBe(galleryOf('manga2ink')[0]);
+    expect(root.querySelector('h2')?.textContent?.trim()).toBe('Manga2Ink');
   });
 
   it('renders nothing for an id with no project, instead of failing', () => {
@@ -98,16 +98,16 @@ describe('ProjectDetailPage', () => {
     expect(root.querySelector('.project-detail-page__stack')).toBeNull();
   });
 
-  it('renders a Cloudflare badge for maquetaria, in addition to its stack badges', () => {
+  it('renders a Vercel badge for maquetaria, in addition to its stack badges', () => {
     const fixture = createFixtureForProject('maquetaria');
 
-    expect(badgeAlts(fixture)).toEqual(['Angular', 'Go', 'AWS Lambda', 'Cloudflare']);
-    const cloudflareImg = Array.from(
+    expect(badgeAlts(fixture)).toEqual(['Angular', 'Go', 'AWS Lambda', 'Vercel']);
+    const vercelImg = Array.from(
       fixture.nativeElement.querySelectorAll('.project-badges__image'),
-    ).find((img) => (img as HTMLImageElement).alt === 'Cloudflare') as
+    ).find((img) => (img as HTMLImageElement).alt === 'Vercel') as
       | HTMLImageElement
       | undefined;
-    expect(cloudflareImg?.getAttribute('src')).toBe('images/badges/cloudflare.svg');
+    expect(vercelImg?.getAttribute('src')).toBe('images/badges/vercel.svg');
   });
 
   it('renders a Vercel badge for terminal-portfolio, in addition to its stack badges', () => {
@@ -164,7 +164,7 @@ describe('ProjectDetailPage', () => {
   });
 
   it('renders a Documentation action, labelled as such rather than as a demo, when a project has a docs link', () => {
-    const fixture = createFixtureForProject('mangabound');
+    const fixture = createFixtureForProject('manga2ink');
     const links = Array.from(
       fixture.nativeElement.querySelectorAll('.project-detail-page__link'),
     ) as HTMLAnchorElement[];
@@ -174,7 +174,7 @@ describe('ProjectDetailPage', () => {
       'Documentation',
     ]);
     expect(links[1].getAttribute('href')).toBe(
-      'https://gustavommcv.github.io/mangabound/',
+      'https://gustavommcv.github.io/manga2ink/',
     );
     expect(links[1].getAttribute('rel')).toBe('noopener noreferrer');
     expect(links[1].getAttribute('target')).toBe('_blank');
@@ -199,14 +199,14 @@ describe('ProjectDetailPage', () => {
     );
   });
 
-  it('opens the detail page on the first gallery image, which for Mangabound is its cover', () => {
-    const fixture = createFixtureForProject('mangabound');
+  it('opens the detail page on the first gallery image, which for Manga2Ink is its cover', () => {
+    const fixture = createFixtureForProject('manga2ink');
     const img: HTMLImageElement = fixture.nativeElement.querySelector(
       '.project-gallery__thumbnail',
     );
 
     expect(img.getAttribute('src')).toBe(
-      'images/projects/mangabound/images/mangabound-cover.webp',
+      'images/projects/manga2ink/images/manga2ink-cover.webp',
     );
   });
 });

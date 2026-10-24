@@ -25,10 +25,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/maquetaria"/>
   </url>
   <url>
-    <loc>https://gusmonnerat.dev/portfolio/mangabound</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/mangabound"/>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/mangabound?locale=pt"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/mangabound"/>
+    <loc>https://gusmonnerat.dev/portfolio/manga2ink</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/manga2ink"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/manga2ink?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/manga2ink"/>
   </url>
   <url>
     <loc>https://gusmonnerat.dev/portfolio/voting-system</loc>
@@ -43,10 +43,10 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/json-visual-editor"/>
   </url>
   <url>
-    <loc>https://gusmonnerat.dev/portfolio/mangapress</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/mangapress"/>
-    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/mangapress?locale=pt"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/mangapress"/>
+    <loc>https://gusmonnerat.dev/portfolio/mangaprep</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/mangaprep"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/mangaprep?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/mangaprep"/>
   </url>
   <url>
     <loc>https://gusmonnerat.dev/portfolio/terminal-portfolio</loc>

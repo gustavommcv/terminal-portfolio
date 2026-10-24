@@ -6,6 +6,7 @@ import { EducationSection } from './education-section';
 interface Degree {
   title: string;
   type: string;
+  institution: string;
   data: string;
 }
 
@@ -37,7 +38,7 @@ describe('EducationSection', () => {
       const info = Array.from(item.querySelectorAll('.education-container__info')).map(
         (line) => line.textContent?.trim(),
       );
-      expect(info).toEqual([degrees[index].type, degrees[index].data]);
+      expect(info).toEqual([degrees[index].type, degrees[index].institution, degrees[index].data]);
     });
   });
 

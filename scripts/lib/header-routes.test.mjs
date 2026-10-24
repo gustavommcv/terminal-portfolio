@@ -12,7 +12,7 @@ describe('sourceToRegExp', () => {
   it('turns the match-everything source into an anchored expression', () => {
     const pattern = new RegExp(sourceToRegExp('/(.*)'));
 
-    for (const path of ['/', '/about', '/portfolio/mangabound', '/a/b.js']) {
+    for (const path of ['/', '/about', '/portfolio/manga2ink', '/a/b.js']) {
       assert.ok(pattern.test(path), path);
     }
   });
@@ -120,7 +120,7 @@ describe('vercel.json header rules', () => {
     for (const path of [
       '/',
       '/about',
-      '/portfolio/mangabound',
+      '/portfolio/manga2ink',
       '/index.html',
       '/index.csr.html',
       '/404.html',
@@ -150,7 +150,7 @@ describe('vercel.json header rules', () => {
   });
 
   it('caches fonts and images for a day, then serves them stale while it refreshes', () => {
-    for (const path of ['/fonts/jetbrains-mono-latin.woff2', '/images/me.webp', '/images/projects/mangabound/images/mangabound-cover.webp', '/tux.ico']) {
+    for (const path of ['/fonts/jetbrains-mono-latin.woff2', '/images/me.webp', '/images/projects/manga2ink/images/manga2ink-cover.webp', '/tux.ico']) {
       assert.equal(cacheControl(path), 'public, max-age=86400, stale-while-revalidate=604800', path);
     }
   });

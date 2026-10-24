@@ -53,10 +53,10 @@ describe('LocalizedLink', () => {
     });
 
     it('follows the route it is given', () => {
-      fixture.componentInstance.route.set('/portfolio/mangabound');
+      fixture.componentInstance.route.set('/portfolio/manga2ink');
       fixture.detectChanges();
 
-      expect(link().getAttribute('href')).toBe('/portfolio/mangabound');
+      expect(link().getAttribute('href')).toBe('/portfolio/manga2ink');
     });
   });
 

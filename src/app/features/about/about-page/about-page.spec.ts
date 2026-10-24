@@ -14,13 +14,14 @@ describe('AboutPage', () => {
     root = fixture.nativeElement;
   });
 
-  it('puts the five sections in order: about, education, interests, languages, download', () => {
+  it('puts experience between the introduction and education', () => {
     const sections = Array.from(root.querySelector('.about-page')!.children).map((section) =>
       section.tagName.toLowerCase(),
     );
 
     expect(sections).toEqual([
       'app-about-section',
+      'app-experience-section',
       'app-education-section',
       'app-list-section',
       'app-list-section',
@@ -31,7 +32,7 @@ describe('AboutPage', () => {
   it('has exactly one h1, and the other sections are h2 below it', () => {
     expect(root.querySelectorAll('h1')).toHaveLength(1);
     expect(root.querySelector('app-about-section h1')).not.toBeNull();
-    expect(root.querySelectorAll('h2')).toHaveLength(4);
+    expect(root.querySelectorAll('h2')).toHaveLength(5);
   });
 
   describe.each([

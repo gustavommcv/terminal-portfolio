@@ -144,9 +144,9 @@ describe('the build output', () => {
 
   describe('pageDirectories', () => {
     it('finds the folders that hold an index.html, nested ones with their full path', () => {
-      files('portfolio/index.html', 'portfolio/mangabound/index.html');
+      files('portfolio/index.html', 'portfolio/manga2ink/index.html');
 
-      assert.deepEqual(pageDirectories(dist).sort(), ['404', 'about', 'portfolio', 'portfolio/mangabound']);
+      assert.deepEqual(pageDirectories(dist).sort(), ['404', 'about', 'portfolio', 'portfolio/manga2ink']);
     });
 
     it('leaves out folders of assets, and folders with no index.html of their own', () => {
@@ -157,6 +157,16 @@ describe('the build output', () => {
   });
 
   describe('routingTable', () => {
+    it('permanently redirects renamed projects before serving pages, keeping the language', () => {
+      const routes = routingTable([], ['portfolio/manga2ink', 'portfolio/mangaprep']);
+      for (const [oldId, id] of [['mangabound', 'manga2ink'], ['mangapress', 'mangaprep']]) {
+        const matches = routes.filter((route) => route.src === `^/portfolio/${oldId}/?$`);
+        assert.deepEqual(matches.map((route) => route.status), [308, 308]);
+        assert.deepEqual(matches[0].has, [{ type: 'query', key: 'locale', value: '(?<locale>pt|en)' }]);
+        assert.equal(matches[0].headers.Location, `/portfolio/${id}?locale=$locale`);
+        assert.equal(matches[1].headers.Location, `/portfolio/${id}`);
+      }
+    });
     it('escapes what a folder name could mean in a regular expression', () => {
       const [route] = routingTable([], ['v1.0']).filter((r) => r.dest);
 
