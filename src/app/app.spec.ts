@@ -71,7 +71,7 @@ describe('App', () => {
     const footerOf = (fixture: ComponentFixture<App>) =>
       (fixture.nativeElement as HTMLElement).querySelector('footer');
 
-    it.each(['/about', '/portfolio', '/portfolio/mangabound', '/no-such-page'])(
+    it.each(['/about', '/portfolio', '/portfolio/manga2ink', '/no-such-page'])(
       'closes %s, after the main content and outside it',
       async (url) => {
         const fixture = await visit(url);

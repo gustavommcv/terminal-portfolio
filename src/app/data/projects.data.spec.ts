@@ -13,13 +13,13 @@ function findProject(id: string) {
 }
 
 describe('projectsData badges', () => {
-  it('gives Maquetaria a Cloudflare badge', () => {
+  it('gives Maquetaria a Vercel badge', () => {
     const badges = findProject('maquetaria').badges ?? [];
-    const cloudflare = badges.find((b) => b.slug === 'cloudflare');
+    const vercel = badges.find((b) => b.slug === 'vercel');
 
-    expect(cloudflare).toBeDefined();
-    expect(cloudflare?.label).toBe('Cloudflare');
-    expect(cloudflare?.color).toMatch(/^[0-9a-fA-F]{6}$/);
+    expect(vercel).toBeDefined();
+    expect(vercel?.label).toBe('Vercel');
+    expect(vercel?.color).toMatch(/^[0-9a-fA-F]{6}$/);
   });
 
   it('gives Terminal Portfolio a Vercel badge', () => {
@@ -57,7 +57,7 @@ describe('projectsData badges', () => {
     });
   });
 
-  it('adds Cloudflare/Vercel as extra hosting badges beyond their stack entries', () => {
+  it('adds Vercel as extra hosting badges beyond their stack entries', () => {
     const maquetariaLabels = findProject('maquetaria').badges?.map(
       (b) => b.label,
     );
@@ -65,7 +65,7 @@ describe('projectsData badges', () => {
       'terminal-portfolio',
     ).badges?.map((b) => b.label);
 
-    expect(maquetariaLabels).toContain('Cloudflare');
+    expect(maquetariaLabels).toContain('Vercel');
     expect(terminalPortfolioLabels).toContain('Vercel');
   });
 
@@ -108,16 +108,16 @@ describe('projectsData badges', () => {
     });
   });
 
-  it('opens the gallery of Mangabound on its cover, which is also what its card shows', () => {
-    const mangabound = findProject('mangabound');
+  it('opens the gallery of Manga2Ink on its cover, which is also what its card shows', () => {
+    const manga2ink = findProject('manga2ink');
 
-    expect(mangabound.gallery[0]).toContain('mangabound-cover');
-    expect(projectCardImage(mangabound)).toBe(mangabound.gallery[0]);
+    expect(manga2ink.gallery[0]).toContain('manga2ink-cover');
+    expect(projectCardImage(manga2ink)).toBe(manga2ink.gallery[0]);
   });
 
-  it('shows Mangabound through its cover and then the steps of its workflow', () => {
-    const gallery = findProject('mangabound').gallery.map((image) =>
-      image.replace(/^.*mangabound-|\.webp$/g, ''),
+  it('shows Manga2Ink through its cover and then the steps of its workflow', () => {
+    const gallery = findProject('manga2ink').gallery.map((image) =>
+      image.replace(/^.*manga2ink-|\.webp$/g, ''),
     );
 
     expect(gallery).toEqual([

@@ -3,7 +3,7 @@
     "presentation-section": {
       "command": "whoami",
       "role": "Desenvolvedor de Software",
-      "about": "Desenvolvedor full stack de formação, atualmente cursando Engenharia Elétrica com foco em sistemas embarcados, matemática, física e modelagem CAD. Gosto de construir coisas que realmente funcionam e resolvem problemas reais — seja em software, firmware ou hardware.",
+      "about": "Desenvolvedor de software com experiência freelancer na entrega de aplicações web em produção e na manutenção de projetos open source. Trabalho com Angular, Go, React e TypeScript, com interesse em engenharia de software, automação, testes e IA aplicada ao desenvolvimento.",
       "contact": "Contato",
       "title": "Quem sou eu"
     },
@@ -11,17 +11,26 @@
       "title": "Serviços",
       "subtitle": "Meus Serviços",
       "services": [
-        "Landing pages",
-        "Portfólios",
-        "Manutenção de código",
-        "Transformar design em código",
-        "Dividir suas telas em componentes reutilizáveis",
-        "Impressão 3D e modelagem de peças"
+        "Aplicações web e interfaces responsivas",
+        "APIs e integração de serviços",
+        "Manutenção de software e refatoração",
+        "Testes automatizados e CI/CD",
+        "Interfaces e protótipos no Figma",
+        "Modelagem CAD 2D/3D para corte e impressão 3D"
       ],
       "button": "Portfólio"
     },
     "tech-stack-section": {
-      "title": "Minha Stack"
+      "title": "Minha Stack",
+      "items": [
+        "TypeScript / JavaScript / Go / C# / Java",
+        "Angular / React / Electron / ASP.NET / Spring Boot",
+        "PostgreSQL / MySQL / MariaDB / MongoDB",
+        "AWS Lambda / Vercel / Linux",
+        "Git / GitHub / CI/CD / GitHub Actions",
+        "Testes automatizados / Figma",
+        "Claude Code / Codex"
+      ]
     },
     "featured-projects-section": {
       "title": "Projetos em Destaque"
@@ -36,9 +45,9 @@
     "about-section": {
       "title": "Sobre mim",
       "greeting": "Hello, World!",
-      "p1": "Sou formado em Análise e Desenvolvimento de Sistemas e fiz uma pós-graduação em Arquitetura de Software, pois sempre gostei de organização e de entender o porquê de os sistemas serem estruturados assim.",
-      "p2": "Essa curiosidade se estendeu para praticamente tudo e direcionou meus estudos para a matemática e a física, o que me fez escolher um curso mais alinhado com meus novos objetivos, sendo ele a Engenharia Elétrica, onde uno programação e sistemas de baixo nível às exatas.",
-      "p3": "Somado a isso, meu interesse por ferramentas de terminal e o princípio KISS mudou a forma como eu construo: soluções simples e práticas para problemas reais, unindo engenharia e computação — em software ou hardware.",
+      "p1": "Sou desenvolvedor de software em Curitiba, formado em Análise e Desenvolvimento de Sistemas pela Unicesumar, com pós-graduação em Arquitetura de Software e Soluções pela XP Educação. Atualmente curso Engenharia Elétrica na Cruzeiro do Sul.",
+      "p2": "Como freelancer na Veronese Maquetes, desenvolvo uma aplicação web comercial de ponta a ponta: interfaces responsivas em Angular, serviços em Go e publicação na AWS Lambda e na Vercel. Também elaboro interfaces e protótipos no Figma e acompanho os ajustes após a implantação.",
+      "p3": "Desenvolvo e mantenho o Manga2Ink, um aplicativo desktop open source com Electron, React e TypeScript. Meu trabalho envolve evolução de funcionalidades, investigação de bugs, refatoração, documentação e automação de testes, builds e releases. Também atuo com modelagem CAD 2D e 3D para fabricação.",
       "pronouns": "Ele/Dele",
       "country": "Brasil",
       "age": "{{age}} anos"
@@ -48,37 +57,40 @@
       "degrees": [
         {
           "title": "Engenharia Elétrica",
-          "type": "Bacharelado",
-          "data": "MAR/26 - MAR/31"
+          "type": "Bacharelado em andamento",
+          "institution": "Cruzeiro do Sul",
+          "data": "2026–2031 (previsão)"
         },
         {
           "title": "Arquitetura de Software e Soluções",
           "type": "Pós-graduação",
-          "data": "FEV/25 - FEV/26"
+          "institution": "XP Educação",
+          "data": "2026"
         },
         {
           "title": "Análise e Desenvolvimento de Sistemas",
           "type": "Tecnólogo",
-          "data": "MAI/22 - SET/24"
+          "institution": "Unicesumar",
+          "data": "2024"
         }
       ]
     },
     "interests-section": {
       "title": "Interesses",
       "interests": [
+        "Engenharia de software",
+        "Automação e testes",
+        "IA aplicada ao desenvolvimento",
+        "Linux e ferramentas de terminal",
         "Matemática e física",
-        "Linux",
-        "Ferramentas de linha de comando",
-        "Sistemas embarcados",
-        "Impressão 3D",
-        "Modelagem CAD"
+        "Modelagem CAD e impressão 3D"
       ]
     },
     "languages-section": {
       "title": "Idiomas",
       "languages": [
         "Português - Nativo",
-        "Inglês - Avançado (C1)"
+        "Inglês - Avançado (C1), com certificação do Senac"
       ]
     },
     "download-section": {
@@ -88,6 +100,46 @@
       "heading": "Baixar currículo",
       "button": "Baixar ↓",
       "button-label": "Baixar currículo em {{format}}"
+    },
+    "experience-section": {
+      "title": "Experiências",
+      "project-link": "Ver projeto",
+      "entries": [
+        {
+          "category": "Experiência profissional",
+          "role": "Desenvolvedor Full Stack Freelancer",
+          "organization": "Veronese Maquetes",
+          "period": "abr. 2025 – atual",
+          "project": "/portfolio/maquetaria",
+          "details": [
+            "Desenvolvimento de aplicação web comercial de ponta a ponta, com interfaces responsivas em Angular e serviços de back-end em Go.",
+            "Publicação e configuração de serviços no AWS Lambda e front-end na Vercel; acompanhamento de requisitos e ajustes após a implantação.",
+            "Elaboração de interfaces e protótipos no Figma, com atenção à usabilidade, identidade visual e necessidades do negócio."
+          ]
+        },
+        {
+          "category": "Projeto open source",
+          "role": "Desenvolvimento e manutenção",
+          "organization": "Manga2Ink",
+          "period": "2026 – atual",
+          "project": "/portfolio/manga2ink",
+          "details": [
+            "Aplicativo desktop com Electron, React e TypeScript para organizar e converter mangás em volumes digitais EPUB, CBZ e PDF.",
+            "Evolução de funcionalidades, integração de componentes de processamento, revisão de arquitetura, investigação de bugs e refatoração.",
+            "Automação de testes, builds e releases multiplataforma com GitHub Actions; documentação e manutenção do projeto."
+          ]
+        },
+        {
+          "category": "Experiência complementar",
+          "role": "Modelador CAD 2D/3D",
+          "organization": "Veronese Maquetes",
+          "period": "jan. 2026 – atual",
+          "details": [
+            "Modelagem CAD 2D para máquinas de corte e modelagem 3D de peças para impressão 3D, com preparação e ajustes de arquivos para fabricação.",
+            "Atuação na Veronese Maquetes e execução de trabalhos pontuais de modelagem para a Projecta Maquetes."
+          ]
+        }
+      ]
     }
   },
   "projects-page": {
@@ -114,7 +166,7 @@
       "maquetaria": {
         "title": "Veronese Maquetes",
         "shortDescription": "Plataforma sob medida para uma empresa de maquetes — vitrine virtual e gestão administrativa.",
-        "description": "Plataforma sob encomenda para a Veronese Maquetes, empresa de maquetes físicas: uma vitrine virtual pública para o trabalho deles, além de um back-office interno para gerenciar os anúncios. Frontend em Angular, com backend em Go rodando como funções AWS Lambda."
+        "description": "Aplicação web comercial desenvolvida como freelancer para a Veronese Maquetes, com vitrine pública e gestão administrativa. Interfaces responsivas em Angular, serviços de back-end em Go no AWS Lambda e front-end na Vercel. O trabalho inclui protótipos no Figma, acompanhamento de requisitos e manutenção após a implantação."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
@@ -179,15 +231,15 @@
       "mangabind": {
         "title": "Mangabind",
         "shortDescription": "Agrupa downloads de mangá feitos capítulo por capítulo em um .cbz por volume, pronto para um leitor ou conversor.",
-        "description": "Uma ferramenta de linha de comando em Go que agrupa capítulos de mangá baixados um a um — pastas soltas e arquivos .cbz com nomes inconsistentes — em um .cbz por volume, ou em um único arquivo para a série. Estratégias de leitura plugáveis resolvem os nomes, e um dry run mostra o agrupamento antes. A etapa de agrupamento por trás do mangapress e do Mangabound."
+        "description": "Uma ferramenta de linha de comando em Go que agrupa capítulos de mangá baixados um a um — pastas soltas e arquivos .cbz com nomes inconsistentes — em um .cbz por volume, ou em um único arquivo para a série. Estratégias de leitura plugáveis resolvem os nomes, e um dry run mostra o agrupamento antes. A etapa de agrupamento por trás do mangaprep e do Manga2Ink."
       },
-      "mangabound": {
-        "title": "Mangabound",
+      "manga2ink": {
+        "title": "Manga2Ink",
         "shortDescription": "App de desktop para organizar capítulos de mangá em volumes e convertê-los em livros para o seu e-reader.",
-        "description": "Um app de desktop para todo o caminho do mangá até o e-reader: arraste capítulos, revise o plano de volumes, converta para CBZ, EPUB ou PDF para Kindle, Kobo, reMarkable ou tamanhos personalizados, e depois salve ou compartilhe com o KOReader pela rede local. Roda o Mangabind e o mangapress localmente. Electron e React, em alfa."
+        "description": "Aplicativo desktop open source para organizar capítulos de mangá em volumes e convertê-los para EPUB, CBZ e PDF. Desenvolvido com Electron, React e TypeScript, integra Mangabind e mangaprep para processamento local e permite compartilhar livros com o KOReader pela rede local. Faço o desenvolvimento e a manutenção, incluindo revisão de arquitetura, investigação de bugs, refatoração, documentação e automação de testes, builds e releases multiplataforma com GitHub Actions. Em alfa."
       },
-      "mangapress": {
-        "title": "Mangapress",
+      "mangaprep": {
+        "title": "mangaprep",
         "shortDescription": "Ferramenta de linha de comando em Rust que converte mangá em livros EPUB, CBZ ou PDF no tamanho do seu e-reader.",
         "description": "Uma ferramenta de linha de comando em Rust que converte mangá em livros EPUB, CBZ ou PDF para e-readers: corta margens, ajusta o tamanho das páginas para a tela, ajusta o contraste e trata páginas duplas, com perfis para Kindle, Kobo e reMarkable. Segue o processamento de imagem do Kindle Comic Converter, como implementação independente."
       },
@@ -219,11 +271,11 @@
   "seo": {
     "home": {
       "title": "Gustavo Monnerat | Desenvolvedor de Software",
-      "description": "Desenvolvedor full stack que constrói aplicações web de ponta a ponta, da interface à API. Este portfólio em formato de terminal reúne meus projetos, minha formação e como falar comigo."
+      "description": "Desenvolvedor de software em Curitiba com experiência full stack em Angular e Go, manutenção de projetos open source, testes automatizados e CI/CD."
     },
     "about": {
       "title": "Sobre | Gustavo Monnerat",
-      "description": "Trajetória, formação, interesses e currículo de Gustavo Monnerat, desenvolvedor full stack de Curitiba, Brasil."
+      "description": "Experiência freelancer na Veronese Maquetes, desenvolvimento do Manga2Ink, modelagem CAD, formação acadêmica e currículo de Gustavo Monnerat."
     },
     "portfolio": {
       "title": "Portfólio | Gustavo Monnerat",

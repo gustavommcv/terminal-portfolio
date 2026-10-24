@@ -18,7 +18,7 @@ const catalogs = {
     },
     'projects-page': {
       projects: {
-        mangabound: { title: 'Mangabound', shortDescription: 'Desktop app EN' },
+        manga2ink: { title: 'Manga2Ink', shortDescription: 'Desktop app EN' },
         maquetaria: { title: 'Veronese', shortDescription: 'Platform EN' },
       },
     },
@@ -33,7 +33,7 @@ const catalogs = {
     },
     'projects-page': {
       projects: {
-        mangabound: { title: 'Mangabound', shortDescription: 'App desktop PT' },
+        manga2ink: { title: 'Manga2Ink', shortDescription: 'App desktop PT' },
         maquetaria: { title: 'Veronese', shortDescription: 'Plataforma PT' },
       },
     },
@@ -151,14 +151,14 @@ describe('SeoService', () => {
   });
 
   it('describes a project page with its own title, summary and card image', async () => {
-    await go('/portfolio/mangabound');
+    await go('/portfolio/manga2ink');
 
-    expect(document.title).toBe('Mangabound | Site');
+    expect(document.title).toBe('Manga2Ink | Site');
     expect(meta('name', 'description')).toBe('Desktop app EN');
-    expect(canonical()).toBe(`${SITE_URL}/portfolio/mangabound`);
-    // The first gallery image of Mangabound is its cover, which is what a shared link should show.
+    expect(canonical()).toBe(`${SITE_URL}/portfolio/manga2ink`);
+    // The first gallery image of Manga2Ink is its cover, which is what a shared link should show.
     expect(meta('property', 'og:image')).toBe(
-      `${SITE_URL}/images/projects/mangabound/images/mangabound-cover.webp`,
+      `${SITE_URL}/images/projects/manga2ink/images/manga2ink-cover.webp`,
     );
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
     // The default image's dimensions must not leak onto a different image.
@@ -175,7 +175,7 @@ describe('SeoService', () => {
   });
 
   it('goes back to the default social image, with its dimensions, on other pages', async () => {
-    await go('/portfolio/mangabound');
+    await go('/portfolio/manga2ink');
     await go('/about');
 
     expect(meta('property', 'og:image')).toBe(`${SITE_URL}/images/me.webp`);
@@ -247,7 +247,7 @@ describe('SeoService', () => {
       translations: { seo: { project: { title: '{{title}} | Site' } } },
     });
 
-    await router.navigateByUrl('/portfolio/mangabound');
+    await router.navigateByUrl('/portfolio/manga2ink');
     appRef.tick();
 
     expect(document.title).not.toContain('{{');

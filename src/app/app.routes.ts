@@ -1,4 +1,5 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { RedirectFunction, Router, Routes } from '@angular/router';
 
 import { projectExistsGuard } from './features/project-detail/project-exists.guard';
 import type { SeoPage } from './core/seo/seo.service';
@@ -6,6 +7,9 @@ import type { SeoPage } from './core/seo/seo.service';
 // `data.seo` tells SeoService which kind of page a route is; it then builds
 // the title, description, canonical URL, and social tags for it.
 const seo = (page: SeoPage) => ({ seo: page });
+
+const renamedProject = (id: string): RedirectFunction => ({ queryParams, fragment }) =>
+  inject(Router).createUrlTree([`/portfolio/${id}`], { queryParams, fragment: fragment ?? undefined });
 
 const errorPage = () =>
   import('./features/error/error-page/error-page').then((m) => m.ErrorPage);
@@ -30,6 +34,16 @@ export const routes: Routes = [
       import('./features/portfolio/portfolio-page/portfolio-page').then(
         (m) => m.PortfolioPage,
       ),
+  },
+  {
+    path: 'portfolio/mangabound',
+    pathMatch: 'full',
+    redirectTo: renamedProject('manga2ink'),
+  },
+  {
+    path: 'portfolio/mangapress',
+    pathMatch: 'full',
+    redirectTo: renamedProject('mangaprep'),
   },
   {
     path: 'portfolio/:id',

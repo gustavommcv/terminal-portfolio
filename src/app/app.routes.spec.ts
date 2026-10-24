@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { Router, provideRouter, withComponentInputBinding } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { RenderMode } from '@angular/ssr';
 
@@ -67,6 +67,8 @@ describe('routes and prerendering', () => {
         ['', HomePage],
         ['about', AboutPage],
         ['portfolio', PortfolioPage],
+        ['portfolio/mangabound', undefined],
+        ['portfolio/mangapress', undefined],
         ['portfolio/:id', ProjectDetailPage],
         ['404', ErrorPage],
         ['**', ErrorPage],
@@ -74,6 +76,7 @@ describe('routes and prerendering', () => {
 
       expect(routes.map((route) => route.path ?? '')).toEqual([...expected.keys()]);
       for (const route of routes) {
+        if (route.redirectTo) continue;
         const load = route.loadComponent as () => Promise<unknown>;
         expect(await load(), `route "${route.path}"`).toBe(expected.get(route.path ?? ''));
       }
@@ -89,6 +92,17 @@ describe('routes and prerendering', () => {
       expect(harness.routeNativeElement?.querySelector('h1')?.textContent?.trim()).toBe(
         'maquetaria',
       );
+    });
+
+    it.each([
+      ['mangabound', 'manga2ink'],
+      ['mangapress', 'mangaprep'],
+    ])('redirects the former project address %s and keeps its language', async (oldId, id) => {
+      configure();
+      const harness = await RouterTestingHarness.create();
+      const page = await harness.navigateByUrl(`/portfolio/${oldId}?locale=pt`, ProjectDetailPage);
+      expect(page.id()).toBe(id);
+      expect(TestBed.inject(Router).url).toBe(`/portfolio/${id}?locale=pt`);
     });
 
     it('shows the not-found page, not an empty project page, for an id that is no project', async () => {

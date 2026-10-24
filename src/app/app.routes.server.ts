@@ -22,6 +22,14 @@ export const serverRoutes: ServerRoute[] = [
   // One static page per project, so each has its own HTML, title, and
   // social-card tags for crawlers and link previews.
   {
+    path: 'portfolio/mangabound',
+    renderMode: RenderMode.Prerender,
+  },
+  {
+    path: 'portfolio/mangapress',
+    renderMode: RenderMode.Prerender,
+  },
+  {
     path: 'portfolio/:id',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () =>

@@ -1,0 +1,29 @@
+<section class="experience-section">
+  <app-terminal-section
+    [customTitle]="'about-page.experience-section.title' | translate"
+    customCommand="glow experience.md"
+    [shortTerminalLine]="true"
+  >
+    <app-title [title]="'about-page.experience-section.title' | translate" />
+    <div class="experience-section__entries">
+      @for (entry of 'about-page.experience-section.entries' | translate; track $index) {
+        <article class="experience-section__entry">
+          <p class="experience-section__category">{{ entry.category }}</p>
+          <h3>{{ entry.role }}</h3>
+          <p class="experience-section__organization">{{ entry.organization }}</p>
+          <p class="experience-section__period">{{ entry.period }}</p>
+          <ul>
+            @for (detail of entry.details; track $index) {
+              <li>{{ detail }}</li>
+            }
+          </ul>
+          @if (entry.project) {
+            <a [appLocalizedLink]="entry.project">
+              {{ 'about-page.experience-section.project-link' | translate }} →
+            </a>
+          }
+        </article>
+      }
+    </div>
+  </app-terminal-section>
+</section>

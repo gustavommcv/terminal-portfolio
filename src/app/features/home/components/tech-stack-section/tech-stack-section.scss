@@ -14,6 +14,7 @@
   }
 
   &__list {
+    overflow-wrap: anywhere;
     margin-left: 5rem;
     margin-bottom: $spacing-big;
     color: $color-text-dark;

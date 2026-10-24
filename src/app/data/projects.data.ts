@@ -135,9 +135,9 @@ export const projectsData: Project[] = [
         category: 'hosting',
       },
       {
-        label: 'Cloudflare',
-        slug: 'cloudflare',
-        color: 'F38020',
+        label: 'Vercel',
+        slug: 'vercel',
+        color: '000000',
         category: 'hosting',
       },
     ],
@@ -146,22 +146,22 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'mangabound',
+    id: 'manga2ink',
     // The cover opens the gallery, so it is also what cards and shared links
     // show; then the app's workflow: queue, chapter mapping, book details,
     // conversion options, finished books, sharing.
     gallery: [
-      'images/projects/mangabound/images/mangabound-cover.webp',
-      'images/projects/mangabound/images/mangabound-thumbnail.webp',
-      'images/projects/mangabound/images/mangabound-chapter-mapping.webp',
-      'images/projects/mangabound/images/mangabound-book-details.webp',
-      'images/projects/mangabound/images/mangabound-conversion-options.webp',
-      'images/projects/mangabound/images/mangabound-book-warnings.webp',
-      'images/projects/mangabound/images/mangabound-sharing.webp',
+      'images/projects/manga2ink/images/manga2ink-cover.webp',
+      'images/projects/manga2ink/images/manga2ink-thumbnail.webp',
+      'images/projects/manga2ink/images/manga2ink-chapter-mapping.webp',
+      'images/projects/manga2ink/images/manga2ink-book-details.webp',
+      'images/projects/manga2ink/images/manga2ink-conversion-options.webp',
+      'images/projects/manga2ink/images/manga2ink-book-warnings.webp',
+      'images/projects/manga2ink/images/manga2ink-sharing.webp',
     ],
     links: {
-      github: 'https://github.com/gustavommcv/mangabound',
-      docs: 'https://gustavommcv.github.io/mangabound/',
+      github: 'https://github.com/gustavommcv/manga2ink',
+      docs: 'https://gustavommcv.github.io/manga2ink/',
     },
     stack: ['Electron', 'React', 'TypeScript', 'Tailwind CSS'],
     badges: [
@@ -181,7 +181,7 @@ export const projectsData: Project[] = [
       },
     ],
     featured: true,
-    command: 'mangabound',
+    command: 'manga2ink',
   },
 
   {
@@ -220,17 +220,17 @@ export const projectsData: Project[] = [
   },
 
   {
-    id: 'mangapress',
-    gallery: ['images/projects/mangapress/images/mangapress-terminal.webp'],
+    id: 'mangaprep',
+    gallery: ['images/projects/mangaprep/images/mangaprep-terminal.webp'],
     links: {
-      github: 'https://github.com/gustavommcv/mangapress',
+      github: 'https://github.com/gustavommcv/mangaprep',
     },
     stack: ['Rust'],
     badges: [
       { label: 'Rust', slug: 'rust', color: '000000', category: 'language' },
     ],
     featured: true,
-    command: 'mangapress',
+    command: 'mangaprep',
   },
 
   {

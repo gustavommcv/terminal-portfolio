@@ -28,8 +28,8 @@ describe('PortfolioPage', () => {
         .querySelector(`.project-card[href="/portfolio/${id}"] img`)
         .getAttribute('src');
 
-    expect(srcOf('mangabound')).toBe(
-      'images/projects/mangabound/images/mangabound-cover.webp',
+    expect(srcOf('manga2ink')).toBe(
+      'images/projects/manga2ink/images/manga2ink-cover.webp',
     );
     expect(srcOf('maquetaria')).toBe(
       'images/projects/maquetaria/images/maquetaria-home.webp',

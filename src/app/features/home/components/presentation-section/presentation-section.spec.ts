@@ -57,7 +57,7 @@ describe('PresentationSection', () => {
       'Desenvolvedor de Software',
     );
     expect(fixture.nativeElement.textContent).toContain(
-      'Gosto de construir coisas que realmente funcionam',
+      HOME_INTRO_LAYOUT_RESERVATIONS.pt.presentation.about,
     );
     expect(fixture.nativeElement.textContent).not.toContain(
       'home-page.presentation-section',
