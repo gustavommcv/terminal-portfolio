@@ -46,7 +46,7 @@
       "title": "Sobre mim",
       "greeting": "Hello, World!",
       "p1": "Sou desenvolvedor de software em Curitiba, formado em Análise e Desenvolvimento de Sistemas pela Unicesumar, com pós-graduação em Arquitetura de Software e Soluções pela XP Educação. Atualmente curso Engenharia Elétrica na Cruzeiro do Sul.",
-      "p2": "Como freelancer na Veronese Maquetes, desenvolvo uma aplicação web comercial de ponta a ponta: interfaces responsivas em Angular, serviços em Go e publicação na AWS Lambda e na Vercel. Também elaboro interfaces e protótipos no Figma e acompanho os ajustes após a implantação.",
+      "p2": "Como freelancer para a Veronese Maquetes, desenvolvi uma aplicação web comercial de ponta a ponta, com interfaces responsivas em Angular, serviços em Go e publicação na AWS Lambda e na Vercel. O trabalho incluiu a criação de interfaces e protótipos no Figma. Hoje, cuido da manutenção da aplicação.",
       "p3": "Desenvolvo e mantenho o Manga2Ink, um aplicativo desktop open source com Electron, React e TypeScript. Meu trabalho envolve evolução de funcionalidades, investigação de bugs, refatoração, documentação e automação de testes, builds e releases. Também atuo com modelagem CAD 2D e 3D para fabricação.",
       "pronouns": "Ele/Dele",
       "country": "Brasil",
@@ -112,9 +112,9 @@
           "period": "abr. 2025 – atual",
           "project": "/portfolio/maquetaria",
           "details": [
-            "Desenvolvimento de aplicação web comercial de ponta a ponta, com interfaces responsivas em Angular e serviços de back-end em Go.",
-            "Publicação e configuração de serviços no AWS Lambda e front-end na Vercel; acompanhamento de requisitos e ajustes após a implantação.",
-            "Elaboração de interfaces e protótipos no Figma, com atenção à usabilidade, identidade visual e necessidades do negócio."
+            "Desenvolvi a aplicação web comercial de ponta a ponta, com interfaces responsivas em Angular e serviços de back-end em Go.",
+            "Criei interfaces e protótipos no Figma e publiquei os serviços no AWS Lambda e o front-end na Vercel.",
+            "Hoje, faço a manutenção da aplicação em produção."
           ]
         },
         {
@@ -166,7 +166,7 @@
       "maquetaria": {
         "title": "Veronese Maquetes",
         "shortDescription": "Plataforma sob medida para uma empresa de maquetes — vitrine virtual e gestão administrativa.",
-        "description": "Aplicação web comercial desenvolvida como freelancer para a Veronese Maquetes, com vitrine pública e gestão administrativa. Interfaces responsivas em Angular, serviços de back-end em Go no AWS Lambda e front-end na Vercel. O trabalho inclui protótipos no Figma, acompanhamento de requisitos e manutenção após a implantação."
+        "description": "Aplicação web comercial que desenvolvi como freelancer para a Veronese Maquetes, com vitrine pública e gestão administrativa. A entrega incluiu interfaces responsivas em Angular, serviços de back-end em Go no AWS Lambda, front-end na Vercel e protótipos no Figma. Hoje, faço a manutenção da aplicação em produção."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",

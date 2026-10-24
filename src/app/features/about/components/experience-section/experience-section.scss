@@ -2,13 +2,13 @@
 
 .experience-section {
   margin-bottom: $spacing-xbig;
-  color: $color-text-dark;
-  font-size: $font-size-small;
-  line-height: 1.6;
 
   &__entries {
     display: grid;
     gap: $spacing-medium;
+    color: $color-text-dark;
+    font-size: $font-size-small;
+    line-height: $line-height-default;
   }
 
   &__entry {
@@ -16,23 +16,20 @@
     padding: $spacing-medium;
     border: $border-default;
     border-radius: $border-radius-default;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 
     h3 {
       color: $color-subtitle-dark;
       font-size: $font-size-default;
       font-weight: $font-weight-normal;
-      margin-block: $spacing-xsmall;
     }
 
     ul {
-      padding-left: $spacing-medium;
-      margin-block: $spacing-medium;
-      max-width: $measure-reading;
+      margin: $spacing-medium 0 $spacing-medium $spacing-big;
     }
 
     li + li {
-      margin-top: $spacing-small;
+      margin-top: $spacing-xsmall;
     }
 
     a {
@@ -43,17 +40,15 @@
     }
   }
 
-  &__category,
-  &__period {
-    font-size: 1.6rem;
-  }
-
   &__category {
-    color: $color-title-dark;
+    margin-bottom: $spacing-xsmall;
   }
 
   @media screen and (max-width: #{$breakpoint-mobile}) {
-    font-size: 1.8rem;
+    &__entries {
+      gap: $spacing-small;
+      font-size: 1.8rem;
+    }
 
     &__entry h3 {
       font-size: 2.2rem;
