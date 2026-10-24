@@ -46,7 +46,7 @@
       "title": "About me",
       "greeting": "Hello, World!",
       "p1": "I am a software developer based in Curitiba, Brazil, with a technology degree in Systems Analysis and Development from Unicesumar and a postgraduate qualification in Software Architecture and Solutions from XP Educação. I am currently studying Electrical Engineering at Cruzeiro do Sul.",
-      "p2": "As a freelancer for Veronese Maquetes, I develop a commercial web application end to end: responsive Angular interfaces, Go services, and deployment to AWS Lambda and Vercel. I also create interfaces and prototypes in Figma and handle changes after deployment.",
+      "p2": "As a freelancer for Veronese Maquetes, I built a commercial web application end to end, with responsive Angular interfaces, Go services, and deployment to AWS Lambda and Vercel. The work included interface design and prototyping in Figma. I now maintain the application.",
       "p3": "I develop and maintain Manga2Ink, an open-source desktop application built with Electron, React, and TypeScript. My work includes feature development, bug investigation, refactoring, documentation, and automated tests, builds, and releases. I also work on 2D and 3D CAD modeling for manufacturing.",
       "pronouns": "He/Him",
       "country": "Brazil",
@@ -112,9 +112,9 @@
           "period": "Apr 2025 – present",
           "project": "/portfolio/maquetaria",
           "details": [
-            "End-to-end development of a commercial web application, with responsive Angular interfaces and Go back-end services.",
-            "Deployment and configuration of services on AWS Lambda and the front end on Vercel; requirements follow-up and post-deployment changes.",
-            "Interface design and prototyping in Figma, focusing on usability, visual identity, and business needs."
+            "Built the commercial web application end to end, with responsive Angular interfaces and Go back-end services.",
+            "Designed interfaces and prototypes in Figma and deployed the services to AWS Lambda and the front end to Vercel.",
+            "I now maintain the application in production."
           ]
         },
         {
@@ -166,7 +166,7 @@
       "maquetaria": {
         "title": "Veronese Maquetes",
         "shortDescription": "Custom platform for a model-making business — virtual showcase and back-office management.",
-        "description": "A commercial web application developed as a freelancer for Veronese Maquetes, with a public showcase and an administration interface. Responsive Angular interfaces, Go back-end services on AWS Lambda, and a front end on Vercel. The work includes Figma prototypes, requirements follow-up, and post-deployment maintenance."
+        "description": "A commercial web application I built as a freelancer for Veronese Maquetes, with a public showcase and an administration interface. The delivery included responsive Angular interfaces, Go back-end services on AWS Lambda, a front end on Vercel, and Figma prototypes. I now maintain the application in production."
       },
       "minimal-neovim": {
         "title": "Minimal Neovim",
