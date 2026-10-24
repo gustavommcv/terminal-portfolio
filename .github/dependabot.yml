@@ -11,6 +11,12 @@ updates:
       angular:
         patterns:
           - "@angular/*"
+      # Vitest and its coverage provider require matching versions, including
+      # major upgrades. Keep them in one PR so npm can install the update.
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
       # Everything else that is a minor or patch update is also one pull request.
       minor-and-patch:
         patterns:
