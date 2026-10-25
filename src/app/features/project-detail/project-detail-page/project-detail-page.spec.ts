@@ -206,7 +206,7 @@ describe('ProjectDetailPage', () => {
     );
 
     expect(img.getAttribute('src')).toBe(
-      'images/projects/manga2ink/images/manga2ink-cover.webp',
+      'images/projects/manga2ink/images/manga2ink-cover-refined.webp',
     );
   });
 });

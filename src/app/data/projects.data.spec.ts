@@ -121,7 +121,7 @@ describe('projectsData badges', () => {
     );
 
     expect(gallery).toEqual([
-      'cover',
+      'cover-refined',
       'thumbnail',
       'chapter-mapping',
       'book-details',
