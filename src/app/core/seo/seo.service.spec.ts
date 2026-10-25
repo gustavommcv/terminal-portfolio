@@ -158,7 +158,7 @@ describe('SeoService', () => {
     expect(canonical()).toBe(`${SITE_URL}/portfolio/manga2ink`);
     // The first gallery image of Manga2Ink is its cover, which is what a shared link should show.
     expect(meta('property', 'og:image')).toBe(
-      `${SITE_URL}/images/projects/manga2ink/images/manga2ink-cover.webp`,
+      `${SITE_URL}/images/projects/manga2ink/images/manga2ink-cover-refined.webp`,
     );
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
     // The default image's dimensions must not leak onto a different image.

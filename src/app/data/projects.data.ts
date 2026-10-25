@@ -151,7 +151,7 @@ export const projectsData: Project[] = [
     // show; then the app's workflow: queue, chapter mapping, book details,
     // conversion options, finished books, sharing.
     gallery: [
-      'images/projects/manga2ink/images/manga2ink-cover.webp',
+      'images/projects/manga2ink/images/manga2ink-cover-refined.webp',
       'images/projects/manga2ink/images/manga2ink-thumbnail.webp',
       'images/projects/manga2ink/images/manga2ink-chapter-mapping.webp',
       'images/projects/manga2ink/images/manga2ink-book-details.webp',

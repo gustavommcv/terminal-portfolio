@@ -29,7 +29,7 @@ describe('PortfolioPage', () => {
         .getAttribute('src');
 
     expect(srcOf('manga2ink')).toBe(
-      'images/projects/manga2ink/images/manga2ink-cover.webp',
+      'images/projects/manga2ink/images/manga2ink-cover-refined.webp',
     );
     expect(srcOf('maquetaria')).toBe(
       'images/projects/maquetaria/images/maquetaria-home.webp',
