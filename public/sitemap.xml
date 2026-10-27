@@ -25,6 +25,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/maquetaria"/>
   </url>
   <url>
+    <loc>https://gusmonnerat.dev/portfolio/cisc-smart-home</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/cisc-smart-home"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/cisc-smart-home?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/cisc-smart-home"/>
+  </url>
+  <url>
     <loc>https://gusmonnerat.dev/portfolio/manga2ink</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/manga2ink"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/manga2ink?locale=pt"/>
@@ -83,6 +89,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/dotfiles"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/dotfiles?locale=pt"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/dotfiles"/>
+  </url>
+  <url>
+    <loc>https://gusmonnerat.dev/portfolio/imperial-to-si-converter</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/imperial-to-si-converter"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/imperial-to-si-converter?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/imperial-to-si-converter"/>
   </url>
   <url>
     <loc>https://gusmonnerat.dev/portfolio/itau-challenge</loc>

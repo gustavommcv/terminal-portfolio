@@ -147,7 +147,14 @@
     "subtitle": "My Projects",
     "filters": {
       "all": "All",
-      "featured": "Featured"
+      "featured": "Featured",
+      "label": "Filter projects",
+      "web": "Web and APIs",
+      "desktop": "Desktop and games",
+      "terminal": "Terminal and Linux",
+      "embedded": "Embedded systems",
+      "academic": "Academic",
+      "results": "Showing {{shown}} of {{total}} projects"
     },
     "gallery": {
       "label": "Project images",
@@ -252,6 +259,16 @@
         "title": "Dotfiles",
         "shortDescription": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL.",
         "description": "My own Arch Linux setup, split across three branches: a full Hyprland desktop, a notebook profile tuned for touchpad gestures and power management, and a terminal-only WSL2 setup. An install.sh pulls packages via yay and symlinks everything into place."
+      },
+      "cisc-smart-home": {
+        "title": "CISC Smart Home",
+        "shortDescription": "An ESP32 smart home scale model for monitoring gas and humidity. An academic project in development.",
+        "description": "An academic project for an electrical and electronic systems course, combining a physical scale model, MQ-2 and DHT11 sensors, and actuators controlled by an ESP32. The C++ firmware is organized into domain, application, and adapter layers, with host-based tests for gas and humidity rules and device control. The gallery shows the physical model and the KiCad circuit schematic. The project is in development: its own Wi-Fi network, a REST API with SSE events, and a native Android application are planned for the next stages."
+      },
+      "imperial-to-si-converter": {
+        "title": "Imperial to SI Converter",
+        "shortDescription": "A Python and Textual unit converter with a terminal interface, keyboard shortcuts, and mouse support.",
+        "description": "An academic Modeling I project for an Electrical Engineering course, converting length, mass, volume, and temperature from Imperial units to SI. The Textual interface supports keyboard navigation with Vim-style shortcuts as well as mouse interaction, and updates results while typing. Conversion logic is separate from the interface, with tests and a registry of converters by measurement type. PyInstaller can package it as a standalone executable. The gallery images are the screenshots published in the project README."
       }
     },
     "links": {
