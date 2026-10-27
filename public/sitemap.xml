@@ -49,6 +49,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/json-visual-editor"/>
   </url>
   <url>
+    <loc>https://gusmonnerat.dev/portfolio/educational-water-cycle</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/educational-water-cycle"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/educational-water-cycle?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/educational-water-cycle"/>
+  </url>
+  <url>
     <loc>https://gusmonnerat.dev/portfolio/mangaprep</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/mangaprep"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/mangaprep?locale=pt"/>
@@ -109,6 +115,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/xp-bootcamp"/>
   </url>
   <url>
+    <loc>https://gusmonnerat.dev/portfolio/academic-real-estate</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/academic-real-estate"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/academic-real-estate?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/academic-real-estate"/>
+  </url>
+  <url>
+    <loc>https://gusmonnerat.dev/portfolio/academic-swing-login</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/academic-swing-login"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/academic-swing-login?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/academic-swing-login"/>
+  </url>
+  <url>
     <loc>https://gusmonnerat.dev/portfolio/airlock-rest</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/airlock-rest"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/airlock-rest?locale=pt"/>
@@ -131,6 +149,12 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/chmod-calculator"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/chmod-calculator?locale=pt"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/chmod-calculator"/>
+  </url>
+  <url>
+    <loc>https://gusmonnerat.dev/portfolio/minesweeper-swing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://gusmonnerat.dev/portfolio/minesweeper-swing"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://gusmonnerat.dev/portfolio/minesweeper-swing?locale=pt"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://gusmonnerat.dev/portfolio/minesweeper-swing"/>
   </url>
   <url>
     <loc>https://gusmonnerat.dev/portfolio/tic-tac-toe</loc>

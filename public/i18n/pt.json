@@ -260,6 +260,26 @@
         "shortDescription": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL.",
         "description": "Minha própria configuração de Arch Linux, dividida em três branches: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Um install.sh instala pacotes via yay e cria os symlinks necessários."
       },
+      "educational-water-cycle": {
+        "title": "Jogo Educativo — Ciclo da Água",
+        "shortDescription": "Jogo de arrastar e soltar sobre o ciclo da água, com pontuação, temporizador e conteúdo definido em JSON.",
+        "description": "Jogo educativo desenvolvido como teste técnico para a Arco Educação. O jogador associa descrições às etapas do ciclo da água arrastando os blocos para os alvos correspondentes. A partida tem temporizador, pontuação, validação das respostas, efeitos sonoros e uma tela de resultado com opção de jogar novamente. O conteúdo é carregado de um arquivo JSON, separando os dados pedagógicos da interface. A aplicação usa HTML, CSS e JavaScript."
+      },
+      "academic-real-estate": {
+        "title": "Sistema Imobiliário — ASP.NET",
+        "shortDescription": "Projeto de faculdade em C# e ASP.NET Core para gerenciar clientes, imóveis e contratos.",
+        "description": "Sistema imobiliário desenvolvido para a disciplina de Fundamentos de Sistema de Informação. Construído em C# com ASP.NET Core MVC e views Razor, permite cadastrar, editar e consultar clientes e imóveis, vincular propriedades a clientes e acompanhar os contratos relacionados. Models, controllers e ViewModels organizam a aplicação, enquanto um contexto de dados em memória mantém os registros para a demonstração acadêmica."
+      },
+      "academic-swing-login": {
+        "title": "Login e Cadastro — Java Swing",
+        "shortDescription": "Aplicação desktop de login e cadastro, criada para a faculdade com Java, Swing, JDBC e MariaDB.",
+        "description": "Projeto acadêmico de uma aplicação desktop com telas de login e cadastro de usuários. A interface em Java Swing reúne os formulários, enquanto o JDBC conecta a aplicação ao MariaDB para consultar e inserir registros. O código separa as telas, o modelo de usuário, a criação de conexões e as operações de acesso aos dados."
+      },
+      "minesweeper-swing": {
+        "title": "Campo Minado — Java Swing",
+        "shortDescription": "Campo Minado para desktop em Java Swing, com abertura de áreas, marcação de minas e reinício da partida.",
+        "description": "Implementação do Campo Minado em Java com interface Swing. O jogador revela células, usa as pistas numéricas para localizar minas e marca as posições suspeitas. O tabuleiro distribui as minas aleatoriamente, abre áreas vizinhas sem minas, detecta vitória ou derrota e permite reiniciar a partida. O modelo do jogo é separado da interface, com eventos e observadores para atualizar a apresentação conforme as jogadas."
+      },
       "cisc-smart-home": {
         "title": "CISC Smart Home",
         "shortDescription": "Casa inteligente em uma maquete com ESP32: monitoramento de gás e umidade, automação e acompanhamento pelo celular.",

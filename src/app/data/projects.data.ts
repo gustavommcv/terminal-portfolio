@@ -250,6 +250,25 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'educational-water-cycle',
+    category: 'web',
+    gallery: [
+      'images/projects/educational-water-cycle/images/gameplay.webp',
+      'images/projects/educational-water-cycle/images/start.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/jogo-educativo',
+    },
+    stack: ['JavaScript', 'HTML', 'CSS'],
+    badges: [
+      { label: 'JavaScript', slug: 'javascript', color: 'F7DF1E', logoColor: 'black', category: 'language' },
+      { label: 'HTML', slug: 'html5', color: 'E34F26', category: 'language' },
+      { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
+    ],
+    command: 'glow water-cycle.md',
+  },
+
+  {
     id: 'mangaprep',
     category: 'terminal',
     gallery: ['images/projects/mangaprep/images/mangaprep-terminal.webp'],
@@ -416,6 +435,50 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'academic-real-estate',
+    category: 'web',
+    academic: true,
+    gallery: [
+      'images/projects/academic-real-estate/images/overview.webp',
+      'images/projects/academic-real-estate/images/client-details.webp',
+      'images/projects/academic-real-estate/images/property-create.webp',
+      'images/projects/academic-real-estate/images/contract-details.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/trabalho-faculdade-asp-net',
+    },
+    stack: ['C#', 'ASP.NET Core', 'Razor'],
+    badges: [
+      { label: 'C#', color: '239120', category: 'language' },
+      { label: 'ASP.NET Core', color: '512BD4', category: 'framework' },
+      { label: 'Razor', color: '512BD4', category: 'tool' },
+      { label: '.NET', slug: 'dotnet', color: '512BD4', category: 'framework' },
+    ],
+    command: 'glow real-estate.md',
+  },
+
+  {
+    id: 'academic-swing-login',
+    category: 'desktop',
+    academic: true,
+    gallery: [
+      'images/projects/academic-swing-login/images/login.webp',
+      'images/projects/academic-swing-login/images/register.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/login-e-cadastro-swing-faculdade',
+    },
+    stack: ['Java', 'Swing', 'JDBC', 'MariaDB'],
+    badges: [
+      { label: 'Java', slug: 'openjdk', color: '437291', category: 'language' },
+      { label: 'Swing', color: '437291', category: 'framework' },
+      { label: 'JDBC', color: '003545', category: 'tool' },
+      mariadb,
+    ],
+    command: 'glow swing-login.md',
+  },
+
+  {
     id: 'airlock-rest',
     category: 'web',
     gallery: ['images/projects/airlock/images/airlock-rest-thumbnail.webp'],
@@ -481,6 +544,25 @@ export const projectsData: Project[] = [
       { label: 'CSS', slug: 'css3', color: '1572B6', category: 'language' },
     ],
     command: 'glow chmod.md',
+  },
+
+  {
+    id: 'minesweeper-swing',
+    category: 'desktop',
+    gallery: [
+      'images/projects/minesweeper-swing/images/gameplay.webp',
+      'images/projects/minesweeper-swing/images/board.webp',
+      'images/projects/minesweeper-swing/images/result.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/minesweeper-swing',
+    },
+    stack: ['Java', 'Swing'],
+    badges: [
+      { label: 'Java', slug: 'openjdk', color: '437291', category: 'language' },
+      { label: 'Swing', color: '437291', category: 'framework' },
+    ],
+    command: 'glow minesweeper.md',
   },
 
   {
