@@ -260,6 +260,26 @@
         "shortDescription": "Personal Arch Linux and Hyprland dotfiles, with dedicated setups for desktop, notebook, and WSL.",
         "description": "My own Arch Linux setup, split across three branches: a full Hyprland desktop, a notebook profile tuned for touchpad gestures and power management, and a terminal-only WSL2 setup. An install.sh pulls packages via yay and symlinks everything into place."
       },
+      "educational-water-cycle": {
+        "title": "Educational Game — Water Cycle",
+        "shortDescription": "A drag-and-drop water cycle game with scoring, a timer, and content defined in JSON.",
+        "description": "An educational game developed as a technical assessment for Arco Educação. Players match descriptions to stages of the water cycle by dragging blocks onto the corresponding targets. Each round includes a timer, scoring, answer validation, sound effects, and a results screen with a replay option. Content is loaded from a JSON file, keeping educational data separate from the interface. The application uses HTML, CSS, and JavaScript."
+      },
+      "academic-real-estate": {
+        "title": "Real Estate System — ASP.NET",
+        "shortDescription": "A C# and ASP.NET Core college project for managing clients, properties, and contracts.",
+        "description": "A real estate management system developed for an Information Systems Fundamentals course. Built with C#, ASP.NET Core MVC, and Razor views, it supports creating, editing, and viewing clients and properties, linking properties to clients, and tracking related contracts. Models, controllers, and ViewModels organize the application, while an in-memory data context stores records for the academic demonstration."
+      },
+      "academic-swing-login": {
+        "title": "Login and Registration — Java Swing",
+        "shortDescription": "A desktop login and registration application built for college with Java, Swing, JDBC, and MariaDB.",
+        "description": "An academic desktop application with user login and registration screens. Java Swing provides the forms, while JDBC connects the application to MariaDB to query and insert records. The code separates the screens, user model, connection creation, and data access operations."
+      },
+      "minesweeper-swing": {
+        "title": "Minesweeper — Java Swing",
+        "shortDescription": "A Java Swing desktop Minesweeper game with area revealing, mine marking, and round restart.",
+        "description": "A Minesweeper implementation in Java with a Swing interface. Players reveal cells, use numerical clues to locate mines, and mark suspected positions. The board places mines randomly, reveals neighboring mine-free areas, detects wins and losses, and supports restarting the game. The game model is separate from the interface, using events and observers to update the presentation as players make their moves."
+      },
       "cisc-smart-home": {
         "title": "CISC Smart Home",
         "shortDescription": "An ESP32 smart home scale model with gas and humidity monitoring, automation, and mobile access.",
