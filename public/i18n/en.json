@@ -262,8 +262,8 @@
       },
       "cisc-smart-home": {
         "title": "CISC Smart Home",
-        "shortDescription": "An ESP32 smart home scale model for monitoring gas and humidity. An academic project in development.",
-        "description": "An academic project for an electrical and electronic systems course, combining a physical scale model, MQ-2 and DHT11 sensors, and actuators controlled by an ESP32. The C++ firmware is organized into domain, application, and adapter layers, with host-based tests for gas and humidity rules and device control. The gallery shows the physical model and the KiCad circuit schematic. The project is in development: its own Wi-Fi network, a REST API with SSE events, and a native Android application are planned for the next stages."
+        "shortDescription": "An ESP32 smart home scale model with gas and humidity monitoring, automation, and mobile access.",
+        "description": "CISC — Casa Inteligente Segura e Confortável (Safe and Comfortable Smart Home) — is a home automation system demonstrated through a physical scale model. In the kitchen, an MQ-2 sensor detects gas leaks, closes the valve, and triggers an alarm; a physical button resets the system once gas levels return to normal. In the bedroom, a DHT11 sensor monitors temperature and humidity and enables automatic or manual dehumidifier control. An Android app connected to the ESP32's own Wi-Fi network brings together readings, history, controls, and alerts, without requiring internet access or a router. Communication uses REST and SSE events, while safety rules run directly on the ESP32. An academic electrical and electronic systems project, with C++ firmware and a KiCad circuit schematic."
       },
       "imperial-to-si-converter": {
         "title": "Imperial to SI Converter",

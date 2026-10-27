@@ -64,9 +64,8 @@
 .projects-container {
   display: grid;
   // Fits as many 30rem-minimum columns as the available width allows,
-  // reflowing continuously instead of jumping between three fixed
-  // breakpoints. min(30rem, 100%) is what keeps a single column from
-  // overflowing on viewports narrower than 30rem.
-  grid-template-columns: repeat(auto-fit, minmax(min(30rem, 100%), 1fr));
+  // keeping empty columns so filtered cards retain the full grid's width.
+  // min(30rem, 100%) prevents overflow on narrow viewports.
+  grid-template-columns: repeat(auto-fill, minmax(min(30rem, 100%), 1fr));
   gap: $spacing-medium;
 }

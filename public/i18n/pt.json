@@ -262,8 +262,8 @@
       },
       "cisc-smart-home": {
         "title": "CISC Smart Home",
-        "shortDescription": "Maquete de casa inteligente com ESP32 para monitorar gás e umidade. Projeto acadêmico em desenvolvimento.",
-        "description": "Projeto acadêmico de Sistemas Eletroeletrônicos que reúne uma maquete física, sensores MQ-2 e DHT11 e atuadores controlados por um ESP32. O firmware em C++ foi organizado em domínio, aplicação e adaptadores, com testes executados no computador para as regras de gás e umidade e o controle dos dispositivos. A galeria mostra a montagem física e o esquema elétrico em KiCad. O projeto está em desenvolvimento: a rede Wi-Fi própria, a API REST com eventos SSE e o aplicativo Android nativo estão planejados nas próximas etapas."
+        "shortDescription": "Casa inteligente em uma maquete com ESP32: monitoramento de gás e umidade, automação e acompanhamento pelo celular.",
+        "description": "CISC — Casa Inteligente Segura e Confortável — é um sistema de automação residencial demonstrado em uma maquete física. Na cozinha, um sensor MQ-2 detecta vazamentos de gás, fecha a válvula e aciona o alarme; o rearme é feito por um botão físico após a normalização. No quarto, um sensor DHT11 acompanha temperatura e umidade e permite controlar o desumidificador nos modos automático e manual. Um aplicativo Android conectado à rede Wi-Fi do próprio ESP32 reúne leituras, histórico, comandos e alertas, sem depender de internet ou roteador. A comunicação usa REST e eventos SSE, enquanto as regras de segurança são executadas diretamente no ESP32. Projeto acadêmico de Sistemas Eletroeletrônicos, com firmware em C++ e esquema elétrico em KiCad."
       },
       "imperial-to-si-converter": {
         "title": "Conversor Imperial para SI",
