@@ -3,6 +3,62 @@
 
 .portfolio-page {
   @include page-shell;
+
+  &__results {
+    color: $color-text-dark;
+    font-size: $font-size-small;
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-small;
+  margin-bottom: $spacing-medium;
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-small;
+    min-height: 4.4rem;
+    max-width: 100%;
+    padding: $spacing-small $spacing-medium;
+    border: 2px solid $color-button-background;
+    border-radius: $border-radius-small;
+    background: $color-button-background;
+    color: $color-text-dark;
+    font: inherit;
+    font-size: $font-size-small;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $color-border;
+    }
+
+    &[aria-pressed="true"] {
+      border-color: $color-subtitle-dark;
+      background: $color-tree-row-active;
+      color: $color-subtitle-dark;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-focus-ring;
+      outline-offset: 0.4rem;
+    }
+  }
+
+  &__count {
+    font-size: 0.8em;
+  }
+
+  @media screen and (max-width: #{$breakpoint-mobile}) {
+    &__button {
+      padding-inline: $spacing-small;
+      font-size: 1.8rem;
+    }
+  }
 }
 
 .projects-container {

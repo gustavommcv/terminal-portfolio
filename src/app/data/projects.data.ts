@@ -16,8 +16,12 @@ export interface ProjectBadge {
   description?: string;
 }
 
+export type ProjectCategory = 'web' | 'desktop' | 'terminal' | 'embedded';
+
 export interface Project {
   id: string;
+  category: ProjectCategory;
+  academic?: boolean;
   /**
    * Representative image for cards (grid, home carousel). Optional: without
    * it, cards fall back to the first gallery image. See project-media.ts.
@@ -112,6 +116,7 @@ const nodejs: ProjectBadge = {
 export const projectsData: Project[] = [
   {
     id: 'maquetaria',
+    category: 'web',
     gallery: [
       'images/projects/maquetaria/images/maquetaria-home.webp',
       'images/projects/maquetaria/images/maquetaria-services.webp',
@@ -146,7 +151,30 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'cisc-smart-home',
+    category: 'embedded',
+    academic: true,
+    gallery: [
+      'images/projects/cisc-smart-home/images/cisc-smart-home-model.webp',
+      'images/projects/cisc-smart-home/images/cisc-smart-home-schematic.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/cisc-smart-home',
+      docs: 'https://github.com/gustavommcv/cisc-smart-home/blob/main/docs/arquitetura.md',
+    },
+    stack: ['C++', 'ESP32', 'PlatformIO'],
+    badges: [
+      { label: 'C++', slug: 'cplusplus', color: '00599C', category: 'language' },
+      { label: 'ESP32', slug: 'espressif', color: 'E7352C', category: 'platform' },
+      { label: 'PlatformIO', slug: 'platformio', color: 'F5822A', category: 'tool' },
+    ],
+    featured: true,
+    command: 'glow cisc-smart-home.md',
+  },
+
+  {
     id: 'manga2ink',
+    category: 'desktop',
     // The cover opens the gallery, so it is also what cards and shared links
     // show; then the app's workflow: queue, chapter mapping, book details,
     // conversion options, finished books, sharing.
@@ -186,6 +214,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'voting-system',
+    category: 'web',
     gallery: ['images/projects/signotech/images/signo-tech-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/sistema-de-votacao-client',
@@ -202,6 +231,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'json-visual-editor',
+    category: 'web',
     gallery: [
       'images/projects/jsonvisualeditor/images/json-visual-editor-thumbnail.webp',
     ],
@@ -221,6 +251,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangaprep',
+    category: 'terminal',
     gallery: ['images/projects/mangaprep/images/mangaprep-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangaprep',
@@ -235,6 +266,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'terminal-portfolio',
+    category: 'web',
     gallery: ['images/projects/terminalportfolio/terminal-portfolio.webp'],
     links: {
       github: 'https://github.com/gustavommcv/terminal-portfolio',
@@ -256,6 +288,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'mangabind',
+    category: 'terminal',
     gallery: ['images/projects/mangabind/images/mangabind-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/mangabind',
@@ -267,6 +300,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'rv-wheel',
+    category: 'desktop',
     gallery: ['images/projects/rvwheel/images/rvwheel-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/RVWheel',
@@ -281,6 +315,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'gomodoro',
+    category: 'terminal',
     gallery: ['images/projects/gomodoro/images/gomodoro-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/gomodoro',
@@ -292,6 +327,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'minimal-neovim',
+    category: 'terminal',
     gallery: [
       'images/projects/minimalneovim/images/minimal-neovim-thumbnail.webp',
     ],
@@ -308,6 +344,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'dotfiles',
+    category: 'terminal',
     gallery: ['images/projects/dotfiles/images/dotfiles-terminal.webp'],
     links: {
       github: 'https://github.com/gustavommcv/dotfiles',
@@ -320,7 +357,28 @@ export const projectsData: Project[] = [
   },
 
   {
+    id: 'imperial-to-si-converter',
+    category: 'terminal',
+    academic: true,
+    gallery: [
+      'images/projects/imperial-to-si-converter/images/converter-conversion.webp',
+      'images/projects/imperial-to-si-converter/images/converter-units.webp',
+      'images/projects/imperial-to-si-converter/images/converter-start.webp',
+    ],
+    links: {
+      github: 'https://github.com/gustavommcv/imperial-to-si-converter',
+    },
+    stack: ['Python', 'Textual'],
+    badges: [
+      { label: 'Python', slug: 'python', color: '3776AB', category: 'language' },
+      { label: 'Textual', color: '5F4B8B', category: 'framework' },
+    ],
+    command: 'python main.py',
+  },
+
+  {
     id: 'itau-challenge',
+    category: 'web',
     gallery: ['images/projects/itau/images/itau-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/Desafio-API-Itau',
@@ -340,6 +398,8 @@ export const projectsData: Project[] = [
 
   {
     id: 'xp-bootcamp',
+    category: 'web',
+    academic: true,
     gallery: ['images/projects/xpe1/images/xpe1-thumbnail.webp'],
     links: {
       github:
@@ -357,6 +417,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'airlock-rest',
+    category: 'web',
     gallery: ['images/projects/airlock/images/airlock-rest-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/AirlockRest',
@@ -373,6 +434,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'todo-list',
+    category: 'web',
     gallery: ['images/projects/todo/images/todo-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/to-do-app-main',
@@ -388,6 +450,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'books-app',
+    category: 'web',
     gallery: ['images/projects/booksapp/images/books-app-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/BooksApp_frontend',
@@ -399,6 +462,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'chmod-calculator',
+    category: 'web',
     gallery: ['images/projects/chmod/images/chmod-calculator-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/chmod_calculator',
@@ -421,6 +485,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'tic-tac-toe',
+    category: 'desktop',
     gallery: ['images/projects/tictactoe/images/tic-tac-toe-thumbnail.webp'],
     links: {
       github: 'https://github.com/gustavommcv/TicTacToe',
@@ -434,6 +499,7 @@ export const projectsData: Project[] = [
 
   {
     id: 'portfolio',
+    category: 'web',
     gallery: [
       'images/projects/firstportfolio/images/first-portfolio-thumbnail.webp',
     ],

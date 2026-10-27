@@ -147,7 +147,14 @@
     "subtitle": "Meus Projetos",
     "filters": {
       "all": "Todos",
-      "featured": "Destaques"
+      "featured": "Destaques",
+      "label": "Filtrar projetos",
+      "web": "Web e APIs",
+      "desktop": "Desktop e jogos",
+      "terminal": "Terminal e Linux",
+      "embedded": "Embarcados",
+      "academic": "Acadêmicos",
+      "results": "Mostrando {{shown}} de {{total}} projetos"
     },
     "gallery": {
       "label": "Imagens do projeto",
@@ -252,6 +259,16 @@
         "title": "Dotfiles",
         "shortDescription": "Meus dotfiles pessoais para Arch Linux e Hyprland, com configurações específicas para desktop, notebook e WSL.",
         "description": "Minha própria configuração de Arch Linux, dividida em três branches: um desktop completo com Hyprland, um perfil de notebook ajustado para gestos de touchpad e gerenciamento de energia, e uma configuração só de terminal para WSL2. Um install.sh instala pacotes via yay e cria os symlinks necessários."
+      },
+      "cisc-smart-home": {
+        "title": "CISC Smart Home",
+        "shortDescription": "Maquete de casa inteligente com ESP32 para monitorar gás e umidade. Projeto acadêmico em desenvolvimento.",
+        "description": "Projeto acadêmico de Sistemas Eletroeletrônicos que reúne uma maquete física, sensores MQ-2 e DHT11 e atuadores controlados por um ESP32. O firmware em C++ foi organizado em domínio, aplicação e adaptadores, com testes executados no computador para as regras de gás e umidade e o controle dos dispositivos. A galeria mostra a montagem física e o esquema elétrico em KiCad. O projeto está em desenvolvimento: a rede Wi-Fi própria, a API REST com eventos SSE e o aplicativo Android nativo estão planejados nas próximas etapas."
+      },
+      "imperial-to-si-converter": {
+        "title": "Conversor Imperial para SI",
+        "shortDescription": "Conversor de unidades em Python e Textual, com interface de terminal, atalhos de teclado e suporte a mouse.",
+        "description": "Projeto acadêmico de Modelagem I, do curso de Engenharia Elétrica, para converter comprimento, massa, volume e temperatura do Sistema Imperial para o SI. A interface em Textual permite navegar por teclado, com atalhos no estilo Vim, ou usar o mouse, e atualiza os resultados durante a digitação. A lógica de conversão fica separada da interface, com testes e um registro de conversores por grandeza. O PyInstaller permite gerar um executável independente. As imagens da galeria são as capturas publicadas no README do projeto."
       }
     },
     "links": {

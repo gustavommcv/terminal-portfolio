@@ -8,6 +8,7 @@ import { ProjectCard } from './project-card';
 describe('ProjectCard', () => {
   const project: Project = {
     id: 'test-project',
+    category: 'web',
     gallery: ['images/test-project.webp', 'images/test-project-2.webp'],
     links: {},
     stack: [],
